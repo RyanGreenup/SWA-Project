@@ -6,6 +6,7 @@ Github for Social Web Analytics
 + [[http://121.210.19.69/DSWiki/index.php/Main_Page][Wiki]]
 + [[https://discord.gg/NEYcDF][Discord]]
   + This expires every 24 hrs
++ [[https://ryangreenup.github.io/SWA-Project/ProjectSpec_S1_2020_WSUSCC_GizemModerated.pdf][Project Specification]]
 
 * TODO Add Members as Colaborators
 + [X] Ryan
