@@ -2,23 +2,33 @@
 Github for Social Web Analytics
 
 + [[https://ryangreenup.github.io/SWA-Project/][Home Page]]
++ [[https://github.com/RyanGreenup/SWA-Project/blob/master/README.org][Docs / Gitpage]]
++ [[http://121.210.19.69/DSWiki/index.php/Main_Page][Wiki]]
++ [[https://discord.gg/NEYcDF][Discord]]
+  + This expires every 24 hrs
 
-* TODO Add Members
-How do I give them permission to edit this etc.
+* TODO Add Members as Colaborators
++ [X] Ryan
++ [ ] Navid
++ [ ] Hassan
 
-* TODO Documentation
-** TODO Make a Wiki
+* DONE Documentation
+** DONE Make a Wiki
 + Probably MediaWiki because github wiki doesn't deal with LaTeX
   + Wiki.JS is another option
-*** TODO Configure Usernames for /Apache2/ Server
+*** DONE Configure Usernames for /Apache2/ Server
 I'm going to have to adjust the =/etc/apache2/sites-enabled/000-default.conf= in
 order to have the mediawiki publically accessible.
-** TODO Make a Gitpage
-+ The gitpage will be almost the same as the wiki, but, if anybody has an issue configuring ~mkdocs~ and using ~mkdocs gh-deploy~ then they can:
+**** put config under version control
+I will also need to put [[/etc/apache2/sites-enabled/000-default.conf][the Apache Config]] under version control using ~stow~.
+
+** DONE Make a Gitpage
++ The gitpage will be almost the same as the wiki, but, if there are any issues
+  configuring ~mkdocs~ and using ~mkdocs gh-deploy~ then just:
 
 + add information to the Wiki
 + Update the docs on /GitHub/
-+ requast another group member to build the docs
+  + File an issue on /GitHub/ so somebody else can build the docs
 
 * TODO Make a Discord Server
 ** DONE Make a WebHook for Github Issues
@@ -27,11 +37,35 @@ It seems like it is necessary to append ~/github~ at the end of the /Payload
 URL/ as documented [[https://support.discordapp.com/hc/en-us/articles/228383668][here]].
 
 That link also suggested that the /Content type/ should be =application/json=.
-** TODO Invite all Members
-* TODO Share links on /Vuws/
+** DONE Invite all Members
+* DONE Share links on /Vuws/
 Put the following links up on /Vuws/:
-+ [ ] Discord Server
-+ [ ] Github
-+ [ ] GitPage
-+ [ ] Wiki
-+ [ ] Invites for /GitHub Collaborator/
++ [X] Discord Server
++ [X] Github
++ [X] GitPage
++ [X] Wiki
+* Correspondence
+** Group Email
+Hey guys,
+
++ I've made a /GitHub/ repo [[https://github.com/RyanGreenup/SWA-Project/blob/master/README.org][here]]
++ A corresponding /GitPage/ [[https://ryangreenup.github.io/SWA-Project/][here]]
+  + It's being deployed from the =gh-pages= branch, built using =mkdocs= as
+described [[https://ryangreenup.github.io/SWA-Project/documentation_methods.html][on the page]]
++ I also just put up a wiki on an /Apache Server/ [[http://121.210.19.69/DSWiki/index.php/Main_Page][here]] that can be used in
+conjuction with the =gh-pages= branch.
+  + /Github/ doesn't support /MathJax/ so unfourtunately the built in wiki isn't
+    an option
+  + Also I'm on cable so I can't get a static IP, hence if I have a power outage be
+mindful that the link will change and I'll have to post up my new IP.
++ Finally I've made a discord server which you can access through [[https://discord.gg/NEYcDF][this invitation]]
+  + I used a webhook so that /GitHub/ will post to that chat every time a push is
+    made or an issue posted.
+    + Remember you can commit without pushing so this shouldn't be too annoying.
+
+I'll add everybody as collaborators tomorrow, but /GitHub/ just went down for
+maintenance so I'll have to do it later
+
+Also there is a post on the discussion board dated =2019-09-17=, just disregard
+that. I'll download the tweets tomorrow and push them to /GitHub/ so we can all
+get started, I haven't decided on the company to use but it doesn't really matter.
