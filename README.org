@@ -22,3 +22,5 @@ How do I give them permission to edit this etc.
 Follow [[https://gist.github.com/jagrosh/5b1761213e33fc5b54ec7f6379034a22][These Instructions here]]
 It seems like it is necessary to append ~/github~ at the end of the /Payload
 URL/ as documented [[https://support.discordapp.com/hc/en-us/articles/228383668][here]].
+
+That link also suggested that the /Content type/ should be =application/json=.
