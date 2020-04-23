@@ -16,6 +16,8 @@ It's super easy:
 3. Install the Extensions [as described here](https://facelessuser.github.io/pymdown-extensions/installation/)
   + look in the `yaml` [here](../mkdocs.yml) to see what's been enabled thus far.
 
+#### Searching Bug
+After Deploying the site the search will not work on an iOS device until after it has been initiated by a desktop, this is weird but :shrug:.
 
 ## Org-Mode
 I'll probably upload upload `org` files to track tasks etc. so it would be helpful to set Emacs up to streamline working with `org-mode`, It can be done with vim as well.

@@ -1,3 +1,7 @@
+---
+title: "Project Workflow"
+---
+
 # Workflow
 
 ## Working on code
