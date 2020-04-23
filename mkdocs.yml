@@ -1,5 +1,5 @@
 site_name: University Notes
-docs_dir: 'MD/'
+docs_dir: 'docs/'
 # EVERYTHING must be below whatever the docs_dir is,
 # otherwise mkdocs won't work.
 # So move attachments into notes and then symlink back to ../notes so it is both compatible with ios local file preview and notable
