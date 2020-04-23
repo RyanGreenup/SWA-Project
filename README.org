@@ -9,7 +9,7 @@ How do I give them permission to edit this etc.
 + Probably MediaWiki because github wiki doesn't deal with LaTeX
   + Wiki.JS is another option
 ** TODO Make a Gitpage
-+ The gitpage will be almost the same as the wiki, but, if members have trouble configuring `mkdocs` and using `mkdocs gh-deploy` then they can:
++ The gitpage will be almost the same as the wiki, but, if anybody has an issue configuring ~mkdocs~ and using ~mkdocs gh-deploy~ then they can:
 
 + add information to the Wiki
 + Update the docs on /GitHub/
