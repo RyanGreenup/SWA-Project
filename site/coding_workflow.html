@@ -15,7 +15,7 @@
     
     
       
-        <title>Social Web Project - University Notes</title>
+        <title>Workflow - University Notes</title>
       
     
     
@@ -50,7 +50,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#social-web-project" class="md-skip">
+        <a href="#workflow" class="md-skip">
           Skip to content
         </a>
       
@@ -78,7 +78,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Social Web Project
+              Workflow
             
           </span>
         </div>
@@ -150,6 +150,18 @@
       
       
 
+
+  <li class="md-nav__item">
+    <a href="index.html" title="Social Web Project" class="md-nav__link">
+      Social Web Project
+    </a>
+  </li>
+
+    
+      
+      
+      
+
   
 
 
@@ -160,22 +172,57 @@
       
     
     
-    <a href="index.html" title="Social Web Project" class="md-nav__link md-nav__link--active">
-      Social Web Project
-    </a>
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Workflow
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
+        </span>
+      </label>
     
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="coding_workflow.html" title="Workflow" class="md-nav__link">
+    <a href="coding_workflow.html" title="Workflow" class="md-nav__link md-nav__link--active">
       Workflow
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#working-on-code" class="md-nav__link">
+    Working on code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-report" class="md-nav__link">
+    The Report
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-bugs-etc" class="md-nav__link">
+    Managing bugs etc.
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
     
@@ -208,6 +255,37 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#working-on-code" class="md-nav__link">
+    Working on code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-report" class="md-nav__link">
+    The Report
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-bugs-etc" class="md-nav__link">
+    Managing bugs etc.
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -222,11 +300,17 @@
                   
                 
                 
-                <h1 id="social-web-project">Social Web Project<a class="headerlink" href="#social-web-project" title="Permanent link">&para;</a></h1>
-<p>This is the first page for our <em>Social Web Analytics</em> Project, this is a public site even if the repo is private so I'm not sure if we should put too much here, use a wiki or if I should host this on a private server, refer to the <a href="documentation_methods.html">Documentation page</a>.</p>
-<ul>
-<li><a href="coding_workflow.html">Coding Workflow</a></li>
-</ul>
+                <h1 id="workflow">Workflow<a class="headerlink" href="#workflow" title="Permanent link">&para;</a></h1>
+<h2 id="working-on-code">Working on code<a class="headerlink" href="#working-on-code" title="Permanent link">&para;</a></h2>
+<p>So Ideally, we will break up discrete tasks into seperate scripts (or <code>.rmd</code> files maybe?) and commit really often, that way we can mostly all share different pieces of code and follow the changes that are occuring.</p>
+<p>After writing a script, add something, anything to the documentation in <code>./docs</code> describing broadly what was done.</p>
+<h2 id="the-report">The Report<a class="headerlink" href="#the-report" title="Permanent link">&para;</a></h2>
+<p>The report will be submitted as a LaTeX document because that's what's expected for an academic report, but obviously we won't write in LaTeX as we go.</p>
+<p>Instead I'd rather write it in <code>org-mode</code> as we go and then when all the work is done use <code>pandoc</code> or <code>ox-latex</code> to get typeset everything, I'm happy to deal with that part of it because I've got a LaTeX template that works.</p>
+<p>If you're unfamiliar with <code>org-mode</code> don't worry, you can write in markdown and then do something like <code>xclip -o | pandoc -f markdown -t org | xclip</code> and it's just about seamless.</p>
+<p>We should write the report as we go, but the report won't document how and why the code works, only the analysis so it will still be necessary to add to the documentation and/or wiki so everybody can follow what's going on.</p>
+<h2 id="managing-bugs-etc">Managing bugs etc.<a class="headerlink" href="#managing-bugs-etc" title="Permanent link">&para;</a></h2>
+<p>I mostly want to use <em>GitHub</em> Issues as much as I can, I intend to add a webhook to the discord server and failing that we can always just fall back onto <code>org-mode</code>.</p>
                 
               
               
@@ -245,14 +329,28 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
+          <a href="index.html" title="Social Web Project" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Social Web Project
+              </div>
+            </div>
+          </a>
         
-          <a href="coding_workflow.html" title="Workflow" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+        
+          <a href="documentation_methods.html" title="Documentation" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Workflow
+                Documentation
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">

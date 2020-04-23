@@ -162,6 +162,18 @@
       
       
 
+
+  <li class="md-nav__item">
+    <a href="coding_workflow.html" title="Workflow" class="md-nav__link">
+      Workflow
+    </a>
+  </li>
+
+    
+      
+      
+      
+
   
 
 
@@ -210,6 +222,26 @@
     MkDocs
   </a>
   
+    <nav class="md-nav" aria-label="MkDocs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-it-up" class="md-nav__link">
+    Setting it up
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#org-mode" class="md-nav__link">
+    Org-Mode
+  </a>
+  
 </li>
       
     </ul>
@@ -256,6 +288,26 @@
     MkDocs
   </a>
   
+    <nav class="md-nav" aria-label="MkDocs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-it-up" class="md-nav__link">
+    Setting it up
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#org-mode" class="md-nav__link">
+    Org-Mode
+  </a>
+  
 </li>
       
     </ul>
@@ -281,7 +333,19 @@
 <h2 id="wiki">Wiki<a class="headerlink" href="#wiki" title="Permanent link">&para;</a></h2>
 <p>So I'm thinking of just hosting a wiki using <a href="https://www.mediawiki.org/wiki/MediaWiki">*MediaWiki</a> with an /Apache2/ server, if I do, I'll post the link in the discord server.</p>
 <h2 id="mkdocs">MkDocs<a class="headerlink" href="#mkdocs" title="Permanent link">&para;</a></h2>
-<p>For the most part we can use <code>MkDocs</code> for documentation</p>
+<p>For the most part we can use <a href="https://www.mkdocs.org/">MkDocs</a> for documentation, and keep the documentation on the <code>gh-pages</code> branch of the repo.</p>
+<h3 id="setting-it-up">Setting it up<a class="headerlink" href="#setting-it-up" title="Permanent link">&para;</a></h3>
+<p>It's super easy:</p>
+<ol>
+<li>Install python3</li>
+<li>Install MkDocs <a href="https://www.mkdocs.org/#installation">as described here</a></li>
+<li>I forget whether to do this through your package manager <code>apt</code>/<code>pacman</code>/<code>brew</code>... or through <code>pip3</code>, I think <code>pip3</code> is the way to go.</li>
+<li>Install the Extensions <a href="https://facelessuser.github.io/pymdown-extensions/installation/">as described here</a></li>
+<li>look in the <code>yaml</code> <a href="../mkdocs.yml">here</a> to see what's been enabled thus far.</li>
+</ol>
+<h2 id="org-mode">Org-Mode<a class="headerlink" href="#org-mode" title="Permanent link">&para;</a></h2>
+<p>I'll probably upload upload <code>org</code> files to track tasks etc. so it would be helpful to set Emacs up to streamline working with <code>org-mode</code>, It can be done with vim as well.</p>
+<p>We can always just <code>pandoc</code> them into <em>HTML</em> anway.</p>
                 
               
               
@@ -300,7 +364,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="index.html" title="Social Web Project" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="coding_workflow.html" title="Workflow" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
             </div>
@@ -309,7 +373,7 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Social Web Project
+                Workflow
               </div>
             </div>
           </a>
