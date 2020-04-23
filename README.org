@@ -1,0 +1,19 @@
+#+TITLE: SWA-Project
+Github for Social Web Analytics
+
+* TODO Add Members
+How do I give them permission to edit this etc.
+
+* TODO Documentation
+** TODO Make a Wiki
++ Probably MediaWiki because github wiki doesn't deal with LaTeX
+  + Wiki.JS is another option
+** TODO Make a Gitpage
++ The gitpage will be almost the same as the wiki, but, if members have trouble configuring `mkdocs` and using `mkdocs gh-deploy` then they can:
+
++ add information to the Wiki
++ Update the docs on /GitHub/
++ requast another group member to build the docs
+
+* TODO Make a Discord Server
+** TODO Make a WebHook for Github Issues
