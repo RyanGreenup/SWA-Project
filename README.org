@@ -10,6 +10,9 @@ How do I give them permission to edit this etc.
 ** TODO Make a Wiki
 + Probably MediaWiki because github wiki doesn't deal with LaTeX
   + Wiki.JS is another option
+*** TODO Configure Usernames for /Apache2/ Server
+I'm going to have to adjust the =/etc/apache2/sites-enabled/000-default.conf= in
+order to have the mediawiki publically accessible.
 ** TODO Make a Gitpage
 + The gitpage will be almost the same as the wiki, but, if anybody has an issue configuring ~mkdocs~ and using ~mkdocs gh-deploy~ then they can:
 
@@ -18,9 +21,16 @@ How do I give them permission to edit this etc.
 + requast another group member to build the docs
 
 * TODO Make a Discord Server
-** TODO Make a WebHook for Github Issues
+** DONE Make a WebHook for Github Issues
 Follow [[https://gist.github.com/jagrosh/5b1761213e33fc5b54ec7f6379034a22][These Instructions here]]
 It seems like it is necessary to append ~/github~ at the end of the /Payload
 URL/ as documented [[https://support.discordapp.com/hc/en-us/articles/228383668][here]].
 
 That link also suggested that the /Content type/ should be =application/json=.
+** TODO Invite all Members
+** TODO Share links on /Vuws/
+Put the following links up on /Vuws/:
++ [ ] Discord Server
++ [ ] Github
++ [ ] GitPage
++ [ ] Wiki
