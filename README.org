@@ -28,9 +28,10 @@ URL/ as documented [[https://support.discordapp.com/hc/en-us/articles/228383668]
 
 That link also suggested that the /Content type/ should be =application/json=.
 ** TODO Invite all Members
-** TODO Share links on /Vuws/
+* TODO Share links on /Vuws/
 Put the following links up on /Vuws/:
 + [ ] Discord Server
 + [ ] Github
 + [ ] GitPage
 + [ ] Wiki
++ [ ] Invites for /GitHub Collaborator/

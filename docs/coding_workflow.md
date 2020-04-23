@@ -9,6 +9,9 @@ So Ideally, we will break up discrete tasks into seperate scripts (or `.rmd` fil
 
 After writing a script, add something, anything to the documentation in `./docs` describing broadly what was done.
 
+### Working with *GitHub*
+As students your `@student.westernsydney.edu.au` email address will get you a premium account on /GitHub/ which allows you to have unlimited private repositories.
+
 ## The Report
 The report will be submitted as a LaTeX document because that's what's expected for an academic report, but obviously we won't write in LaTeX as we go.
 
@@ -20,6 +23,6 @@ We should write the report as we go, but the report won't document how and why t
 
 
 ## Managing bugs etc.
-I mostly want to use *GitHub* Issues as much as I can, I intend to add a webhook to the discord server and failing that we can always just fall back onto `org-mode`.
+I mostly want to use *GitHub* Issues as much as I can, I have added a webhook to the discord server so we should get notified and failing that we can always just fall back onto `org-mode`.
 
 
