@@ -13,6 +13,10 @@ Github for Social Web Analytics
 + [X] Navid
 + [ ] Hassan
 
+#+BEGIN_HTML
+<p><img src="https://img.shields.io/badge/Chat-3%20Members-orange" /> <img src="https://img.shields.io/badge/Contributors-1%20Member-red" /> <img src="https://img.shields.io/badge/Questions-0%20Completed-red" /></p>
+#+END_HTML
+
 * DONE Documentation
 ** DONE Make a Wiki
 + Probably MediaWiki because github wiki doesn't deal with LaTeX
