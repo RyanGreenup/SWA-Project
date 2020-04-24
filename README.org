@@ -9,12 +9,12 @@ To include badges use:
 https://img.shields.io/badge/<LABEL>-<MESSAGE>-<COLOR>
 #+end_comment
 
-#+BEGIN_EXPORT html
+#+BEGIN_HTML
 <br>
 <h2>This is the footer.</h2>
 <p>You can put stuff here.</p>
 <br>
-#+END_EXPORT
+#+END_HTML
 
 
 
