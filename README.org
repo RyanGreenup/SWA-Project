@@ -1,6 +1,11 @@
 #+TITLE: SWA-Project
 Github for Social Web Analytics
 
+#+BEGIN_HTML
+<p> <img src="https://img.shields.io/badge/Chat-3%20Members-orange" /> <img
+src="https://img.shields.io/badge/Contributors-1%20Member-red" /> <img src="https://img.shields.io/badge/Questions-0%20Completed-red" /> </p>
+#+END_HTML
+
 + [[https://ryangreenup.github.io/SWA-Project/][Home Page]]
 + [[https://github.com/RyanGreenup/SWA-Project/blob/master/README.org][Docs / Gitpage]]
 + [[http://121.210.19.69/DSWiki/index.php/Main_Page][Wiki]]
@@ -13,10 +18,6 @@ Github for Social Web Analytics
 + [X] Navid
 + [ ] Hassan
 
-#+BEGIN_HTML
-<p> <img src="https://img.shields.io/badge/Chat-3%20Members-orange" /> <img
-src="https://img.shields.io/badge/Contributors-1%20Member-red" /> <img src="https://img.shields.io/badge/Questions-0%20Completed-red" /> </p>
-#+END_HTML
 
 * DONE Documentation
 ** DONE Make a Wiki
