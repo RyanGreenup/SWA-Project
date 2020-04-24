@@ -4,6 +4,9 @@
 <p> <img src="https://img.shields.io/badge/Chat-3%20Members-orange" /> <img
 src="https://img.shields.io/badge/Contributors-1%20Member-red" /> <img src="https://img.shields.io/badge/Questions-0%20Completed-red" /> </p>
 #+END_HTML
+#+begin_comment
+See [[https://shields.io/][Shields io]]
+#+end_comment
 
 Github for Social Web Analytics
 
