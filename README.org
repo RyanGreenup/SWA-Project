@@ -1,23 +1,5 @@
-:PROPERTIES:
-:ID:       24e390bd-69ea-409a-95a1-efaf9c4a0f66
-:END:
 #+TITLE: SWA-Project
 Github for Social Web Analytics
-
-#+begin_comment
-To include badges use:
-https://img.shields.io/badge/<LABEL>-<MESSAGE>-<COLOR>
-#+end_comment
-
-#+BEGIN_HTML
-<br>
-<h2>This is the footer.</h2>
-<p>You can put stuff here.</p>
-<br>
-#+END_HTML
-
-
-
 
 + [[https://ryangreenup.github.io/SWA-Project/][Home Page]]
 + [[https://github.com/RyanGreenup/SWA-Project/blob/master/README.org][Docs / Gitpage]]
