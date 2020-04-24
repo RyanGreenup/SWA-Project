@@ -8,13 +8,14 @@ Github for Social Web Analytics
   + This expires every 24 hrs
 + [[https://ryangreenup.github.io/SWA-Project/ProjectSpec_S1_2020_WSUSCC_GizemModerated.pdf][Project Specification]]
 
-* TODO Add Members as Colaborators
+* TODO Add Members as Collaborators
 + [X] Ryan
 + [X] Navid
 + [ ] Hassan
 
 #+BEGIN_HTML
-<p><img src="https://img.shields.io/badge/Chat-3%20Members-orange" /> <img src="https://img.shields.io/badge/Contributors-1%20Member-red" /> <img src="https://img.shields.io/badge/Questions-0%20Completed-red" /></p>
+<p> <img src="https://img.shields.io/badge/Chat-3%20Members-orange" /> <img
+src="https://img.shields.io/badge/Contributors-1%20Member-red" /> <img src="https://img.shields.io/badge/Questions-0%20Completed-red" /> </p>
 #+END_HTML
 
 * DONE Documentation
@@ -68,7 +69,7 @@ mindful that the link will change and I'll have to post up my new IP.
     made or an issue posted.
     + Remember you can commit without pushing so this shouldn't be too annoying.
 
-I'll add everybody as collaborators tomorrow, but /GitHub/ just went down for
+I'll add everybody as Collaborators tomorrow, but /GitHub/ just went down for
 maintenance so I'll have to do it later
 
 Also there is a post on the discussion board dated =2019-09-17=, just disregard
