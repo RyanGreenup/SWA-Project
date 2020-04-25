@@ -1,7 +1,7 @@
 #+TITLE: SWA-Project
 
 #+BEGIN_HTML
-<p> <img src="https://img.shields.io/badge/Chat-3%20Members-orange" /> <img
+<p> <img src="https://img.shields.io/badge/Chat-4%20Members-yellow" /> <img
 src="https://img.shields.io/badge/Contributors-1%20Member-red" /> <img src="https://img.shields.io/badge/Questions-0%20Completed-red" /> </p>
 #+END_HTML
 #+begin_comment
