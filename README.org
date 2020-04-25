@@ -11,7 +11,7 @@ See [[https://shields.io/][Shields io]]
 Github for Social Web Analytics
 
 + [[https://ryangreenup.github.io/SWA-Project/][Home Page]]
-+ [[https://github.com/RyanGreenup/SWA-Project/blob/master/README.org][Docs / Gitpage]]
++ [[https://ryangreenup.github.io/SWA-Project/][Docs / Gitpage]]
 + [[http://121.210.19.69/DSWiki/index.php/Main_Page][Wiki]]
 + [[https://discord.gg/QW5YNc][Discord]]
   + This expires every 24 hrs
