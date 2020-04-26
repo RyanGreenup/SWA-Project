@@ -15,7 +15,7 @@ Github for Social Web Analytics
 + [[http://121.210.19.69/DSWiki/index.php/Main_Page][Wiki]]
 + [[https://discord.gg/QW5YNc][Discord]]
   + This expires every 24 hrs
-  + =CLOCK: [2020-04-25 Sat 08:56]=
+  + =2020-04-25 Sat 08:56=
 + [[file:docs/ProjectSpec_S1_2020_WSUSCC_GizemModerated.pdf][Project Specification]]
 * TODO Add Members as Collaborators
 + [X] Ryan
@@ -85,6 +85,9 @@ get started, I haven't decided on the company to use but it doesn't really matte
 ** TODO 8.1 Analysing friend and follower count
 I like [[http://juanreyero.com/article/emacs/org-teams.html][this post]] on managing the work so let's use that.
 *** TODO 1 Pull Tweets                                                        :ryan:
+:LOGBOOK:
+CLOCK: [2020-04-26 Sun 12:49]
+:END:
 *** TODO 2 Extract the Friend and Follower Count                              :ryan:
 *** TODO 8 Find the Average Followers                                         :ryan:
 *** TODO 4 Find the proprtion above average                                   :ryan:
