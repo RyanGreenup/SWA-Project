@@ -45,14 +45,17 @@ options(RCurlOptions = list(
 ##  n <- 1000
 ##  tweets.company <- search_tweets(q = 'ubisoft', n = n, token = tk,
 ##                                  include_rts = FALSE)
-##  save(tweets.company[,], file = "resources/Download_1.Rdata")
+##  save(tweets.company, file = "resources/Download_1.Rdata")
 ## Extra just in Case ===========================================================
 ##   n <- 10000
 ##   tweets.company <- search_tweets(q = 'ubisoft', n = n, token = tk,
 ##                                   include_rts = FALSE)
-##   save(tweets.company[,], file = "resources/Download_1_Huge.Rdata")
+##   save(tweets.company, file = "resources/Download_1_Huge.Rdata")
 
 # Load the Tweets ==============================================================
 mise(); load("./resources/Download_1.Rdata")
 
 # Friend and Follower Count ----------------------------------------------------
+(users <- unique(tweets.company$name)) %>% length()
+(x <- tweets.company$followers_count[duplicated(tweets.company$name)]) %>% head()
+(y <- tweets.company$friends_count[duplicated(tweets.company$name)]) %>% head()

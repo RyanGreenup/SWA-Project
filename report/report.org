@@ -13,7 +13,7 @@
 #+CSL_STYLE: /home/ryan/Templates/CSL/nature.csl
 :END:
 :R:
-#+PROPERTY: header-args: R :results output  :session TADMain :dir ~/Notes/DataSci/Visual_Analytics/Assessment/the-marvel-universe-social-network/ :cache yes
+#+PROPERTY: header-args: R :results output :session swaproj :dir ~/Dropbox/Notes/DataSci/Social_Web_Analytics/SWA-Project/report/ :cache yes
 :END:
 :SlowDown:
 # #+STARTUP: latexpreview
@@ -94,6 +94,26 @@ and hence all tweets containing a mention of /Ubisoft/ can be returned and saved
  save(tweets.company[,], file = "resources/Download_1.Rdata")
 #+end_src
 
+
+** 8.2.2 Count of Followers and Friends
+In order to identify the number of users that are contained in the /tweets/ the
+=unique()= function can be used to return a vector of names which can then be passed as an index to the vector of counts as shown in listing [[count]].
+
+#+NAME: count
+#+CAPTION: Return follower count of twitter posts
+#+begin_src R
+(users <- unique(tweets.company$name)) %>% length()
+(x <- tweets.company$followers_count[duplicated(tweets.company$name)]) %>% head()
+(y <- tweets.company$friends_count[duplicated(tweets.company$name)]) %>% head()
+#+end_src
+
+#+begin_src
+[1] 817
+[1] 38 63 63 63  1  1
+[1] 112 260 260 260  29  59
+#+end_src
+
+#+RESULTS: count
 
 
 * References
