@@ -1,4 +1,4 @@
-% Created 2020-04-26 Sun 15:48
+% Created 2020-04-26 Sun 16:46
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -34,9 +34,9 @@
 
 
 \section{8.1 Analysing the Relationship Between Friends and Followers for Twitter Users}
-\label{sec:org41527e8}
+\label{sec:orga06ed0c}
 \subsection{8.1.1 Retrieve the posts from Twitter}
-\label{sec:org8520f5d}
+\label{sec:orgf1e76da}
 relevant posts can be retrieved from twitter by utilising the \texttt{rtweet} package, packages can be loaded for use in \textbf{\textbf{\uline{R}}} thusly:
 
 \begin{listing}[htbp]
@@ -60,7 +60,7 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2,
                httpuv, SnowballC, RColorBrewer, wordcloud,
                ggwordcloud)
 \end{minted}
-\caption{\label{org836710b}Load the Packages for \textbf{\textbf{\emph{R}}}}
+\caption{\label{org16d6a5a}Load the Packages for \textbf{\textbf{\emph{R}}}}
 \end{listing}
 
 The \texttt{rtweet} API will search for tweets that contain all the words of a query
@@ -94,10 +94,10 @@ tk <-    rtweet::create_token(
   access_secret   = "*********************************************",
   set_renv        = FALSE
 \end{minted}
-\caption{\label{org3e7a889}Import the twitter tokens (redacted)}
+\caption{\label{org805d2ae}Import the twitter tokens (redacted)}
 \end{listing}
 
-and hence all tweets containing a mention of \emph{Ubisoft} can be returned and saved to disk as shown in listing \ref{orge140b87}:
+and hence all tweets containing a mention of \emph{Ubisoft} can be returned and saved to disk as shown in listing \ref{org8a15941}:
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -106,16 +106,52 @@ and hence all tweets containing a mention of \emph{Ubisoft} can be returned and 
                                  include_rts = FALSE)
  save(tweets.company[,], file = "resources/Download_1.Rdata")
 \end{minted}
-\caption{\label{orge140b87}Save the Tweets to the HDD as an \texttt{rdata} file}
+\caption{\label{org8a15941}Save the Tweets to the HDD as an \texttt{rdata} file}
 \end{listing}
 
 
+\subsection{8.2.2 Count of Followers and Friends}
+\label{sec:org2e2ce73}
+In order to identify the number of users that are contained in the \emph{tweets} the
+\texttt{unique()} function can be used to return a vector of names which can then be passed as an index to the vector of counts as shown in listing \ref{orgf539ac4}, this provides that 81.7\% of the tweets are by unique users.
+
+\begin{listing}[htbp]
+\begin{minted}[]{r}
+(users <- unique(tweets.company$name)) %>% length()
+(x <- tweets.company$followers_count[duplicated(tweets.company$name)])
+(y <- tweets.company$friends_count[duplicated(tweets.company$name)])
+\end{minted}
+\caption{\label{orgf539ac4}Return follower count of twitter posts}
+\end{listing}
+
+\begin{verbatim}
+[1] 817
+\end{verbatim}
+
+\subsection{Summary Statistics}
+\label{sec:org112b28c}
+The average number of friends and followers from users who posted tweets mentioning \emph{Ubisoft} can be returned using the \texttt{mean()} as shown in listing \ref{org3d21946}
+this provides that on average each user has 586 friends and 63,620 followers.
+
+\begin{listing}[htbp]
+\begin{minted}[]{r}
+(xbar <- mean(x))
+(ybar <- mean(y))
+\end{minted}
+\caption{\label{org3d21946}Determine the average number of friends and followers}
+\end{listing}
+
+\begin{verbatim}
+[1] 63620.24
+[1] 585.9016
+\end{verbatim}
+
 
 \section{References}
-\label{sec:org1995b96}
-\label{orgeb6e6ae}
+\label{sec:org36d7de7}
+\label{orgcf43adb}
 \bibliography{references}
 
-\label{org7d815aa}
+\label{org56cf1a8}
  \bibliographystyle{unsrt}
 \end{document}
