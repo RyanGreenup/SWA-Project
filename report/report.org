@@ -108,7 +108,7 @@ In order to identify the number of users that are contained in the /tweets/ the
 #+end_src
 
 
-** Summary Statistics
+** 8.1.3 Summary Statistics
 The average number of friends and followers from users who posted tweets mentioning /Ubisoft/ can be returned using the ~mean()~ as shown in listing [[mean]]
 this provides that on average each user has 586 friends and 63,620 followers.
 
@@ -121,11 +121,7 @@ y<- rnorm(090)
 (ybar <- mean(y))
 #+end_src
 
-#+begin_src
-## 63620.24
-## 585.9016
-#+end_src
-
+** 8.1.4 Above Average Followers
 
 * References
 # Remember, this is here for HTML and autocomplete, but latex uses biblatex for URL support

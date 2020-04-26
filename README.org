@@ -115,12 +115,17 @@ WwEP
 
 *** DONE 2 Extract the Friend and Follower Count                              :ryan:
 :LOGBOOK:
-CLOCK: [2020-04-26 Sun 15:40]
+CLOCK: [2020-04-26 Sun 15:40]--[2020-04-26 Sun 16:52] =>  1:12
 :END:
 Just use the ~duplicated~ function as an index as [[file:scripts/811.R::Friend and Follower Count ----------------------------------------------------][shown here]]
 *** TODO 3 Find the Average Followers                                         :ryan:
+:LOGBOOK:
+CLOCK: [2020-04-26 Sun 16:55]--[2020-04-26 Sun 17:02] =>  0:00
+:END:
+Just used the [[file:scripts/811.R::8.1.3 Summary Statistics -----------------------------------------------------------][mean function as shown here]]
+*** TODO 4 Find the proprtion above average
+[[file:scripts/811.R::8.1.4 Above Average Followers ------------------------------------------------][link]]
 
-*** TODO 4 Find the proprtion above average                                   :ryan:
 *** TODO 5 Bootstrap a confidence interval                                    :ryan:
 *** TODO 6 Who has a higher friend count given the confidence Interval        :navid:
 *** TODO 7 Test for Independence                                              :kieran:
