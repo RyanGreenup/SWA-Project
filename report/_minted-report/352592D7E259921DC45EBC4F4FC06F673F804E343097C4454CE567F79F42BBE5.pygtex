@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Set up Tokens ===========================================================}
+
+\PYG{n+nf}{options}\PYG{p}{(}\PYG{n}{RCurlOptions} \PYG{o}{=} \PYG{n+nf}{list}\PYG{p}{(}
+  \PYG{n}{verbose} \PYG{o}{=} \PYG{k+kc}{FALSE}\PYG{p}{,}
+  \PYG{n}{capath} \PYG{o}{=} \PYG{n+nf}{system.file}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}CurlSSL\PYGZdq{}}\PYG{p}{,} \PYG{l+s}{\PYGZdq{}cacert.pem\PYGZdq{}}\PYG{p}{,} \PYG{n}{package} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}RCurl\PYGZdq{}}\PYG{p}{),}
+  \PYG{n}{ssl.verifypeer} \PYG{o}{=} \PYG{k+kc}{FALSE}
+\PYG{p}{))}
+
+\PYG{n+nf}{setup\PYGZus{}twitter\PYGZus{}oauth}\PYG{p}{(}
+  \PYG{n}{consumer\PYGZus{}key} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}*************************\PYGZdq{}}\PYG{p}{,}
+  \PYG{n}{consumer\PYGZus{}secret} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}**************************************************\PYGZdq{}}\PYG{p}{,}
+  \PYG{n}{access\PYGZus{}token} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}**************************************************\PYGZdq{}}\PYG{p}{,}
+  \PYG{n}{access\PYGZus{}secret} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}*********************************************\PYGZdq{}}
+\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} rtweet ==================================================================}
+\PYG{n}{tk} \PYG{o}{\PYGZlt{}\PYGZhy{}}    \PYG{n}{rtweet}\PYG{o}{::}\PYG{n+nf}{create\PYGZus{}token}\PYG{p}{(}
+  \PYG{n}{app} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}SWA\PYGZdq{}}\PYG{p}{,}
+  \PYG{n}{consumer\PYGZus{}key}    \PYG{o}{=} \PYG{l+s}{\PYGZdq{}*************************\PYGZdq{}}\PYG{p}{,}
+  \PYG{n}{consumer\PYGZus{}secret} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}**************************************************\PYGZdq{}}\PYG{p}{,}
+  \PYG{n}{access\PYGZus{}token}    \PYG{o}{=} \PYG{l+s}{\PYGZdq{}**************************************************\PYGZdq{}}\PYG{p}{,}
+  \PYG{n}{access\PYGZus{}secret}   \PYG{o}{=} \PYG{l+s}{\PYGZdq{}*********************************************\PYGZdq{}}\PYG{p}{,}
+  \PYG{n}{set\PYGZus{}renv}        \PYG{o}{=} \PYG{k+kc}{FALSE}
+\end{Verbatim}

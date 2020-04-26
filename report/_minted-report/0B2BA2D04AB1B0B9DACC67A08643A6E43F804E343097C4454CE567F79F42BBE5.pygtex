@@ -1,0 +1,20 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Load Packages \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{n+nf}{setwd}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZti{}/Dropbox/Notes/DataSci/Social\PYGZus{}Web\PYGZus{}Analytics/SWA\PYGZhy{}Project/scripts/\PYGZdq{}}\PYG{p}{)}
+
+\PYG{n+nf}{if }\PYG{p}{(}\PYG{n+nf}{require}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}pacman\PYGZdq{}}\PYG{p}{))} \PYG{p}{\PYGZob{}}
+  \PYG{n+nf}{library}\PYG{p}{(}\PYG{n}{pacman}\PYG{p}{)}
+\PYG{p}{\PYGZcb{}} \PYG{n}{else}\PYG{p}{\PYGZob{}}
+  \PYG{n+nf}{install.packages}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}pacman\PYGZdq{}}\PYG{p}{)}
+  \PYG{n+nf}{library}\PYG{p}{(}\PYG{n}{pacman}\PYG{p}{)}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{pacman}\PYG{o}{::}\PYG{n+nf}{p\PYGZus{}load}\PYG{p}{(}\PYG{n}{xts}\PYG{p}{,} \PYG{n}{sp}\PYG{p}{,} \PYG{n}{gstat}\PYG{p}{,} \PYG{n}{ggplot2}\PYG{p}{,} \PYG{n}{rmarkdown}\PYG{p}{,} \PYG{n}{reshape2}\PYG{p}{,}
+               \PYG{n}{ggmap}\PYG{p}{,} \PYG{n}{parallel}\PYG{p}{,} \PYG{n}{dplyr}\PYG{p}{,} \PYG{n}{plotly}\PYG{p}{,} \PYG{n}{tidyverse}\PYG{p}{,}
+               \PYG{n}{reticulate}\PYG{p}{,} \PYG{n}{UsingR}\PYG{p}{,} \PYG{n}{Rmpfr}\PYG{p}{,} \PYG{n}{swirl}\PYG{p}{,} \PYG{n}{corrplot}\PYG{p}{,}
+               \PYG{n}{gridExtra}\PYG{p}{,} \PYG{n}{mise}\PYG{p}{,} \PYG{n}{latex2exp}\PYG{p}{,} \PYG{n}{tree}\PYG{p}{,} \PYG{n}{rpart}\PYG{p}{,}
+               \PYG{n}{lattice}\PYG{p}{,} \PYG{n}{coin}\PYG{p}{,} \PYG{n}{primes}\PYG{p}{,} \PYG{n}{epitools}\PYG{p}{,} \PYG{n}{maps}\PYG{p}{,} \PYG{n}{clipr}\PYG{p}{,}
+               \PYG{n}{ggmap}\PYG{p}{,} \PYG{n}{twitteR}\PYG{p}{,} \PYG{n}{ROAuth}\PYG{p}{,} \PYG{n}{tm}\PYG{p}{,} \PYG{n}{rtweet}\PYG{p}{,} \PYG{n}{base64enc}\PYG{p}{,}
+               \PYG{n}{httpuv}\PYG{p}{,} \PYG{n}{SnowballC}\PYG{p}{,} \PYG{n}{RColorBrewer}\PYG{p}{,} \PYG{n}{wordcloud}\PYG{p}{,}
+               \PYG{n}{ggwordcloud}\PYG{p}{)}
+\end{Verbatim}
