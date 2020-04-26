@@ -131,7 +131,7 @@ Each user can be compared to the average number of followers, by using a logical
 operator on the vector (e.g. ~y > ybar~), this will return an output of logical
 values. */R/* will coerce logicals into 1/0 values meaning that the mean value
 will return the proportion of =TRUE= responses as shown in listing [[pyhat]]. This
-provides that 20.6% of the users identified have above average follower counts, while only 2.4% have an above average numbmer of friends.
+provides that 20.6% of the users identified have above average friend counts, while only 2.4% have an above average numbmer of followers.
 
 #+NAME: pyhat
 #+CAPTION: Calculate the proportion of users with above average follower counts
