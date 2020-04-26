@@ -55,7 +55,11 @@ options(RCurlOptions = list(
 # Load the Tweets ==============================================================
 mise(); load("./resources/Download_1.Rdata")
 
-# Friend and Follower Count ----------------------------------------------------
+# 8.1.2 Friend and Follower Count ----------------------------------------------------
 (users <- unique(tweets.company$name)) %>% length()
 (x <- tweets.company$followers_count[duplicated(tweets.company$name)]) %>% head()
 (y <- tweets.company$friends_count[duplicated(tweets.company$name)]) %>% head()
+
+# 8.1.3 Summary Statistics -----------------------------------------------------------
+(xbar <- mean(x))
+(ybar <- mean(y))

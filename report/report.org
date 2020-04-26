@@ -97,23 +97,35 @@ and hence all tweets containing a mention of /Ubisoft/ can be returned and saved
 
 ** 8.2.2 Count of Followers and Friends
 In order to identify the number of users that are contained in the /tweets/ the
-=unique()= function can be used to return a vector of names which can then be passed as an index to the vector of counts as shown in listing [[count]].
+=unique()= function can be used to return a vector of names which can then be passed as an index to the vector of counts as shown in listing [[count]], this provides that 81.7% of the tweets are by unique users.
 
 #+NAME: count
 #+CAPTION: Return follower count of twitter posts
 #+begin_src R
 (users <- unique(tweets.company$name)) %>% length()
-(x <- tweets.company$followers_count[duplicated(tweets.company$name)]) %>% head()
-(y <- tweets.company$friends_count[duplicated(tweets.company$name)]) %>% head()
+(x <- tweets.company$followers_count[duplicated(tweets.company$name)])
+(y <- tweets.company$friends_count[duplicated(tweets.company$name)])
 #+end_src
 
 #+begin_src
 [1] 817
-[1] 38 63 63 63  1  1
-[1] 112 260 260 260  29  59
 #+end_src
 
-#+RESULTS: count
+** Summary Statistics
+The average number of friends and followers from users who posted tweets mentioning /Ubisoft/ can be returned using the ~mean()~ as shown in listing [[mean]]
+this provides that on average each user has 586 friends and 63,620 followers.
+
+#+NAME: mean
+#+CAPTION: Determine the average number of friends and followers
+#+begin_src R
+(xbar <- mean(x))
+(ybar <- mean(y))
+#+end_src
+
+#+begin_src
+[1] 63620.24
+[1] 585.9016
+#+end_src
 
 
 * References
