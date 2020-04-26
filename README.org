@@ -17,6 +17,7 @@ Github for Social Web Analytics
   + This expires every 24 hrs
   + =2020-04-25 Sat 08:56=
 + [[file:docs/ProjectSpec_S1_2020_WSUSCC_GizemModerated.pdf][Project Specification]]
+ + [[./docs/rtweet.pdf][=rtweet= Manual]]
 * TODO Add Members as Collaborators
 + [X] Ryan
 + [X] Kieran

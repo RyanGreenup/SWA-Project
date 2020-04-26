@@ -37,14 +37,15 @@ mise()
 # -----END PGP MESSAGE-----
 
 # Pull the Tweets --------------------------------------------------------
-n <- 1000
+n <- 10
 tweets.company <- rtweet::get_timeline("SquareEnix", n = n, token = tk)
+rtweet::get_mentions(n = 10)
 
 # Save the Tweets ==============================================================
 save(tweets.company, file = "resources/Download_1.Rdata")
 
 # Load the Tweets ==============================================================
-mise(); load("./resources/Download_1.Rdata")
+# mise(); load("./resources/Download_1.Rdata")
 head(tweets.company$text)
 
 # Friend and Follower Count ----------------------------------------------------
