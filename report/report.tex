@@ -1,4 +1,4 @@
-% Created 2020-04-26 Sun 14:46
+% Created 2020-04-26 Sun 15:48
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -34,11 +34,12 @@
 
 
 \section{8.1 Analysing the Relationship Between Friends and Followers for Twitter Users}
-\label{sec:org7cd5f71}
+\label{sec:org41527e8}
 \subsection{8.1.1 Retrieve the posts from Twitter}
-\label{sec:orge5691af}
-relevant posts can be retrieved from twitter by leveraging the \texttt{rtweet} package, packages can be loaded for use in \textbf{\textbf{\uline{R}}} thusly:
+\label{sec:org8520f5d}
+relevant posts can be retrieved from twitter by utilising the \texttt{rtweet} package, packages can be loaded for use in \textbf{\textbf{\uline{R}}} thusly:
 
+\begin{listing}[htbp]
 \begin{minted}[]{r}
 # Load Packages -----------------------------------------------------------
 setwd("~/Dropbox/Notes/DataSci/Social_Web_Analytics/SWA-Project/scripts/")
@@ -59,12 +60,15 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2,
                httpuv, SnowballC, RColorBrewer, wordcloud,
                ggwordcloud)
 \end{minted}
+\caption{\label{org836710b}Load the Packages for \textbf{\textbf{\emph{R}}}}
+\end{listing}
 
 The \texttt{rtweet} API will search for tweets that contain all the words of a query
 regardless of uppercase or lowercase usage \cite{kearney2019}.
 
-and all tweets containing a mention of \emph{Ubisoft} can be returned:
+In order to leverage the \emph{Twitter} API it is necessary to use tokens provided through a \emph{Twitter} developer account:
 
+\begin{listing}[htbp]
 \begin{minted}[]{r}
 # Set up Tokens ===========================================================
 
@@ -90,13 +94,28 @@ tk <-    rtweet::create_token(
   access_secret   = "*********************************************",
   set_renv        = FALSE
 \end{minted}
+\caption{\label{org3e7a889}Import the twitter tokens (redacted)}
+\end{listing}
+
+and hence all tweets containing a mention of \emph{Ubisoft} can be returned and saved to disk as shown in listing \ref{orge140b87}:
+
+\begin{listing}[htbp]
+\begin{minted}[]{r}
+ n <- 1000
+ tweets.company <- search_tweets(q = 'ubisoft', n = n, token = tk,
+                                 include_rts = FALSE)
+ save(tweets.company[,], file = "resources/Download_1.Rdata")
+\end{minted}
+\caption{\label{orge140b87}Save the Tweets to the HDD as an \texttt{rdata} file}
+\end{listing}
+
 
 
 \section{References}
-\label{sec:orgcf812f5}
-\label{org1b72429}
+\label{sec:org1995b96}
+\label{orgeb6e6ae}
 \bibliography{references}
 
-\label{org73f68ef}
+\label{org7d815aa}
  \bibliographystyle{unsrt}
 \end{document}

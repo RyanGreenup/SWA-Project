@@ -25,8 +25,10 @@
 
 * 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users
 ** 8.1.1 Retrieve the posts from Twitter
-relevant posts can be retrieved from twitter by leveraging the =rtweet= package, packages can be loaded for use in **_R_** thusly:
+relevant posts can be retrieved from twitter by utilising the =rtweet= package, packages can be loaded for use in **_R_** thusly:
 
+#+NAME: lpac
+#+CAPTION: Load the Packages for **/R/**
 #+begin_src R
 # Load Packages -----------------------------------------------------------
 setwd("~/Dropbox/Notes/DataSci/Social_Web_Analytics/SWA-Project/scripts/")
@@ -51,8 +53,10 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2,
 The =rtweet= API will search for tweets that contain all the words of a query
 regardless of uppercase or lowercase usage cite:kearney2019.
 
-and all tweets containing a mention of /Ubisoft/ can be returned:
+In order to leverage the /Twitter/ API it is necessary to use tokens provided through a /Twitter/ developer account:
 
+#+NAME: tkn
+#+CAPTION: Import the twitter tokens (redacted)
 #+begin_src R
 # Set up Tokens ===========================================================
 
@@ -78,6 +82,18 @@ tk <-    rtweet::create_token(
   access_secret   = "*********************************************",
   set_renv        = FALSE
 #+end_src
+
+and hence all tweets containing a mention of /Ubisoft/ can be returned and saved to disk as shown in listing [[save]]:
+
+#+NAME: save
+#+CAPTION: Save the Tweets to the HDD as an ~rdata~ file
+#+begin_src R
+ n <- 1000
+ tweets.company <- search_tweets(q = 'ubisoft', n = n, token = tk,
+                                 include_rts = FALSE)
+ save(tweets.company[,], file = "resources/Download_1.Rdata")
+#+end_src
+
 
 
 * References

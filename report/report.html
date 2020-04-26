@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-04-26 Sun 14:48 -->
+<!-- 2020-04-26 Sun 15:48 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Analysing Twitter for Ubisoft</title>
@@ -247,37 +247,37 @@ org_html_manager.setup();  // activate after the parameters are set
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgcebf9b0">1. 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users</a>
+<li><a href="#org22a8e4e">1. 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users</a>
 <ul>
-<li><a href="#orgfe7e04e">1.1. 8.1.1 Retrieve the posts from Twitter</a></li>
+<li><a href="#org9a29876">1.1. 8.1.1 Retrieve the posts from Twitter</a></li>
 </ul>
 </li>
-<li><a href="#org6f7080c">2. References</a></li>
+<li><a href="#org519d65b">2. References</a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-orgcebf9b0" class="outline-2">
-<h2 id="orgcebf9b0"><span class="section-number-2">1</span> 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users</h2>
+<div id="outline-container-org22a8e4e" class="outline-2">
+<h2 id="org22a8e4e"><span class="section-number-2">1</span> 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orgfe7e04e" class="outline-3">
-<h3 id="orgfe7e04e"><span class="section-number-3">1.1</span> 8.1.1 Retrieve the posts from Twitter</h3>
+<div id="outline-container-org9a29876" class="outline-3">
+<h3 id="org9a29876"><span class="section-number-3">1.1</span> 8.1.1 Retrieve the posts from Twitter</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
-relevant posts can be retrieved from twitter by leveraging the <code>rtweet</code> package, packages can be loaded for use in <b><b><span class="underline">R</span></b></b> thusly:
+relevant posts can be retrieved from twitter by utilising the <code>rtweet</code> package, packages can be loaded for use in <b><b><span class="underline">R</span></b></b> thusly:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-R"><span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">Load Packages -----------------------------------------------------------</span>
-<span style="color: #b751b6;">setwd</span>(<span style="color: #50a14f;">"~/Dropbox/Notes/DataSci/Social_Web_Analytics/SWA-Project/scripts/"</span>)
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>Load the Packages for <b><b><i>R</i></b></b></label><pre class="src src-R" id="org282e91b"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Load Packages -----------------------------------------------------------</span>
+<span style="color: #a9a1e1;">setwd</span>(<span style="color: #98be65;">"~/Dropbox/Notes/DataSci/Social_Web_Analytics/SWA-Project/scripts/"</span>)
 
-<span style="color: #e45649;">if</span> (<span style="color: #b751b6;">require</span>(<span style="color: #50a14f;">"pacman"</span>)) {
-  <span style="color: #b751b6;">library</span>(pacman)
-} <span style="color: #e45649;">else</span>{
-  install.packages(<span style="color: #50a14f;">"pacman"</span>)
-  <span style="color: #b751b6;">library</span>(pacman)
+<span style="color: #51afef;">if</span> (<span style="color: #a9a1e1;">require</span>(<span style="color: #98be65;">"pacman"</span>)) {
+  <span style="color: #a9a1e1;">library</span>(pacman)
+} <span style="color: #51afef;">else</span>{
+  install.packages(<span style="color: #98be65;">"pacman"</span>)
+  <span style="color: #a9a1e1;">library</span>(pacman)
 }
 
 pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2,
@@ -297,33 +297,45 @@ regardless of uppercase or lowercase usage <sup><a href="#citeproc_bib_item_1">1
 </p>
 
 <p>
-and all tweets containing a mention of <i>Ubisoft</i> can be returned:
+In order to leverage the <i>Twitter</i> API it is necessary to use tokens provided through a <i>Twitter</i> developer account:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-R"><span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">Set up Tokens ===========================================================</span>
+<label class="org-src-name"><span class="listing-number">Listing 2: </span>Import the twitter tokens (redacted)</label><pre class="src src-R" id="org3eadf45"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Set up Tokens ===========================================================</span>
 
-<span style="color: #b751b6;">options</span>(RCurlOptions = list(
-  verbose = <span style="color: #986801;">FALSE</span>,
-  capath = system.file(<span style="color: #50a14f;">"CurlSSL"</span>, <span style="color: #50a14f;">"cacert.pem"</span>, package = <span style="color: #50a14f;">"RCurl"</span>),
-  ssl.verifypeer = <span style="color: #986801;">FALSE</span>
+<span style="color: #a9a1e1;">options</span>(RCurlOptions = list(
+  verbose = <span style="color: #ECBE7B;">FALSE</span>,
+  capath = system.file(<span style="color: #98be65;">"CurlSSL"</span>, <span style="color: #98be65;">"cacert.pem"</span>, package = <span style="color: #98be65;">"RCurl"</span>),
+  ssl.verifypeer = <span style="color: #ECBE7B;">FALSE</span>
 ))
 
 setup_twitter_oauth(
-  consumer_key = <span style="color: #50a14f;">"*************************"</span>,
-  consumer_secret = <span style="color: #50a14f;">"**************************************************"</span>,
-  access_token = <span style="color: #50a14f;">"**************************************************"</span>,
-  access_secret = <span style="color: #50a14f;">"*********************************************"</span>
+  consumer_key = <span style="color: #98be65;">"*************************"</span>,
+  consumer_secret = <span style="color: #98be65;">"**************************************************"</span>,
+  access_token = <span style="color: #98be65;">"**************************************************"</span>,
+  access_secret = <span style="color: #98be65;">"*********************************************"</span>
 )
 
-<span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">rtweet ==================================================================</span>
-tk <span style="color: #b751b6;">&lt;-</span>    rtweet::create_token(
-  app = <span style="color: #50a14f;">"SWA"</span>,
-  consumer_key    = <span style="color: #50a14f;">"*************************"</span>,
-  consumer_secret = <span style="color: #50a14f;">"**************************************************"</span>,
-  access_token    = <span style="color: #50a14f;">"**************************************************"</span>,
-  access_secret   = <span style="color: #50a14f;">"*********************************************"</span>,
-  set_renv        = <span style="color: #986801;">FALSE</span>
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">rtweet ==================================================================</span>
+tk <span style="color: #a9a1e1;">&lt;-</span>    rtweet::create_token(
+  app = <span style="color: #98be65;">"SWA"</span>,
+  consumer_key    = <span style="color: #98be65;">"*************************"</span>,
+  consumer_secret = <span style="color: #98be65;">"**************************************************"</span>,
+  access_token    = <span style="color: #98be65;">"**************************************************"</span>,
+  access_secret   = <span style="color: #98be65;">"*********************************************"</span>,
+  set_renv        = <span style="color: #ECBE7B;">FALSE</span>
+</pre>
+</div>
+
+<p>
+and hence all tweets containing a mention of <i>Ubisoft</i> can be returned and saved to disk as shown in listing <a href="#orgc4d7d19">3</a>:
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 3: </span>Save the Tweets to the HDD as an <code>rdata</code> file</label><pre class="src src-R" id="orgc4d7d19"> n <span style="color: #a9a1e1;">&lt;-</span> <span style="color: #da8548; font-weight: bold;">1000</span>
+ tweets.company <span style="color: #a9a1e1;">&lt;-</span> search_tweets(q = <span style="color: #98be65;">'ubisoft'</span>, n = n, token = tk,
+                                 include_rts = <span style="color: #ECBE7B;">FALSE</span>)
+ save(tweets.company[,], file = <span style="color: #98be65;">"resources/Download_1.Rdata"</span>)
 </pre>
 </div>
 </div>
@@ -331,11 +343,12 @@ tk <span style="color: #b751b6;">&lt;-</span>    rtweet::create_token(
 </div>
 
 
-<div id="outline-container-org6f7080c" class="outline-2">
-<h2 id="org6f7080c"><span class="section-number-2">2</span> References</h2>
+
+<div id="outline-container-org519d65b" class="outline-2">
+<h2 id="org519d65b"><span class="section-number-2">2</span> References</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-<a id="org7202fdc"></a>
+<a id="org6f1ade5"></a>
 </p>
 
 <style>.csl-left-margin{float: left; padding-right: 0em;} .csl-right-inline{margin: 0 0 0 1.2em;}</style><h2 class='citeproc-org-bib-h2'>Bibliography</h2>
@@ -347,7 +360,7 @@ tk <span style="color: #b751b6;">&lt;-</span>    rtweet::create_token(
 
 
 <p>
-<a id="org2bfd2c6"></a>
+<a id="org0d79992"></a>
  
 </p>
 </div>
@@ -355,7 +368,7 @@ tk <span style="color: #b751b6;">&lt;-</span>    rtweet::create_token(
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Ryan Greenup</p>
-<p class="date">Created: 2020-04-26 Sun 14:48</p>
+<p class="date">Created: 2020-04-26 Sun 15:48</p>
 </div>
 </body>
 </html>

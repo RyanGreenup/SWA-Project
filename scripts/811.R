@@ -52,6 +52,5 @@ options(RCurlOptions = list(
 
 # Load the Tweets ==============================================================
 mise(); load("./resources/Download_1.Rdata")
-head(tweets.company$text)
 
 # Friend and Follower Count ----------------------------------------------------
