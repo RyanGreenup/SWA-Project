@@ -29,7 +29,7 @@ relevant posts can be retrieved from twitter by utilising the =rtweet= package, 
 
 #+NAME: lpac
 #+CAPTION: Load the Packages for **/R/**
-#+begin_src R
+#+begin_src R :output none :results none
 # Load Packages -----------------------------------------------------------
 setwd("~/Dropbox/Notes/DataSci/Social_Web_Analytics/SWA-Project/scripts/")
 
@@ -47,8 +47,9 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2,
                lattice, coin, primes, epitools, maps, clipr,
                ggmap, twitteR, ROAuth, tm, rtweet, base64enc,
                httpuv, SnowballC, RColorBrewer, wordcloud,
-               ggwordcloud)
+               ggwordcloud, tidyverse)
 #+end_src
+
 
 The =rtweet= API will search for tweets that contain all the words of a query
 regardless of uppercase or lowercase usage cite:kearney2019.
@@ -94,7 +95,6 @@ and hence all tweets containing a mention of /Ubisoft/ can be returned and saved
  save(tweets.company[,], file = "resources/Download_1.Rdata")
 #+end_src
 
-
 ** 8.2.2 Count of Followers and Friends
 In order to identify the number of users that are contained in the /tweets/ the
 =unique()= function can be used to return a vector of names which can then be passed as an index to the vector of counts as shown in listing [[count]], this provides that 81.7% of the tweets are by unique users.
@@ -107,9 +107,6 @@ In order to identify the number of users that are contained in the /tweets/ the
 (y <- tweets.company$friends_count[duplicated(tweets.company$name)])
 #+end_src
 
-#+begin_src
-[1] 817
-#+end_src
 
 ** Summary Statistics
 The average number of friends and followers from users who posted tweets mentioning /Ubisoft/ can be returned using the ~mean()~ as shown in listing [[mean]]
@@ -118,13 +115,15 @@ this provides that on average each user has 586 friends and 63,620 followers.
 #+NAME: mean
 #+CAPTION: Determine the average number of friends and followers
 #+begin_src R
+x<- rnorm(090)
+y<- rnorm(090)
 (xbar <- mean(x))
 (ybar <- mean(y))
 #+end_src
 
 #+begin_src
-[1] 63620.24
-[1] 585.9016
+## 63620.24
+## 585.9016
 #+end_src
 
 

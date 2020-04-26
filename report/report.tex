@@ -1,4 +1,4 @@
-% Created 2020-04-26 Sun 16:46
+% Created 2020-04-26 Sun 16:58
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -34,9 +34,9 @@
 
 
 \section{8.1 Analysing the Relationship Between Friends and Followers for Twitter Users}
-\label{sec:orga06ed0c}
+\label{sec:orgfc29f9d}
 \subsection{8.1.1 Retrieve the posts from Twitter}
-\label{sec:orgf1e76da}
+\label{sec:org5bf2778}
 relevant posts can be retrieved from twitter by utilising the \texttt{rtweet} package, packages can be loaded for use in \textbf{\textbf{\uline{R}}} thusly:
 
 \begin{listing}[htbp]
@@ -58,10 +58,11 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2,
                lattice, coin, primes, epitools, maps, clipr,
                ggmap, twitteR, ROAuth, tm, rtweet, base64enc,
                httpuv, SnowballC, RColorBrewer, wordcloud,
-               ggwordcloud)
+               ggwordcloud, tidyverse)
 \end{minted}
-\caption{\label{org16d6a5a}Load the Packages for \textbf{\textbf{\emph{R}}}}
+\caption{\label{orgf54ecac}Load the Packages for \textbf{\textbf{\emph{R}}}}
 \end{listing}
+
 
 The \texttt{rtweet} API will search for tweets that contain all the words of a query
 regardless of uppercase or lowercase usage \cite{kearney2019}.
@@ -94,10 +95,10 @@ tk <-    rtweet::create_token(
   access_secret   = "*********************************************",
   set_renv        = FALSE
 \end{minted}
-\caption{\label{org805d2ae}Import the twitter tokens (redacted)}
+\caption{\label{orgf31d3ad}Import the twitter tokens (redacted)}
 \end{listing}
 
-and hence all tweets containing a mention of \emph{Ubisoft} can be returned and saved to disk as shown in listing \ref{org8a15941}:
+and hence all tweets containing a mention of \emph{Ubisoft} can be returned and saved to disk as shown in listing \ref{orge089d83}:
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -106,52 +107,52 @@ and hence all tweets containing a mention of \emph{Ubisoft} can be returned and 
                                  include_rts = FALSE)
  save(tweets.company[,], file = "resources/Download_1.Rdata")
 \end{minted}
-\caption{\label{org8a15941}Save the Tweets to the HDD as an \texttt{rdata} file}
+\caption{\label{orge089d83}Save the Tweets to the HDD as an \texttt{rdata} file}
 \end{listing}
 
-
 \subsection{8.2.2 Count of Followers and Friends}
-\label{sec:org2e2ce73}
+\label{sec:org623d910}
 In order to identify the number of users that are contained in the \emph{tweets} the
-\texttt{unique()} function can be used to return a vector of names which can then be passed as an index to the vector of counts as shown in listing \ref{orgf539ac4}, this provides that 81.7\% of the tweets are by unique users.
+\texttt{unique()} function can be used to return a vector of names which can then be passed as an index to the vector of counts as shown in listing \ref{org48d1d2b}, this provides that 81.7\% of the tweets are by unique users.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
 (users <- unique(tweets.company$name)) %>% length()
 (x <- tweets.company$followers_count[duplicated(tweets.company$name)])
 (y <- tweets.company$friends_count[duplicated(tweets.company$name)])
+
+## > [1] 817
 \end{minted}
-\caption{\label{orgf539ac4}Return follower count of twitter posts}
+\caption{\label{org48d1d2b}Return follower count of twitter posts}
 \end{listing}
 
-\begin{verbatim}
-[1] 817
-\end{verbatim}
 
 \subsection{Summary Statistics}
-\label{sec:org112b28c}
-The average number of friends and followers from users who posted tweets mentioning \emph{Ubisoft} can be returned using the \texttt{mean()} as shown in listing \ref{org3d21946}
+\label{sec:org51f561b}
+The average number of friends and followers from users who posted tweets mentioning \emph{Ubisoft} can be returned using the \texttt{mean()} as shown in listing \ref{org63c8831}
 this provides that on average each user has 586 friends and 63,620 followers.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
+x<- rnorm(090)
+y<- rnorm(090)
 (xbar <- mean(x))
 (ybar <- mean(y))
 \end{minted}
-\caption{\label{org3d21946}Determine the average number of friends and followers}
+\caption{\label{org63c8831}Determine the average number of friends and followers}
 \end{listing}
 
 \begin{verbatim}
-[1] 63620.24
-[1] 585.9016
+## 63620.24
+## 585.9016
 \end{verbatim}
 
 
 \section{References}
-\label{sec:org36d7de7}
-\label{orgcf43adb}
+\label{sec:org3cd29cb}
+\label{org552edfd}
 \bibliography{references}
 
-\label{org56cf1a8}
+\label{orgbbeadb9}
  \bibliographystyle{unsrt}
 \end{document}
