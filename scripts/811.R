@@ -65,4 +65,4 @@ mise(); load("./resources/Download_1.Rdata")
 (ybar <- mean(y))
 
 # 8.1.4 Above Average Followers ------------------------------------------------
-x>ybar
+(py_hat <- mean(y>ybar))

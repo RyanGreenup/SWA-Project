@@ -1,4 +1,4 @@
-% Created 2020-04-26 Sun 16:58
+% Created 2020-04-26 Sun 17:19
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -34,9 +34,9 @@
 
 
 \section{8.1 Analysing the Relationship Between Friends and Followers for Twitter Users}
-\label{sec:orgfc29f9d}
+\label{sec:org8d9bc22}
 \subsection{8.1.1 Retrieve the posts from Twitter}
-\label{sec:org5bf2778}
+\label{sec:org4149781}
 relevant posts can be retrieved from twitter by utilising the \texttt{rtweet} package, packages can be loaded for use in \textbf{\textbf{\uline{R}}} thusly:
 
 \begin{listing}[htbp]
@@ -60,7 +60,7 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2,
                httpuv, SnowballC, RColorBrewer, wordcloud,
                ggwordcloud, tidyverse)
 \end{minted}
-\caption{\label{orgf54ecac}Load the Packages for \textbf{\textbf{\emph{R}}}}
+\caption{\label{orgaf72c5f}Load the Packages for \textbf{\textbf{\emph{R}}}}
 \end{listing}
 
 
@@ -95,10 +95,10 @@ tk <-    rtweet::create_token(
   access_secret   = "*********************************************",
   set_renv        = FALSE
 \end{minted}
-\caption{\label{orgf31d3ad}Import the twitter tokens (redacted)}
+\caption{\label{org659b3a3}Import the twitter tokens (redacted)}
 \end{listing}
 
-and hence all tweets containing a mention of \emph{Ubisoft} can be returned and saved to disk as shown in listing \ref{orge089d83}:
+and hence all tweets containing a mention of \emph{Ubisoft} can be returned and saved to disk as shown in listing \ref{org0a021a9}:
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -107,29 +107,29 @@ and hence all tweets containing a mention of \emph{Ubisoft} can be returned and 
                                  include_rts = FALSE)
  save(tweets.company[,], file = "resources/Download_1.Rdata")
 \end{minted}
-\caption{\label{orge089d83}Save the Tweets to the HDD as an \texttt{rdata} file}
+\caption{\label{org0a021a9}Save the Tweets to the HDD as an \texttt{rdata} file}
 \end{listing}
 
 \subsection{8.2.2 Count of Followers and Friends}
-\label{sec:org623d910}
+\label{sec:org4576e47}
 In order to identify the number of users that are contained in the \emph{tweets} the
-\texttt{unique()} function can be used to return a vector of names which can then be passed as an index to the vector of counts as shown in listing \ref{org48d1d2b}, this provides that 81.7\% of the tweets are by unique users.
+\texttt{unique()} function can be used to return a vector of names which can then be passed as an index to the vector of counts as shown in listing \ref{org2c565cf}, this provides that 81.7\% of the tweets are by unique users.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
 (users <- unique(tweets.company$name)) %>% length()
-(x <- tweets.company$followers_count[duplicated(tweets.company$name)])
-(y <- tweets.company$friends_count[duplicated(tweets.company$name)])
+x <- tweets.company$followers_count[duplicated(tweets.company$name)]
+y <- tweets.company$friends_count[duplicated(tweets.company$name)]
 
 ## > [1] 817
 \end{minted}
-\caption{\label{org48d1d2b}Return follower count of twitter posts}
+\caption{\label{org2c565cf}Return follower count of twitter posts}
 \end{listing}
 
 
-\subsection{Summary Statistics}
-\label{sec:org51f561b}
-The average number of friends and followers from users who posted tweets mentioning \emph{Ubisoft} can be returned using the \texttt{mean()} as shown in listing \ref{org63c8831}
+\subsection{8.1.3 Summary Statistics}
+\label{sec:org43c0f62}
+The average number of friends and followers from users who posted tweets mentioning \emph{Ubisoft} can be returned using the \texttt{mean()} as shown in listing \ref{orgdce582a}
 this provides that on average each user has 586 friends and 63,620 followers.
 
 \begin{listing}[htbp]
@@ -138,21 +138,35 @@ x<- rnorm(090)
 y<- rnorm(090)
 (xbar <- mean(x))
 (ybar <- mean(y))
+
+## > [1] 4295.195
+## > [1] 435.9449
 \end{minted}
-\caption{\label{org63c8831}Determine the average number of friends and followers}
+\caption{\label{orgdce582a}Determine the average number of friends and followers}
 \end{listing}
 
-\begin{verbatim}
-## 63620.24
-## 585.9016
-\end{verbatim}
+\subsection{8.1.4 Above Average Followers}
+\label{sec:org7ef636e}
+Each user can be compared to the average number of followers, by using a logical
+operator on the vector (e.g. \texttt{y > ybar}), this will return an output of logical
+values. \textbf{\emph{R}} will coerce logicals into 1/0 values meaning that the mean value
+will return the proportion of \texttt{TRUE} responses as shown in listing \ref{org606618d}. This
+provides that 20.6\% of the users identified have above average follower counts.
 
+\begin{listing}[htbp]
+\begin{minted}[]{r}
+(py_hat <- mean(y>ybar))
+
+## > [1] 0.2056304
+\end{minted}
+\caption{\label{org606618d}Calculate the proportion of users with above average follower counts}
+\end{listing}
 
 \section{References}
-\label{sec:org3cd29cb}
-\label{org552edfd}
+\label{sec:org250eec0}
+\label{org81d182a}
 \bibliography{references}
 
-\label{orgbbeadb9}
+\label{org8298fdf}
  \bibliographystyle{unsrt}
 \end{document}

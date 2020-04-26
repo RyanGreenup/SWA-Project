@@ -103,8 +103,10 @@ In order to identify the number of users that are contained in the /tweets/ the
 #+CAPTION: Return follower count of twitter posts
 #+begin_src R
 (users <- unique(tweets.company$name)) %>% length()
-(x <- tweets.company$followers_count[duplicated(tweets.company$name)])
-(y <- tweets.company$friends_count[duplicated(tweets.company$name)])
+x <- tweets.company$followers_count[duplicated(tweets.company$name)]
+y <- tweets.company$friends_count[duplicated(tweets.company$name)]
+
+## > [1] 817
 #+end_src
 
 
@@ -119,9 +121,25 @@ x<- rnorm(090)
 y<- rnorm(090)
 (xbar <- mean(x))
 (ybar <- mean(y))
+
+## > [1] 4295.195
+## > [1] 435.9449
 #+end_src
 
 ** 8.1.4 Above Average Followers
+Each user can be compared to the average number of followers, by using a logical
+operator on the vector (e.g. ~y > ybar~), this will return an output of logical
+values. */R/* will coerce logicals into 1/0 values meaning that the mean value
+will return the proportion of =TRUE= responses as shown in listing [[pyhat]]. This
+provides that 20.6% of the users identified have above average follower counts.
+
+#+NAME: pyhat
+#+CAPTION: Calculate the proportion of users with above average follower counts
+#+begin_src R
+(py_hat <- mean(y>ybar))
+
+## > [1] 0.2056304
+#+end_src
 
 * References
 # Remember, this is here for HTML and autocomplete, but latex uses biblatex for URL support

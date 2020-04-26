@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-04-26 Sun 16:46 -->
+<!-- 2020-04-26 Sun 17:19 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Analysing Twitter for Ubisoft</title>
@@ -247,32 +247,33 @@ org_html_manager.setup();  // activate after the parameters are set
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgc590208">1. 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users</a>
+<li><a href="#orgc58296e">1. 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users</a>
 <ul>
-<li><a href="#org91633d0">1.1. 8.1.1 Retrieve the posts from Twitter</a></li>
-<li><a href="#org09f122d">1.2. 8.2.2 Count of Followers and Friends</a></li>
-<li><a href="#org8792f0f">1.3. Summary Statistics</a></li>
+<li><a href="#orgcd1ee76">1.1. 8.1.1 Retrieve the posts from Twitter</a></li>
+<li><a href="#org38570ac">1.2. 8.2.2 Count of Followers and Friends</a></li>
+<li><a href="#org1e6c802">1.3. 8.1.3 Summary Statistics</a></li>
+<li><a href="#org4331210">1.4. 8.1.4 Above Average Followers</a></li>
 </ul>
 </li>
-<li><a href="#orgbf38c33">2. References</a></li>
+<li><a href="#org8737298">2. References</a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-orgc590208" class="outline-2">
-<h2 id="orgc590208"><span class="section-number-2">1</span> 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users</h2>
+<div id="outline-container-orgc58296e" class="outline-2">
+<h2 id="orgc58296e"><span class="section-number-2">1</span> 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org91633d0" class="outline-3">
-<h3 id="org91633d0"><span class="section-number-3">1.1</span> 8.1.1 Retrieve the posts from Twitter</h3>
+<div id="outline-container-orgcd1ee76" class="outline-3">
+<h3 id="orgcd1ee76"><span class="section-number-3">1.1</span> 8.1.1 Retrieve the posts from Twitter</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 relevant posts can be retrieved from twitter by utilising the <code>rtweet</code> package, packages can be loaded for use in <b><b><span class="underline">R</span></b></b> thusly:
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 1: </span>Load the Packages for <b><b><i>R</i></b></b></label><pre class="src src-R" id="org1718867"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Load Packages -----------------------------------------------------------</span>
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>Load the Packages for <b><b><i>R</i></b></b></label><pre class="src src-R" id="org1ce64fb"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Load Packages -----------------------------------------------------------</span>
 <span style="color: #a9a1e1;">setwd</span>(<span style="color: #98be65;">"~/Dropbox/Notes/DataSci/Social_Web_Analytics/SWA-Project/scripts/"</span>)
 
 <span style="color: #51afef;">if</span> (<span style="color: #a9a1e1;">require</span>(<span style="color: #98be65;">"pacman"</span>)) {
@@ -289,9 +290,10 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2,
                lattice, coin, primes, epitools, maps, clipr,
                ggmap, twitteR, ROAuth, tm, rtweet, base64enc,
                httpuv, SnowballC, RColorBrewer, wordcloud,
-               ggwordcloud)
+               ggwordcloud, tidyverse)
 </pre>
 </div>
+
 
 <p>
 The <code>rtweet</code> API will search for tweets that contain all the words of a query
@@ -303,7 +305,7 @@ In order to leverage the <i>Twitter</i> API it is necessary to use tokens provid
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 2: </span>Import the twitter tokens (redacted)</label><pre class="src src-R" id="org01261f1"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Set up Tokens ===========================================================</span>
+<label class="org-src-name"><span class="listing-number">Listing 2: </span>Import the twitter tokens (redacted)</label><pre class="src src-R" id="orgd417b54"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Set up Tokens ===========================================================</span>
 
 <span style="color: #a9a1e1;">options</span>(RCurlOptions = list(
   verbose = <span style="color: #ECBE7B;">FALSE</span>,
@@ -330,11 +332,11 @@ tk <span style="color: #a9a1e1;">&lt;-</span>    rtweet::create_token(
 </div>
 
 <p>
-and hence all tweets containing a mention of <i>Ubisoft</i> can be returned and saved to disk as shown in listing <a href="#org91c73f9">3</a>:
+and hence all tweets containing a mention of <i>Ubisoft</i> can be returned and saved to disk as shown in listing <a href="#orga36c74b">3</a>:
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 3: </span>Save the Tweets to the HDD as an <code>rdata</code> file</label><pre class="src src-R" id="org91c73f9"> n <span style="color: #a9a1e1;">&lt;-</span> <span style="color: #da8548; font-weight: bold;">1000</span>
+<label class="org-src-name"><span class="listing-number">Listing 3: </span>Save the Tweets to the HDD as an <code>rdata</code> file</label><pre class="src src-R" id="orga36c74b"> n <span style="color: #a9a1e1;">&lt;-</span> <span style="color: #da8548; font-weight: bold;">1000</span>
  tweets.company <span style="color: #a9a1e1;">&lt;-</span> search_tweets(q = <span style="color: #98be65;">'ubisoft'</span>, n = n, token = tk,
                                  include_rts = <span style="color: #ECBE7B;">FALSE</span>)
  save(tweets.company[,], file = <span style="color: #98be65;">"resources/Download_1.Rdata"</span>)
@@ -343,56 +345,73 @@ and hence all tweets containing a mention of <i>Ubisoft</i> can be returned and 
 </div>
 </div>
 
-
-<div id="outline-container-org09f122d" class="outline-3">
-<h3 id="org09f122d"><span class="section-number-3">1.2</span> 8.2.2 Count of Followers and Friends</h3>
+<div id="outline-container-org38570ac" class="outline-3">
+<h3 id="org38570ac"><span class="section-number-3">1.2</span> 8.2.2 Count of Followers and Friends</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 In order to identify the number of users that are contained in the <i>tweets</i> the
-<code>unique()</code> function can be used to return a vector of names which can then be passed as an index to the vector of counts as shown in listing <a href="#org36f4e39">4</a>, this provides that 81.7% of the tweets are by unique users.
+<code>unique()</code> function can be used to return a vector of names which can then be passed as an index to the vector of counts as shown in listing <a href="#orgbad4b23">4</a>, this provides that 81.7% of the tweets are by unique users.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 4: </span>Return follower count of twitter posts</label><pre class="src src-R" id="org36f4e39">(users <span style="color: #a9a1e1;">&lt;-</span> unique(tweets.company$name)) <span style="color: #a9a1e1;">%&gt;%</span> length()
-(x <span style="color: #a9a1e1;">&lt;-</span> tweets.company$followers_count[duplicated(tweets.company$name)])
-(y <span style="color: #a9a1e1;">&lt;-</span> tweets.company$friends_count[duplicated(tweets.company$name)])
-</pre>
-</div>
+<label class="org-src-name"><span class="listing-number">Listing 4: </span>Return follower count of twitter posts</label><pre class="src src-R" id="orgbad4b23">(users <span style="color: #a9a1e1;">&lt;-</span> unique(tweets.company$name)) <span style="color: #a9a1e1;">%&gt;%</span> length()
+x <span style="color: #a9a1e1;">&lt;-</span> tweets.company$followers_count[duplicated(tweets.company$name)]
+y <span style="color: #a9a1e1;">&lt;-</span> tweets.company$friends_count[duplicated(tweets.company$name)]
 
-<pre class="example">
-[1] 817
+<span style="color: #5B6268;">## </span><span style="color: #5B6268;">&gt; [1] 817</span>
 </pre>
 </div>
 </div>
+</div>
 
-<div id="outline-container-org8792f0f" class="outline-3">
-<h3 id="org8792f0f"><span class="section-number-3">1.3</span> Summary Statistics</h3>
+
+<div id="outline-container-org1e6c802" class="outline-3">
+<h3 id="org1e6c802"><span class="section-number-3">1.3</span> 8.1.3 Summary Statistics</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
-The average number of friends and followers from users who posted tweets mentioning <i>Ubisoft</i> can be returned using the <code>mean()</code> as shown in listing <a href="#org8f8db63">5</a>
+The average number of friends and followers from users who posted tweets mentioning <i>Ubisoft</i> can be returned using the <code>mean()</code> as shown in listing <a href="#orgdd718e3">5</a>
 this provides that on average each user has 586 friends and 63,620 followers.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 5: </span>Determine the average number of friends and followers</label><pre class="src src-R" id="org8f8db63">(xbar <span style="color: #a9a1e1;">&lt;-</span> mean(x))
+<label class="org-src-name"><span class="listing-number">Listing 5: </span>Determine the average number of friends and followers</label><pre class="src src-R" id="orgdd718e3">x<span style="color: #a9a1e1;">&lt;-</span> rnorm(<span style="color: #da8548; font-weight: bold;">090</span>)
+y<span style="color: #a9a1e1;">&lt;-</span> rnorm(<span style="color: #da8548; font-weight: bold;">090</span>)
+(xbar <span style="color: #a9a1e1;">&lt;-</span> mean(x))
 (ybar <span style="color: #a9a1e1;">&lt;-</span> mean(y))
-</pre>
-</div>
 
-<pre class="example">
-[1] 63620.24
-[1] 585.9016
+<span style="color: #5B6268;">## </span><span style="color: #5B6268;">&gt; [1] 4295.195</span>
+<span style="color: #5B6268;">## </span><span style="color: #5B6268;">&gt; [1] 435.9449</span>
 </pre>
 </div>
 </div>
 </div>
 
+<div id="outline-container-org4331210" class="outline-3">
+<h3 id="org4331210"><span class="section-number-3">1.4</span> 8.1.4 Above Average Followers</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+Each user can be compared to the average number of followers, by using a logical
+operator on the vector (e.g. <code>y &gt; ybar</code>), this will return an output of logical
+values. <b><i>R</i></b> will coerce logicals into 1/0 values meaning that the mean value
+will return the proportion of <code>TRUE</code> responses as shown in listing <a href="#org1d87f20">6</a>. This
+provides that 20.6% of the users identified have above average follower counts.
+</p>
 
-<div id="outline-container-orgbf38c33" class="outline-2">
-<h2 id="orgbf38c33"><span class="section-number-2">2</span> References</h2>
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 6: </span>Calculate the proportion of users with above average follower counts</label><pre class="src src-R" id="org1d87f20">(py_hat <span style="color: #a9a1e1;">&lt;-</span> mean(y&gt;ybar))
+
+<span style="color: #5B6268;">## </span><span style="color: #5B6268;">&gt; [1] 0.2056304</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8737298" class="outline-2">
+<h2 id="org8737298"><span class="section-number-2">2</span> References</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-<a id="orga85a910"></a>
+<a id="org7aeb171"></a>
 </p>
 
 <style>.csl-left-margin{float: left; padding-right: 0em;} .csl-right-inline{margin: 0 0 0 1.2em;}</style><h2 class='citeproc-org-bib-h2'>Bibliography</h2>
@@ -404,7 +423,7 @@ this provides that on average each user has 586 friends and 63,620 followers.
 
 
 <p>
-<a id="orgf2f86a1"></a>
+<a id="orgb100f30"></a>
  
 </p>
 </div>
@@ -412,7 +431,7 @@ this provides that on average each user has 586 friends and 63,620 followers.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Ryan Greenup</p>
-<p class="date">Created: 2020-04-26 Sun 16:46</p>
+<p class="date">Created: 2020-04-26 Sun 17:19</p>
 </div>
 </body>
 </html>
