@@ -19,8 +19,10 @@ Github for Social Web Analytics
 + [[file:docs/ProjectSpec_S1_2020_WSUSCC_GizemModerated.pdf][Project Specification]]
 * TODO Add Members as Collaborators
 + [X] Ryan
-+ [X] Navid
++ [X] Kieran
++ [ ] Navid
 + [ ] Hassan
++ [ ] Ben
 
 * DONE Documentation
 ** DONE Make a Wiki
@@ -40,7 +42,7 @@ I will also need to put [[/etc/apache2/sites-enabled/000-default.conf][the Apach
 + Update the docs on /GitHub/
   + File an issue on /GitHub/ so somebody else can build the docs
 
-* TODO Make a Discord Server
+* DONE Make a Discord Server
 ** DONE Make a WebHook for Github Issues
 Follow [[https://gist.github.com/jagrosh/5b1761213e33fc5b54ec7f6379034a22][These Instructions here]]
 It seems like it is necessary to append ~/github~ at the end of the /Payload
@@ -79,3 +81,17 @@ maintenance so I'll have to do it later
 Also there is a post on the discussion board dated =2019-09-17=, just disregard
 that. I'll download the tweets tomorrow and push them to /GitHub/ so we can all
 get started, I haven't decided on the company to use but it doesn't really matter.
+* TODO Working
+** TODO 8.1 Analysing friend and follower count
+I like [[http://juanreyero.com/article/emacs/org-teams.html][this post]] on managing the work so let's use that.
+*** TODO 1 Pull Tweets                                                        :ryan:
+*** TODO 2 Extract the Friend and Follower Count                              :ryan:
+*** TODO 8 Find the Average Followers                                         :ryan:
+*** TODO 4 Find the proprtion above average                                   :ryan:
+*** TODO 5 Bootstrap a confidence interval                                    :ryan:
+*** TODO 6 Who has a higher friend count given the confidence Interval        :navid:
+*** TODO 7 Test for Independence                                              :kieran:
+*** TODO
+** TODO 8.2 Finding Themes
+*** 8. Find unique users with above average friend counts
+** TODO 8.3 Building Networks
