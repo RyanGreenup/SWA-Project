@@ -18,6 +18,11 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2, ggmap, parallel,
 mise()
 
 # Set up Tokens ===========================================================
+options(RCurlOptions = list(
+  verbose = FALSE,
+  capath = system.file("CurlSSL", "cacert.pem", package = "RCurl"),
+  ssl.verifypeer = FALSE
+))
 
 # -----BEGIN PGP MESSAGE-----
 #
@@ -37,15 +42,16 @@ mise()
 # -----END PGP MESSAGE-----
 
 # Pull the Tweets --------------------------------------------------------
-n <- 10
-tweets.company <- rtweet::get_timeline("SquareEnix", n = n, token = tk)
-rtweet::get_mentions(n = 10)
-
-# Save the Tweets ==============================================================
-save(tweets.company, file = "resources/Download_1.Rdata")
+## n <- 1000
+## tweets.company <- search_tweets(q = 'ubisoft', n = n, token = tk)
+## save(tweets.company[,], file = "resources/Download_1.Rdata")
+# Extra just in Case ===========================================================
+##  n <- 10000
+##  tweets.company <- search_tweets(q = 'ubisoft', n = n, token = tk)
+##  save(tweets.company[,], file = "resources/Download_1_Huge.Rdata")
 
 # Load the Tweets ==============================================================
-# mise(); load("./resources/Download_1.Rdata")
+mise(); load("./resources/Download_1.Rdata")
 head(tweets.company$text)
 
 # Friend and Follower Count ----------------------------------------------------

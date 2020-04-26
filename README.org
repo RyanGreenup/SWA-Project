@@ -89,7 +89,10 @@ I like [[http://juanreyero.com/article/emacs/org-teams.html][this post]] on mana
 :LOGBOOK:
 CLOCK: [2020-04-26 Sun 12:49]
 :END:
-This was easy, I chose /[[https://twitter.com/SquareEnix?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor][SquareEnix]]/ because I'm looking forward to /FFVII/ when we finish this project :beers:
++This was easy, I chose /[[https://twitter.com/SquareEnix?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor][SquareEnix]]/ because I'm looking forward to /FFVII/ when
+we finish this project :beers:+
+
+Nope, it was all japanese, but /Ubisoft/ is uniqe word that will be really easy to search for (/Bunnings/ would be good to, /Valve/ would be awful)
 
 I've just stored my tokens here for reference
 **** Tokens
