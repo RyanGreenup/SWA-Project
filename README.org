@@ -16,6 +16,7 @@ Github for Social Web Analytics
 + [[https://discord.gg/QW5YNc][Discord]]
   + This expires every 24 hrs
   + =CLOCK: [2020-04-25 Sat 08:56]=
++ [[file:docs/ProjectSpec_S1_2020_WSUSCC_GizemModerated.pdf][Project Specification]]
 * TODO Add Members as Collaborators
 + [X] Ryan
 + [X] Navid
