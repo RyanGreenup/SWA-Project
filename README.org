@@ -118,7 +118,7 @@ WwEP
 CLOCK: [2020-04-26 Sun 15:40]--[2020-04-26 Sun 16:52] =>  1:12
 :END:
 Just use the ~duplicated~ function as an index as [[file:scripts/811.R::Friend and Follower Count ----------------------------------------------------][shown here]]
-*** TODO 3 Find the Average Followers                                         :ryan:
+*** DONE 3 Find the Average Followers                                         :ryan:
 :LOGBOOK:
 CLOCK: [2020-04-26 Sun 16:55]--[2020-04-26 Sun 17:02] =>  0:07
 :END:
