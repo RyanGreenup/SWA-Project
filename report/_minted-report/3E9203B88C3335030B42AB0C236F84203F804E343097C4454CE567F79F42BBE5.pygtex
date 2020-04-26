@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n}{py\PYGZus{}hat} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{mean}\PYG{p}{(}\PYG{n}{y}\PYG{o}{\PYGZgt{}}\PYG{n}{ybar}\PYG{p}{))}
+
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} \PYGZgt{} [1] 0.2056304}
+\end{Verbatim}

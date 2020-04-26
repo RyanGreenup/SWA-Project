@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{x}\PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{rnorm}\PYG{p}{(}\PYG{l+m}{090}\PYG{p}{)}
+\PYG{n}{y}\PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{rnorm}\PYG{p}{(}\PYG{l+m}{090}\PYG{p}{)}
+\PYG{p}{(}\PYG{n}{xbar} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{mean}\PYG{p}{(}\PYG{n}{x}\PYG{p}{))}
+\PYG{p}{(}\PYG{n}{ybar} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{mean}\PYG{p}{(}\PYG{n}{y}\PYG{p}{))}
+\end{Verbatim}

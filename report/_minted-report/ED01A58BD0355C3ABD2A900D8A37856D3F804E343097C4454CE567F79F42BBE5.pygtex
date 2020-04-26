@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+ \PYG{n}{n} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{l+m}{1000}
+ \PYG{n}{tweets.company} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{search\PYGZus{}tweets}\PYG{p}{(}\PYG{n}{q} \PYG{o}{=} \PYG{l+s}{\PYGZsq{}ubisoft\PYGZsq{}}\PYG{p}{,} \PYG{n}{n} \PYG{o}{=} \PYG{n}{n}\PYG{p}{,} \PYG{n}{token} \PYG{o}{=} \PYG{n}{tk}\PYG{p}{,}
+                                 \PYG{n}{include\PYGZus{}rts} \PYG{o}{=} \PYG{k+kc}{FALSE}\PYG{p}{)}
+ \PYG{n+nf}{save}\PYG{p}{(}\PYG{n}{tweets.company}\PYG{p}{[,],} \PYG{n}{file} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}resources/Download\PYGZus{}1.Rdata\PYGZdq{}}\PYG{p}{)}
+\end{Verbatim}

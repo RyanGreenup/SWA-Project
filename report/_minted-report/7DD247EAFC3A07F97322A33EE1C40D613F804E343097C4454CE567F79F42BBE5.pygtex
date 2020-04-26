@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n}{users} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{unique}\PYG{p}{(}\PYG{n}{tweets.company}\PYG{o}{\PYGZdl{}}\PYG{n}{name}\PYG{p}{))} \PYG{o}{\PYGZpc{}\PYGZgt{}\PYGZpc{}} \PYG{n+nf}{length}\PYG{p}{()}
+\PYG{p}{(}\PYG{n}{x} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n}{tweets.company}\PYG{o}{\PYGZdl{}}\PYG{n}{followers\PYGZus{}count}\PYG{p}{[}\PYG{n+nf}{duplicated}\PYG{p}{(}\PYG{n}{tweets.company}\PYG{o}{\PYGZdl{}}\PYG{n}{name}\PYG{p}{)])}
+\PYG{p}{(}\PYG{n}{y} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n}{tweets.company}\PYG{o}{\PYGZdl{}}\PYG{n}{friends\PYGZus{}count}\PYG{p}{[}\PYG{n+nf}{duplicated}\PYG{p}{(}\PYG{n}{tweets.company}\PYG{o}{\PYGZdl{}}\PYG{n}{name}\PYG{p}{)])}
+
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} \PYGZgt{} [1] 817}
+\end{Verbatim}
