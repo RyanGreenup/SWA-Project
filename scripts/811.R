@@ -13,7 +13,7 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2, ggmap, parallel,
                corrplot, gridExtra, mise, latex2exp, tree, rpart, lattice, coin,
                primes, epitools, maps, clipr, ggmap, twitteR, ROAuth, tm,
                rtweet, base64enc, httpuv, SnowballC, RColorBrewer, wordcloud,
-               ggwordcloud)
+               ggwordcloud, boot)
 
 mise()
 
@@ -75,8 +75,9 @@ mise(); load("./resources/Download_1.Rdata")
 ##  sample(x, replace = TRUE)
 ## })
 
-kt_pop <- sample(x, size = 10^6, replace = TRUE)
+bt_pop <- sample(x, size = 10^6, replace = TRUE)
 
+# b.) Plot the Bootstrap Distribution ==========================================
 bt_pop_data <- tibble("Followers" = bt_pop)
 ggplot(data = bt_pop_data, aes(x = Followers)) +
   geom_histogram(aes(y = ..density..), fill = "lightblue", bins = 35, col = "pink") +
@@ -85,6 +86,32 @@ ggplot(data = bt_pop_data, aes(x = Followers)) +
   theme_bw() +
   labs(x = "Number of Followers", y = "Density",
        title = "Bootstrapped population of Follower Numbers")
-# b.) ==========================================================================
-# c.) ==========================================================================
-# d.) ==========================================================================
+
+# c.) Estimate a Confidence Interval for the populattion mean Follower Count ===
+## Resampling inside a loop/map is better syntax and is
+## equivalent to constructing infinitely large bootstrap distribution and
+## sampling from that population (ISL, 194)
+
+xbar_boot_loop <- replicate(10^3, {
+  s <- sample(x, replace = TRUE)
+  mean(s)
+  })
+quantile(xbar_boot_loop, c((1-0.97)/2, (1+0.97)/2))
+
+mean_val <- function(data, index) {
+  X = data[index]
+  return(mean(x))
+}
+
+
+xbar_boot <- boot(data = x, statistic = mean_val, R = 10^3) 
+boot.ci(xbar_boot, conf = 0.97, type = "all", index = 1)
+
+##
+##       1.5%      98.5%
+##   532.5957 10247.6708
+## [1] "All values of t are equal to  4295.19461444308 \n Cannot calculate confidence intervals"
+## NULL
+## Warning messages:
+
+# c.) Estimate a Confidence Interval for the populattion mean Follower Count ===
