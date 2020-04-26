@@ -1,0 +1,46 @@
+% Created 2020-04-26 Sun 13:58
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{/home/ryan/Dropbox/profiles/Templates/LaTeX/ScreenStyle}
+\author{Ryan Greenup}
+\date{\today}
+\title{Analysing Twitter for SquareEnix}
+\hypersetup{
+ pdfauthor={Ryan Greenup},
+ pdftitle={Analysing Twitter for SquareEnix},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.0.91 (Org mode 9.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+
+\section{8.1 Analysing the Relationship Between Friends and Followers for Twitter Users}
+\label{sec:org9c03e62}
+\subsection{8.1.1 Retrieve the posts from Twitter}
+\label{sec:orgd718371}
+relevant posts can be retrieved from twitter by leveraging the \texttt{rtweet} package. Unfourtunately \emph{SquareEnix} is a compound word and so it will be necessary to return results to match \texttt{SquareEnix} or \texttt{Square Enix}, this can be acheived by specifying the regex \texttt{.*square*}:
+
+The \texttt{rtweet} API will search for tweets that contain all the words of a query whether or not they are compounded together or seperated by \emph{whitespace} characters \cite{kearney2019}.
+
+
+\section{References}
+\label{sec:orgb0d8e9b}
+\end{document}

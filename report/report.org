@@ -1,0 +1,42 @@
+#+TITLE: Analysing Twitter for SquareEnix
+#+INFOJS_OPT: view:info toc:3
+#+PLOT: title:"Citas" ind:1 deps:(3) type:2d with:histograms set:"yrange [0:]"
+#+OPTIONS: tex:t
+#+TODO: TODO IN-PROGRESS WAITING DONE
+#+CATEGORY: TAD
+:HTML:
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="style.css">
+# Not embedding the HTML is faster, enable toggle-org-custom-inline-style when
+    # you want that feature
+#+CSL_STYLE: /home/ryan/Templates/CSL/nature.csl
+:END:
+:R:
+#+PROPERTY: header-args: R :results output  :session TADMain :dir ~/Notes/DataSci/Visual_Analytics/Assessment/the-marvel-universe-social-network/ :cache yes
+:END:
+:SlowDown:
+# #+STARTUP: latexpreview
+#+LATEX_HEADER: \usepackage{/home/ryan/Dropbox/profiles/Templates/LaTeX/ScreenStyle}
+# #+LATEX_HEADER: \twocolumn
+# [[/home/ryan/Dropbox/profiles/Templates/LaTeX/ScreenStyle.sty]]
+:END:
+
+
+* 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users
+** 8.1.1 Retrieve the posts from Twitter
+relevant posts can be retrieved from twitter by leveraging the =rtweet= package.
+
+The =rtweet= API will search for tweets that contain all the words of a query
+whether or not they are compounded together or seperated by /whitespace/
+characters cite:kearney2019. This works well for the /SquareEnix/ company
+because =Enix= is a proper noun that is included as a result of a 2003 merger
+cite:squareenix2020 and hence this will prevent false positives.
+
+* References
+# Remember, this is here for HTML and autocomplete, but latex uses biblatex for URL support
+# bibliography:/home/ryan/Dropbox/Studies/Papers/references.bib
+# I (Ryan) am managing this with zotero, please don't touch, I'll figure out how to sync the citations later or we can all just switch to a =.bib= file.
+<<bibliography link>>
+bibliography:./references.bib
+
+<<bibliographystyle link>>
+ bibliographystyle:unsrt

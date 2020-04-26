@@ -1,0 +1,65 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{kearney2019}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=337fb0dd0527f70d9893a55622d0795e}{%
+           family={Kearney},
+           familyi={K\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{337fb0dd0527f70d9893a55622d0795e}
+      \strng{fullhash}{337fb0dd0527f70d9893a55622d0795e}
+      \strng{bibnamehash}{337fb0dd0527f70d9893a55622d0795e}
+      \strng{authorbibnamehash}{337fb0dd0527f70d9893a55622d0795e}
+      \strng{authornamehash}{337fb0dd0527f70d9893a55622d0795e}
+      \strng{authorfullhash}{337fb0dd0527f70d9893a55622d0795e}
+      \field{sortinit}{K}
+      \field{sortinithash}{9fd838a31ba64d981e8f44562bd33f89}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Returns Twitter statuses matching a user provided search query. ONLY RETURNS DATA FROM THE PAST 6-9 DAYS. To return more than 18,000 statuses in a single call, set "retryonratelimit" to TRUE. search\_tweets2 Passes all arguments to search\_tweets. Returns data from one OR MORE search queries.}
+      \field{journaltitle}{rtweet: Collecting and analyzing Twitter data.}
+      \field{title}{Get Tweets Data on Statuses Identified via Search Query. —{} Search\_tweets}
+      \field{type}{Manual}
+      \field{urlday}{26}
+      \field{urlmonth}{4}
+      \field{urlyear}{2020}
+      \field{year}{2019}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /home/ryan/Zotero/storage/W2PV8X8Q/search_tweets.html
+      \endverb
+      \verb{urlraw}
+      \verb https://rtweet.info/reference/search_tweets.html
+      \endverb
+      \verb{url}
+      \verb https://rtweet.info/reference/search_tweets.html
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
