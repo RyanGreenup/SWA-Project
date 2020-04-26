@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Resample the Data}
+\PYG{n}{kt\PYGZus{}pop} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{sample}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{size} \PYG{o}{=} \PYG{l+m}{10}\PYG{o}{\PYGZca{}}\PYG{l+m}{6}\PYG{p}{,} \PYG{n}{replace} \PYG{o}{=} \PYG{k+kc}{TRUE}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Make the Population}
+\PYG{n}{bt\PYGZus{}pop\PYGZus{}data} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{tibble}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Followers\PYGZdq{}} \PYG{o}{=} \PYG{n}{bt\PYGZus{}pop}\PYG{p}{)}
+\PYG{n+nf}{ggplot}\PYG{p}{(}\PYG{n}{data} \PYG{o}{=} \PYG{n}{bt\PYGZus{}pop\PYGZus{}data}\PYG{p}{,} \PYG{n+nf}{aes}\PYG{p}{(}\PYG{n}{x} \PYG{o}{=} \PYG{n}{Followers}\PYG{p}{))} \PYG{o}{+}
+  \PYG{n+nf}{geom\PYGZus{}histogram}\PYG{p}{(}\PYG{n+nf}{aes}\PYG{p}{(}\PYG{n}{y} \PYG{o}{=} \PYG{n}{..density..}\PYG{p}{),} \PYG{n}{fill} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}lightblue\PYGZdq{}}\PYG{p}{,} \PYG{n}{bins} \PYG{o}{=} \PYG{l+m}{35}\PYG{p}{,} \PYG{n}{col} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}pink\PYGZdq{}}\PYG{p}{)} \PYG{o}{+}
+  \PYG{n+nf}{geom\PYGZus{}density}\PYG{p}{(}\PYG{n}{col} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}violetred2\PYGZdq{}}\PYG{p}{)} \PYG{o}{+}
+  \PYG{n+nf}{scale\PYGZus{}x\PYGZus{}continuous}\PYG{p}{(}\PYG{n}{limits} \PYG{o}{=} \PYG{n+nf}{c}\PYG{p}{(}\PYG{l+m}{1}\PYG{p}{,} \PYG{l+m}{800}\PYG{p}{))} \PYG{o}{+}
+  \PYG{n+nf}{theme\PYGZus{}bw}\PYG{p}{()} \PYG{o}{+}
+  \PYG{n+nf}{labs}\PYG{p}{(}\PYG{n}{x} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}Number of Followers\PYGZdq{}}\PYG{p}{,} \PYG{n}{y} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}Density\PYGZdq{}}\PYG{p}{,}
+       \PYG{n}{title} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}Bootstrapped population of Follower Numbers\PYGZdq{}}\PYG{p}{)}
+\end{Verbatim}

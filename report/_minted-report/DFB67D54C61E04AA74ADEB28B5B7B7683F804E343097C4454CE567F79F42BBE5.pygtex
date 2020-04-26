@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n}{px\PYGZus{}hat} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{mean}\PYG{p}{(}\PYG{n}{x}\PYG{o}{\PYGZgt{}}\PYG{n}{xbar}\PYG{p}{))}
+\PYG{p}{(}\PYG{n}{py\PYGZus{}hat} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{mean}\PYG{p}{(}\PYG{n}{y}\PYG{o}{\PYGZgt{}}\PYG{n}{ybar}\PYG{p}{))}
+
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} \PYGZgt{} [1] 0.0244798}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} \PYGZgt{} [1] 0.2729498}
+\end{Verbatim}
