@@ -1,4 +1,4 @@
-#+TITLE: Analysing Twitter for SquareEnix
+#+TITLE: Analysing Twitter for Ubisoft
 #+INFOJS_OPT: view:info toc:3
 #+PLOT: title:"Citas" ind:1 deps:(3) type:2d with:histograms set:"yrange [0:]"
 #+OPTIONS: tex:t
@@ -23,13 +23,58 @@
 
 * 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users
 ** 8.1.1 Retrieve the posts from Twitter
-relevant posts can be retrieved from twitter by leveraging the =rtweet= package.
+relevant posts can be retrieved from twitter by leveraging the =rtweet= package, packages can be loaded for use in **_R_** thusly:
+
+#+begin_src R
+# Load Packages -----------------------------------------------------------
+setwd("~/Dropbox/Notes/DataSci/Social_Web_Analytics/SWA-Project/scripts/")
+
+if (require("pacman")) {
+  library(pacman)
+} else{
+  install.packages("pacman")
+  library(pacman)
+}
+
+pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2, ggmap, parallel,
+               dplyr, plotly, tidyverse, reticulate, UsingR, Rmpfr, swirl,
+               corrplot, gridExtra, mise, latex2exp, tree, rpart, lattice, coin,
+               primes, epitools, maps, clipr, ggmap, twitteR, ROAuth, tm,
+               rtweet, base64enc, httpuv, SnowballC, RColorBrewer, wordcloud,
+               ggwordcloud)
+#+end_src
 
 The =rtweet= API will search for tweets that contain all the words of a query
-whether or not they are compounded together or seperated by /whitespace/
-characters cite:kearney2019. This works well for the /SquareEnix/ company
-because =Enix= is a proper noun that is included as a result of a 2003 merger
-cite:squareenix2020 and hence this will prevent false positives.
+regardless of uppercase or lowercase usage cite:kearney2019.
+
+and all tweets containing a mention of /Ubisoft/ can be returned:
+
+#+begin_src R
+# Set up Tokens ===========================================================
+
+options(RCurlOptions = list(
+  verbose = FALSE,
+  capath = system.file("CurlSSL", "cacert.pem", package = "RCurl"),
+  ssl.verifypeer = FALSE
+))
+
+setup_twitter_oauth(
+  consumer_key = "*************************",
+  consumer_secret = "**************************************************",
+  access_token = "**************************************************",
+  access_secret = "*********************************************"
+)
+
+# rtweet ==================================================================
+tk <-    rtweet::create_token(
+  app = "SWA",
+  consumer_key    = "*************************",
+  consumer_secret = "**************************************************",
+  access_token    = "**************************************************",
+  access_secret   = "*********************************************",
+  set_renv        = FALSE
+#+end_src
+
 
 * References
 # Remember, this is here for HTML and autocomplete, but latex uses biblatex for URL support
