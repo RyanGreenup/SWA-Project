@@ -133,8 +133,8 @@ Use ~mean(vec<val)~
 
 *** TODO 5 Bootstrap a confidence interval                                    :ryan:
 :LOGBOOK:
-CLOCK: [2020-04-26 Sun 19:27]
-CLOCK: [2020-04-26 Sun 17:22]--[2020-04-26 Sun 17:33] => -0:13
+CLOCK: [2020-04-26 Sun 19:27]--[2020-04-26 Sun 21:09] =>  1:42
+CLOCK: [2020-04-26 Sun 17:22]--[2020-04-26 Sun 17:33] =>  0:11
 :END:
 
 *** TODO 6 Who has a higher friend count given the confidence Interval        :navid:

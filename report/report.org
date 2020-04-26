@@ -144,7 +144,8 @@ provides that 20.6% of the users identified have above average friend counts, wh
 #+end_src
 
 
-** 8.1.5 Generate a bootsrap distribution of the Follower Counts
+** 8.1.5 Bootstrap confidence intervals
+*** a.) Generate a bootsrap distribution
 
 A bootstrap assumes that the population is an infinitely large repetition of the
 sample, a bootstrap of the follower counts can be produced by resampling with
@@ -178,6 +179,8 @@ ggplot(data = bt_pop_data, aes(x = Followers)) +
 #+NAME: btpopfg
 #+CAPTION: Histogram of the bootrapped population of follower counts
 [[./Figures/BootStrap_Pop.png]]
+
+*** b.) Estimate a Confidence Interval for Follower Counts
 
 * References
 # Remember, this is here for HTML and autocomplete, but latex uses biblatex for URL support
