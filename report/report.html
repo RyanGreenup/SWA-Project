@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-04-26 Sun 17:19 -->
+<!-- 2020-04-26 Sun 21:04 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Analysing Twitter for Ubisoft</title>
@@ -247,33 +247,34 @@ org_html_manager.setup();  // activate after the parameters are set
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgc58296e">1. 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users</a>
+<li><a href="#org4a99d5d">1. 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users</a>
 <ul>
-<li><a href="#orgcd1ee76">1.1. 8.1.1 Retrieve the posts from Twitter</a></li>
-<li><a href="#org38570ac">1.2. 8.2.2 Count of Followers and Friends</a></li>
-<li><a href="#org1e6c802">1.3. 8.1.3 Summary Statistics</a></li>
-<li><a href="#org4331210">1.4. 8.1.4 Above Average Followers</a></li>
+<li><a href="#orga9b5e41">1.1. 8.1.1 Retrieve the posts from Twitter</a></li>
+<li><a href="#org7dc8e87">1.2. 8.2.2 Count of Followers and Friends</a></li>
+<li><a href="#orge12a643">1.3. 8.1.3 Summary Statistics</a></li>
+<li><a href="#org436b45b">1.4. 8.1.4 Above Average Followers</a></li>
+<li><a href="#org8d15d8d">1.5. 8.1.5 Generate a bootsrap distribution of the Follower Counts</a></li>
 </ul>
 </li>
-<li><a href="#org8737298">2. References</a></li>
+<li><a href="#org7c61024">2. References</a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-orgc58296e" class="outline-2">
-<h2 id="orgc58296e"><span class="section-number-2">1</span> 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users</h2>
+<div id="outline-container-org4a99d5d" class="outline-2">
+<h2 id="org4a99d5d"><span class="section-number-2">1</span> 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orgcd1ee76" class="outline-3">
-<h3 id="orgcd1ee76"><span class="section-number-3">1.1</span> 8.1.1 Retrieve the posts from Twitter</h3>
+<div id="outline-container-orga9b5e41" class="outline-3">
+<h3 id="orga9b5e41"><span class="section-number-3">1.1</span> 8.1.1 Retrieve the posts from Twitter</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 relevant posts can be retrieved from twitter by utilising the <code>rtweet</code> package, packages can be loaded for use in <b><b><span class="underline">R</span></b></b> thusly:
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 1: </span>Load the Packages for <b><b><i>R</i></b></b></label><pre class="src src-R" id="org1ce64fb"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Load Packages -----------------------------------------------------------</span>
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>Load the Packages for <b><b><i>R</i></b></b></label><pre class="src src-R" id="org5d24e74"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Load Packages -----------------------------------------------------------</span>
 <span style="color: #a9a1e1;">setwd</span>(<span style="color: #98be65;">"~/Dropbox/Notes/DataSci/Social_Web_Analytics/SWA-Project/scripts/"</span>)
 
 <span style="color: #51afef;">if</span> (<span style="color: #a9a1e1;">require</span>(<span style="color: #98be65;">"pacman"</span>)) {
@@ -290,7 +291,7 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2,
                lattice, coin, primes, epitools, maps, clipr,
                ggmap, twitteR, ROAuth, tm, rtweet, base64enc,
                httpuv, SnowballC, RColorBrewer, wordcloud,
-               ggwordcloud, tidyverse)
+               ggwordcloud, tidyverse, boot)
 </pre>
 </div>
 
@@ -305,7 +306,7 @@ In order to leverage the <i>Twitter</i> API it is necessary to use tokens provid
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 2: </span>Import the twitter tokens (redacted)</label><pre class="src src-R" id="orgd417b54"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Set up Tokens ===========================================================</span>
+<label class="org-src-name"><span class="listing-number">Listing 2: </span>Import the twitter tokens (redacted)</label><pre class="src src-R" id="orgefa6de8"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Set up Tokens ===========================================================</span>
 
 <span style="color: #a9a1e1;">options</span>(RCurlOptions = list(
   verbose = <span style="color: #ECBE7B;">FALSE</span>,
@@ -332,11 +333,11 @@ tk <span style="color: #a9a1e1;">&lt;-</span>    rtweet::create_token(
 </div>
 
 <p>
-and hence all tweets containing a mention of <i>Ubisoft</i> can be returned and saved to disk as shown in listing <a href="#orga36c74b">3</a>:
+and hence all tweets containing a mention of <i>Ubisoft</i> can be returned and saved to disk as shown in listing <a href="#org58cca00">3</a>:
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 3: </span>Save the Tweets to the HDD as an <code>rdata</code> file</label><pre class="src src-R" id="orga36c74b"> n <span style="color: #a9a1e1;">&lt;-</span> <span style="color: #da8548; font-weight: bold;">1000</span>
+<label class="org-src-name"><span class="listing-number">Listing 3: </span>Save the Tweets to the HDD as an <code>rdata</code> file</label><pre class="src src-R" id="org58cca00"> n <span style="color: #a9a1e1;">&lt;-</span> <span style="color: #da8548; font-weight: bold;">1000</span>
  tweets.company <span style="color: #a9a1e1;">&lt;-</span> search_tweets(q = <span style="color: #98be65;">'ubisoft'</span>, n = n, token = tk,
                                  include_rts = <span style="color: #ECBE7B;">FALSE</span>)
  save(tweets.company[,], file = <span style="color: #98be65;">"resources/Download_1.Rdata"</span>)
@@ -345,16 +346,16 @@ and hence all tweets containing a mention of <i>Ubisoft</i> can be returned and 
 </div>
 </div>
 
-<div id="outline-container-org38570ac" class="outline-3">
-<h3 id="org38570ac"><span class="section-number-3">1.2</span> 8.2.2 Count of Followers and Friends</h3>
+<div id="outline-container-org7dc8e87" class="outline-3">
+<h3 id="org7dc8e87"><span class="section-number-3">1.2</span> 8.2.2 Count of Followers and Friends</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 In order to identify the number of users that are contained in the <i>tweets</i> the
-<code>unique()</code> function can be used to return a vector of names which can then be passed as an index to the vector of counts as shown in listing <a href="#orgbad4b23">4</a>, this provides that 81.7% of the tweets are by unique users.
+<code>unique()</code> function can be used to return a vector of names which can then be passed as an index to the vector of counts as shown in listing <a href="#org3b4491d">4</a>, this provides that 81.7% of the tweets are by unique users.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 4: </span>Return follower count of twitter posts</label><pre class="src src-R" id="orgbad4b23">(users <span style="color: #a9a1e1;">&lt;-</span> unique(tweets.company$name)) <span style="color: #a9a1e1;">%&gt;%</span> length()
+<label class="org-src-name"><span class="listing-number">Listing 4: </span>Return follower count of twitter posts</label><pre class="src src-R" id="org3b4491d">(users <span style="color: #a9a1e1;">&lt;-</span> unique(tweets.company$name)) <span style="color: #a9a1e1;">%&gt;%</span> length()
 x <span style="color: #a9a1e1;">&lt;-</span> tweets.company$followers_count[duplicated(tweets.company$name)]
 y <span style="color: #a9a1e1;">&lt;-</span> tweets.company$friends_count[duplicated(tweets.company$name)]
 
@@ -365,16 +366,16 @@ y <span style="color: #a9a1e1;">&lt;-</span> tweets.company$friends_count[duplic
 </div>
 
 
-<div id="outline-container-org1e6c802" class="outline-3">
-<h3 id="org1e6c802"><span class="section-number-3">1.3</span> 8.1.3 Summary Statistics</h3>
+<div id="outline-container-orge12a643" class="outline-3">
+<h3 id="orge12a643"><span class="section-number-3">1.3</span> 8.1.3 Summary Statistics</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
-The average number of friends and followers from users who posted tweets mentioning <i>Ubisoft</i> can be returned using the <code>mean()</code> as shown in listing <a href="#orgdd718e3">5</a>
+The average number of friends and followers from users who posted tweets mentioning <i>Ubisoft</i> can be returned using the <code>mean()</code> as shown in listing <a href="#orgb07ce77">5</a>
 this provides that on average each user has 586 friends and 63,620 followers.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 5: </span>Determine the average number of friends and followers</label><pre class="src src-R" id="orgdd718e3">x<span style="color: #a9a1e1;">&lt;-</span> rnorm(<span style="color: #da8548; font-weight: bold;">090</span>)
+<label class="org-src-name"><span class="listing-number">Listing 5: </span>Determine the average number of friends and followers</label><pre class="src src-R" id="orgb07ce77">x<span style="color: #a9a1e1;">&lt;-</span> rnorm(<span style="color: #da8548; font-weight: bold;">090</span>)
 y<span style="color: #a9a1e1;">&lt;-</span> rnorm(<span style="color: #da8548; font-weight: bold;">090</span>)
 (xbar <span style="color: #a9a1e1;">&lt;-</span> mean(x))
 (ybar <span style="color: #a9a1e1;">&lt;-</span> mean(y))
@@ -386,32 +387,77 @@ y<span style="color: #a9a1e1;">&lt;-</span> rnorm(<span style="color: #da8548; f
 </div>
 </div>
 
-<div id="outline-container-org4331210" class="outline-3">
-<h3 id="org4331210"><span class="section-number-3">1.4</span> 8.1.4 Above Average Followers</h3>
+<div id="outline-container-org436b45b" class="outline-3">
+<h3 id="org436b45b"><span class="section-number-3">1.4</span> 8.1.4 Above Average Followers</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
 Each user can be compared to the average number of followers, by using a logical
 operator on the vector (e.g. <code>y &gt; ybar</code>), this will return an output of logical
 values. <b><i>R</i></b> will coerce logicals into 1/0 values meaning that the mean value
-will return the proportion of <code>TRUE</code> responses as shown in listing <a href="#org1d87f20">6</a>. This
-provides that 20.6% of the users identified have above average follower counts.
+will return the proportion of <code>TRUE</code> responses as shown in listing <a href="#orgb146c1d">6</a>. This
+provides that 20.6% of the users identified have above average friend counts, while only 2.4% have an above average numbmer of followers.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 6: </span>Calculate the proportion of users with above average follower counts</label><pre class="src src-R" id="org1d87f20">(py_hat <span style="color: #a9a1e1;">&lt;-</span> mean(y&gt;ybar))
+<label class="org-src-name"><span class="listing-number">Listing 6: </span>Calculate the proportion of users with above average follower counts</label><pre class="src src-R" id="orgb146c1d">(px_hat <span style="color: #a9a1e1;">&lt;-</span> mean(x&gt;xbar))
+(py_hat <span style="color: #a9a1e1;">&lt;-</span> mean(y&gt;ybar))
 
-<span style="color: #5B6268;">## </span><span style="color: #5B6268;">&gt; [1] 0.2056304</span>
+<span style="color: #5B6268;">## </span><span style="color: #5B6268;">&gt; [1] 0.0244798</span>
+<span style="color: #5B6268;">## </span><span style="color: #5B6268;">&gt; [1] 0.2729498</span>
 </pre>
 </div>
 </div>
 </div>
+
+
+<div id="outline-container-org8d15d8d" class="outline-3">
+<h3 id="org8d15d8d"><span class="section-number-3">1.5</span> 8.1.5 Generate a bootsrap distribution of the Follower Counts</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+A bootstrap assumes that the population is an infinitely large repetition of the
+sample, a bootstrap of the follower counts can be produced by resampling with
+replacement/repetition and plotted using the <code>ggplot2</code> library as shown in
+listing <a href="#org99bc38f">7</a> and figure <a href="#orgff435db">1</a>.
+</p>
+
+<p>
+This shows that the population follower counts is a non-normal skew-right
+distribution, which is expected because the number of friends is an integer value bound by zero <sup><a href="#citeproc_bib_item_2">2</a></sup>.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 7: </span>Bootstrapping a population from the sample.</label><pre class="src src-R" id="org99bc38f"><span style="color: #5B6268;">## </span><span style="color: #5B6268;">Resample the Data</span>
+kt_pop <span style="color: #a9a1e1;">&lt;-</span> sample(x, size = <span style="color: #da8548; font-weight: bold;">10</span>^<span style="color: #da8548; font-weight: bold;">6</span>, replace = <span style="color: #ECBE7B;">TRUE</span>)
+
+<span style="color: #5B6268;">## </span><span style="color: #5B6268;">Make the Population</span>
+bt_pop_data <span style="color: #a9a1e1;">&lt;-</span> tibble(<span style="color: #98be65;">"Followers"</span> = bt_pop)
+ggplot(data = bt_pop_data, aes(x = Followers)) +
+  geom_histogram(aes(y = ..density..), fill = <span style="color: #98be65;">"lightblue"</span>, bins = <span style="color: #da8548; font-weight: bold;">35</span>, col = <span style="color: #98be65;">"pink"</span>) +
+  geom_density(col = <span style="color: #98be65;">"violetred2"</span>) +
+  scale_x_continuous(limits = c(<span style="color: #da8548; font-weight: bold;">1</span>, <span style="color: #da8548; font-weight: bold;">800</span>)) +
+  theme_bw() +
+  labs(x = <span style="color: #98be65;">"Number of Followers"</span>, y = <span style="color: #98be65;">"Density"</span>,
+       title = <span style="color: #98be65;">"Bootstrapped population of Follower Numbers"</span>)
+
+</pre>
 </div>
 
-<div id="outline-container-org8737298" class="outline-2">
-<h2 id="org8737298"><span class="section-number-2">2</span> References</h2>
+
+
+<div id="orgff435db" class="figure">
+<p><img src="./Figures/BootStrap_Pop.png" alt="BootStrap_Pop.png" width="400px" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Histogram of the bootrapped population of follower counts</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7c61024" class="outline-2">
+<h2 id="org7c61024"><span class="section-number-2">2</span> References</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-<a id="org7aeb171"></a>
+<a id="orge218a66"></a>
 </p>
 
 <style>.csl-left-margin{float: left; padding-right: 0em;} .csl-right-inline{margin: 0 0 0 1.2em;}</style><h2 class='citeproc-org-bib-h2'>Bibliography</h2>
@@ -419,11 +465,14 @@ provides that 20.6% of the users identified have above average follower counts.
   <div class="csl-entry"><a name="citeproc_bib_item_1"></a>
     <div class="csl-left-margin">1.</div><div class="csl-right-inline">Kearney, M. Get Tweets Data on Statuses Identified via Search Query. textemdash Search_tweets. <i>rtweet: Collecting and analyzing Twitter data.</i> (2019).</div>
   </div>
+  <div class="csl-entry"><a name="citeproc_bib_item_2"></a>
+    <div class="csl-left-margin">2.</div><div class="csl-right-inline">NIST. 1.3.3.14.6. Histogram Interpretation: Skewed (Non-Normal) Right. (2013).</div>
+  </div>
 </div>
 
 
 <p>
-<a id="orgb100f30"></a>
+<a id="org8d9bc07"></a>
  
 </p>
 </div>
@@ -431,7 +480,7 @@ provides that 20.6% of the users identified have above average follower counts.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Ryan Greenup</p>
-<p class="date">Created: 2020-04-26 Sun 17:19</p>
+<p class="date">Created: 2020-04-26 Sun 21:04</p>
 </div>
 </body>
 </html>

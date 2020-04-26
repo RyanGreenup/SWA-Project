@@ -69,3 +69,19 @@ mise(); load("./resources/Download_1.Rdata")
 (py_hat <- mean(y>ybar))
 
 # 8.1.5 BootStrap --------------------------------------------------------------
+## Re-Sampling with replacement is 
+## bt_pop <- replicate(10^2, {
+##  sample(x, replace = TRUE)
+## })
+
+kt_pop <- sample(x, size = 10^6, replace = TRUE)
+bt_pop_data <- tibble("Followers" = bt_pop)
+
+ggplot(data = bt_pop_data, aes(x = Followers)) +
+  geom_histogram(aes(y = ..density..), fill = "lightblue", bins = 35, col = "pink") +
+  geom_density(col = "violetred2") +
+  scale_x_continuous(limits = c(1, 800)) +
+  theme_bw() +
+  labs(x = "Number of Followers", y = "Density",
+       title = "Bootstrapped population of Follower Numbers")
+

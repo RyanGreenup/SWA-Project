@@ -47,7 +47,7 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2,
                lattice, coin, primes, epitools, maps, clipr,
                ggmap, twitteR, ROAuth, tm, rtweet, base64enc,
                httpuv, SnowballC, RColorBrewer, wordcloud,
-               ggwordcloud, tidyverse)
+               ggwordcloud, tidyverse, boot)
 #+end_src
 
 
@@ -144,7 +144,40 @@ provides that 20.6% of the users identified have above average friend counts, wh
 #+end_src
 
 
-** 8.1.5
+** 8.1.5 Generate a bootsrap distribution of the Follower Counts
+
+A bootstrap assumes that the population is an infinitely large repetition of the
+sample, a bootstrap of the follower counts can be produced by resampling with
+replacement/repetition and plotted using the =ggplot2= library as shown in
+listing [[btpop]] and figure [[btpopfg]].
+
+This shows that the population follower counts is a non-normal skew-right
+distribution, which is expected because the number of friends is an integer value bound by zero cite:nist2013.
+
+#+NAME: btpop
+#+CAPTION: Bootstrapping a population from the sample.
+#+begin_src R
+## Resample the Data
+kt_pop <- sample(x, size = 10^6, replace = TRUE)
+
+## Make the Population
+bt_pop_data <- tibble("Followers" = bt_pop)
+ggplot(data = bt_pop_data, aes(x = Followers)) +
+  geom_histogram(aes(y = ..density..), fill = "lightblue", bins = 35, col = "pink") +
+  geom_density(col = "violetred2") +
+  scale_x_continuous(limits = c(1, 800)) +
+  theme_bw() +
+  labs(x = "Number of Followers", y = "Density",
+       title = "Bootstrapped population of Follower Numbers")
+
+#+end_src
+
+
+#+attr_html: :width 400px
+#+attr_latex: :width 12cm
+#+NAME: btpopfg
+#+CAPTION: Histogram of the bootrapped population of follower counts
+[[./Figures/BootStrap_Pop.png]]
 
 * References
 # Remember, this is here for HTML and autocomplete, but latex uses biblatex for URL support
