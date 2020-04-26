@@ -1,9 +1,11 @@
 #+TITLE: Analysing Twitter for Ubisoft
+:SETUP:
 #+INFOJS_OPT: view:info toc:3
 #+PLOT: title:"Citas" ind:1 deps:(3) type:2d with:histograms set:"yrange [0:]"
 #+OPTIONS: tex:t
 #+TODO: TODO IN-PROGRESS WAITING DONE
 #+CATEGORY: TAD
+:END:
 :HTML:
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="style.css">
 # Not embedding the HTML is faster, enable toggle-org-custom-inline-style when
@@ -36,11 +38,13 @@ if (require("pacman")) {
   library(pacman)
 }
 
-pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2, ggmap, parallel,
-               dplyr, plotly, tidyverse, reticulate, UsingR, Rmpfr, swirl,
-               corrplot, gridExtra, mise, latex2exp, tree, rpart, lattice, coin,
-               primes, epitools, maps, clipr, ggmap, twitteR, ROAuth, tm,
-               rtweet, base64enc, httpuv, SnowballC, RColorBrewer, wordcloud,
+pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2,
+               ggmap, parallel, dplyr, plotly, tidyverse,
+               reticulate, UsingR, Rmpfr, swirl, corrplot,
+               gridExtra, mise, latex2exp, tree, rpart,
+               lattice, coin, primes, epitools, maps, clipr,
+               ggmap, twitteR, ROAuth, tm, rtweet, base64enc,
+               httpuv, SnowballC, RColorBrewer, wordcloud,
                ggwordcloud)
 #+end_src
 

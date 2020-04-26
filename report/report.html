@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-04-26 Sun 13:56 -->
+<!-- 2020-04-26 Sun 14:48 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Analysing Twitter for SquareEnix</title>
+<title>Analysing Twitter for Ubisoft</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Ryan Greenup" />
 <style type="text/css">
@@ -242,46 +242,100 @@ org_html_manager.setup();  // activate after the parameters are set
 </head>
 <body>
 <div id="content">
-<h1 class="title">Analysing Twitter for SquareEnix</h1>
+<h1 class="title">Analysing Twitter for Ubisoft</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgf58fb6e">1. 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users</a>
+<li><a href="#orgcebf9b0">1. 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users</a>
 <ul>
-<li><a href="#org848cb6f">1.1. 8.1.1 Retrieve the posts from Twitter</a></li>
+<li><a href="#orgfe7e04e">1.1. 8.1.1 Retrieve the posts from Twitter</a></li>
 </ul>
 </li>
-<li><a href="#orga61ef38">2. References</a></li>
+<li><a href="#org6f7080c">2. References</a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-orgf58fb6e" class="outline-2">
-<h2 id="orgf58fb6e"><span class="section-number-2">1</span> 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users</h2>
+<div id="outline-container-orgcebf9b0" class="outline-2">
+<h2 id="orgcebf9b0"><span class="section-number-2">1</span> 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org848cb6f" class="outline-3">
-<h3 id="org848cb6f"><span class="section-number-3">1.1</span> 8.1.1 Retrieve the posts from Twitter</h3>
+<div id="outline-container-orgfe7e04e" class="outline-3">
+<h3 id="orgfe7e04e"><span class="section-number-3">1.1</span> 8.1.1 Retrieve the posts from Twitter</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
-relevant posts can be retrieved from twitter by leveraging the <code>rtweet</code> package. Unfourtunately <i>SquareEnix</i> is a compound word and so it will be necessary to return results to match <code>SquareEnix</code> or <code>Square Enix</code>, this can be acheived by specifying the regex <code>.*square*</code>:
+relevant posts can be retrieved from twitter by leveraging the <code>rtweet</code> package, packages can be loaded for use in <b><b><span class="underline">R</span></b></b> thusly:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">Load Packages -----------------------------------------------------------</span>
+<span style="color: #b751b6;">setwd</span>(<span style="color: #50a14f;">"~/Dropbox/Notes/DataSci/Social_Web_Analytics/SWA-Project/scripts/"</span>)
+
+<span style="color: #e45649;">if</span> (<span style="color: #b751b6;">require</span>(<span style="color: #50a14f;">"pacman"</span>)) {
+  <span style="color: #b751b6;">library</span>(pacman)
+} <span style="color: #e45649;">else</span>{
+  install.packages(<span style="color: #50a14f;">"pacman"</span>)
+  <span style="color: #b751b6;">library</span>(pacman)
+}
+
+pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2,
+               ggmap, parallel, dplyr, plotly, tidyverse,
+               reticulate, UsingR, Rmpfr, swirl, corrplot,
+               gridExtra, mise, latex2exp, tree, rpart,
+               lattice, coin, primes, epitools, maps, clipr,
+               ggmap, twitteR, ROAuth, tm, rtweet, base64enc,
+               httpuv, SnowballC, RColorBrewer, wordcloud,
+               ggwordcloud)
+</pre>
+</div>
+
+<p>
+The <code>rtweet</code> API will search for tweets that contain all the words of a query
+regardless of uppercase or lowercase usage <sup><a href="#citeproc_bib_item_1">1</a></sup>.
 </p>
 
 <p>
-The <code>rtweet</code> API will search for tweets that contain all the words of a query whether or not they are compounded together or seperated by <i>whitespace</i> characters <sup><a href="#citeproc_bib_item_1">1</a></sup>.
+and all tweets containing a mention of <i>Ubisoft</i> can be returned:
 </p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">Set up Tokens ===========================================================</span>
+
+<span style="color: #b751b6;">options</span>(RCurlOptions = list(
+  verbose = <span style="color: #986801;">FALSE</span>,
+  capath = system.file(<span style="color: #50a14f;">"CurlSSL"</span>, <span style="color: #50a14f;">"cacert.pem"</span>, package = <span style="color: #50a14f;">"RCurl"</span>),
+  ssl.verifypeer = <span style="color: #986801;">FALSE</span>
+))
+
+setup_twitter_oauth(
+  consumer_key = <span style="color: #50a14f;">"*************************"</span>,
+  consumer_secret = <span style="color: #50a14f;">"**************************************************"</span>,
+  access_token = <span style="color: #50a14f;">"**************************************************"</span>,
+  access_secret = <span style="color: #50a14f;">"*********************************************"</span>
+)
+
+<span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">rtweet ==================================================================</span>
+tk <span style="color: #b751b6;">&lt;-</span>    rtweet::create_token(
+  app = <span style="color: #50a14f;">"SWA"</span>,
+  consumer_key    = <span style="color: #50a14f;">"*************************"</span>,
+  consumer_secret = <span style="color: #50a14f;">"**************************************************"</span>,
+  access_token    = <span style="color: #50a14f;">"**************************************************"</span>,
+  access_secret   = <span style="color: #50a14f;">"*********************************************"</span>,
+  set_renv        = <span style="color: #986801;">FALSE</span>
+</pre>
+</div>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-orga61ef38" class="outline-2">
-<h2 id="orga61ef38"><span class="section-number-2">2</span> References</h2>
+<div id="outline-container-org6f7080c" class="outline-2">
+<h2 id="org6f7080c"><span class="section-number-2">2</span> References</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-<a id="orgb4c3bb8"></a>
+<a id="org7202fdc"></a>
 </p>
 
 <style>.csl-left-margin{float: left; padding-right: 0em;} .csl-right-inline{margin: 0 0 0 1.2em;}</style><h2 class='citeproc-org-bib-h2'>Bibliography</h2>
@@ -293,7 +347,7 @@ The <code>rtweet</code> API will search for tweets that contain all the words of
 
 
 <p>
-<a id="org3a6a836"></a>
+<a id="org2bfd2c6"></a>
  
 </p>
 </div>
@@ -301,7 +355,7 @@ The <code>rtweet</code> API will search for tweets that contain all the words of
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Ryan Greenup</p>
-<p class="date">Created: 2020-04-26 Sun 13:56</p>
+<p class="date">Created: 2020-04-26 Sun 14:48</p>
 </div>
 </body>
 </html>

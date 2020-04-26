@@ -1,4 +1,4 @@
-% Created 2020-04-26 Sun 13:58
+% Created 2020-04-26 Sun 14:46
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -14,13 +14,14 @@
 \usepackage{amssymb}
 \usepackage{capt-of}
 \usepackage{hyperref}
+\usepackage{minted}
 \usepackage{/home/ryan/Dropbox/profiles/Templates/LaTeX/ScreenStyle}
 \author{Ryan Greenup}
 \date{\today}
-\title{Analysing Twitter for SquareEnix}
+\title{Analysing Twitter for Ubisoft}
 \hypersetup{
  pdfauthor={Ryan Greenup},
- pdftitle={Analysing Twitter for SquareEnix},
+ pdftitle={Analysing Twitter for Ubisoft},
  pdfkeywords={},
  pdfsubject={},
  pdfcreator={Emacs 27.0.91 (Org mode 9.4)}, 
@@ -33,14 +34,69 @@
 
 
 \section{8.1 Analysing the Relationship Between Friends and Followers for Twitter Users}
-\label{sec:org9c03e62}
+\label{sec:org7cd5f71}
 \subsection{8.1.1 Retrieve the posts from Twitter}
-\label{sec:orgd718371}
-relevant posts can be retrieved from twitter by leveraging the \texttt{rtweet} package. Unfourtunately \emph{SquareEnix} is a compound word and so it will be necessary to return results to match \texttt{SquareEnix} or \texttt{Square Enix}, this can be acheived by specifying the regex \texttt{.*square*}:
+\label{sec:orge5691af}
+relevant posts can be retrieved from twitter by leveraging the \texttt{rtweet} package, packages can be loaded for use in \textbf{\textbf{\uline{R}}} thusly:
 
-The \texttt{rtweet} API will search for tweets that contain all the words of a query whether or not they are compounded together or seperated by \emph{whitespace} characters \cite{kearney2019}.
+\begin{minted}[]{r}
+# Load Packages -----------------------------------------------------------
+setwd("~/Dropbox/Notes/DataSci/Social_Web_Analytics/SWA-Project/scripts/")
+
+if (require("pacman")) {
+  library(pacman)
+} else{
+  install.packages("pacman")
+  library(pacman)
+}
+
+pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2,
+               ggmap, parallel, dplyr, plotly, tidyverse,
+               reticulate, UsingR, Rmpfr, swirl, corrplot,
+               gridExtra, mise, latex2exp, tree, rpart,
+               lattice, coin, primes, epitools, maps, clipr,
+               ggmap, twitteR, ROAuth, tm, rtweet, base64enc,
+               httpuv, SnowballC, RColorBrewer, wordcloud,
+               ggwordcloud)
+\end{minted}
+
+The \texttt{rtweet} API will search for tweets that contain all the words of a query
+regardless of uppercase or lowercase usage \cite{kearney2019}.
+
+and all tweets containing a mention of \emph{Ubisoft} can be returned:
+
+\begin{minted}[]{r}
+# Set up Tokens ===========================================================
+
+options(RCurlOptions = list(
+  verbose = FALSE,
+  capath = system.file("CurlSSL", "cacert.pem", package = "RCurl"),
+  ssl.verifypeer = FALSE
+))
+
+setup_twitter_oauth(
+  consumer_key = "*************************",
+  consumer_secret = "**************************************************",
+  access_token = "**************************************************",
+  access_secret = "*********************************************"
+)
+
+# rtweet ==================================================================
+tk <-    rtweet::create_token(
+  app = "SWA",
+  consumer_key    = "*************************",
+  consumer_secret = "**************************************************",
+  access_token    = "**************************************************",
+  access_secret   = "*********************************************",
+  set_renv        = FALSE
+\end{minted}
 
 
 \section{References}
-\label{sec:orgb0d8e9b}
+\label{sec:orgcf812f5}
+\label{org1b72429}
+\bibliography{references}
+
+\label{org73f68ef}
+ \bibliographystyle{unsrt}
 \end{document}

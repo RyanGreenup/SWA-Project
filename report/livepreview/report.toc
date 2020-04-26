@@ -4,4 +4,4 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {}8.1.1 Retrieve the posts from Twitter}{1}{subsection.1.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {}References}{1}{section.2}
+\contentsline {section}{\numberline {}References}{2}{section.2}
