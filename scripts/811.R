@@ -42,13 +42,15 @@ options(RCurlOptions = list(
 # -----END PGP MESSAGE-----
 
 # Pull the Tweets --------------------------------------------------------
-## n <- 1000
-## tweets.company <- search_tweets(q = 'ubisoft', n = n, token = tk)
-## save(tweets.company[,], file = "resources/Download_1.Rdata")
-# Extra just in Case ===========================================================
-##  n <- 10000
-##  tweets.company <- search_tweets(q = 'ubisoft', n = n, token = tk)
-##  save(tweets.company[,], file = "resources/Download_1_Huge.Rdata")
+##  n <- 1000
+##  tweets.company <- search_tweets(q = 'ubisoft', n = n, token = tk,
+##                                  include_rts = FALSE)
+##  save(tweets.company[,], file = "resources/Download_1.Rdata")
+## Extra just in Case ===========================================================
+##   n <- 10000
+##   tweets.company <- search_tweets(q = 'ubisoft', n = n, token = tk,
+##                                   include_rts = FALSE)
+##   save(tweets.company[,], file = "resources/Download_1_Huge.Rdata")
 
 # Load the Tweets ==============================================================
 mise(); load("./resources/Download_1.Rdata")
