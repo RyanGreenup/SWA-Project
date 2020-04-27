@@ -1,0 +1,264 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{carpenter2000}{article}{}
+      \name{author}{2}{}{%
+        {{hash=e48e4558a3ee6d8d8621324b0313bf0b}{%
+           family={Carpenter},
+           familyi={C\bibinitperiod},
+           given={James},
+           giveni={J\bibinitperiod}}}%
+        {{hash=a0acf400efd18d4c362e769c4a6367e2}{%
+           family={Bithell},
+           familyi={B\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{d19209dfc2628d5d0bdec50a4c85363b}
+      \strng{fullhash}{d19209dfc2628d5d0bdec50a4c85363b}
+      \strng{bibnamehash}{d19209dfc2628d5d0bdec50a4c85363b}
+      \strng{authorbibnamehash}{d19209dfc2628d5d0bdec50a4c85363b}
+      \strng{authornamehash}{d19209dfc2628d5d0bdec50a4c85363b}
+      \strng{authorfullhash}{d19209dfc2628d5d0bdec50a4c85363b}
+      \field{sortinit}{C}
+      \field{sortinithash}{963e9d84a3da2344e8833203de5aed05}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Since the early 1980s, a bewildering array of methods for constructing bootstrap confidence intervals have been proposed. In this article, we address the following questions. First, when should bootstrap confidence intervals be used. Secondly, which method should be chosen, and thirdly, how should it be implemented. In order to do this, we review the common algorithms for resampling and methods for constructing bootstrap confidence intervals, together with some less well known ones, highlighting their strengths and weaknesses. We then present a simulation study, a flow chart for choosing an appropriate method and a survival analysis example. Copyright ©{} 2000 John Wiley \& Sons, Ltd.}
+      \field{issn}{1097-0258}
+      \field{journaltitle}{Statistics in Medicine}
+      \field{number}{9}
+      \field{shorttitle}{Bootstrap Confidence Intervals}
+      \field{title}{Bootstrap Confidence Intervals: When, Which, What? {A} Practical Guide for Medical Statisticians}
+      \field{urlday}{27}
+      \field{urlmonth}{4}
+      \field{urlyear}{2020}
+      \field{volume}{19}
+      \field{year}{2000}
+      \field{urldateera}{ce}
+      \field{pages}{1141\bibrangedash 1164}
+      \range{pages}{24}
+      \verb{doi}
+      \verb 10.1002/(SICI)1097-0258(20000515)19:9<1141::AID-SIM479>3.0.CO;2-F
+      \endverb
+      \verb{urlraw}
+      \verb https://doi-org.ezproxy.uws.edu.au/10.1002/(SICI)1097-0258(20000515)19:9<1141::AID-SIM479>3.0.CO;2-F
+      \endverb
+      \verb{url}
+      \verb https://doi-org.ezproxy.uws.edu.au/10.1002/(SICI)1097-0258(20000515)19:9%3C1141::AID-SIM479%3E3.0.CO;2-F
+      \endverb
+    \endentry
+    \entry{davison1997}{book}{}
+      \name{author}{2}{}{%
+        {{hash=a000a1396ff553d5e4ecfc95f573deb3}{%
+           family={Davison},
+           familyi={D\bibinitperiod},
+           given={A.\bibnamedelimi C.},
+           giveni={A\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=9bc7a7397bb838bd5f3c2eee408abd37}{%
+           family={Hinkley},
+           familyi={H\bibinitperiod},
+           given={D.\bibnamedelimi V.},
+           giveni={D\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Cambridge ; New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{954c7b3ee050a5ee0563ccc2ea27437f}
+      \strng{fullhash}{954c7b3ee050a5ee0563ccc2ea27437f}
+      \strng{bibnamehash}{954c7b3ee050a5ee0563ccc2ea27437f}
+      \strng{authorbibnamehash}{954c7b3ee050a5ee0563ccc2ea27437f}
+      \strng{authornamehash}{954c7b3ee050a5ee0563ccc2ea27437f}
+      \strng{authorfullhash}{954c7b3ee050a5ee0563ccc2ea27437f}
+      \field{sortinit}{D}
+      \field{sortinithash}{2ef1bd9a78cc71eb74d7231c635177b8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-0-521-57391-7 978-0-521-57471-6}
+      \field{title}{Bootstrap Methods and Their Application}
+      \field{year}{1997}
+      \keyw{Bootstrap (Statistics)}
+    \endentry
+    \entry{hesterberg2015}{article}{}
+      \name{author}{1}{}{%
+        {{hash=950c08aa39cb3c66ede988acb7c9070c}{%
+           family={Hesterberg},
+           familyi={H\bibinitperiod},
+           given={Tim\bibnamedelima C.},
+           giveni={T\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{950c08aa39cb3c66ede988acb7c9070c}
+      \strng{fullhash}{950c08aa39cb3c66ede988acb7c9070c}
+      \strng{bibnamehash}{950c08aa39cb3c66ede988acb7c9070c}
+      \strng{authorbibnamehash}{950c08aa39cb3c66ede988acb7c9070c}
+      \strng{authornamehash}{950c08aa39cb3c66ede988acb7c9070c}
+      \strng{authorfullhash}{950c08aa39cb3c66ede988acb7c9070c}
+      \field{sortinit}{H}
+      \field{sortinithash}{5f15a7bc777ad49ff15aa4d2831b1681}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Bootstrapping has enormous potential in statistics education and practice, but there are subtle issues and ways to go wrong. For example, the common combination of nonparametric bootstrapping and bootstrap percentile confidence intervals is less accurate than using t-intervals for small samples, though more accurate for larger samples. My goals in this article are to provide a deeper understanding of bootstrap methods—{}how they work, when they work or not, and which methods work better—{}and to highlight pedagogical issues. Supplementary materials for this article are available online., [Received December 2014. Revised August 2015]}
+      \field{issn}{0003-1305}
+      \field{journaltitle}{The American Statistician}
+      \field{month}{10}
+      \field{number}{4}
+      \field{shorttitle}{What {{Teachers Should Know About}} the {{Bootstrap}}}
+      \field{title}{What {{Teachers Should Know About}} the {{Bootstrap}}: {{Resampling}} in the {{Undergraduate Statistics Curriculum}}}
+      \field{urlday}{26}
+      \field{urlmonth}{4}
+      \field{urlyear}{2020}
+      \field{volume}{69}
+      \field{year}{2015}
+      \field{urldateera}{ce}
+      \field{pages}{371\bibrangedash 386}
+      \range{pages}{16}
+      \verb{doi}
+      \verb 10.1080/00031305.2015.1089789
+      \endverb
+      \verb{file}
+      \verb /home/ryan/Dropbox/Studies/Papers/Zotero/Attachments/The American Statistician/2015/Hesterberg_2015_What Teachers Should Know About the Bootstrap.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4784504/
+      \endverb
+      \verb{url}
+      \verb https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4784504/
+      \endverb
+    \endentry
+    \entry{kearney2019}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=337fb0dd0527f70d9893a55622d0795e}{%
+           family={Kearney},
+           familyi={K\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{337fb0dd0527f70d9893a55622d0795e}
+      \strng{fullhash}{337fb0dd0527f70d9893a55622d0795e}
+      \strng{bibnamehash}{337fb0dd0527f70d9893a55622d0795e}
+      \strng{authorbibnamehash}{337fb0dd0527f70d9893a55622d0795e}
+      \strng{authornamehash}{337fb0dd0527f70d9893a55622d0795e}
+      \strng{authorfullhash}{337fb0dd0527f70d9893a55622d0795e}
+      \field{sortinit}{K}
+      \field{sortinithash}{9fd838a31ba64d981e8f44562bd33f89}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Returns Twitter statuses matching a user provided search query. ONLY RETURNS DATA FROM THE PAST 6-9 DAYS. To return more than 18,000 statuses in a single call, set "retryonratelimit" to TRUE. search\_tweets2 Passes all arguments to search\_tweets. Returns data from one OR MORE search queries.}
+      \field{journaltitle}{rtweet: Collecting and analyzing Twitter data.}
+      \field{title}{Get Tweets Data on Statuses Identified via Search Query. —{} Search\_tweets}
+      \field{type}{Manual}
+      \field{urlday}{26}
+      \field{urlmonth}{4}
+      \field{urlyear}{2020}
+      \field{year}{2019}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /home/ryan/Zotero/storage/W2PV8X8Q/search_tweets.html
+      \endverb
+      \verb{urlraw}
+      \verb https://rtweet.info/reference/search_tweets.html
+      \endverb
+      \verb{url}
+      \verb https://rtweet.info/reference/search_tweets.html
+      \endverb
+    \endentry
+    \entry{nist2013}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=a44b6b00e5eebd7494e1fd00658685e2}{%
+           family={{NIST}},
+           familyi={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{a44b6b00e5eebd7494e1fd00658685e2}
+      \strng{fullhash}{a44b6b00e5eebd7494e1fd00658685e2}
+      \strng{bibnamehash}{a44b6b00e5eebd7494e1fd00658685e2}
+      \strng{authorbibnamehash}{a44b6b00e5eebd7494e1fd00658685e2}
+      \strng{authornamehash}{a44b6b00e5eebd7494e1fd00658685e2}
+      \strng{authorfullhash}{a44b6b00e5eebd7494e1fd00658685e2}
+      \field{sortinit}{N}
+      \field{sortinithash}{f7242c3ed3dc50029fca1be76c497c7c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{10}
+      \field{title}{1.3.3.14.6. {{Histogram Interpretation}}: {{Skewed}} ({{Non}}-{{Normal}}) {{Right}}}
+      \field{urlday}{26}
+      \field{urlmonth}{4}
+      \field{urlyear}{2020}
+      \field{year}{2013}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /home/ryan/Zotero/storage/SB37QPSU/histogr6.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.itl.nist.gov/div898/handbook/eda/section3/histogr6.htm
+      \endverb
+      \verb{url}
+      \verb https://www.itl.nist.gov/div898/handbook/eda/section3/histogr6.htm
+      \endverb
+    \endentry
+    \entry{ripley2020}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=9f9d654283f80c9c7890f4a86fd8a47a}{%
+           family={Ripley},
+           familyi={R\bibinitperiod},
+           given={Brian},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{9f9d654283f80c9c7890f4a86fd8a47a}
+      \strng{fullhash}{9f9d654283f80c9c7890f4a86fd8a47a}
+      \strng{bibnamehash}{9f9d654283f80c9c7890f4a86fd8a47a}
+      \strng{authorbibnamehash}{9f9d654283f80c9c7890f4a86fd8a47a}
+      \strng{authornamehash}{9f9d654283f80c9c7890f4a86fd8a47a}
+      \strng{authorfullhash}{9f9d654283f80c9c7890f4a86fd8a47a}
+      \field{sortinit}{R}
+      \field{sortinithash}{da6b42bd3ab22fee61abed031ee405f7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{R Documentation; Nonparametric Bootstrap Confidence Intervals}
+      \field{month}{4}
+      \field{title}{Boot.Ci Function | {{R Documentation}}}
+      \field{urlday}{27}
+      \field{urlmonth}{4}
+      \field{urlyear}{2020}
+      \field{year}{2020}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /home/ryan/Zotero/storage/H7XW89L2/boot.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.rdocumentation.org/packages/boot/versions/1.3-25/topics/boot.ci
+      \endverb
+      \verb{url}
+      \verb https://www.rdocumentation.org/packages/boot/versions/1.3-25/topics/boot.ci
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

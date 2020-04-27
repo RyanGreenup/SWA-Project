@@ -1,0 +1,13 @@
+## Resample the Data
+kt_pop <- sample(x, size = 10^6, replace = TRUE)
+
+## Make the Population
+bt_pop_data <- tibble("Followers" = bt_pop)
+ggplot(data = bt_pop_data, aes(x = Followers)) +
+  geom_histogram(aes(y = ..density..), fill = "lightblue", bins = 35, col = "pink") +
+  geom_density(col = "violetred2") +
+  scale_x_continuous(limits = c(1, 800)) +
+  theme_bw() +
+  labs(x = "Number of Followers", y = "Density",
+       title = "Bootstrapped population of Follower Numbers")
+
