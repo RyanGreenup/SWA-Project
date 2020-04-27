@@ -150,4 +150,8 @@ py_hat_boot <- boot(data = y>mean(y), statistic = prop, R = 10^3)
 boot.ci(py_hat_boot, conf = 0.97, type = "bca")
 
 
-# 8.1.7 Find Evidence to suggest independence
+# 8.1.7 Find Evidence to suggest independence-----------------------------------
+# a) Bin the Counts=============================================================
+# b) Find the Group Frequency ==================================================
+# c) Find the Expected counts under each group and Chi Test Independence =======
+#

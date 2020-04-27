@@ -367,3 +367,7 @@ quantile(py_hat_bt, c(0.015, 0.985))
 ## Calculations and Intervals on Original Scale
 #+end_src
 ** 8.1.7 Is the Number of Friends Independent to the Number of Followers
+*** Bin the Follower and Friend Categories
+*** Find the Group frequency
+*** Find the Expected Counts under each group and test for independence
+*** Conclusion
