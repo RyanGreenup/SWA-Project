@@ -152,6 +152,18 @@ boot.ci(py_hat_boot, conf = 0.97, type = "bca")
 
 # 8.1.7 Find Evidence to suggest independence-----------------------------------
 # a) Bin the Counts=============================================================
+## variables and names should not start with numbers
+## this is syntactically incorrect
+## https://stat.ethz.ch/R-manual/R-devel/library/base/html/make.names.html
+tens     <- y[0    <= y & y < 100]
+hundreds <- y[100  <= y & y < 1000]
+oneK     <- y[1000 <= y & y < 1000]
+twoK     <- y[2000 <= y & y < 1000]
+threeK   <- y[3000 <= y & y < 1000]
+fourK    <- y[4000 <= y & y < 1000]
+fiveKp   <- y[5000 <= y & y < Inf]
+
+
 # b) Find the Group Frequency ==================================================
 # c) Find the Expected counts under each group and Chi Test Independence =======
 #

@@ -160,6 +160,9 @@ Same as [[*5 Bootstrap a confidence interval][above]] pretty much, but you'll no
 + [[file:scripts/811.R::8.1.6 High Friend Count Proportion -------------------------------------------][Link to Code]]
 
 *** TODO 7 Test for Independence                                              :ryan:
+:LOGBOOK:
+CLOCK: [2020-04-27 Mon 21:22]
+:END:
 
 *** TODO
 ** TODO 8.2 Finding Themes
