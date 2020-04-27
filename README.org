@@ -131,13 +131,25 @@ CLOCK: [2020-04-26 Sun 17:02]--[2020-04-26 Sun 17:20] =>  0:18
 
 Use ~mean(vec<val)~
 
-*** TODO 5 Bootstrap a confidence interval                                    :ryan:
+*** DONE 5 Bootstrap a confidence interval                                    :ryan:ATTACH:
+:PROPERTIES:
+:ID:       93891e71-ef7c-4c20-a814-d3b44de9e5e3
+:END:
 :LOGBOOK:
-CLOCK: [2020-04-27 Mon 14:17]
+CLOCK: [2020-04-27 Mon 14:17]--[2020-04-27 Mon 16:14] =>  1:57
 CLOCK: [2020-04-27 Mon 07:51]--[2020-04-27 Mon 13:28] =>  5:37
 CLOCK: [2020-04-26 Sun 19:27]--[2020-04-26 Sun 21:09] =>  1:42
 CLOCK: [2020-04-26 Sun 17:22]--[2020-04-26 Sun 17:33] =>  0:11
 :END:
+
+This method was provided in the lecture notes, I also did some extra research for better marks:
+
+#+NAME: squished
+#+CAPTION: Lossless Compression of a Network graph
+#+attr_html: :width 400px
+#+attr_latex: :width 7cm
+ [[./docs/media/slidesboot.png]]
+
 
 *** TODO 6 Who has a higher friend count given the confidence Interval        :navid:
 *** TODO 7 Test for Independence                                              :kieran:
