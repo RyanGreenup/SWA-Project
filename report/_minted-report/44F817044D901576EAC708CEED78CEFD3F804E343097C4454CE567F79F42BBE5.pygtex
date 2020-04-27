@@ -1,0 +1,29 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} 8.1.6 High Friend Count Proportion \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{n}{prop} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{factor}\PYG{p}{(}\PYG{n+nf}{c}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Below\PYGZdq{}}\PYG{p}{,} \PYG{l+s}{\PYGZdq{}Above\PYGZdq{}}\PYG{p}{))}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} 1 is above average, 2 is below}
+\PYG{n}{py\PYGZus{}hat\PYGZus{}bt} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{replicate}\PYG{p}{(}\PYG{l+m}{10}\PYG{o}{\PYGZca{}}\PYG{l+m}{3}\PYG{p}{,} \PYG{p}{\PYGZob{}}
+  \PYG{n}{rs}      \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{sample}\PYG{p}{(}\PYG{n+nf}{c}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Below\PYGZdq{}}\PYG{p}{,} \PYG{l+s}{\PYGZdq{}Above\PYGZdq{}}\PYG{p}{),}
+                    \PYG{n}{size} \PYG{o}{=} \PYG{n+nf}{length}\PYG{p}{(}\PYG{n}{y}\PYG{p}{),}
+                    \PYG{n}{prob} \PYG{o}{=} \PYG{n+nf}{c}\PYG{p}{(}\PYG{n}{py\PYGZus{}hat}\PYG{p}{,} \PYG{l+m}{1}\PYG{o}{\PYGZhy{}}\PYG{n}{py\PYGZus{}hat}\PYG{p}{),}
+                    \PYG{n}{replace} \PYG{o}{=} \PYG{k+kc}{TRUE}\PYG{p}{)}
+\PYG{n}{isabove} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n}{rs} \PYG{o}{==} \PYG{l+s}{\PYGZdq{}Above\PYGZdq{}}
+\PYG{n+nf}{mean}\PYG{p}{(}\PYG{n}{isabove}\PYG{p}{)}
+\PYG{p}{\PYGZcb{})}
+\PYG{n+nf}{quantile}\PYG{p}{(}\PYG{n}{py\PYGZus{}hat\PYGZus{}bt}\PYG{p}{,} \PYG{n+nf}{c}\PYG{p}{(}\PYG{l+m}{0.015}\PYG{p}{,} \PYG{l+m}{0.985}\PYG{p}{))}
+
+
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}      1.5\PYGZpc{}     98.5\PYGZpc{}}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} 0.2399021 0.3072215}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} \PYGZgt{} \PYGZgt{} \PYGZgt{} . + \PYGZgt{} \PYGZgt{} \PYGZgt{}}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Based on 1000 bootstrap replicates}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} CALL :}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} boot.ci(boot.out = py\PYGZus{}hat\PYGZus{}boot, conf = 0.97, type = \PYGZdq{}bca\PYGZdq{})}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Intervals :}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Level       BCa}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} 97\PYGZpc{}   ( 0.2399,  0.3072 )}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Calculations and Intervals on Original Scale}
+\end{Verbatim}

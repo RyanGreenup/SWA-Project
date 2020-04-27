@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{xbar\PYGZus{}boot\PYGZus{}loop} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{replicate}\PYG{p}{(}\PYG{l+m}{10}\PYG{o}{\PYGZca{}}\PYG{l+m}{3}\PYG{p}{,} \PYG{p}{\PYGZob{}}
+  \PYG{n}{s} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{sample}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{replace} \PYG{o}{=} \PYG{k+kc}{TRUE}\PYG{p}{)}
+  \PYG{n+nf}{mean}\PYG{p}{(}\PYG{n}{s}\PYG{p}{)}
+  \PYG{p}{\PYGZcb{})}
+\PYG{n+nf}{quantile}\PYG{p}{(}\PYG{n}{xbar\PYGZus{}boot\PYGZus{}loop}\PYG{p}{,} \PYG{n+nf}{c}\PYG{p}{((}\PYG{l+m}{1\PYGZhy{}0.97}\PYG{p}{)}\PYG{o}{/}\PYG{l+m}{2}\PYG{p}{,} \PYG{p}{(}\PYG{l+m}{1+0.97}\PYG{p}{)}\PYG{o}{/}\PYG{l+m}{2}\PYG{p}{))}
+
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}       1.5\PYGZpc{}      98.5\PYGZpc{}}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}   588.4189 10228.7352}
+\end{Verbatim}

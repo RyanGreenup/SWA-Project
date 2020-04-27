@@ -1,0 +1,19 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{xbar\PYGZus{}boot} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{boot}\PYG{p}{(}\PYG{n}{data} \PYG{o}{=} \PYG{n}{x}\PYG{p}{,} \PYG{n}{statistic} \PYG{o}{=} \PYG{n}{mean\PYGZus{}val}\PYG{p}{,} \PYG{n}{R} \PYG{o}{=} \PYG{l+m}{10}\PYG{o}{\PYGZca{}}\PYG{l+m}{3}\PYG{p}{)}
+\PYG{n+nf}{boot.ci}\PYG{p}{(}\PYG{n}{xbar\PYGZus{}boot}\PYG{p}{,} \PYG{n}{conf} \PYG{o}{=} \PYG{l+m}{0.97}\PYG{p}{,} \PYG{n}{type} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}bca\PYGZdq{}}\PYG{p}{,} \PYG{n}{index} \PYG{o}{=} \PYG{l+m}{1}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Based on 1000 bootstrap replicates}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} CALL :}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} boot.ci(boot.out = xbar\PYGZus{}boot, conf = 0.97, type = \PYGZdq{}bca\PYGZdq{}, index = 1)}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Intervals :}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Level       BCa}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} 97\PYGZpc{}   ( 1079, 16227 )}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Calculations and Intervals on Original Scale}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Warning : BCa Intervals used Extreme Quantiles}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Some BCa intervals may be unstable}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Warning message:}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} In norm.inter(t, adj.alpha) : extreme order statistics used as endpoints}
+\end{Verbatim}

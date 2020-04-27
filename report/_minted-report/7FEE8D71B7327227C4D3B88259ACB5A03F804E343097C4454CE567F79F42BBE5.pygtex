@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Resample the Data}
+\PYG{p}{(}\PYG{n}{bt\PYGZus{}pop} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{sample}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{size} \PYG{o}{=} \PYG{l+m}{10}\PYG{o}{\PYGZca{}}\PYG{l+m}{6}\PYG{p}{,} \PYG{n}{replace} \PYG{o}{=} \PYG{k+kc}{TRUE}\PYG{p}{))} \PYG{o}{\PYGZpc{}\PYGZgt{}\PYGZpc{}} \PYG{n+nf}{head}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} \PYGZgt{} [1]   7 515 262 309 186 166}
+\end{Verbatim}

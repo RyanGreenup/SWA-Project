@@ -1,0 +1,34 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} d.) Estimate a Confidence Interval for the populattion mean Friend Count ===}
+\PYG{c+c1}{\PYGZsh{} Using a Percentile Method \PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{n}{ybar\PYGZus{}boot\PYGZus{}loop} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{replicate}\PYG{p}{(}\PYG{l+m}{10}\PYG{o}{\PYGZca{}}\PYG{l+m}{3}\PYG{p}{,} \PYG{p}{\PYGZob{}}
+  \PYG{n}{s} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{sample}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{replace} \PYG{o}{=} \PYG{k+kc}{TRUE}\PYG{p}{)}
+  \PYG{n+nf}{mean}\PYG{p}{(}\PYG{n}{s}\PYG{p}{)}
+  \PYG{p}{\PYGZcb{})}
+\PYG{n+nf}{quantile}\PYG{p}{(}\PYG{n}{ybar\PYGZus{}boot\PYGZus{}loop}\PYG{p}{,} \PYG{n+nf}{c}\PYG{p}{(}\PYG{l+m}{0.015}\PYG{p}{,} \PYG{l+m}{0.985}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Using BCA Method \PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{n}{mean\PYGZus{}val} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{function}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,} \PYG{n}{index}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+  \PYG{n}{X} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{n}{index}\PYG{p}{]}
+  \PYG{n+nf}{return}\PYG{p}{(}\PYG{n+nf}{mean}\PYG{p}{(}\PYG{n}{X}\PYG{p}{))}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{xbar\PYGZus{}boot} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{boot}\PYG{p}{(}\PYG{n}{data} \PYG{o}{=} \PYG{n}{y}\PYG{p}{,} \PYG{n}{statistic} \PYG{o}{=} \PYG{n}{mean\PYGZus{}val}\PYG{p}{,} \PYG{n}{R} \PYG{o}{=} \PYG{l+m}{10}\PYG{o}{\PYGZca{}}\PYG{l+m}{3}\PYG{p}{)}
+\PYG{n+nf}{boot.ci}\PYG{p}{(}\PYG{n}{xbar\PYGZus{}boot}\PYG{p}{,} \PYG{n}{conf} \PYG{o}{=} \PYG{l+m}{0.97}\PYG{p}{,} \PYG{n}{type} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}bca\PYGZdq{}}\PYG{p}{,} \PYG{n}{index} \PYG{o}{=} \PYG{l+m}{1}\PYG{p}{)}
+
+
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}     1.5\PYGZpc{}    98.5\PYGZpc{}}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} 383.7619 501.5903}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Based on 1000 bootstrap replicates}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} CALL :}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} boot.ci(boot.out = xbar\PYGZus{}boot, conf = 0.97, type = \PYGZdq{}bca\PYGZdq{}, index = 1)}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Intervals :}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Level       BCa}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} 97\PYGZpc{}   (386.8, 496.7 )}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Calculations and Intervals on Original Scale}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Some BCa intervals may be unstable}
+\end{Verbatim}
