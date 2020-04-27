@@ -155,15 +155,41 @@ boot.ci(py_hat_boot, conf = 0.97, type = "bca")
 ## variables and names should not start with numbers
 ## this is syntactically incorrect
 ## https://stat.ethz.ch/R-manual/R-devel/library/base/html/make.names.html
-tens     <- y[0    <= y & y < 100]
-hundreds <- y[100  <= y & y < 1000]
-oneK     <- y[1000 <= y & y < 1000]
-twoK     <- y[2000 <= y & y < 1000]
-threeK   <- y[3000 <= y & y < 1000]
-fourK    <- y[4000 <= y & y < 1000]
-fiveKp   <- y[5000 <= y & y < Inf]
+##
+var_levels <- c("Tens","Hundreds","1Thousands","2Thousands","3Thousands",
+                "4Thousands","5ThousandOrMore")
 
+## Assign Categories
+x_df <- data.frame(x)
+x_df$cat[0       <= x_df$x & x_df$x < 100] <- "Tens"
+x_df$cat[100     <= x_df$x & x_df$x < 1000] <- "Hundreds"
+x_df$cat[1000    <= x_df$x & x_df$x < 2000] <- "1Thousands"
+x_df$cat[2000    <= x_df$x & x_df$x < 3000] <- "2Thousands"
+x_df$cat[3000    <= x_df$x & x_df$x < 4000] <- "3Thousands"
+x_df$cat[4000    <= x_df$x & x_df$x < 5000] <- "4Thousands"
+x_df$cat[5000    <= x_df$x & x_df$x < Inf] <- "5ThousandOrMore"
 
-# b) Find the Group Frequency ==================================================
+### Make a factor
+x_df$cat <- factor(x_df$cat, levels = var_levels, ordered = TRUE)
+
+### Determine Frequencies
+(x_freq <- table(x_df$cat) %>% as.matrix())
+
+# b) Find the Friend Count Frequency ===========================================
+## Assign Categories
+y_df <- data.frame(y)
+y_df$cat[0       <= y_df$y & y_df$y < 100] <- "Tens"
+y_df$cat[100     <= y_df$y & y_df$y < 1000] <- "Hundreds"
+y_df$cat[1000    <= y_df$y & y_df$y < 2000] <- "1Thousands"
+y_df$cat[2000    <= y_df$y & y_df$y < 3000] <- "2Thousands"
+y_df$cat[3000    <= y_df$y & y_df$y < 4000] <- "3Thousands"
+y_df$cat[4000    <= y_df$y & y_df$y < 5000] <- "4Thousands"
+y_df$cat[5000    <= y_df$y & y_df$y < Inf] <- "5ThousandOrMore"
+
+### Make a factor
+y_df$cat <- factor(y_df$cat, levels = var_levels, ordered = TRUE)
+
+### Determine Frequencies
+(y_freq <- table(y_df$cat) %>% as.matrix())
 # c) Find the Expected counts under each group and Chi Test Independence =======
 #
