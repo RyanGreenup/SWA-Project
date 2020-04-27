@@ -150,8 +150,12 @@ This method was provided in the lecture notes, I also did some extra research fo
 #+attr_latex: :width 7cm
  [[./docs/media/slidesboot.png]]
 
+*** TODO 6 Who has a higher friend count given the confidence Interval        :ryan:
+:LOGBOOK:
+CLOCK: [2020-04-27 Mon 16:31]
+:END:
 
-*** TODO 6 Who has a higher friend count given the confidence Interval        :navid:
+
 *** TODO 7 Test for Independence                                              :kieran:
 *** TODO
 ** TODO 8.2 Finding Themes

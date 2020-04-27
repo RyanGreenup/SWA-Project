@@ -128,3 +128,16 @@ boot.ci(xbar_boot, conf = 0.97, type = "bca", index = 1)
 ## https://www.datacamp.com/community/tutorials/bootstrap-r
 
 # 8.1.6 High Friend Count Proportion -------------------------------------------
+prop <- factor(c("Below", "Above"))
+## 1 is above average, 2 is below
+py_hat_bt <- replicate(10^3, {
+  rs      <- sample(c("Below", "Above"),
+                    size = length(y),
+                    prob = c(py_hat, 1-py_hat),
+                    replace = TRUE)
+isabove <- rs == "Above"
+mean(isabove)
+})
+quantile(py_hat_bt, c(0.015, 0.985))
+
+# 8.1.7 Find Evidence to suggest independence
