@@ -118,7 +118,7 @@ WwEP
 CLOCK: [2020-04-26 Sun 15:40]--[2020-04-26 Sun 16:52] =>  1:12
 :END:
 Just use the ~duplicated~ function as an index as [[file:scripts/811.R::Friend and Follower Count ----------------------------------------------------][shown here]]
-*** DONE 3 Find the Average Followers                                         :ryan:
+*** TODO 3 Find the Average Followers                                         :ryan:
 :LOGBOOK:
 CLOCK: [2020-04-26 Sun 16:55]--[2020-04-26 Sun 17:02] =>  0:07
 :END:
@@ -131,71 +131,14 @@ CLOCK: [2020-04-26 Sun 17:02]--[2020-04-26 Sun 17:20] =>  0:18
 
 Use ~mean(vec<val)~
 
-*** DONE 5 Bootstrap a confidence interval                                    :ryan:ATTACH:
-:PROPERTIES:
-:ID:       93891e71-ef7c-4c20-a814-d3b44de9e5e3
-:END:
+*** TODO 5 Bootstrap a confidence interval                                    :ryan:
 :LOGBOOK:
-CLOCK: [2020-04-27 Mon 14:17]--[2020-04-27 Mon 16:14] =>  1:57
-CLOCK: [2020-04-27 Mon 07:51]--[2020-04-27 Mon 13:28] =>  5:37
-CLOCK: [2020-04-26 Sun 19:27]--[2020-04-26 Sun 21:09] =>  1:42
-CLOCK: [2020-04-26 Sun 17:22]--[2020-04-26 Sun 17:33] =>  0:11
+CLOCK: [2020-04-26 Sun 19:27]
+CLOCK: [2020-04-26 Sun 17:22]--[2020-04-26 Sun 17:33] => -0:13
 :END:
 
-This method was provided in the lecture notes, I also did some extra research for better marks:
-
-#+NAME: squished
-#+CAPTION: Lossless Compression of a Network graph
-#+attr_html: :width 400px
-#+attr_latex: :width 7cm
- [[./docs/media/slidesboot.png]]
-
-*** DONE 6 Who has a higher friend count given the confidence Interval        :ryan:
-:LOGBOOK:
-CLOCK: [2020-04-27 Mon 19:17]--[2020-04-27 Mon 21:20] =>  2:03
-CLOCK: [2020-04-27 Mon 16:31]--[2020-04-27 Mon 16:53] =>  0:22
-:END:
-Same as [[*5 Bootstrap a confidence interval][above]] pretty much, but you'll notice I attached some notes justifying my description of the confidence interval [[./docs/ConfIntNotes.pdf][here]].
-
-+ [[file:scripts/811.R::8.1.6 High Friend Count Proportion -------------------------------------------][Link to Code]]
-
-*** TODO 7 Test for Independence                                              :ryan:
-:LOGBOOK:
-CLOCK: [2020-04-27 Mon 21:22]--[2020-04-27 Mon 22:39] =>  1:17
-:END:
-
-Originally I tried the following as described in issue =#3=
-#+begin_src R
-tens     <- y[0    <= y & y < 100]
-hundreds <- y[100  <= y & y < 1000]
-oneK     <- y[1000 <= y & y < 1000]
-twoK     <- y[2000 <= y & y < 1000]
-threeK   <- y[3000 <= y & y < 1000]
-fourK    <- y[4000 <= y & y < 1000]
-fiveKp   <- y[5000 <= y & y < Inf]
-#+end_src
-
-but I didn't like that and changed it to this:
-
-#+begin_src R
-## Assign Categories
-y_df <- data.frame(y)
-y_df$cat[0       <= y_df$y & y_df$y < 100] <- "Tens"
-y_df$cat[100     <= y_df$y & y_df$y < 1000] <- "Hundreds"
-y_df$cat[1000    <= y_df$y & y_df$y < 2000] <- "1Thousands"
-y_df$cat[2000    <= y_df$y & y_df$y < 3000] <- "2Thousands"
-y_df$cat[3000    <= y_df$y & y_df$y < 4000] <- "3Thousands"
-y_df$cat[4000    <= y_df$y & y_df$y < 5000] <- "4Thousands"
-y_df$cat[5000    <= y_df$y & y_df$y < Inf] <- "5ThousandOrMore"
-
-### Make a factor
-y_df$cat <- factor(y_df$cat, ordered = FALSE)
-
-### Determine Frequencies
-y_freq <- table(y_df$cat) %>% as.matrix()
-#+end_src
-
-
+*** TODO 6 Who has a higher friend count given the confidence Interval        :navid:
+*** TODO 7 Test for Independence                                              :kieran:
 *** TODO
 ** TODO 8.2 Finding Themes
 *** 8. Find unique users with above average friend counts
