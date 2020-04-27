@@ -312,8 +312,28 @@ boot.ci(xbar_boot, conf = 0.97, type = "bca", index = 1)
 #+end_src
 
 ** FIXME 8.1.6 Estimate a 97% Confidence Interval for the High Friend Count Proportion
+:PROPERTIES:
+:DIR:      /home/ryan/Dropbox/Notes/DataSci/Social_Web_Analytics/SWA-Project/docs/
+:END:
 In order to bootstrap a confidence interval for the proportion of users with
-above average follower counts repeteadly draw random samples from an infinitely large population composed entirely of the sample, this can be acheived by resampling the observations of above and below as shown in listing [[phat]].
+above average follower counts, repeteadly draw random samples from an infinitely
+large population composed entirely of the sample, and record the sampled
+proportion. this can be acheived by resampling the observations of above and
+below as shown in listing [[phat]].
+
+This provides that:
+ + The 97% confidence interval for the population proportion of users that have an above average number of friends is between 0.24 and 0.31.
+  + i.e. The probability of any given sample containing the population mean within this interval would be 97%, although  that doesn't however mean that there is a 97% probability that this interval contains the value, merely that we may be 97% /confident/
+
+   #+begin_comment
+   i.e. 97% of samples drawn from a population will have the population mean inside the corresponding confidence interval, So if we intended to sample a population and draw a confidence interval, that confidence interval would be the probability of any given sample containing the population mean.
+
+   Given a sample however it is not correct to then conclude that the confidence interval is the probability of that sample containing the value because we simply have no information on how good the sample is at predicting the population, it could be a really biased sample and we can't really know what \mu is anyway.
+
+   All we know is that if many samples were drawn and one randomly selected, the probability of that sample containing the poulation in the interval would be 97%
+
+   See [[attachment:ConfIntNotes.pdf][this Attachment]]
+   #+end_comment
 
 #+NAME: phat
 #+CAPTION: Bootstrap of Proportion of Friends above average
@@ -333,7 +353,17 @@ quantile(py_hat_bt, c(0.015, 0.985))
 
 
 ##      1.5%     98.5%
-## 0.6976744 0.7601163
+## 0.2399021 0.3072215
+## > > > . + > > >
+## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 1000 bootstrap replicates
+##
+## CALL :
+## boot.ci(boot.out = py_hat_boot, conf = 0.97, type = "bca")
+##
+## Intervals :
+## Level       BCa
+## 97%   ( 0.2399,  0.3072 )
+## Calculations and Intervals on Original Scale
 #+end_src
-
-
+** 8.1.7 Is the Number of Friends Independent to the Number of Followers

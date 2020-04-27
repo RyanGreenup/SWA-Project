@@ -146,7 +146,7 @@ prop <- function(data, index) {
   mean(X)
 }
 
-py_hat_boot <- boot(data = y<mean(y), statistic = prop, R = 10^3)
+py_hat_boot <- boot(data = y>mean(y), statistic = prop, R = 10^3)
 boot.ci(py_hat_boot, conf = 0.97, type = "bca")
 
 

@@ -1,4 +1,4 @@
-% Created 2020-04-27 Mon 19:38
+% Created 2020-04-27 Mon 21:26
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -35,9 +35,9 @@
 
 
 \section{8.1 Analysing the Relationship Between Friends and Followers for Twitter Users}
-\label{sec:org804c5c2}
+\label{sec:org39ce2a3}
 \subsection{8.1.1 Retrieve the posts from Twitter}
-\label{sec:orgd7415b1}
+\label{sec:orgef0839f}
 relevant posts can be retrieved from twitter by utilising the \texttt{rtweet} package, packages can be loaded for use in \textbf{\textbf{\uline{R}}} thusly:
 
 \begin{listing}[htbp]
@@ -61,7 +61,7 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2,
                httpuv, SnowballC, RColorBrewer, wordcloud,
                ggwordcloud, tidyverse, boot)
 \end{minted}
-\caption{\label{org18c70b3}Load the Packages for \textbf{\textbf{\emph{R}}}}
+\caption{\label{orgfec06b8}Load the Packages for \textbf{\textbf{\emph{R}}}}
 \end{listing}
 
 
@@ -96,10 +96,10 @@ tk <-    rtweet::create_token(
   access_secret   = "*********************************************",
   set_renv        = FALSE
 \end{minted}
-\caption{\label{orge37fed6}Import the twitter tokens (redacted)}
+\caption{\label{org89e2677}Import the twitter tokens (redacted)}
 \end{listing}
 
-and hence all tweets containing a mention of \emph{Ubisoft} can be returned and saved to disk as shown in listing \ref{org8214068}:
+and hence all tweets containing a mention of \emph{Ubisoft} can be returned and saved to disk as shown in listing \ref{orgae8b70c}:
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -108,13 +108,13 @@ and hence all tweets containing a mention of \emph{Ubisoft} can be returned and 
                                  include_rts = FALSE)
  save(tweets.company[,], file = "resources/Download_1.Rdata")
 \end{minted}
-\caption{\label{org8214068}Save the Tweets to the HDD as an \texttt{rdata} file}
+\caption{\label{orgae8b70c}Save the Tweets to the HDD as an \texttt{rdata} file}
 \end{listing}
 
 \subsection{8.2.2 Count of Followers and Friends}
-\label{sec:org4cd44c7}
+\label{sec:orgb679a83}
 In order to identify the number of users that are contained in the \emph{tweets} the
-\texttt{unique()} function can be used to return a vector of names which can then be passed as an index to the vector of counts as shown in listing \ref{org5348e8a}, this provides that 81.7\% of the tweets are by unique users.
+\texttt{unique()} function can be used to return a vector of names which can then be passed as an index to the vector of counts as shown in listing \ref{orga5caa48}, this provides that 81.7\% of the tweets are by unique users.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -124,13 +124,13 @@ y <- tweets.company$friends_count[duplicated(tweets.company$name)]
 
 ## > [1] 817
 \end{minted}
-\caption{\label{org5348e8a}Return follower count of twitter posts}
+\caption{\label{orga5caa48}Return follower count of twitter posts}
 \end{listing}
 
 
 \subsection{8.1.3 Summary Statistics}
-\label{sec:orgb49433d}
-The average number of friends and followers from users who posted tweets mentioning \emph{Ubisoft} can be returned using the \texttt{mean()} as shown in listing \ref{orgb993b6b}
+\label{sec:org6e27135}
+The average number of friends and followers from users who posted tweets mentioning \emph{Ubisoft} can be returned using the \texttt{mean()} as shown in listing \ref{org2efb9f3}
 this provides that on average each user has 586 friends and 63,620 followers.
 
 \begin{listing}[htbp]
@@ -143,15 +143,15 @@ y<- rnorm(090)
 ## > [1] 4295.195
 ## > [1] 435.9449
 \end{minted}
-\caption{\label{orgb993b6b}Determine the average number of friends and followers}
+\caption{\label{org2efb9f3}Determine the average number of friends and followers}
 \end{listing}
 
 \subsection{8.1.4 Above Average Followers}
-\label{sec:org50ae54f}
+\label{sec:org685319e}
 Each user can be compared to the average number of followers, by using a logical
 operator on the vector (e.g. \texttt{y > ybar}), this will return an output of logical
 values. \textbf{\emph{R}} will coerce logicals into 1/0 values meaning that the mean value
-will return the proportion of \texttt{TRUE} responses as shown in listing \ref{org3e3b3b7}. This
+will return the proportion of \texttt{TRUE} responses as shown in listing \ref{orgaf3bf4d}. This
 provides that:
 
 \begin{itemize}
@@ -167,19 +167,19 @@ provides that:
 ## > [1] 0.0244798
 ## > [1] 0.2729498
 \end{minted}
-\caption{\label{org3e3b3b7}Calculate the proportion of users with above average follower counts}
+\caption{\label{orgaf3bf4d}Calculate the proportion of users with above average follower counts}
 \end{listing}
 
 
 \subsection{8.1.5 Bootstrap confidence intervals}
-\label{sec:org5883248}
+\label{sec:org1c272ac}
 \subsubsection{a/b.) Generate a bootsrap distribution}
-\label{sec:orgb96200d}
+\label{sec:org297260f}
 
 A bootstrap assumes that the population is an infinitely large repetition of the
 sample and may be produces with respect to follower counts by resampling with
 replacement/repetition and plotted using the \texttt{ggplot2} library as deomonstrated
-in listings \ref{org7638036} and \ref{orgf1f434a} and shown in figure \ref{fig:org6d2f3e0}.
+in listings \ref{org16ef971} and \ref{orgb361d2d} and shown in figure \ref{fig:org100a61e}.
 
 This shows that the population follower counts is a non-normal skew-right
 distribution, which is expected because the number of friends is an integer value bound by zero \cite{nist2013}.
@@ -191,7 +191,7 @@ distribution, which is expected because the number of friends is an integer valu
 
 ## > [1]   7 515 262 309 186 166
 \end{minted}
-\caption{\label{org7638036}Bootstrapping a population from the sample.}
+\caption{\label{org16ef971}Bootstrapping a population from the sample.}
 \end{listing}
 
 \begin{listing}[htbp]
@@ -207,32 +207,32 @@ ggplot(data = bt_pop_data, aes(x = Followers)) +
        title = "Bootstrapped population of Follower Numbers")
 
 \end{minted}
-\label{orgf1f434a}
+\label{orgb361d2d}
 \end{listing}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=12cm]{./Figures/BootStrap_Pop.png}
-\caption{\label{fig:org6d2f3e0}Histogram of the bootrapped population of follower counts}
+\caption{\label{fig:org100a61e}Histogram of the bootrapped population of follower counts}
 \end{figure}
 
 \subsubsection{c.) Estimate a Confidence Interval for the population mean Follower Counts}
-\label{sec:org9f23f92}
+\label{sec:orga3d2e45}
 In order to perform a bootrap for the population mean value of follower counts it is necessary to:
 
 \begin{enumerate}
 \item Resample the data with replacement
 \begin{itemize}
-\item that is randomly select values from the sample allowing for repetition
+\item i.e. randomly select values from the sample allowing for repetition
 \end{itemize}
-\item Measure the statistic in concern
+\item Measure the statistic of concern
 \item Replicate this a sufficient number of times
 \begin{itemize}
-\item Greater than or equal to 1000 times \cite[Ch. 5]{davison1997}
+\item i.e. Greater than or equal to 1000 times \cite[Ch. 5]{davison1997}
 \end{itemize}
 \end{enumerate}
 
-This is equivalent to drawing a sample from a population that is infinitely large and constructed of repetitions of the sample. This can be performed in \textbf{\emph{R}} as shown in listings
+This is equivalent to drawing a sample from a population that is infinitely large and constructed of repetitions of the sample. This can be performed in \textbf{\emph{R}} as shown in listing \ref{orgb0e125b}.
 
 
 \begin{listing}[htbp]
@@ -246,18 +246,16 @@ quantile(xbar_boot_loop, c((1-0.97)/2, (1+0.97)/2))
 ##       1.5%      98.5%
 ##   588.4189 10228.7352
 \end{minted}
-\caption{\label{org9b4e17a}Confidence Interval of Mean Follower Count in Population}
+\caption{\label{orgb0e125b}Confidence Interval of Mean Follower Count in Population}
 \end{listing}
-
-This provides that 97\% of samples drawn from a population will contain the population mean
 
 A 97\% probability interval is such that a sample drawn from a population will contain the population mean in that interval 97\% of the time, this means that it may be concluded with a high degree of certainty that the true population mean lies between 588 and 10228.
 
 \begin{enumerate}
 \item Alternative Approaches
-\label{sec:org5b27e94}
+\label{sec:org466af4e}
 If this data was normally distributed it may have been appropriate to consider
-bootstrapping the standard error, however it is more appropriate to use a
+bootstrapping the standard error and using a \(t\) distribution, however it is more appropriate to use a
 percentile interval for skewed data such as this, in saying that however this method is not considered to be very accurate in the literature and is often too narrow. \cite[Section 4.1]{hesterberg2015}
 
 \begin{itemize}
@@ -275,7 +273,7 @@ In this work it is provided that the \(BC_{a}\) method of constructing confidenc
  intervals is  superior to mere percentile
  methods in terms of accuracy \cite[Ch. 5]{davison1997}, a sentiment echoed in the literature. \cite[Ch. 5]{carpenter2000,davison1997}
 
-Such methods can be implemented in \textbf{\emph{R}} by passing a function to the the \texttt{boot} call as shown in listing \ref{orge7fb5bb}. This provides a broader interval, providing that the true confidence interval could lie between 1079 and 16227 followers.
+Such methods can be implemented in \textbf{\emph{R}} by passing a function to the the \texttt{boot} call as shown in listing \ref{org5f7b8db}. This provides a broader interval, providing that the true confidence interval could lie between 1079 and 16227 followers.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -297,19 +295,19 @@ boot.ci(xbar_boot, conf = 0.97, type = "bca", index = 1)
 ## Warning message:
 ## In norm.inter(t, adj.alpha) : extreme order statistics used as endpoints
 \end{minted}
-\caption{\label{orge7fb5bb}Bootstrap of population mean follower count implementing the \(BC_{a}\) method}
+\caption{\label{org5f7b8db}Bootstrap of population mean follower count implementing the \(BC_{a}\) method}
 \end{listing}
 
-\label{org7f66bb4}
+\label{org5ce2384}
 \bibliography{references}
 
-\label{org14bc9ba}
+\label{org9b1d2f2}
  \bibliographystyle{unsrt}
 \end{enumerate}
 
 \subsubsection{d.) Estimate a Confidence Interval for the population mean Friend Counts}
-\label{sec:org3ee8df4}
-A Confidence interval for the population mean friend counts may be constructed in a like wise fashion as shown in listings \ref{org2df391f}. This provides that the 97\% confidence interval for the population mean friend count is between 384 and 502 (or 387 and 496 if the \(BC_{a}\) method used, they're quite close and so the more conservative percentile method will be accepted).
+\label{sec:orgb95435c}
+A Confidence interval for the population mean friend counts may be constructed in a like wise fashion as shown in listings \ref{org7e52d94}. This provides that the 97\% confidence interval for the population mean friend count is between 384 and 502 (or 387 and 496 if the \(BC_{a}\) method used, they're quite close and so the more conservative percentile method will be accepted).
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -346,13 +344,24 @@ boot.ci(xbar_boot, conf = 0.97, type = "bca", index = 1)
 ## Calculations and Intervals on Original Scale
 ## Some BCa intervals may be unstable
 \end{minted}
-\caption{\label{org2df391f}Bootstrap of population mean follower count}
+\caption{\label{org7e52d94}Bootstrap of population mean follower count}
 \end{listing}
 
 \subsection{{\bfseries\sffamily FIXME} 8.1.6 Estimate a 97\% Confidence Interval for the High Friend Count Proportion}
-\label{sec:orgefb7fb1}
+\label{sec:org9d5a329}
 In order to bootstrap a confidence interval for the proportion of users with
-above average follower counts repeteadly draw random samples from an infinitely large population composed entirely of the sample, this can be acheived by resampling the observations of above and below as shown in listing \ref{org5e36f88}.
+above average follower counts, repeteadly draw random samples from an infinitely
+large population composed entirely of the sample, and record the sampled
+proportion. this can be acheived by resampling the observations of above and
+below as shown in listing \ref{org8f4cb9c}.
+
+This provides that:
+\begin{itemize}
+\item The 97\% confidence interval for the population proportion of users that have an above average number of friends is between 0.24 and 0.31.
+\begin{itemize}
+\item i.e. The probability of any given sample containing the population mean within this interval would be 97\%, although  that doesn't however mean that there is a 97\% probability that this interval contains the value, merely that we may be 97\% \emph{confident}
+\end{itemize}
+\end{itemize}
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -371,8 +380,21 @@ quantile(py_hat_bt, c(0.015, 0.985))
 
 
 ##      1.5%     98.5%
-## 0.6976744 0.7601163
+## 0.2399021 0.3072215
+## > > > . + > > >
+## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 1000 bootstrap replicates
+##
+## CALL :
+## boot.ci(boot.out = py_hat_boot, conf = 0.97, type = "bca")
+##
+## Intervals :
+## Level       BCa
+## 97%   ( 0.2399,  0.3072 )
+## Calculations and Intervals on Original Scale
 \end{minted}
-\caption{\label{org5e36f88}Bootstrap of Proportion of Friends above average}
+\caption{\label{org8f4cb9c}Bootstrap of Proportion of Friends above average}
 \end{listing}
+\subsection{8.1.7 Is the Number of Friends Independent to the Number of Followers}
+\label{sec:org42efe0d}
 \end{document}
