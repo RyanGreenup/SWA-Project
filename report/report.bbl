@@ -149,6 +149,55 @@
       \verb https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4784504/
       \endverb
     \endentry
+    \entry{james2013}{book}{}
+      \name{editor}{4}{}{%
+        {{hash=df184c5fa522ac8a515ec4de13aef234}{%
+           family={James},
+           familyi={J\bibinitperiod},
+           given={Gareth},
+           giveni={G\bibinitperiod}}}%
+        {{hash=1ab16961e0de50711fa6bd9425f9b4a6}{%
+           family={Witten},
+           familyi={W\bibinitperiod},
+           given={Daniela},
+           giveni={D\bibinitperiod}}}%
+        {{hash=0cb8fe4210baa81c4b0e67913b4d2768}{%
+           family={Hastie},
+           familyi={H\bibinitperiod},
+           given={Trevor},
+           giveni={T\bibinitperiod}}}%
+        {{hash=88eea600247d798f8b2ce0b2dc614492}{%
+           family={Tibshirani},
+           familyi={T\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{f8f737f83d9e451c1afaa13cdc120516}
+      \strng{fullhash}{da61646157a6be769f34984f5cb603b0}
+      \strng{bibnamehash}{f8f737f83d9e451c1afaa13cdc120516}
+      \strng{editorbibnamehash}{f8f737f83d9e451c1afaa13cdc120516}
+      \strng{editornamehash}{f8f737f83d9e451c1afaa13cdc120516}
+      \strng{editorfullhash}{da61646157a6be769f34984f5cb603b0}
+      \field{sortinit}{J}
+      \field{sortinithash}{fce5f8d0bd05e8d93f3dbe21c78897ca}
+      \field{labelnamesource}{editor}
+      \field{labeltitlesource}{shorttitle}
+      \field{annotation}{Includes index}
+      \field{isbn}{978-1-4614-7137-0}
+      \field{note}{OCLC: ocn828488009}
+      \field{number}{103}
+      \field{series}{Springer Texts in Statistics}
+      \field{shorttitle}{An Introduction to Statistical Learning}
+      \field{title}{An Introduction to Statistical Learning: With Applications in {R}}
+      \field{year}{2013}
+      \keyw{Mathematical models,Mathematical statistics,Problems; exercises; etc,R (Computer program language),Statistics}
+    \endentry
     \entry{kearney2019}{misc}{}
       \name{author}{1}{}{%
         {{hash=337fb0dd0527f70d9893a55622d0795e}{%
@@ -257,6 +306,39 @@
       \verb{url}
       \verb https://www.rdocumentation.org/packages/boot/versions/1.3-25/topics/boot.ci
       \endverb
+    \endentry
+    \entry{wiley2019}{book}{}
+      \name{author}{2}{}{%
+        {{hash=ffd5b070c9469349e58946216269070d}{%
+           family={Wiley},
+           familyi={W\bibinitperiod},
+           given={Matt},
+           giveni={M\bibinitperiod}}}%
+        {{hash=ddd21b69f14d05f726fb4a889bfa1e8e}{%
+           family={Wiley},
+           familyi={W\bibinitperiod},
+           given={Joshua},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{6de1c8cca1204a98de04270e8adbf8f7}
+      \strng{fullhash}{6de1c8cca1204a98de04270e8adbf8f7}
+      \strng{bibnamehash}{6de1c8cca1204a98de04270e8adbf8f7}
+      \strng{authorbibnamehash}{6de1c8cca1204a98de04270e8adbf8f7}
+      \strng{authornamehash}{6de1c8cca1204a98de04270e8adbf8f7}
+      \strng{authorfullhash}{6de1c8cca1204a98de04270e8adbf8f7}
+      \field{sortinit}{W}
+      \field{sortinithash}{ecb89ff85896a47dc313960773ac311d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-1-4842-2871-5}
+      \field{title}{Advanced {R} Statistical Programming and Data Models}
+      \field{year}{2019}
     \endentry
   \enddatalist
 \endrefsection

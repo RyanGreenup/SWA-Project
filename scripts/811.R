@@ -75,7 +75,7 @@ mise(); load("./resources/Download_1.Rdata")
 ##  sample(x, replace = TRUE)
 ## })
 
-bt_pop <- sample(x, size = 10^6, replace = TRUE)
+(bt_pop <- sample(x, size = 10^6, replace = TRUE)) %>% head()
 
 
 # b.) Plot the Bootstrap Distribution ==========================================
@@ -97,7 +97,7 @@ xbar_boot_loop <- replicate(10^3, {
   s <- sample(x, replace = TRUE)
   mean(s)
   })
-quantile(xbar_boot_loop, c((1-0.97)/2, (1+0.97)/2))
+quantile(xbar_boot_loop, c(0.015, 0.985))
 
 mean_val <- function(data, index) {
   X = data[index]
@@ -105,18 +105,26 @@ mean_val <- function(data, index) {
 }
 
 xbar_boot <- boot(data = x, statistic = mean_val, R = 10^3)
-boot.ci(xbar_boot, conf = 0.97, type = "norm", index = 1)
+boot.ci(xbar_boot, conf = 0.97, type = "bca", index = 1)
 
-pri
+# d.) Estimate a Confidence Interval for the populattion mean Friend Count ===
+# Using a Percentile Method #####################################################
+ybar_boot_loop <- replicate(10^3, {
+  s <- sample(y, replace = TRUE)
+  mean(s)
+  })
+quantile(ybar_boot_loop, c(0.015, 0.985))
 
-## We just want NORMAl type
+# Using BCA Method #############################################################
+mean_val <- function(data, index) {
+  X = data[index]
+  return(mean(X))
+}
+
+xbar_boot <- boot(data = y, statistic = mean_val, R = 10^3)
+boot.ci(xbar_boot, conf = 0.97, type = "bca", index = 1)
+
+## We just want Percentile type
 ## https://www.datacamp.com/community/tutorials/bootstrap-r
 
-##
-##       1.5%      98.5%
-##   532.5957 10247.6708
-## [1] "All values of t are equal to  4295.19461444308 \n Cannot calculate confidence intervals"
-## NULL
-## Warning messages:
-
-# c.) Estimate a Confidence Interval for the populattion mean Follower Count ===
+# 8.1.6 High Friend Count Proportion -------------------------------------------
