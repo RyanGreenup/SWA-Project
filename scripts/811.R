@@ -77,6 +77,7 @@ mise(); load("./resources/Download_1.Rdata")
 
 bt_pop <- sample(x, size = 10^6, replace = TRUE)
 
+
 # b.) Plot the Bootstrap Distribution ==========================================
 bt_pop_data <- tibble("Followers" = bt_pop)
 ggplot(data = bt_pop_data, aes(x = Followers)) +
@@ -100,12 +101,16 @@ quantile(xbar_boot_loop, c((1-0.97)/2, (1+0.97)/2))
 
 mean_val <- function(data, index) {
   X = data[index]
-  return(mean(x))
+  return(mean(X))
 }
 
+xbar_boot <- boot(data = x, statistic = mean_val, R = 10^3)
+boot.ci(xbar_boot, conf = 0.97, type = "norm", index = 1)
 
-xbar_boot <- boot(data = x, statistic = mean_val, R = 10^3) 
-boot.ci(xbar_boot, conf = 0.97, type = "all", index = 1)
+pri
+
+## We just want NORMAl type
+## https://www.datacamp.com/community/tutorials/bootstrap-r
 
 ##
 ##       1.5%      98.5%

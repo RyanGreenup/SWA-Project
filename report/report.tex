@@ -1,4 +1,4 @@
-% Created 2020-04-26 Sun 21:05
+% Created 2020-04-27 Mon 12:38
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -16,6 +16,9 @@
 \usepackage{hyperref}
 \usepackage{minted}
 \usepackage{/home/ryan/Dropbox/profiles/Templates/LaTeX/ScreenStyle}
+\usepackage[citestyle=numeric, bibstyle=numeric,hyperref=true,backref=true, maxcitenames=3,url=true,backend=biber,natbib=true]{biblatex}
+\addbibresource{/home/ryan/Dropbox/Studies/Papers/references.bib}
+%%% TeX-command-extra-options: "-shell-escape"
 \author{Ryan Greenup}
 \date{\today}
 \title{Analysing Twitter for Ubisoft}
@@ -32,11 +35,10 @@
 \tableofcontents
 
 
-
 \section{8.1 Analysing the Relationship Between Friends and Followers for Twitter Users}
-\label{sec:org7e14c73}
+\label{sec:org6d64684}
 \subsection{8.1.1 Retrieve the posts from Twitter}
-\label{sec:org008441c}
+\label{sec:orga2e7a3d}
 relevant posts can be retrieved from twitter by utilising the \texttt{rtweet} package, packages can be loaded for use in \textbf{\textbf{\uline{R}}} thusly:
 
 \begin{listing}[htbp]
@@ -60,7 +62,7 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2,
                httpuv, SnowballC, RColorBrewer, wordcloud,
                ggwordcloud, tidyverse, boot)
 \end{minted}
-\caption{\label{org46299db}Load the Packages for \textbf{\textbf{\emph{R}}}}
+\caption{\label{orgc6aad20}Load the Packages for \textbf{\textbf{\emph{R}}}}
 \end{listing}
 
 
@@ -95,10 +97,10 @@ tk <-    rtweet::create_token(
   access_secret   = "*********************************************",
   set_renv        = FALSE
 \end{minted}
-\caption{\label{org06db666}Import the twitter tokens (redacted)}
+\caption{\label{org113e1ba}Import the twitter tokens (redacted)}
 \end{listing}
 
-and hence all tweets containing a mention of \emph{Ubisoft} can be returned and saved to disk as shown in listing \ref{org83de683}:
+and hence all tweets containing a mention of \emph{Ubisoft} can be returned and saved to disk as shown in listing \ref{orgf23ed37}:
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -107,13 +109,13 @@ and hence all tweets containing a mention of \emph{Ubisoft} can be returned and 
                                  include_rts = FALSE)
  save(tweets.company[,], file = "resources/Download_1.Rdata")
 \end{minted}
-\caption{\label{org83de683}Save the Tweets to the HDD as an \texttt{rdata} file}
+\caption{\label{orgf23ed37}Save the Tweets to the HDD as an \texttt{rdata} file}
 \end{listing}
 
 \subsection{8.2.2 Count of Followers and Friends}
-\label{sec:org1f3ee17}
+\label{sec:org2cbea10}
 In order to identify the number of users that are contained in the \emph{tweets} the
-\texttt{unique()} function can be used to return a vector of names which can then be passed as an index to the vector of counts as shown in listing \ref{org7417d5b}, this provides that 81.7\% of the tweets are by unique users.
+\texttt{unique()} function can be used to return a vector of names which can then be passed as an index to the vector of counts as shown in listing \ref{orgd40993d}, this provides that 81.7\% of the tweets are by unique users.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -123,13 +125,13 @@ y <- tweets.company$friends_count[duplicated(tweets.company$name)]
 
 ## > [1] 817
 \end{minted}
-\caption{\label{org7417d5b}Return follower count of twitter posts}
+\caption{\label{orgd40993d}Return follower count of twitter posts}
 \end{listing}
 
 
 \subsection{8.1.3 Summary Statistics}
-\label{sec:org646b157}
-The average number of friends and followers from users who posted tweets mentioning \emph{Ubisoft} can be returned using the \texttt{mean()} as shown in listing \ref{orgc4f0915}
+\label{sec:orge45d8dc}
+The average number of friends and followers from users who posted tweets mentioning \emph{Ubisoft} can be returned using the \texttt{mean()} as shown in listing \ref{org088138d}
 this provides that on average each user has 586 friends and 63,620 followers.
 
 \begin{listing}[htbp]
@@ -142,15 +144,15 @@ y<- rnorm(090)
 ## > [1] 4295.195
 ## > [1] 435.9449
 \end{minted}
-\caption{\label{orgc4f0915}Determine the average number of friends and followers}
+\caption{\label{org088138d}Determine the average number of friends and followers}
 \end{listing}
 
 \subsection{8.1.4 Above Average Followers}
-\label{sec:org0aed482}
+\label{sec:org0d26979}
 Each user can be compared to the average number of followers, by using a logical
 operator on the vector (e.g. \texttt{y > ybar}), this will return an output of logical
 values. \textbf{\emph{R}} will coerce logicals into 1/0 values meaning that the mean value
-will return the proportion of \texttt{TRUE} responses as shown in listing \ref{orgf9f75cb}. This
+will return the proportion of \texttt{TRUE} responses as shown in listing \ref{orgc71104e}. This
 provides that 20.6\% of the users identified have above average friend counts, while only 2.4\% have an above average numbmer of followers.
 
 \begin{listing}[htbp]
@@ -161,17 +163,19 @@ provides that 20.6\% of the users identified have above average friend counts, w
 ## > [1] 0.0244798
 ## > [1] 0.2729498
 \end{minted}
-\caption{\label{orgf9f75cb}Calculate the proportion of users with above average follower counts}
+\caption{\label{orgc71104e}Calculate the proportion of users with above average follower counts}
 \end{listing}
 
 
-\subsection{8.1.5 Generate a bootsrap distribution of the Follower Counts}
-\label{sec:org74cc531}
+\subsection{8.1.5 Bootstrap confidence intervals}
+\label{sec:org1632e35}
+\subsubsection{a.) Generate a bootsrap distribution}
+\label{sec:orgec90a05}
 
 A bootstrap assumes that the population is an infinitely large repetition of the
 sample, a bootstrap of the follower counts can be produced by resampling with
 replacement/repetition and plotted using the \texttt{ggplot2} library as shown in
-listing \ref{org8c6a857} and figure \ref{fig:org18db668}.
+listing \ref{org0c3072e} and figure \ref{fig:org1bcabb4}.
 
 This shows that the population follower counts is a non-normal skew-right
 distribution, which is expected because the number of friends is an integer value bound by zero \cite{nist2013}.
@@ -192,21 +196,30 @@ ggplot(data = bt_pop_data, aes(x = Followers)) +
        title = "Bootstrapped population of Follower Numbers")
 
 \end{minted}
-\caption{\label{org8c6a857}Bootstrapping a population from the sample.}
+\caption{\label{org0c3072e}Bootstrapping a population from the sample.}
 \end{listing}
 
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=12cm]{./Figures/BootStrap_Pop.png}
-\caption{\label{fig:org18db668}Histogram of the bootrapped population of follower counts}
+\caption{\label{fig:org1bcabb4}Histogram of the bootrapped population of follower counts}
 \end{figure}
 
-\section{References}
-\label{sec:org5b7ad37}
-\label{org77541db}
+\subsubsection{b.) Estimate a Confidence Interval for Follower Counts}
+\label{sec:org7374ef1}
+\begin{itemize}
+\item The normal \(t\) value bootstrap offers now advantage over using a \(t\) distribution (other than being illustrative of bootstrapping generally) \cite[Section 4.1]{hesterberg2015}
+\item It is more appropriate to use a percentile interval for skewed data such as this, but it is still not very accurate \cite[Section 4.1]{hesterberg2015}
+
+The \texttt{boot} package implements confidence intervals consistent with work by Davison and Hinkley \cite{ripley2020} in there texbook \emph{Bootstrap Methods and their Application} wherein the consensus is that \(BC_{a}\) methods will be  \cite[Ch. 5]{davison1997} superior to mere percentile methods in terms of accuracy. \cite[Ch. 5]{carpenter2000,davison1997}
+
+Wait, hold on, the population is non-normal, sure, but the sampling distribution will obviously be normal, have I gotten confused?
+\end{itemize}
+
+\label{org3f0983d}
 \bibliography{references}
 
-\label{orgdc1aa0d}
+\label{orgb8f0c16}
  \bibliographystyle{unsrt}
 \end{document}

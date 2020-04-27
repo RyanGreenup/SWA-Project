@@ -21,7 +21,11 @@
 # #+LATEX_HEADER: \twocolumn
 # [[/home/ryan/Dropbox/profiles/Templates/LaTeX/ScreenStyle.sty]]
 :END:
-
+:LaTeX:
+#+latex_header: \usepackage[citestyle=numeric, bibstyle=numeric,hyperref=true,backref=true, maxcitenames=3,url=true,backend=biber,natbib=true]{biblatex}
+#+latex_header: \addbibresource{/home/ryan/Dropbox/Studies/Papers/references.bib}
+#+latex_header: %%% TeX-command-extra-options: "-shell-escape"
+:END:
 
 * 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users
 ** 8.1.1 Retrieve the posts from Twitter
@@ -181,8 +185,14 @@ ggplot(data = bt_pop_data, aes(x = Followers)) +
 [[./Figures/BootStrap_Pop.png]]
 
 *** b.) Estimate a Confidence Interval for Follower Counts
+- The normal $t$ value bootstrap offers now advantage over using a $t$ distribution (other than being illustrative of bootstrapping generally) [[cite:hesterberg2015][Section 4.1]]
+- It is more appropriate to use a percentile interval for skewed data such as this, but it is still not very accurate [[cite:hesterberg2015][Section 4.1]]
 
-* References
+  The =boot= package implements confidence intervals consistent with work by Davison and Hinkley cite:ripley2020 in there texbook /Bootstrap Methods and their Application/ wherein the consensus is that $BC_{a}$ methods will be  [[cite:davison1997][Ch. 5]] superior to mere percentile methods in terms of accuracy. [[cite:carpenter2000,davison1997][Ch. 5]]
+
+  Wait, hold on, the population is non-normal, sure, but the sampling distribution will obviously be normal, have I gotten confused?
+
+# * References
 # Remember, this is here for HTML and autocomplete, but latex uses biblatex for URL support
 # bibliography:/home/ryan/Dropbox/Studies/Papers/references.bib
 # I (Ryan) am managing this with zotero, please don't touch, I'll figure out how to sync the citations later or we can all just switch to a =.bib= file.
@@ -191,3 +201,5 @@ bibliography:./references.bib
 
 <<bibliographystyle link>>
  bibliographystyle:unsrt
+
+

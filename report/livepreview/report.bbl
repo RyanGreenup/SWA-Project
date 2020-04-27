@@ -19,6 +19,52 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global}
+    \entry{hesterberg2015}{article}{}
+      \name{author}{1}{}{%
+        {{hash=950c08aa39cb3c66ede988acb7c9070c}{%
+           family={Hesterberg},
+           familyi={H\bibinitperiod},
+           given={Tim\bibnamedelima C.},
+           giveni={T\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{950c08aa39cb3c66ede988acb7c9070c}
+      \strng{fullhash}{950c08aa39cb3c66ede988acb7c9070c}
+      \strng{bibnamehash}{950c08aa39cb3c66ede988acb7c9070c}
+      \strng{authorbibnamehash}{950c08aa39cb3c66ede988acb7c9070c}
+      \strng{authornamehash}{950c08aa39cb3c66ede988acb7c9070c}
+      \strng{authorfullhash}{950c08aa39cb3c66ede988acb7c9070c}
+      \field{sortinit}{H}
+      \field{sortinithash}{5f15a7bc777ad49ff15aa4d2831b1681}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Bootstrapping has enormous potential in statistics education and practice, but there are subtle issues and ways to go wrong. For example, the common combination of nonparametric bootstrapping and bootstrap percentile confidence intervals is less accurate than using t-intervals for small samples, though more accurate for larger samples. My goals in this article are to provide a deeper understanding of bootstrap methods—{}how they work, when they work or not, and which methods work better—{}and to highlight pedagogical issues. Supplementary materials for this article are available online., [Received December 2014. Revised August 2015]}
+      \field{issn}{0003-1305}
+      \field{journaltitle}{The American Statistician}
+      \field{month}{10}
+      \field{number}{4}
+      \field{shorttitle}{What {{Teachers Should Know About}} the {{Bootstrap}}}
+      \field{title}{What {{Teachers Should Know About}} the {{Bootstrap}}: {{Resampling}} in the {{Undergraduate Statistics Curriculum}}}
+      \field{urlday}{26}
+      \field{urlmonth}{4}
+      \field{urlyear}{2020}
+      \field{volume}{69}
+      \field{year}{2015}
+      \field{urldateera}{ce}
+      \field{pages}{371\bibrangedash 386}
+      \range{pages}{16}
+      \verb{doi}
+      \verb 10.1080/00031305.2015.1089789
+      \endverb
+      \verb{file}
+      \verb /home/ryan/Dropbox/Studies/Papers/Zotero/Attachments/The American Statistician/2015/Hesterberg_2015_What Teachers Should Know About the Bootstrap.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4784504/
+      \endverb
+      \verb{url}
+      \verb https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4784504/
+      \endverb
+    \endentry
     \entry{kearney2019}{misc}{}
       \name{author}{1}{}{%
         {{hash=337fb0dd0527f70d9893a55622d0795e}{%
@@ -57,6 +103,39 @@
       \endverb
       \verb{url}
       \verb https://rtweet.info/reference/search_tweets.html
+      \endverb
+    \endentry
+    \entry{nist2013}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=a44b6b00e5eebd7494e1fd00658685e2}{%
+           family={{NIST}},
+           familyi={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{a44b6b00e5eebd7494e1fd00658685e2}
+      \strng{fullhash}{a44b6b00e5eebd7494e1fd00658685e2}
+      \strng{bibnamehash}{a44b6b00e5eebd7494e1fd00658685e2}
+      \strng{authorbibnamehash}{a44b6b00e5eebd7494e1fd00658685e2}
+      \strng{authornamehash}{a44b6b00e5eebd7494e1fd00658685e2}
+      \strng{authorfullhash}{a44b6b00e5eebd7494e1fd00658685e2}
+      \field{sortinit}{N}
+      \field{sortinithash}{f7242c3ed3dc50029fca1be76c497c7c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{10}
+      \field{title}{1.3.3.14.6. {{Histogram Interpretation}}: {{Skewed}} ({{Non}}-{{Normal}}) {{Right}}}
+      \field{urlday}{26}
+      \field{urlmonth}{4}
+      \field{urlyear}{2020}
+      \field{year}{2013}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /home/ryan/Zotero/storage/SB37QPSU/histogr6.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.itl.nist.gov/div898/handbook/eda/section3/histogr6.htm
+      \endverb
+      \verb{url}
+      \verb https://www.itl.nist.gov/div898/handbook/eda/section3/histogr6.htm
       \endverb
     \endentry
   \enddatalist
