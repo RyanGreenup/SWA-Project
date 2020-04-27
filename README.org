@@ -161,7 +161,7 @@ Same as [[*5 Bootstrap a confidence interval][above]] pretty much, but you'll no
 
 *** TODO 7 Test for Independence                                              :ryan:
 :LOGBOOK:
-CLOCK: [2020-04-27 Mon 21:22]
+CLOCK: [2020-04-27 Mon 21:22]--[2020-04-27 Mon 22:39] =>  1:17
 :END:
 
 Originally I tried the following as described in issue =#3=
