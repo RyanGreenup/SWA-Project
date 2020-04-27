@@ -196,12 +196,12 @@ ggplot(data = bt_pop_data, aes(x = Followers)) +
 In order to perform a bootrap for the population mean value of follower counts it is necessary to:
 
 1. Resample the data with replacement
-   + that is randomly select values from the sample allowing for repetition
-2. Measure the statistic in concern
+   + i.e. randomly select values from the sample allowing for repetition
+2. Measure the statistic of concern
 3. Replicate this a sufficient number of times
-   + Greater than or equal to 1000 times [[cite:davison1997][Ch. 5]]
+   + i.e. Greater than or equal to 1000 times [[cite:davison1997][Ch. 5]]
 
-This is equivalent to drawing a sample from a population that is infinitely large and constructed of repetitions of the sample. This can be performed in */R/* as shown in listings
+This is equivalent to drawing a sample from a population that is infinitely large and constructed of repetitions of the sample. This can be performed in */R/* as shown in listing [[bt1s]].
 
 
 #+NAME: bt1s
@@ -217,13 +217,11 @@ quantile(xbar_boot_loop, c((1-0.97)/2, (1+0.97)/2))
 ##   588.4189 10228.7352
 #+end_src
 
-This provides that 97% of samples drawn from a population will contain the population mean
-
 A 97% probability interval is such that a sample drawn from a population will contain the population mean in that interval 97% of the time, this means that it may be concluded with a high degree of certainty that the true population mean lies between 588 and 10228.
 
 **** Alternative Approaches
 If this data was normally distributed it may have been appropriate to consider
-bootstrapping the standard error, however it is more appropriate to use a
+bootstrapping the standard error and using a $t$ distribution, however it is more appropriate to use a
 percentile interval for skewed data such as this, in saying that however this method is not considered to be very accurate in the literature and is often too narrow. [[cite:hesterberg2015][Section 4.1]]
 
 - It's worth noting that the normal $t$ value bootstrap offers no advantage over
@@ -315,14 +313,6 @@ boot.ci(xbar_boot, conf = 0.97, type = "bca", index = 1)
 
 ** FIXME 8.1.6 Estimate a 97% Confidence Interval for the High Friend Count Proportion
 In order to bootstrap a confidence interval for the proportion of users with
-above average follower counts assume that the population mean value is equal to
-the sample proportion and draw a sample of the same number of observations with
-that probability.
-
-In order to bootstrap a confidence interval for the proportion of users with
-above average follower counts draw samples from a population that is infinitely large copmposed of
-
-In order to bootstrap a confidence interval for the proportion of users with
 above average follower counts repeteadly draw random samples from an infinitely large population composed entirely of the sample, this can be acheived by resampling the observations of above and below as shown in listing [[phat]].
 
 #+NAME: phat
@@ -347,4 +337,3 @@ quantile(py_hat_bt, c(0.015, 0.985))
 #+end_src
 
 
-Take a population of infinite size by

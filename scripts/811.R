@@ -133,7 +133,7 @@ prop <- factor(c("Below", "Above"))
 py_hat_bt <- replicate(10^3, {
   rs      <- sample(c("Below", "Above"),
                     size = length(y),
-                    prob = c(py_hat, 1-py_hat),
+                    prob = c(1-py_hat, py_hat),
                     replace = TRUE)
 isabove <- rs == "Above"
 mean(isabove)
@@ -146,7 +146,7 @@ prop <- function(data, index) {
   mean(X)
 }
 
-py_hat_boot <- boot(data = y>mean(y), statistic = prop, R = 10^3)
+py_hat_boot <- boot(data = y<mean(y), statistic = prop, R = 10^3)
 boot.ci(py_hat_boot, conf = 0.97, type = "bca")
 
 

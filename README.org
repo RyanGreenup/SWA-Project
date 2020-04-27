@@ -152,6 +152,7 @@ This method was provided in the lecture notes, I also did some extra research fo
 
 *** TODO 6 Who has a higher friend count given the confidence Interval        :ryan:
 :LOGBOOK:
+CLOCK: [2020-04-27 Mon 19:17]
 CLOCK: [2020-04-27 Mon 16:31]--[2020-04-27 Mon 16:53] =>  0:22
 :END:
 Same as [[*5 Bootstrap a confidence interval][above]] pretty much,
