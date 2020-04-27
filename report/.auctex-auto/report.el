@@ -6,13 +6,13 @@
    (TeX-add-to-alist 'LaTeX-provided-package-options
                      '(("inputenc" "utf8") ("fontenc" "T1") ("ulem" "normalem") ("biblatex" "citestyle=numeric" "bibstyle=numeric" "hyperref=true" "backref=true" "maxcitenames=3" "url=true" "backend=biber" "natbib=true")))
    (add-to-list 'LaTeX-verbatim-environments-local "minted")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "nolinkurl")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperbaseurl")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperref")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "href")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperref")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperbaseurl")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "nolinkurl")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
    (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
    (TeX-run-style-hooks
     "latex2e"
@@ -35,33 +35,37 @@
     "/home/ryan/Dropbox/profiles/Templates/LaTeX/ScreenStyle"
     "biblatex")
    (LaTeX-add-labels
-    "sec:org39ce2a3"
-    "sec:orgef0839f"
-    "orgfec06b8"
-    "org89e2677"
-    "orgae8b70c"
-    "sec:orgb679a83"
-    "orga5caa48"
-    "sec:org6e27135"
-    "org2efb9f3"
-    "sec:org685319e"
-    "orgaf3bf4d"
-    "sec:org1c272ac"
-    "sec:org297260f"
-    "org16ef971"
-    "orgb361d2d"
-    "fig:org100a61e"
-    "sec:orga3d2e45"
-    "orgb0e125b"
-    "sec:org466af4e"
-    "org5f7b8db"
-    "org5ce2384"
-    "org9b1d2f2"
-    "sec:orgb95435c"
-    "org7e52d94"
-    "sec:org9d5a329"
-    "org8f4cb9c"
-    "sec:org42efe0d")
+    "sec:org923ceaf"
+    "sec:orga774428"
+    "org38a1a1e"
+    "orgaacfb17"
+    "org8a0be83"
+    "sec:org69b6db9"
+    "orge869ff2"
+    "sec:org055e637"
+    "orgfcb4b7f"
+    "sec:org1beb564"
+    "orgd9c62b5"
+    "sec:orgb355fd2"
+    "sec:orge1cf9dc"
+    "orgbed7f89"
+    "org4dbf5bc"
+    "fig:org8c68029"
+    "sec:orge9a99ec"
+    "org663ad8c"
+    "sec:org67ba161"
+    "org0cdcdba"
+    "org0127a6c"
+    "org7aaa2e4"
+    "sec:org890e867"
+    "orgba356b3"
+    "sec:orgd4ee0ae"
+    "org55b4e44"
+    "sec:orgbb7ae2a"
+    "sec:orgaae2146"
+    "sec:org6a5daec"
+    "sec:org0a36535"
+    "sec:org535150c")
    (LaTeX-add-bibliographies
     "/home/ryan/Dropbox/Studies/Papers/references"
     "references"))
