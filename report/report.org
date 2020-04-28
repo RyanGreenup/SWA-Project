@@ -367,7 +367,67 @@ quantile(py_hat_bt, c(0.015, 0.985))
 ## Calculations and Intervals on Original Scale
 #+end_src
 ** 8.1.7 Is the Number of Friends Independent to the Number of Followers
+One method to determine whether or not the number of followers is independent of the number of friends is to bin the counts and determine whether or not the distribution of users across those counts is consistent with the hypothesis of independence.
+
 *** Bin the Follower and Friend Categories
+The counts may be binned by performing a logical interval test as shown in listing [[7bin]].
+
+#+NAME: 7bin
+#+begin_src R
+## Assign Categories
+x_df <- data.frame(x)
+x_df$cat[0       <= x_df$x & x_df$x < 100] <- "Tens"
+x_df$cat[100     <= x_df$x & x_df$x < 1000] <- "Hundreds"
+x_df$cat[1000    <= x_df$x & x_df$x < 2000] <- "1Thousands"
+x_df$cat[2000    <= x_df$x & x_df$x < 3000] <- "2Thousands"
+x_df$cat[3000    <= x_df$x & x_df$x < 4000] <- "3Thousands"
+x_df$cat[4000    <= x_df$x & x_df$x < 5000] <- "4Thousands"
+x_df$cat[5000    <= x_df$x & x_df$x < Inf] <- "5ThousandOrMore"
+
+### Make a factor
+x_df$cat <- factor(x_df$cat, levels = var_levels, ordered = TRUE)
+
+### Determine Frequencies
+(x_freq <- table(x_df$cat) %>% as.matrix())
+
+## ** b) Find the Friend Count Frequency ===========================================
+## Assign Categories
+y_df <- data.frame(y)
+y_df$cat[0       <= y_df$y & y_df$y < 100] <- "Tens"
+y_df$cat[100     <= y_df$y & y_df$y < 1000] <- "Hundreds"
+y_df$cat[1000    <= y_df$y & y_df$y < 2000] <- "1Thousands"
+y_df$cat[2000    <= y_df$y & y_df$y < 3000] <- "2Thousands"
+y_df$cat[3000    <= y_df$y & y_df$y < 4000] <- "3Thousands"
+y_df$cat[4000    <= y_df$y & y_df$y < 5000] <- "4Thousands"
+y_df$cat[5000    <= y_df$y & y_df$y < Inf]  <- "5ThousandOrMore"
+
+### Make a factor
+y_df$cat <- factor(y_df$cat, levels = var_levels, ordered = TRUE)
+
+### Determine Frequencies
+(y_freq <- table(y_df$cat) %>% as.matrix())
+#+end_src
+
 *** Find the Group frequency
+These values may be tabluated in order to count the occurence of users among these categories as shown in listing [[7fr]] and table [[7frt]].
+
+#+NAME: 7fr
+#+begin_src R
+vals <- t(cbind(x_freq, y_freq))
+rownames(vals) <- c("Followers.x", "followers.y")
+vals
+
+##             Tens Hundreds 1Thousands 2Thousands 3Thousands 4Thousands
+## Followers.x  421      317         39         11          9          2
+## followers.y  262      476         47         15          6          9
+##             5ThousandOrMore
+## Followers.x              18
+## followers.y               2
+#+end_src
+
+#+NAME
 *** Find the Expected Counts under each group and test for independence
+
+
+
 *** Conclusion

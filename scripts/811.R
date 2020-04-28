@@ -161,6 +161,8 @@ boot.ci(py_hat_boot, conf = 0.97, type = "bca")
 var_levels <- c("Tens","Hundreds","1Thousands","2Thousands","3Thousands",
                 "4Thousands","5ThousandOrMore")
 
+
+
 ## Assign Categories
 x_df <- data.frame(x)
 x_df$cat[0       <= x_df$x & x_df$x < 100] <- "Tens"
@@ -197,7 +199,7 @@ y_df$cat <- factor(y_df$cat, levels = var_levels, ordered = TRUE)
 ## ** c) Find the Expected counts under each group and Chi Test Independence =======
 ## *** Combine the frequencies into a matrix #######################################
 vals <- t(cbind(x_freq, y_freq))
-rownames(vals) <- c("Followers.x", "followers.y")
+rownames(vals) <- c("Followers.x", "Friends.y")
 vals 
 
 ## **** Calculate Summary Stats
@@ -232,14 +234,6 @@ chi_sim > chi_obs
 0.0004998 * 10^5
 ## This p-value is way too high, see issue #4
 
-## Or
-##
-vals <- rmultinom(size = n, prob = e, n = 1)
-
-metric <- c("followers", "friends")
-
-sample(metric, size = n, replace = TRUE, prob = rowSums())
-
 ## ***** Check with built in test
 # This can be automated in /*R*/ using the =chisq.test=:
 chisq.test(vals, simulate.p.value = TRUE)
@@ -247,10 +241,10 @@ chisq.test(vals, simulate.p.value = TRUE)
 ## **** Simulate False Positive (Lecture Method)
 ## ***** Create a Matrix of Counts
 vals <- t(cbind(x_freq, y_freq))
-rownames(vals) <- c("Followers.x", "followers.y")
+rownames(vals) <- c("Followers.x", "Friends.y")
 vals
 ## ***** Create Vectors of factor levels
-brackets <- var_levels
+brackets <- unique(x_df$cat)
 metrics <- c("follower", "friend")
 
 ## ***** Calculate Summary Stats
@@ -267,7 +261,7 @@ chi_obs <- sum((e-o)^2/e)
 ## (this is a symmetric relation)
 ## [[file:~/Notes/Org/AbstractAlgebraNotes.org::#relation-types][Relation Types]]
 
-s <- replicate(10000,{
+s <- replicate(10^4,{
   ## Sample the set of Metrics
   m <- sample(metrics, size = n, replace = TRUE, prob = metric_prop)
 
@@ -279,7 +273,7 @@ s <- replicate(10000,{
   o
 
   ## Find What the expected value would be
-  e_sim <- rowSums(x) %o% colSums(x) / n
+  e_sim <- t(colSums(e) %o% rowSums(e) / n)
 
   ## Calculate the Chi Stat
   chi_sim <- sum((e_sim-o)^2/e_sim)
