@@ -3,7 +3,7 @@
 
 #+BEGIN_HTML
 <p> <img src="https://img.shields.io/badge/Chat-5%20Members-green" /> <img
-src="https://img.shields.io/badge/Contributors-5%20Member-green" /> <img src="https://img.shields.io/badge/Questions-6%20Completed-orange" /> </p>
+src="https://img.shields.io/badge/Contributors-5%20Member-green" /> <img src="https://img.shields.io/badge/Questions-7%20Completed-orange" /> </p>
 #+END_HTML
 #+begin_comment
 See [[https://shields.io/][Shields io]]
@@ -127,7 +127,7 @@ Just use the ~duplicated~ function as an index as [[file:scripts/811.R::Friend a
 :LOGBOOK:
 CLOCK: [2020-04-26 Sun 16:55]--[2020-04-26 Sun 17:02] =>  0:07
 :END:
-Just used the [[file:scripts/811.R::8.1.3 * Summary Statistics -----------------------------------------------------------][mean function as shown here]]
+Just used the [[file:scripts/811.R::Calculate Summary Stats][mean function as  shown here]]
 *** DONE 4 Find the proprtion above average
 :PROPERTIES:
 :ID:       92416748-f58a-4799-9f97-d08c3ee83840
@@ -135,7 +135,9 @@ Just used the [[file:scripts/811.R::8.1.3 * Summary Statistics -----------------
 :LOGBOOK:
 CLOCK: [2020-04-26 Sun 17:02]--[2020-04-26 Sun 17:20] =>  0:18
 :END:
-[[file:scripts/811.R::8.1.4 * Above Average Followers ------------------------------------------------][link]]
+[[file:scripts/811.R::8.1.4 Above Average Followers ------------------------------------------------][link]]
+
+
 
 Use ~mean(vec<val)~
 
@@ -212,5 +214,13 @@ Alright I fiagured this out, you simply can't use a multinomial distribution I d
 
 hence you're seeing how many times you see a false positive for independent data by mere chance.
 ** TODO 8.2 Finding Themes
-*** 8 Find unique users with above average friend counts                      :Kieran:
-** TODO 8.3 Building Networks
+*** 8 Find unique users with above average friend counts                      :ryan:
+*** TODO 9 Find Unique users who have $\leq$ average friend counts            :ryan:
+*** TODO 10 Combine tweets of users identified in 8/9                         :ryan:
+*** TODO 11 Clean and pre-process the tweet text data
+
+*** TODO 12 Display the first two tweets
+*** TODO Create a TDM, use TFIDF, how many tweets were empty?                 :ryan:
+*** TODO 14 Cluster the Results with respect to cosine distance               :ryan:
+
+** TODO 8.3 Building Networks                                                  :Hassan:Navid:
