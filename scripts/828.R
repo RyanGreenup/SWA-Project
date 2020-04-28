@@ -29,4 +29,5 @@ mise(); load("./resources/Download_1.Rdata")
 ## Comments have two `#`
                                         # right aligned have one `#`
 #' Feel free to use Roxygen comments
-## Work in the development branch and then we'll merge it into master as we go
+## Work in the development branch and then we'll checkout master and merge in development as we go
+
