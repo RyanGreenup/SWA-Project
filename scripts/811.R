@@ -205,7 +205,7 @@ n  <- sum(vals)
 sz <- prod(dim(vals))
 p  <- vals/n
 o  <- vals
-e  <- rowsum(vals)*colSums(vals)/n
+e  <- rowSums(vals) %o% colSums(vals) / n
 
 chi_obs <- sum((e-o)^2/e)
 
