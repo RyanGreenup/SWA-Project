@@ -242,5 +242,41 @@ sample(metric, size = n, replace = TRUE, prob = rowSums())
 
 ## ***** Check with built in test
 # This can be automated in /*R*/ using the =chisq.test=:
-
 chisq.test(vals, simulate.p.value = TRUE)
+
+## **** Simulate False Positive (Lecture Method)
+## ***** Create a Matrix of Counts
+vals <- t(cbind(x_freq, y_freq))
+rownames(vals) <- c("Followers.x", "followers.y")
+vals
+## ***** Create Vectors of factor levels
+brackets <- var_levels
+metrics <- c("follower", "friend")
+
+## ***** Calculate Summary Stats
+n <- sum(vals)
+bracket_prop <- colSums(vals) / n
+metric_prop  <- rowSums(vals) / n
+e <- rowSums(vals) %o% colSums(vals) / n
+
+## ***** Simulate the data Assuming H_0
+## I.e. assuming that the null hypothesis is true in that
+## the brackets assigned to followers are independent of the friends
+## (this is a symmetric relation)
+## [[file:~/Notes/Org/AbstractAlgebraNotes.org::#relation-types][Relation Types]]
+
+s <- replicate(1000,{
+  ## Sample the set of Metrics
+  m <- sample(metrics, size = n, replace = TRUE, prob = metric_prop)
+
+  ## Sample the set of Brackets (i.e. which performance bracket the user falls in)
+  b <- sample(brackets, size = n, replace = TRUE, prob = bracket_prop)
+
+  ## Make a table of results
+  x <- table(m, b)
+  x
+
+  ## Find What the expected value would be
+  e <- rowSums(x) %o% colSums(x)
+
+})

@@ -2,7 +2,7 @@
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="./style.css">
 
 #+BEGIN_HTML
-<p> <img src="https://img.shields.io/badge/Chat-4%20Members-yellow" /> <img
+<p> <img src="https://img.shields.io/badge/Chat-5%20Members-green" /> <img
 src="https://img.shields.io/badge/Contributors-3%20Member-orange" /> <img src="https://img.shields.io/badge/Questions-7%20Completed-orange" /> </p>
 #+END_HTML
 #+begin_comment
