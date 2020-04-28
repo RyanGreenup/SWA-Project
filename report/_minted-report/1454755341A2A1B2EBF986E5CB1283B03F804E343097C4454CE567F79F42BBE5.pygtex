@@ -1,0 +1,34 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Assign Categories}
+\PYG{n}{x\PYGZus{}df} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{data.frame}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}
+\PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{cat}\PYG{p}{[}\PYG{l+m}{0}       \PYG{o}{\PYGZlt{}=} \PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{x} \PYG{o}{\PYGZam{}} \PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{x} \PYG{o}{\PYGZlt{}} \PYG{l+m}{100}\PYG{p}{]} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{l+s}{\PYGZdq{}Tens\PYGZdq{}}
+\PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{cat}\PYG{p}{[}\PYG{l+m}{100}     \PYG{o}{\PYGZlt{}=} \PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{x} \PYG{o}{\PYGZam{}} \PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{x} \PYG{o}{\PYGZlt{}} \PYG{l+m}{1000}\PYG{p}{]} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{l+s}{\PYGZdq{}Hundreds\PYGZdq{}}
+\PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{cat}\PYG{p}{[}\PYG{l+m}{1000}    \PYG{o}{\PYGZlt{}=} \PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{x} \PYG{o}{\PYGZam{}} \PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{x} \PYG{o}{\PYGZlt{}} \PYG{l+m}{2000}\PYG{p}{]} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{l+s}{\PYGZdq{}1Thousands\PYGZdq{}}
+\PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{cat}\PYG{p}{[}\PYG{l+m}{2000}    \PYG{o}{\PYGZlt{}=} \PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{x} \PYG{o}{\PYGZam{}} \PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{x} \PYG{o}{\PYGZlt{}} \PYG{l+m}{3000}\PYG{p}{]} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{l+s}{\PYGZdq{}2Thousands\PYGZdq{}}
+\PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{cat}\PYG{p}{[}\PYG{l+m}{3000}    \PYG{o}{\PYGZlt{}=} \PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{x} \PYG{o}{\PYGZam{}} \PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{x} \PYG{o}{\PYGZlt{}} \PYG{l+m}{4000}\PYG{p}{]} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{l+s}{\PYGZdq{}3Thousands\PYGZdq{}}
+\PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{cat}\PYG{p}{[}\PYG{l+m}{4000}    \PYG{o}{\PYGZlt{}=} \PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{x} \PYG{o}{\PYGZam{}} \PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{x} \PYG{o}{\PYGZlt{}} \PYG{l+m}{5000}\PYG{p}{]} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{l+s}{\PYGZdq{}4Thousands\PYGZdq{}}
+\PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{cat}\PYG{p}{[}\PYG{l+m}{5000}    \PYG{o}{\PYGZlt{}=} \PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{x} \PYG{o}{\PYGZam{}} \PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{x} \PYG{o}{\PYGZlt{}} \PYG{k+kc}{Inf}\PYG{p}{]} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{l+s}{\PYGZdq{}5ThousandOrMore\PYGZdq{}}
+
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} Make a factor}
+\PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{cat} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{factor}\PYG{p}{(}\PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{cat}\PYG{p}{,} \PYG{n}{levels} \PYG{o}{=} \PYG{n}{var\PYGZus{}levels}\PYG{p}{,} \PYG{n}{ordered} \PYG{o}{=} \PYG{k+kc}{TRUE}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} Determine Frequencies}
+\PYG{p}{(}\PYG{n}{x\PYGZus{}freq} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{table}\PYG{p}{(}\PYG{n}{x\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{cat}\PYG{p}{)} \PYG{o}{\PYGZpc{}\PYGZgt{}\PYGZpc{}} \PYG{n+nf}{as.matrix}\PYG{p}{())}
+
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} ** b) Find the Friend Count Frequency ===========================================}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Assign Categories}
+\PYG{n}{y\PYGZus{}df} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{data.frame}\PYG{p}{(}\PYG{n}{y}\PYG{p}{)}
+\PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{cat}\PYG{p}{[}\PYG{l+m}{0}       \PYG{o}{\PYGZlt{}=} \PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{y} \PYG{o}{\PYGZam{}} \PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{y} \PYG{o}{\PYGZlt{}} \PYG{l+m}{100}\PYG{p}{]} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{l+s}{\PYGZdq{}Tens\PYGZdq{}}
+\PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{cat}\PYG{p}{[}\PYG{l+m}{100}     \PYG{o}{\PYGZlt{}=} \PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{y} \PYG{o}{\PYGZam{}} \PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{y} \PYG{o}{\PYGZlt{}} \PYG{l+m}{1000}\PYG{p}{]} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{l+s}{\PYGZdq{}Hundreds\PYGZdq{}}
+\PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{cat}\PYG{p}{[}\PYG{l+m}{1000}    \PYG{o}{\PYGZlt{}=} \PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{y} \PYG{o}{\PYGZam{}} \PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{y} \PYG{o}{\PYGZlt{}} \PYG{l+m}{2000}\PYG{p}{]} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{l+s}{\PYGZdq{}1Thousands\PYGZdq{}}
+\PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{cat}\PYG{p}{[}\PYG{l+m}{2000}    \PYG{o}{\PYGZlt{}=} \PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{y} \PYG{o}{\PYGZam{}} \PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{y} \PYG{o}{\PYGZlt{}} \PYG{l+m}{3000}\PYG{p}{]} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{l+s}{\PYGZdq{}2Thousands\PYGZdq{}}
+\PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{cat}\PYG{p}{[}\PYG{l+m}{3000}    \PYG{o}{\PYGZlt{}=} \PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{y} \PYG{o}{\PYGZam{}} \PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{y} \PYG{o}{\PYGZlt{}} \PYG{l+m}{4000}\PYG{p}{]} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{l+s}{\PYGZdq{}3Thousands\PYGZdq{}}
+\PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{cat}\PYG{p}{[}\PYG{l+m}{4000}    \PYG{o}{\PYGZlt{}=} \PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{y} \PYG{o}{\PYGZam{}} \PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{y} \PYG{o}{\PYGZlt{}} \PYG{l+m}{5000}\PYG{p}{]} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{l+s}{\PYGZdq{}4Thousands\PYGZdq{}}
+\PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{cat}\PYG{p}{[}\PYG{l+m}{5000}    \PYG{o}{\PYGZlt{}=} \PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{y} \PYG{o}{\PYGZam{}} \PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{y} \PYG{o}{\PYGZlt{}} \PYG{k+kc}{Inf}\PYG{p}{]}  \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{l+s}{\PYGZdq{}5ThousandOrMore\PYGZdq{}}
+
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} Make a factor}
+\PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{cat} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{factor}\PYG{p}{(}\PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{cat}\PYG{p}{,} \PYG{n}{levels} \PYG{o}{=} \PYG{n}{var\PYGZus{}levels}\PYG{p}{,} \PYG{n}{ordered} \PYG{o}{=} \PYG{k+kc}{TRUE}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} Determine Frequencies}
+\PYG{p}{(}\PYG{n}{y\PYGZus{}freq} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{table}\PYG{p}{(}\PYG{n}{y\PYGZus{}df}\PYG{o}{\PYGZdl{}}\PYG{n}{cat}\PYG{p}{)} \PYG{o}{\PYGZpc{}\PYGZgt{}\PYGZpc{}} \PYG{n+nf}{as.matrix}\PYG{p}{())}
+\end{Verbatim}

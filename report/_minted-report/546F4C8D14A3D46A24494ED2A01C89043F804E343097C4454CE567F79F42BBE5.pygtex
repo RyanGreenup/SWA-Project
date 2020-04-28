@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{vals} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{t}\PYG{p}{(}\PYG{n+nf}{cbind}\PYG{p}{(}\PYG{n}{x\PYGZus{}freq}\PYG{p}{,} \PYG{n}{y\PYGZus{}freq}\PYG{p}{))}
+\PYG{n+nf}{rownames}\PYG{p}{(}\PYG{n}{vals}\PYG{p}{)} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{c}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Followers.x\PYGZdq{}}\PYG{p}{,} \PYG{l+s}{\PYGZdq{}followers.y\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{vals}
+
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}             Tens Hundreds 1Thousands 2Thousands 3Thousands 4Thousands}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Followers.x  421      317         39         11          9          2}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} followers.y  262      476         47         15          6          9}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}             5ThousandOrMore}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Followers.x              18}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} followers.y               2}
+\end{Verbatim}

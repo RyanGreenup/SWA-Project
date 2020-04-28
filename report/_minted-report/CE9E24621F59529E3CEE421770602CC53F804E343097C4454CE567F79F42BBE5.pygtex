@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{chisq.test}\PYG{p}{(}\PYG{n}{vals}\PYG{p}{,} \PYG{n}{simulate.p.value} \PYG{o}{=} \PYG{k+kc}{TRUE}\PYG{p}{)}
+
+
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} \PYGZca{}\PYGZca{}IPearson\PYGZsq{}s Chi\PYGZhy{}squared test with simulated p\PYGZhy{}value (based on 2000}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} \PYGZca{}\PYGZca{}Ireplicates)}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} data:  vals}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} X\PYGZhy{}squared = 88.109, df = NA, p\PYGZhy{}value = 0.0004998}
+\end{Verbatim}
