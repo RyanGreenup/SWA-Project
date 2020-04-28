@@ -205,15 +205,32 @@ n  <- sum(vals)
 sz <- prod(dim(vals))
 p  <- vals/n
 o  <- vals
-e  <- rowsum(vals)*colSums(vals)/n
+e  <- rowSums(vals) %o% colSums(vals) / n
 
 chi_obs <- sum((e-o)^2/e)
 
-## **** Simulate False Positives
+## **** Simulate Fasle Positives (My way)
+sim_fp <- replicate(10^5, {
 ## Simulate a sample of values
 ## assuming that the null hypothesis is true. (pop proportion is sample prop)
 ## and
-vals <- rmultinom(size = n, prob = p, n = 1)
+s <- rmultinom(size = n, prob = e, n = 1)
+
+## Given this what would we find the expected value to be
+  (e_sim <- rowSums(s) %o% colSums(s) / n)
+  (e_sim <- as.vector(e_sim))
+
+## What's the corresponding Chi Value
+(chi_sim <- sum((e_sim-o)^2/e_sim))
+
+## Is this more extreme, i.e. would we reject null hypothesis
+## we assumed null hypothesis true so this is a false pos
+chi_sim > chi_obs
+})
+(pval <- mean(sim_fp))
+(sum(sim_fp))
+0.0004998 * 10^5
+## This p-value is way too high, see issue #4
 
 ## Or
 ##
@@ -222,3 +239,8 @@ vals <- rmultinom(size = n, prob = e, n = 1)
 metric <- c("followers", "friends")
 
 sample(metric, size = n, replace = TRUE, prob = rowSums())
+
+## ***** Check with built in test
+# This can be automated in /*R*/ using the =chisq.test=:
+
+chisq.test(vals, simulate.p.value = TRUE)
