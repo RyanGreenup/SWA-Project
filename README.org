@@ -3,7 +3,7 @@
 
 #+BEGIN_HTML
 <p> <img src="https://img.shields.io/badge/Chat-4%20Members-yellow" /> <img
-src="https://img.shields.io/badge/Contributors-2%20Member-orange" /> <img src="https://img.shields.io/badge/Questions-7%20Completed-orange" /> </p>
+src="https://img.shields.io/badge/Contributors-3%20Member-orange" /> <img src="https://img.shields.io/badge/Questions-7%20Completed-orange" /> </p>
 #+END_HTML
 #+begin_comment
 See [[https://shields.io/][Shields io]]
@@ -168,6 +168,8 @@ Same as [[*5 Bootstrap a confidence interval][above]] pretty much, but you'll no
 
 *** TODO 7 Test for Independence                                              :ryan:
 :LOGBOOK:
+CLOCK: [2020-04-28 Tue 12:31]
+CLOCK: [2020-04-28 Tue 07:30]--[2020-04-28 Tue 08:30] =>  1:00
 CLOCK: [2020-04-27 Mon 21:22]--[2020-04-27 Mon 22:39] =>  1:17
 :END:
 

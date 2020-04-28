@@ -210,5 +210,15 @@ e  <- rowsum(vals)*colSums(vals)/n
 chi_obs <- sum((e-o)^2/e)
 
 ## **** Simulate False Positives
+## Simulate a sample of values
+## assuming that the null hypothesis is true. (pop proportion is sample prop)
+## and
+vals <- rmultinom(size = n, prob = p, n = 1)
 
-vals <- rmultinom(size = prod())
+## Or
+##
+vals <- rmultinom(size = n, prob = e, n = 1)
+
+metric <- c("followers", "friends")
+
+sample(metric, size = n, replace = TRUE, prob = rowSums())
