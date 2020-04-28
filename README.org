@@ -88,7 +88,7 @@ Also there is a post on the discussion board dated =2019-09-17=, just disregard
 that. I'll download the tweets tomorrow and push them to /GitHub/ so we can all
 get started, I haven't decided on the company to use but it doesn't really matter.
 * TODO Working
-** TODO 8.1 Analysing friend and follower count
+** DONE 8.1 Analysing friend and follower count
 I like [[http://juanreyero.com/article/emacs/org-teams.html][this post]] on managing the work so let's use that.
 *** DONE 1 Pull Tweets                                                        :ryan:
 :LOGBOOK:
@@ -167,7 +167,7 @@ Same as [[*5 Bootstrap a confidence interval][above]] pretty much, but you'll no
 
 + [[file:scripts/811.R::8.1.6 High Friend Count Proportion -------------------------------------------][Link to Code]]
 
-*** TODO 7 Test for Independence                                              :ryan:
+*** DONE 7 Test for Independence                                              :ryan:
 :LOGBOOK:
 CLOCK: [2020-04-28 Tue 17:56]--[2020-04-28 Tue 20:27] =>  2:31
 CLOCK: [2020-04-28 Tue 15:44]--[2020-04-28 Tue 17:29] =>  1:45
@@ -207,8 +207,10 @@ y_df$cat <- factor(y_df$cat, ordered = FALSE)
 y_freq <- table(y_df$cat) %>% as.matrix()
 #+end_src
 
+**** DONE Use Bootstrap Method
+Alright I fiagured this out, you simply can't use a multinomial distribution I don't think, or if you can it should be the observed proportions not the expected, because, the proportions will be independent by the nature that they are simply random.
 
-**** TODO Use Bootstrap Method
+hence you're seeing how many times you see a false positive for independent data by mere chance.
 ** TODO 8.2 Finding Themes
 *** 8 Find unique users with above average friend counts                      :Kieran:
 ** TODO 8.3 Building Networks
