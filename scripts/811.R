@@ -242,7 +242,7 @@ chisq.test(vals, simulate.p.value = TRUE)
 ## ***** Create a Matrix of Counts
 vals <- t(cbind(x_freq, y_freq))
 rownames(vals) <- c("Followers.x", "Friends.y")
-vals
+t(vals)
 ## ***** Create Vectors of factor levels
 brackets <- unique(x_df$cat)
 metrics <- c("follower", "friend")

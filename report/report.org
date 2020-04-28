@@ -373,6 +373,7 @@ One method to determine whether or not the number of followers is independent of
 The counts may be binned by performing a logical interval test as shown in listing [[7bin]].
 
 #+NAME: 7bin
+#+CAPTION: Use Logical Test to Assign observations into bins
 #+begin_src R
 ## Assign Categories
 x_df <- data.frame(x)
@@ -412,6 +413,7 @@ y_df$cat <- factor(y_df$cat, levels = var_levels, ordered = TRUE)
 These values may be tabluated in order to count the occurence of users among these categories as shown in listing [[7fr]] and table [[7frt]].
 
 #+NAME: 7fr
+#+CAPTION: Tabulate the binned counts for the distribution of users among among amount and status.
 #+begin_src R
 vals <- t(cbind(x_freq, y_freq))
 rownames(vals) <- c("Followers.x", "followers.y")
@@ -425,9 +427,130 @@ vals
 ## followers.y               2
 #+end_src
 
-#+NAME
+#+NAME: 7frt
+#+CAPTION: Table of Binned Friend and Follower counts, transposed relative to code.
+|                      | **/Followers/** | **/Friends/** |
+| /Tens/               |             421 |           262 |
+| /Hundreds/           |             317 |           476 |
+| /1 - Thousands/      |              39 |            47 |
+| /2 - Thousands/      |              11 |            15 |
+| /3 - Thousands/      |               9 |             6 |
+| /4 - Thousands/      |               2 |             9 |
+| /5 Thousand or More/ |              18 |             2 |
+
 *** Find the Expected Counts under each group and test for independence
+The expected count of each cell, under the assumption that the two metrics are
+independent, will be the proportion users per bracket multiplied by the number
+of users in that status group. This implies that any cell will be:
+
++ the product of the row sum, multiplied by the column sum divided by the number of counts.
+
+This can be equivalently expressed as an outer product as shown in equation
+[[eqref:eq:1]], in */R/* this operation is denoted by the =%o%= operator, which is
+shorthand for the =outer()= function, this and other summary statistics may be
+evaluated as shown in listing [[smst]].
+
+The outer product is such that:
 
 
+$$
+\mathbf{u} \otimes \mathbf {v} =\mathbf {u} \mathbf {v} ^{\textsf {T}}={\begin{bmatrix}u_{1}\\u_{2}\\u_{3}\\u_{4}\end{bmatrix}}{\begin{bmatrix}v_{1}&v_{2}&v_{3}\end{bmatrix}}={\begin{bmatrix}u_{1}v_{1}&u_{1}v_{2}&u_{1}v_{3}\\u_{2}v_{1}&u_{2}v_{2}&u_{2}v_{3}\\u_{3}v_{1}&u_{3}v_{2}&u_{3}v_{3}\\u_{4}v_{1}&u_{4}v_{2}&u_{4}v_{3}\end{bmatrix}}.
+$$
 
-*** Conclusion
+This means the matrix of expected frequencies can be expressed as an outer product thusly:
+
+#+NAME: rschi
+\begin{align}
+\mathbf{\vec{e}}= \frac{1}{n} \times \begin{bmatrix} \sum^{n}_{j= 1} \left[ o_{1j} \right] \\  \sum^{n}_{j= 1}
+\left[ o_{2j} \right]  \\ \sum^{n}_{j= 1} \left[ o_{3j} \right]   \\
+\sum^{n}_{j= 1} \left[ o_{4j} \right]  \\ \vdots  \\
+\sum^{n}_{j= 1} \left[ o_{nj} \right]     \end{bmatrix} 
+\begin{bmatrix}  \sum^{n}_{j= 1} \left[ o_{i1}  \right] \\  \sum^{n}_{j= 1}
+\left[ o_{i2}  \right] \\ \sum^{n}_{j= 1} \left[ o_{i3}  \right] \\ \cdots \\
+\sum^{n}_{j= 1} \left[ o_{in}  \right]   \end{bmatrix}  ^{\normalsize \mathrm{T}} \label{eq:1}
+\end{align}
+
+#+NAME: smst
+#+CAPTION: Calculate Expected frequency of values under the assumption of independence.
+#+begin_src R
+## ***** Calculate Summary Stats
+n <- sum(vals)
+bracket_prop <- colSums(vals) / n
+metric_prop  <- rowSums(vals) / n
+o <- vals
+e <- rowSums(vals) %o% colSums(vals) / n
+chi_obs <- sum((e-o)^2/e)
+#+end_src
+
+**** Testing Independence
+In order to test whether or not the distribution of users among brackets is
+independent of being a follower or friend a $\chi^{2}$ test may be used, this
+can be evaluated from a model or simulated, in */R/*, the simulated test is
+shown in listing [[chib]], this provides a $p$ -value < 0.0005, which means that the hypothesis of independence may be rejected with a high degree of certainty.
+
+#+NAME: chib
+#+CAPTION: Chi-Square testing for independence between friend and follower bin categories.
+#+begin_src R
+chisq.test(vals, simulate.p.value = TRUE)
+
+
+## 	Pearson's Chi-squared test with simulated p-value (based on 2000
+## 	replicates)
+##
+## data:  vals
+## X-squared = 88.109, df = NA, p-value = 0.0004998
+#+end_src
+
+***** From First Principles
+The $\chi^{2}$ statistic may be performed from first principles by randomly
+sampling the values at the rate at which they occured, tabulating those counts, measuring the $\chi^{2}$ -value and then repeating this many times.
+
+Because the samples are random they must be independent and average number of
+positives is hence an estimate for the /FPR/, which is in turn an estimate for
+the $p$ -value. This technique is demonstrated in listing [[chif]], the p-value
+being returned as 0.0004, this value is consistent with the value produced by
+*/R/*'s built in =chisq.test= function and so is accepted.
+
+#+NAME: chif
+#+CAPTION: Performing a $\chi^{2}$ statistic from first principles
+#+begin_src R
+## ***** Create Vectors of factor levels
+brackets <- unique(x_df$cat)
+metrics <- c("follower", "friend")
+
+## ***** Simulate the data Assuming H_0
+## I.e. assuming that the null hypothesis is true in that
+## the brackets assigned to followers are independent of the friends
+## (this is a symmetric relation)
+
+s <- replicate(10^4,{
+  ## Sample the set of Metrics
+  m <- sample(metrics, size = n, replace = TRUE, prob = metric_prop)
+
+  ## Sample the set of Brackets (i.e. which performance bracket the user falls in)
+  b <- sample(brackets, size = n, replace = TRUE, prob = bracket_prop)
+
+  ## Make a table of results
+  o <- table(m, b)
+  o
+
+  ## Find What the expected value would be
+  e_sim <- t(colSums(e) %o% rowSums(e) / n)
+
+  ## Calculate the Chi Stat
+  chi_sim <- sum((e_sim-o)^2/e_sim)
+  chi_sim
+
+  ## Is this more extreme, i.e. would we reject null hypothesis?
+  chi_sim > chi_obs
+
+})
+
+mean(s)
+#+end_src
+*** FIXME Conclusion
+The $p$ -value measures the probability of rejecting the null hypothesis when it is true, i.e. the probability of a detecting a /false positive/, a very small $p$ -value is hence good evidence that the null hypothesis should be rejected (because doing so would unlikely to be a mistake).
+
+In saying that however the $p$ -value is distinct from the /power/ statistic, which is a measure of //the probability of accepting the alternative hypothesis/ when it is true, a low $p$ -value is not a measurement of the probability of being correct.
+
+Hence me way conclude, with a high degree of certainty, that the follower and friend counts are not independent of one another.
