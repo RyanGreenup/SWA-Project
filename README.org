@@ -89,6 +89,7 @@ that. I'll download the tweets tomorrow and push them to /GitHub/ so we can all
 get started, I haven't decided on the company to use but it doesn't really matter.
 * TODO Working
 ** Clock Tables
+*** Ryan
 #+BEGIN: clocktable :scope subtree :maxlevel 6 :match "ryan"
 #+CAPTION: Ryan's Clock summary at [2020-04-29 Wed 08:28]
 | Headline                                       | Time      |         |      |
@@ -104,7 +105,7 @@ get started, I haven't decided on the company to use but it doesn't really matte
 | \_    6 Who has a higher friend count given... |           |         | 2:25 |
 | \_    7 Test for Independence                  |           |         | 9:15 |
 #+END:
-
+*** Navid
 #+BEGIN: clocktable :scope subtree :maxlevel 6 :match "navid"
 #+CAPTION: Navid's Clock summary at [2020-04-29 Wed 08:28]
 | Headline     | Time   |
@@ -112,21 +113,21 @@ get started, I haven't decided on the company to use but it doesn't really matte
 | *Total time* | *0:00* |
 #+END:
 
-
+*** Hassan
 #+BEGIN: clocktable :scope subtree :maxlevel 6 :match "hassan"
 #+CAPTION: Hassan's Clock summary at [2020-04-29 Wed 08:28]
 | Headline     | Time   |
 |--------------+--------|
 | *Total time* | *0:00* |
 #+END:
-
+*** Kieran
 #+BEGIN: clocktable :scope subtree :maxlevel 6 :match "kieran"
 #+CAPTION: Kieran's Clock summary at [2020-04-29 Wed 08:28]
 | Headline     | Time   |
 |--------------+--------|
 | *Total time* | *0:00* |
 #+END:
-
+*** Ben
 #+BEGIN: clocktable :scope subtree :maxlevel 6 :match "ben"
 #+CAPTION: Ben's Clock summary at [2020-04-29 Wed 08:29]
 | Headline     | Time   |
