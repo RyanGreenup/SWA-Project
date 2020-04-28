@@ -257,7 +257,9 @@ metrics <- c("follower", "friend")
 n <- sum(vals)
 bracket_prop <- colSums(vals) / n
 metric_prop  <- rowSums(vals) / n
+o <- vals
 e <- rowSums(vals) %o% colSums(vals) / n
+chi_obs <- sum((e-o)^2/e)
 
 ## ***** Simulate the data Assuming H_0
 ## I.e. assuming that the null hypothesis is true in that
@@ -265,7 +267,7 @@ e <- rowSums(vals) %o% colSums(vals) / n
 ## (this is a symmetric relation)
 ## [[file:~/Notes/Org/AbstractAlgebraNotes.org::#relation-types][Relation Types]]
 
-s <- replicate(1000,{
+s <- replicate(10000,{
   ## Sample the set of Metrics
   m <- sample(metrics, size = n, replace = TRUE, prob = metric_prop)
 
@@ -273,10 +275,20 @@ s <- replicate(1000,{
   b <- sample(brackets, size = n, replace = TRUE, prob = bracket_prop)
 
   ## Make a table of results
-  x <- table(m, b)
-  x
+  o <- table(m, b)
+  o
 
   ## Find What the expected value would be
-  e <- rowSums(x) %o% colSums(x)
+  e_sim <- rowSums(x) %o% colSums(x) / n
+
+  ## Calculate the Chi Stat
+  chi_sim <- sum((e_sim-o)^2/e_sim)
+  chi_sim
+
+  ## Is this more extreme, i.e. would we reject null hypothesis?
+  chi_sim > chi_obs
 
 })
+
+mean(s)
+
