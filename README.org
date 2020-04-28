@@ -207,5 +207,5 @@ y_freq <- table(y_df$cat) %>% as.matrix()
 
 *** TODO
 ** TODO 8.2 Finding Themes
-*** 8. Find unique users with above average friend counts
+*** 8 Find unique users with above average friend counts                      :Kieran:
 ** TODO 8.3 Building Networks
