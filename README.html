@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2020-04-28 Tue 11:38 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SWA-Project</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Ryan Greenup" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="report/style.css">
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.cacheClassElem = elem.className;
+         elem.cacheClassTarget = target.className;
+         target.className = "code-highlighted";
+         elem.className   = "code-highlighted";
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(elem.cacheClassElem)
+         elem.className = elem.cacheClassElem;
+       if(elem.cacheClassTarget)
+         target.className = elem.cacheClassTarget;
+     }
+    /*]]>*///-->
+// @license-end
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">SWA-Project</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org3a3462c">1. <span class="todo TODO">TODO</span> Add Members as Collaborators</a></li>
+<li><a href="#orgb7edfe2">2. <span class="done DONE">DONE</span> Documentation</a>
+<ul>
+<li><a href="#orgae89697">2.1. <span class="done DONE">DONE</span> Make a Wiki</a>
+<ul>
+<li><a href="#orga8e7c63">2.1.1. <span class="done DONE">DONE</span> Configure Usernames for <i>Apache2</i> Server</a></li>
+</ul>
+</li>
+<li><a href="#orgad47da8">2.2. <span class="done DONE">DONE</span> Make a Gitpage</a></li>
+</ul>
+</li>
+<li><a href="#orgdadcef2">3. <span class="done DONE">DONE</span> Make a Discord Server</a>
+<ul>
+<li><a href="#org1fcda94">3.1. <span class="done DONE">DONE</span> Make a WebHook for Github Issues</a></li>
+<li><a href="#org927f5ed">3.2. <span class="done DONE">DONE</span> Invite all Members</a></li>
+</ul>
+</li>
+<li><a href="#org9aba07b">4. <span class="done DONE">DONE</span> Share links on <i>Vuws</i></a></li>
+<li><a href="#org5f42f4e">5. Correspondence</a>
+<ul>
+<li><a href="#org9c3ea5b">5.1. Group Email</a></li>
+</ul>
+</li>
+<li><a href="#orgcca2774">6. <span class="todo TODO">TODO</span> Working</a>
+<ul>
+<li><a href="#org68115a1">6.1. <span class="todo TODO">TODO</span> 8.1 Analysing friend and follower count</a>
+<ul>
+<li><a href="#org5be8c27">6.1.1. <span class="done DONE">DONE</span> 1 Pull Tweets&#xa0;&#xa0;&#xa0;<span class="tag"><span class="ryan">ryan</span></span></a></li>
+<li><a href="#org8d91543">6.1.2. <span class="done DONE">DONE</span> 2 Extract the Friend and Follower Count&#xa0;&#xa0;&#xa0;<span class="tag"><span class="ryan">ryan</span></span></a></li>
+<li><a href="#org5558d90">6.1.3. <span class="done DONE">DONE</span> 3 Find the Average Followers&#xa0;&#xa0;&#xa0;<span class="tag"><span class="ryan">ryan</span></span></a></li>
+<li><a href="#orgfa7aae0">6.1.4. <span class="done DONE">DONE</span> 4 Find the proprtion above average</a></li>
+<li><a href="#org8ec196f">6.1.5. <span class="done DONE">DONE</span> 5 Bootstrap a confidence interval&#xa0;&#xa0;&#xa0;<span class="tag"><span class="ryan">ryan</span>&#xa0;<span class="ATTACH">ATTACH</span></span></a></li>
+<li><a href="#org8483a3b">6.1.6. <span class="done DONE">DONE</span> 6 Who has a higher friend count given the confidence Interval&#xa0;&#xa0;&#xa0;<span class="tag"><span class="ryan">ryan</span></span></a></li>
+<li><a href="#orgd09c288">6.1.7. <span class="todo TODO">TODO</span> 7 Test for Independence&#xa0;&#xa0;&#xa0;<span class="tag"><span class="ryan">ryan</span></span></a></li>
+<li><a href="#orge43362e">6.1.8. TODO</a></li>
+</ul>
+</li>
+<li><a href="#org60930e9">6.2. <span class="todo TODO">TODO</span> 8.2 Finding Themes</a>
+<ul>
+<li><a href="#org4f9d867">6.2.1. 8. Find unique users with above average friend counts</a></li>
+</ul>
+</li>
+<li><a href="#orgaae74e2">6.3. <span class="todo TODO">TODO</span> 8.3 Building Networks</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="HTML">
+<p>
+&lt;p&gt; &lt;img src=&ldquo;<a href="https://img.shields.io/badge/Chat-4%20Members-yellow">https://img.shields.io/badge/Chat-4%20Members-yellow</a>&rdquo; /&gt; &lt;img
+src=&ldquo;<a href="https://img.shields.io/badge/Contributors-2%20Member-orange">https://img.shields.io/badge/Contributors-2%20Member-orange</a>&rdquo; /&gt; &lt;img src=&ldquo;<a href="https://img.shields.io/badge/Questions-0%20Completed-red">https://img.shields.io/badge/Questions-0%20Completed-red</a>&rdquo; /&gt; &lt;/p&gt;
+</p>
+
+</div>
+
+<p>
+Github for Social Web Analytics
+</p>
+
+<ul class="org-ul">
+<li><a href="https://ryangreenup.github.io/SWA-Project/">Home Page</a></li>
+<li><a href="https://ryangreenup.github.io/SWA-Project/">Docs / Gitpage</a></li>
+<li><a href="http://121.210.19.69/DSWiki/index.php/Main_Page">Wiki</a></li>
+<li><a href="https://discord.gg/QW5YNc">Discord</a>
+<ul class="org-ul">
+<li>This expires every 24 hrs</li>
+<li><code>2020-04-25 Sat 08:56</code></li>
+</ul></li>
+<li><a href="docs/ProjectSpec_S1_2020_WSUSCC_GizemModerated.pdf">Project Specification</a>
+<ul class="org-ul">
+<li><a href="./docs/rtweet.pdf"><code>rtweet</code> Manual</a></li>
+</ul></li>
+
+<li><a href="report/report.pdf">Current Report</a></li>
+</ul>
+
+<div id="outline-container-org3a3462c" class="outline-2">
+<h2 id="org3a3462c"><span class="section-number-2">1</span> <span class="todo TODO">TODO</span> Add Members as Collaborators</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li class="on"><code>[X]</code> Ryan</li>
+<li class="on"><code>[X]</code> Kieran</li>
+<li class="off"><code>[&#xa0;]</code> Navid</li>
+<li class="off"><code>[&#xa0;]</code> Hassan</li>
+<li class="off"><code>[&#xa0;]</code> Ben</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb7edfe2" class="outline-2">
+<h2 id="orgb7edfe2"><span class="section-number-2">2</span> <span class="done DONE">DONE</span> Documentation</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orgae89697" class="outline-3">
+<h3 id="orgae89697"><span class="section-number-3">2.1</span> <span class="done DONE">DONE</span> Make a Wiki</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>Probably MediaWiki because github wiki doesn&rsquo;t deal with LaTeX
+<ul class="org-ul">
+<li>Wiki.JS is another option</li>
+</ul></li>
+</ul>
+</div>
+<div id="outline-container-orga8e7c63" class="outline-4">
+<h4 id="orga8e7c63"><span class="section-number-4">2.1.1</span> <span class="done DONE">DONE</span> Configure Usernames for <i>Apache2</i> Server</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<p>
+I&rsquo;m going to have to adjust the <code>/etc/apache2/sites-enabled/000-default.conf</code> in
+order to have the mediawiki publically accessible.
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org9b6164f"></a>put config under version control<br />
+<div class="outline-text-5" id="text-2-1-1-1">
+<p>
+I will also need to put <a href="file:///etc/apache2/sites-enabled/000-default.conf">the Apache Config</a> under version control using <code>stow</code>.
+</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgad47da8" class="outline-3">
+<h3 id="orgad47da8"><span class="section-number-3">2.2</span> <span class="done DONE">DONE</span> Make a Gitpage</h3>
+<div class="outline-text-3" id="text-2-2">
+<ul class="org-ul">
+<li>The gitpage will be almost the same as the wiki, but, if there are any issues
+configuring <code>mkdocs</code> and using <code>mkdocs gh-deploy</code> then just:</li>
+
+<li>add information to the Wiki</li>
+<li>Update the docs on <i>GitHub</i>
+<ul class="org-ul">
+<li>File an issue on <i>GitHub</i> so somebody else can build the docs</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdadcef2" class="outline-2">
+<h2 id="orgdadcef2"><span class="section-number-2">3</span> <span class="done DONE">DONE</span> Make a Discord Server</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org1fcda94" class="outline-3">
+<h3 id="org1fcda94"><span class="section-number-3">3.1</span> <span class="done DONE">DONE</span> Make a WebHook for Github Issues</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Follow <a href="https://gist.github.com/jagrosh/5b1761213e33fc5b54ec7f6379034a22">These Instructions here</a>
+It seems like it is necessary to append <code>/github</code> at the end of the <i>Payload
+URL</i> as documented <a href="https://support.discordapp.com/hc/en-us/articles/228383668">here</a>.
+</p>
+
+<p>
+That link also suggested that the <i>Content type</i> should be <code>application/json</code>.
+</p>
+</div>
+</div>
+<div id="outline-container-org927f5ed" class="outline-3">
+<h3 id="org927f5ed"><span class="section-number-3">3.2</span> <span class="done DONE">DONE</span> Invite all Members</h3>
+</div>
+</div>
+<div id="outline-container-org9aba07b" class="outline-2">
+<h2 id="org9aba07b"><span class="section-number-2">4</span> <span class="done DONE">DONE</span> Share links on <i>Vuws</i></h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Put the following links up on <i>Vuws</i>:
+</p>
+<ul class="org-ul">
+<li class="on"><code>[X]</code> Discord Server</li>
+<li class="on"><code>[X]</code> Github</li>
+<li class="on"><code>[X]</code> GitPage</li>
+<li class="on"><code>[X]</code> Wiki</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org5f42f4e" class="outline-2">
+<h2 id="org5f42f4e"><span class="section-number-2">5</span> Correspondence</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-org9c3ea5b" class="outline-3">
+<h3 id="org9c3ea5b"><span class="section-number-3">5.1</span> Group Email</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Hey guys,
+</p>
+
+<ul class="org-ul">
+<li>I&rsquo;ve made a <i>GitHub</i> repo <a href="https://github.com/RyanGreenup/SWA-Project/blob/master/README.org">here</a></li>
+<li>A corresponding <i>GitPage</i> <a href="https://ryangreenup.github.io/SWA-Project/">here</a>
+<ul class="org-ul">
+<li>It&rsquo;s being deployed from the <code>gh-pages</code> branch, built using <code>mkdocs</code> as</li>
+</ul></li>
+</ul>
+<p>
+described <a href="https://ryangreenup.github.io/SWA-Project/documentation_methods.html">on the page</a>
+</p>
+<ul class="org-ul">
+<li>I also just put up a wiki on an <i>Apache Server</i> <a href="http://121.210.19.69/DSWiki/index.php/Main_Page">here</a> that can be used in</li>
+</ul>
+<p>
+conjuction with the <code>gh-pages</code> branch.
+</p>
+<ul class="org-ul">
+<li><i>Github</i> doesn&rsquo;t support <i>MathJax</i> so unfourtunately the built in wiki isn&rsquo;t
+an option</li>
+<li>Also I&rsquo;m on cable so I can&rsquo;t get a static IP, hence if I have a power outage be</li>
+</ul>
+<p>
+mindful that the link will change and I&rsquo;ll have to post up my new IP.
+</p>
+<ul class="org-ul">
+<li>Finally I&rsquo;ve made a discord server which you can access through <a href="https://discord.gg/NEYcDF">this invitation</a>
+<ul class="org-ul">
+<li>I used a webhook so that <i>GitHub</i> will post to that chat every time a push is
+made or an issue posted.
+<ul class="org-ul">
+<li>Remember you can commit without pushing so this shouldn&rsquo;t be too annoying.</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p>
+I&rsquo;ll add everybody as Collaborators tomorrow, but <i>GitHub</i> just went down for
+maintenance so I&rsquo;ll have to do it later
+</p>
+
+<p>
+Also there is a post on the discussion board dated <code>2019-09-17</code>, just disregard
+that. I&rsquo;ll download the tweets tomorrow and push them to <i>GitHub</i> so we can all
+get started, I haven&rsquo;t decided on the company to use but it doesn&rsquo;t really matter.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgcca2774" class="outline-2">
+<h2 id="orgcca2774"><span class="section-number-2">6</span> <span class="todo TODO">TODO</span> Working</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+<div id="outline-container-org68115a1" class="outline-3">
+<h3 id="org68115a1"><span class="section-number-3">6.1</span> <span class="todo TODO">TODO</span> 8.1 Analysing friend and follower count</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+I like <a href="http://juanreyero.com/article/emacs/org-teams.html">this post</a> on managing the work so let&rsquo;s use that.
+</p>
+</div>
+<div id="outline-container-org5be8c27" class="outline-4">
+<h4 id="org5be8c27"><span class="section-number-4">6.1.1</span> <span class="done DONE">DONE</span> 1 Pull Tweets&#xa0;&#xa0;&#xa0;<span class="tag"><span class="ryan">ryan</span></span></h4>
+<div class="outline-text-4" id="text-6-1-1">
+<p>
+<del>This was easy, I chose <i><a href="https://twitter.com/SquareEnix?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">SquareEnix</a></i> because I&rsquo;m looking forward to <i>FFVII</i> when
+we finish this project :beers:</del>
+</p>
+
+<p>
+Nope, it was all japanese, but <i>Ubisoft</i> is uniqe word that will be really easy
+to search for (<i>Bunnings</i> would be good to, <i>Valve</i> would be awful) I&rsquo;ve just
+stored my tokens here for reference as well.
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org7e96af9"></a>Tokens<br />
+<div class="outline-text-5" id="text-6-1-1-1">
+<p>
+&#x2013;&#x2014;BEGIN PGP MESSAGE&#x2013;&#x2014;
+</p>
+
+<p>
+jA0ECQMClqDOdZ22OWj/0ukBP+GobsGEIuYwIjk7+9c6MSFzpNx2beXfBWPtvN4s
+1XFim8Mvi2imEeQznCDCo5hLKe4FouPMHsU2Y+Rp0q54NHCbWR8iYalqohmc52rY
+VPnzSVcFtH5y7juOcFirOmZ5BPGizEFx/OIQNECmsyA5P3e5cGt7+kezvunSGKL1
+CuwgstsiSZCIjysou1cSoP0/Fx308gox287ZvYlHHA9L+54RlypCNDRtYMRc1ln6
+Xh0CGbW01vt1LmA++n8l/zafqeu5iHCRWSEmlrJdXf0Dj2iCbTvtt0gWCO9eAOyu
+N248+q7pRMDl0DOx9xOZL+ZaeS5hBSaKpyL3E8abtqZ8D/IcI6cUpRhVp3Qo4p49
+dxli/Je1ulhXPYLeg1S8rKC9mm6QyU8dtwMl5LhL0s5gHqWemwdmsqojGFCZhj5t
+rm2ZnD9uwrYSrDXE5BztvYayvRO6JU96LphDdnNXV2vJjLVh0+uUqAJWXm0poi6i
+msB92v8Y+zEktXHtEWUYtrzHw/8Jg5Ddjv4YeRyPbCQb5YGZmd7tdmDbqYUCH0WI
+V7RtOHEo7rF/cPlf6QZzoLBmpsR4CCQPOhl0rWG7sK3QjHT7g2iYxv9fj+0pB6+E
+a73kebYTxh3D0S/g6nvZ08iBdTo+a7kMn1g6kd29AkpDD+PB+4Vu9NJESzCrcaDZ
+WwEP
+=8/Cr
+&#x2013;&#x2014;END PGP MESSAGE&#x2013;&#x2014;
+</p>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-org8d91543" class="outline-4">
+<h4 id="org8d91543"><span class="section-number-4">6.1.2</span> <span class="done DONE">DONE</span> 2 Extract the Friend and Follower Count&#xa0;&#xa0;&#xa0;<span class="tag"><span class="ryan">ryan</span></span></h4>
+<div class="outline-text-4" id="text-6-1-2">
+<p>
+Just use the <code>duplicated</code> function as an index as <a href="scripts/811.R#MissingReference">shown here</a>
+</p>
+</div>
+</div>
+<div id="outline-container-org5558d90" class="outline-4">
+<h4 id="org5558d90"><span class="section-number-4">6.1.3</span> <span class="done DONE">DONE</span> 3 Find the Average Followers&#xa0;&#xa0;&#xa0;<span class="tag"><span class="ryan">ryan</span></span></h4>
+<div class="outline-text-4" id="text-6-1-3">
+<p>
+Just used the <a href="scripts/811.R#MissingReference">mean function as shown here</a>
+</p>
+</div>
+</div>
+<div id="outline-container-orgfa7aae0" class="outline-4">
+<h4 id="orgfa7aae0"><span class="section-number-4">6.1.4</span> <span class="done DONE">DONE</span> 4 Find the proprtion above average</h4>
+<div class="outline-text-4" id="text-6-1-4">
+<p>
+<a href="scripts/811.R#MissingReference">link</a>
+</p>
+
+<p>
+Use <code>mean(vec&lt;val)</code>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8ec196f" class="outline-4">
+<h4 id="org8ec196f"><span class="section-number-4">6.1.5</span> <span class="done DONE">DONE</span> 5 Bootstrap a confidence interval&#xa0;&#xa0;&#xa0;<span class="tag"><span class="ryan">ryan</span>&#xa0;<span class="ATTACH">ATTACH</span></span></h4>
+<div class="outline-text-4" id="text-6-1-5">
+<p>
+This method was provided in the lecture notes, I also did some extra research for better marks:
+</p>
+
+
+<div id="org5b47b8a" class="figure">
+<p><img src="./docs/media/slidesboot.png" alt="slidesboot.png" width="400px" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Lossless Compression of a Network graph</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8483a3b" class="outline-4">
+<h4 id="org8483a3b"><span class="section-number-4">6.1.6</span> <span class="done DONE">DONE</span> 6 Who has a higher friend count given the confidence Interval&#xa0;&#xa0;&#xa0;<span class="tag"><span class="ryan">ryan</span></span></h4>
+<div class="outline-text-4" id="text-6-1-6">
+<p>
+Same as <a href="#org8ec196f">above</a> pretty much, but you&rsquo;ll notice I attached some notes justifying my description of the confidence interval <a href="./docs/ConfIntNotes.pdf">here</a>.
+</p>
+
+<ul class="org-ul">
+<li><a href="scripts/811.R#MissingReference">Link to Code</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd09c288" class="outline-4">
+<h4 id="orgd09c288"><span class="section-number-4">6.1.7</span> <span class="todo TODO">TODO</span> 7 Test for Independence&#xa0;&#xa0;&#xa0;<span class="tag"><span class="ryan">ryan</span></span></h4>
+<div class="outline-text-4" id="text-6-1-7">
+<p>
+Originally I tried the following as described in issue <code>#3</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-R">tens     <span style="color: #a9a1e1;">&lt;-</span> y[<span style="color: #da8548; font-weight: bold;">0</span>    &lt;= y &amp; y &lt; <span style="color: #da8548; font-weight: bold;">100</span>]
+hundreds <span style="color: #a9a1e1;">&lt;-</span> y[<span style="color: #da8548; font-weight: bold;">100</span>  &lt;= y &amp; y &lt; <span style="color: #da8548; font-weight: bold;">1000</span>]
+oneK     <span style="color: #a9a1e1;">&lt;-</span> y[<span style="color: #da8548; font-weight: bold;">1000</span> &lt;= y &amp; y &lt; <span style="color: #da8548; font-weight: bold;">1000</span>]
+twoK     <span style="color: #a9a1e1;">&lt;-</span> y[<span style="color: #da8548; font-weight: bold;">2000</span> &lt;= y &amp; y &lt; <span style="color: #da8548; font-weight: bold;">1000</span>]
+threeK   <span style="color: #a9a1e1;">&lt;-</span> y[<span style="color: #da8548; font-weight: bold;">3000</span> &lt;= y &amp; y &lt; <span style="color: #da8548; font-weight: bold;">1000</span>]
+fourK    <span style="color: #a9a1e1;">&lt;-</span> y[<span style="color: #da8548; font-weight: bold;">4000</span> &lt;= y &amp; y &lt; <span style="color: #da8548; font-weight: bold;">1000</span>]
+fiveKp   <span style="color: #a9a1e1;">&lt;-</span> y[<span style="color: #da8548; font-weight: bold;">5000</span> &lt;= y &amp; y &lt; <span style="color: #ECBE7B;">Inf</span>]
+</pre>
+</div>
+
+<p>
+but I didn&rsquo;t like that and changed it to this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span style="color: #5B6268;">## </span><span style="color: #5B6268;">Assign Categories</span>
+y_df <span style="color: #a9a1e1;">&lt;-</span> data.frame(y)
+y_df$cat[<span style="color: #da8548; font-weight: bold;">0</span>       &lt;= y_df$y &amp; y_df$y &lt; <span style="color: #da8548; font-weight: bold;">100</span>] <span style="color: #a9a1e1;">&lt;-</span> <span style="color: #98be65;">"Tens"</span>
+y_df$cat[<span style="color: #da8548; font-weight: bold;">100</span>     &lt;= y_df$y &amp; y_df$y &lt; <span style="color: #da8548; font-weight: bold;">1000</span>] <span style="color: #a9a1e1;">&lt;-</span> <span style="color: #98be65;">"Hundreds"</span>
+y_df$cat[<span style="color: #da8548; font-weight: bold;">1000</span>    &lt;= y_df$y &amp; y_df$y &lt; <span style="color: #da8548; font-weight: bold;">2000</span>] <span style="color: #a9a1e1;">&lt;-</span> <span style="color: #98be65;">"1Thousands"</span>
+y_df$cat[<span style="color: #da8548; font-weight: bold;">2000</span>    &lt;= y_df$y &amp; y_df$y &lt; <span style="color: #da8548; font-weight: bold;">3000</span>] <span style="color: #a9a1e1;">&lt;-</span> <span style="color: #98be65;">"2Thousands"</span>
+y_df$cat[<span style="color: #da8548; font-weight: bold;">3000</span>    &lt;= y_df$y &amp; y_df$y &lt; <span style="color: #da8548; font-weight: bold;">4000</span>] <span style="color: #a9a1e1;">&lt;-</span> <span style="color: #98be65;">"3Thousands"</span>
+y_df$cat[<span style="color: #da8548; font-weight: bold;">4000</span>    &lt;= y_df$y &amp; y_df$y &lt; <span style="color: #da8548; font-weight: bold;">5000</span>] <span style="color: #a9a1e1;">&lt;-</span> <span style="color: #98be65;">"4Thousands"</span>
+y_df$cat[<span style="color: #da8548; font-weight: bold;">5000</span>    &lt;= y_df$y &amp; y_df$y &lt; <span style="color: #ECBE7B;">Inf</span>] <span style="color: #a9a1e1;">&lt;-</span> <span style="color: #98be65;">"5ThousandOrMore"</span>
+
+<span style="color: #5B6268;">### </span><span style="color: #5B6268;">Make a factor</span>
+y_df$cat <span style="color: #a9a1e1;">&lt;-</span> factor(y_df$cat, ordered = <span style="color: #ECBE7B;">FALSE</span>)
+
+<span style="color: #5B6268;">### </span><span style="color: #5B6268;">Determine Frequencies</span>
+y_freq <span style="color: #a9a1e1;">&lt;-</span> table(y_df$cat) <span style="color: #a9a1e1;">%&gt;%</span> as.matrix()
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orge43362e" class="outline-4">
+<h4 id="orge43362e"><span class="section-number-4">6.1.8</span> TODO</h4>
+</div>
+</div>
+<div id="outline-container-org60930e9" class="outline-3">
+<h3 id="org60930e9"><span class="section-number-3">6.2</span> <span class="todo TODO">TODO</span> 8.2 Finding Themes</h3>
+<div class="outline-text-3" id="text-6-2">
+</div>
+<div id="outline-container-org4f9d867" class="outline-4">
+<h4 id="org4f9d867"><span class="section-number-4">6.2.1</span> 8. Find unique users with above average friend counts</h4>
+</div>
+</div>
+<div id="outline-container-orgaae74e2" class="outline-3">
+<h3 id="orgaae74e2"><span class="section-number-3">6.3</span> <span class="todo TODO">TODO</span> 8.3 Building Networks</h3>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Ryan Greenup</p>
+<p class="date">Created: 2020-04-28 Tue 11:38</p>
+</div>
+</body>
+</html>
