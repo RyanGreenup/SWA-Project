@@ -1,4 +1,4 @@
-# Load Packages -----------------------------------------------------------
+## * Load Packages -----------------------------------------------------------
 setwd("~/Dropbox/Notes/DataSci/Social_Web_Analytics/SWA-Project/scripts/")
 
 if (require("pacman")) {
@@ -17,7 +17,7 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2, ggmap, parallel,
 
 mise()
 
-# Set up Tokens ===========================================================
+## * Set up Tokens ===========================================================
 options(RCurlOptions = list(
   verbose = FALSE,
   capath = system.file("CurlSSL", "cacert.pem", package = "RCurl"),
@@ -41,7 +41,7 @@ options(RCurlOptions = list(
 ## =8/Cr
 ## -----END PGP MESSAGE-----
 
-# 8.1.1 *  Pull the Tweets --------------------------------------------------------
+## * 8.1.1   Pull the Tweets --------------------------------------------------------
 ##  n <- 1000
 ##  tweets.company <- search_tweets(q = 'ubisoft', n = n, token = tk,
 ##                                  include_rts = FALSE)
@@ -52,24 +52,24 @@ options(RCurlOptions = list(
 ##                                   include_rts = FALSE)
 ##   save(tweets.company, file = "resources/Download_1_Huge.Rdata")
 
-# ** Load the Tweets ==============================================================
+## ** Load the Tweets ==============================================================
 mise(); load("./resources/Download_1.Rdata")
 
-# 8.1.2 * Friend and Follower Count ----------------------------------------------------
+## * 8.1.2 Friend and Follower Count ----------------------------------------------------
 (users <- unique(tweets.company$name)) %>% length()
 (x <- tweets.company$followers_count[!duplicated(tweets.company$name)]) %>% length()
 (y <- tweets.company$friends_count[!duplicated(tweets.company$name)]) %>% length()
 
-# 8.1.3 * Summary Statistics -----------------------------------------------------------
+## ** 8.1.3  Summary Statistics -----------------------------------------------------------
 (xbar <- mean(x))
 (ybar <- mean(y))
 
-# 8.1.4 * Above Average Followers ------------------------------------------------
+## * 8.1.4 Above Average Followers ------------------------------------------------
 (px_hat <- mean(x>xbar))
 (py_hat <- mean(y>ybar))
 
-# 8.1.5 * BootStrap --------------------------------------------------------------
-# a.) ** Generate Bootstrap Distribution ===========================================
+## ** 8.1.5 BootStrap --------------------------------------------------------------
+## ** a.)  Generate Bootstrap Distribution ===========================================
 ## Re-Sampling with replacement is 
 ## bt_pop <- replicate(10^2, {
 ##  sample(x, replace = TRUE)
@@ -78,7 +78,7 @@ mise(); load("./resources/Download_1.Rdata")
 (bt_pop <- sample(x, size = 10^6, replace = TRUE)) %>% head()
 
 
-# b.) ** Plot the Bootstrap Distribution ==========================================
+## ** b.) Plot the Bootstrap Distribution ==========================================
 bt_pop_data <- tibble("Followers" = bt_pop)
 ggplot(data = bt_pop_data, aes(x = Followers)) +
   geom_histogram(aes(y = ..density..), fill = "lightblue", bins = 35, col = "pink") +
@@ -88,8 +88,8 @@ ggplot(data = bt_pop_data, aes(x = Followers)) +
   labs(x = "Number of Followers", y = "Density",
        title = "Bootstrapped population of Follower Numbers")
 
-# ** c.) Estimate a Conf. Int. for the pop mean Follower Count ================
-# *** Percentile Method #######################################################
+## ** c.) Estimate a Conf. Int. for the pop mean Follower Count ================
+## *** Percentile Method #######################################################
 ## Resampling inside a loop/map is better syntax and is
 ## equivalent to constructing infinitely large bootstrap distribution and
 ## sampling from that population (ISL, 194)
@@ -100,7 +100,7 @@ xbar_boot_loop <- replicate(10^3, {
   })
 quantile(xbar_boot_loop, c(0.015, 0.985))
 
-# *** BC_a Method #############################################################
+## *** BC_a Method #############################################################
 mean_val <- function(data, index) {
   X = data[index]
   return(mean(X))
@@ -109,8 +109,8 @@ mean_val <- function(data, index) {
 xbar_boot <- boot(data = x, statistic = mean_val, R = 10^3)
 boot.ci(xbar_boot, conf = 0.97, type = "bca", index = 1)
 
-# ** d.) Estimate a Conf Int for Pop Mean Friend Count =========================
-# *** Using a Percentile Method ################################################
+## ** d.) Estimate a Conf Int for Pop Mean Friend Count =========================
+## *** Using a Percentile Method ################################################
 ybar_boot_loop <- replicate(10^3, {
   s <- sample(y, replace = TRUE)
   mean(s)
@@ -129,7 +129,7 @@ boot.ci(xbar_boot, conf = 0.97, type = "bca", index = 1)
 ## We just want Percentile type
 ## https://www.datacamp.com/community/tutorials/bootstrap-r
 
-# * 8.1.6 High Friend Count Proportion -------------------------------------------
+## * 8.1.6 High Friend Count Proportion -------------------------------------------
 prop <- factor(c("Below", "Above"))
 ## 1 is above average, 2 is below
 py_hat_bt <- replicate(10^3, {
@@ -152,8 +152,8 @@ py_hat_boot <- boot(data = y>mean(y), statistic = prop, R = 10^3)
 boot.ci(py_hat_boot, conf = 0.97, type = "bca")
 
 
-# * 8.1.7 Find Evidence to suggest independence-----------------------------------
-# ** a) Bin the Counts=============================================================
+## * 8.1.7 Find Evidence to suggest independence-----------------------------------
+## ** a) Bin the Counts=============================================================
 ## variables and names should not start with numbers
 ## this is syntactically incorrect
 ## https://stat.ethz.ch/R-manual/R-devel/library/base/html/make.names.html
@@ -177,7 +177,7 @@ x_df$cat <- factor(x_df$cat, levels = var_levels, ordered = TRUE)
 ### Determine Frequencies
 (x_freq <- table(x_df$cat) %>% as.matrix())
 
-# ** b) Find the Friend Count Frequency ===========================================
+## ** b) Find the Friend Count Frequency ===========================================
 ## Assign Categories
 y_df <- data.frame(y)
 y_df$cat[0       <= y_df$y & y_df$y < 100] <- "Tens"
@@ -194,8 +194,8 @@ y_df$cat <- factor(y_df$cat, levels = var_levels, ordered = TRUE)
 ### Determine Frequencies
 (y_freq <- table(y_df$cat) %>% as.matrix())
 
-# ** c) Find the Expected counts under each group and Chi Test Independence =======
-# *** Combine the frequencies into a matrix #######################################
+## ** c) Find the Expected counts under each group and Chi Test Independence =======
+## *** Combine the frequencies into a matrix #######################################
 vals <- t(cbind(x_freq, y_freq))
 rownames(vals) <- c("Followers.x", "followers.y")
 vals 
