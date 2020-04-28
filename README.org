@@ -19,6 +19,7 @@ Github for Social Web Analytics
   + =2020-04-25 Sat 08:56=
 + [[file:docs/ProjectSpec_S1_2020_WSUSCC_GizemModerated.pdf][Project Specification]]
  + [[./docs/rtweet.pdf][=rtweet= Manual]]
++ [[http://121.210.19.69/DSWiki/docs/swaprojectreadme.html][HTML Export (of this readme)]]
 
 + [[file:report/report.pdf][Current Report]]
 
