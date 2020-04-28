@@ -18,6 +18,9 @@ Github for Social Web Analytics
   + =2020-04-25 Sat 08:56=
 + [[file:docs/ProjectSpec_S1_2020_WSUSCC_GizemModerated.pdf][Project Specification]]
  + [[./docs/rtweet.pdf][=rtweet= Manual]]
+
++ [[file:report/report.pdf][Current Report]]
+
 * TODO Add Members as Collaborators
 + [X] Ryan
 + [X] Kieran
