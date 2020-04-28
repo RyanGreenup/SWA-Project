@@ -1,9 +1,9 @@
 #+TITLE: SWA-Project
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="report/style.css">
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="./style.css">
 
 #+BEGIN_HTML
 <p> <img src="https://img.shields.io/badge/Chat-4%20Members-yellow" /> <img
-src="https://img.shields.io/badge/Contributors-2%20Member-orange" /> <img src="https://img.shields.io/badge/Questions-0%20Completed-red" /> </p>
+src="https://img.shields.io/badge/Contributors-2%20Member-orange" /> <img src="https://img.shields.io/badge/Questions-7%20Completed-orange" /> </p>
 #+END_HTML
 #+begin_comment
 See [[https://shields.io/][Shields io]]
