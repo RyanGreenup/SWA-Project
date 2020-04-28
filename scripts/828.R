@@ -21,7 +21,6 @@ mise()
 mise(); load("./resources/Download_1.Rdata")
 
 # * Heading 1 ------------------------------------------------------------------
-#' Feel free to use Roxygen comments
 # ** Heading 2 =================================================================
 # *** Heading 3 ################################################################
 # **** Heading 4
@@ -29,3 +28,5 @@ mise(); load("./resources/Download_1.Rdata")
 # ****** Heading 6
 ## Comments have two `#`
                                         # right aligned have one `#`
+#' Feel free to use Roxygen comments
+## Work in the development branch and then we'll merge it into master as we go
