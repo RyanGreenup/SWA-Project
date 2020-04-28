@@ -17,7 +17,7 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2, ggmap, parallel,
 
 mise()
 
-## * Set up Tokens ===========================================================
+## * Set up Tokens -----------------------------------------------------------
 options(RCurlOptions = list(
   verbose = FALSE,
   capath = system.file("CurlSSL", "cacert.pem", package = "RCurl"),
@@ -200,6 +200,15 @@ vals <- t(cbind(x_freq, y_freq))
 rownames(vals) <- c("Followers.x", "followers.y")
 vals 
 
+## **** Calculate Summary Stats
+n  <- sum(vals)
+sz <- prod(dim(vals))
+p  <- vals/n
+o  <- vals
+e  <- rowsum(vals)*colSums(vals)/n
 
+chi_obs <- sum((e-o)^2/e)
 
+## **** Simulate False Positives
 
+vals <- rmultinom(size = prod())
