@@ -322,6 +322,7 @@ make_UTF <- function(x) {
   iconv(x, to = "UTF-8")
 }
 tweet_corpus <- tm_map(x = tweet_corpus, FUN = make_UTF)
+tweet_corpus_raw <- tweet_corpus
 
 tweet_corpus[[1]]$content
 ## ** Clean the Corpus ---------------------------------------------------------
@@ -339,6 +340,7 @@ tweet_corpus[[1]]$content
 ## `tm::removeNumbers()` function, in order to apply this to the entire corpus the
 ## `tm_map` package.
 
+
 clean_corp <- function(corpus) {
   corpus <- tm_map(corpus, FUN = removeNumbers)
   corpus <- tm_map(corpus, FUN = removePunctuation)
@@ -347,8 +349,14 @@ clean_corp <- function(corpus) {
       ## stopwords() returns characters and is fead as second argument
   corpus <- tm_map(corpus, FUN = stemDocument)
 }
-tweet_corpus <- clean_corp(tweet_corpus)
+tweet_corpus_clean <- clean_corp(tweet_corpus)
 
 ## These warnings are expected, they remove fluff from our data
 
 ## * 8.2.12 Display the first two tweets before/after processing ---------------
+tweet_corpus_raw[[1]]$content
+tweet_corpus_clean[[1]]$content
+tweet_corpus_raw[[2]]$content
+tweet_corpus_clean[[2]]$content
+
+## * 8.2.13 Create a Term Document Matrix---------------------------------------

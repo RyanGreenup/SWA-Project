@@ -91,13 +91,13 @@ get started, I haven't decided on the company to use but it doesn't really matte
 * TODO Working
 ** Clock Tables
 *** Ryan
-#+BEGIN: clocktable :scope subtree :maxlevel 6 :match "ryan"
-#+CAPTION: Ryan's Clock summary at [2020-04-29 Wed 08:28]
+#+BEGIN: clocktable :scope nil :maxlevel 6 :match "ryan"
+#+CAPTION: Clock summary at [2020-04-29 Wed 12:25]
 | Headline                                       | Time      |         |      |
 |------------------------------------------------+-----------+---------+------|
-| *Total time*                                   | *1d 1:19* |         |      |
+| *Total time*                                   | *1d 2:57* |         |      |
 |------------------------------------------------+-----------+---------+------|
-| Working                                        | 1d 1:19   |         |      |
+| Working                                        | 1d 2:57   |         |      |
 | \_  8.1 Analysing friend and follower count    |           | 1d 1:19 |      |
 | \_    1 Pull Tweets                            |           |         | 2:53 |
 | \_    2 Extract the Friend and Follower Count  |           |         | 1:12 |
@@ -105,25 +105,29 @@ get started, I haven't decided on the company to use but it doesn't really matte
 | \_    5 Bootstrap a confidence interval        |           |         | 9:27 |
 | \_    6 Who has a higher friend count given... |           |         | 2:25 |
 | \_    7 Test for Independence                  |           |         | 9:15 |
+| \_  8.2 Finding Themes                         |           |    1:38 |      |
+| \_    8 Find unique users with above...        |           |         | 1:00 |
+| \_    9 Find Unique users who have $\leq$...   |           |         | 0:04 |
+| \_    10 Combine tweets of users identified... |           |         | 0:34 |
 #+END:
 *** Navid
-#+BEGIN: clocktable :scope subtree :maxlevel 6 :match "navid"
-#+CAPTION: Navid's Clock summary at [2020-04-29 Wed 08:28]
+#+BEGIN: clocktable :scope nil :maxlevel 6 :match "navid"
+#+CAPTION: Clock summary at [2020-04-29 Wed 12:25]
 | Headline     | Time   |
 |--------------+--------|
 | *Total time* | *0:00* |
 #+END:
 
 *** Hassan
-#+BEGIN: clocktable :scope subtree :maxlevel 6 :match "hassan"
-#+CAPTION: Hassan's Clock summary at [2020-04-29 Wed 08:28]
+#+BEGIN: clocktable :scope nil :maxlevel 6 :match "hassan"
+#+CAPTION: Clock summary at [2020-04-29 Wed 12:25]
 | Headline     | Time   |
 |--------------+--------|
 | *Total time* | *0:00* |
 #+END:
 *** Kieran
-#+BEGIN: clocktable :scope subtree :maxlevel 6 :match "kieran"
-#+CAPTION: Kieran's Clock summary at [2020-04-29 Wed 08:28]
+#+BEGIN: clocktable :scope nil :maxlevel 6 :match "kieran"
+#+CAPTION: Clock summary at [2020-04-29 Wed 12:26]
 | Headline     | Time   |
 |--------------+--------|
 | *Total time* | *0:00* |
@@ -279,7 +283,11 @@ CLOCK: [2020-04-29 Wed 10:26]--[2020-04-29 Wed 11:00] =>  0:34
 CLOCK: [2020-04-29 Wed 11:00]--[2020-04-29 Wed 12:24] =>  1:24
 :END:
 
-*** TODO 12 Display the first two tweets                                      :Keiran:
+
+*** TODO 12 Display the first two tweets                                      :ryan:
+:LOGBOOK:
+CLOCK: [2020-04-29 Wed 12:26]
+:END:
 *** TODO Create a TDM, use TFIDF, how many tweets were empty?                 :ryan:
 *** TODO 14 Cluster the Results with respect to cosine distance               :ryan:
 
