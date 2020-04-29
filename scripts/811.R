@@ -414,7 +414,6 @@ tweet_weighted[1:6, 1:6]
 ## ** Visualise the Cleaned Tweets to Find stop words or issues==================
 ## Only consider the first 30 words
 (relevant <- sort(apply(tweet_weighted, 2, mean), decreasing = TRUE)[1:30]) %>% head()
-wordcloud(relevant)
 
 p <- brewer.pal(n = 5, name = "Set2")
 wordcloud(
@@ -439,18 +438,19 @@ ggplot(data, aes(label = word, size = weight)) +
 ## No document was empty, each had atleast >= 18 terms
 
 ## * 8.2.14 How many clusters are there?-----------------------------------------
+## <<8214Clust>>
 n = 3
 SSW = rep(0, n)
-for (a in 1:n) {
-  #nstart option attempts multiple initial configurations and
-  #reports on the best one. For example,nstart=10 will generate
-  # 10 initial random centroids and chooses the best one for
-  #the algorithm.
-  set.seed(40)#seed for random number generator to ensure consistency in our results
-  ## Use Document Term Matrix for Clustering and PCA
-  K = kmeans(tweet_weighted, a, nstart = 10) #
-  SSW[a] = K$tot.withinss #total within cluster sum of squares
-}
+## for (a in 1:n) {
+##   #nstart option attempts multiple initial configurations and
+##   #reports on the best one. For example,nstart=10 will generate
+##   # 10 initial random centroids and chooses the best one for
+##   #the algorithm.
+##   set.seed(40)#seed for random number generator to ensure consistency in our results
+##   ## Use Document Term Matrix for Clustering and PCA
+##   K = kmeans(tweet_weighted, a, nstart = 10) #
+##   SSW[a] = K$tot.withinss #total within cluster sum of squares
+## }
 
 
 norm.tweet_weighted = diag(1/sqrt(rowSums(tweet_weighted^2))) %*% tweet_weighted
@@ -460,7 +460,7 @@ D =dist(norm.tweet_weighted, method = "euclidean")^2/2
 #scaling to project the data into a 2d space
 ## perform MDS using 100 dimensions
 mds.tweet_weighted <- cmdscale(D, k=100)
-n = 5 #we assume elbow bends at 5 clusters
+n = 1 #we assume elbow bends at 5 clusters
 SSW = rep(0, n)
 for (a in 1:n) {
   ## use nstart to reduce the effect of the random initialisation
@@ -468,7 +468,8 @@ for (a in 1:n) {
   K = kmeans(mds.tweet_weighted, a, nstart = 20)
   SSW[a] = K$tot.withinss
 }
-
+SSW
 
 ## plot the results
 plot(1:n, SSW, type = "b")
+
