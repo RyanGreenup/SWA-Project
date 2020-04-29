@@ -293,5 +293,5 @@ if ((nrow(low_friends) + nrow(high_friends))!=length(users)) {
 
 ## * 8.2.10 Find the tweets of those users indentified above --------------------
 ## TODO this doesn't work
-tweets_high <- tweets.company$text[tweets.company$name ==  high_friends]
-tweets_low  <- tweets.company$text[tweets.company$name %in%  low_friends]
+tweets_high <- tweets.company$text[tweets.company$name %in%  high_friends$name]
+tweets_low  <- tweets.company$text[tweets.company$name %in%  low_friends$name]
