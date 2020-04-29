@@ -56,11 +56,13 @@ options(RCurlOptions = list(
 mise(); load("./resources/Download_1.Rdata")
 
 ## * 8.1.2 Friend and Follower Count ----------------------------------------------------
+## <<8.1.2>>
 (users <- unique(tweets.company$name)) %>% length()
 (x <- tweets.company$followers_count[!duplicated(tweets.company$name)]) %>% length()
 (y <- tweets.company$friends_count[!duplicated(tweets.company$name)]) %>% length()
 
 ## ** 8.1.3  Summary Statistics -----------------------------------------------------------
+## <<8.1.3>>
 (xbar <- mean(x))
 (ybar <- mean(y))
 
@@ -220,7 +222,7 @@ t(vals)
 brackets <- unique(x_df$cat)
 metrics <- c("follower", "friend")
 
-## ***** Calculate Summary Stats
+
 n <- sum(vals)
 bracket_prop <- colSums(vals) / n
 metric_prop  <- rowSums(vals) / n
@@ -258,4 +260,42 @@ s <- replicate(10^4,{
 })
 
 mean(s)
+
+
+## * 8.2.8 Find users with Above Average Friend Count
+## <<8.2.8>>
+## y is friends count, see [[8.1.3]]
+## Remember these users must not be duplicated
+
+<<dplyr812>>
+select <- dplyr::select
+filter <- dplyr::filter
+interested_vars <- c("name", "followers_count")
+
+(follower_counts <- tweets.company %>%
+  select(interested_vars) %>%
+  filter(!duplicated(name)))
+
+(high_friends <- follower_counts %>%
+  filter(followers_count > mean(followers_count, na.rm = TRUE)))
+
+(low_friends <- follower_counts %>%
+  filter(followers_count <= mean(followers_count, na.rm = TRUE)))
+
+
+if ((nrow(low_friends) + nrow(high_friends))!=length(users)) {
+  print("More users identified that exist, review the method to count high_friends")
+
+}
+
+## This doesn't account for duplicated users between high_friend and low_friend
+## counts It is necessary to first filter out the unique users, I did this with
+## dplyr instead [[dplyr812]]
+
+##     (users_high_friend <- tweets.company$name[y>ybar] %>%
+##                               unique()) %>%
+##                               length()
+##     (users_low_friend <- tweets.company$name[y<=ybar] %>%
+##                                  unique()) %>%
+##                                  length()
 

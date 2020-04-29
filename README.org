@@ -1,5 +1,6 @@
 #+TITLE: SWA-Project
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="./style.css">
+#+OPTIONS: num:nil
 
 #+BEGIN_HTML
 <p> <img src="https://img.shields.io/badge/Chat-5%20Members-green" /> <img
