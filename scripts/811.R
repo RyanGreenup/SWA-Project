@@ -13,7 +13,7 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2, ggmap, parallel,
                corrplot, gridExtra, mise, latex2exp, tree, rpart, lattice, coin,
                primes, epitools, maps, clipr, ggmap, twitteR, ROAuth, tm,
                rtweet, base64enc, httpuv, SnowballC, RColorBrewer, wordcloud,
-               ggwordcloud, boot)
+               ggwordcloud, boot, SnowballC)
 
 mise()
 
@@ -268,7 +268,7 @@ mean(s)
 ## y is friends count, see [[8.1.3]]
 ## Remember these users must not be duplicated
 
-<<dplyr812>>
+## <<dplyr812>>
 select <- dplyr::select
 filter <- dplyr::filter
 interested_vars <- c("name", "followers_count")
@@ -295,5 +295,60 @@ if ((nrow(low_friends) + nrow(high_friends))!=length(users)) {
 ## TODO this doesn't work
 tweets_high <- tweets.company$text[tweets.company$name %in%  high_friends$name]
 tweets_low  <- tweets.company$text[tweets.company$name %in%  low_friends$name]
+tweets <- c(tweets_high, tweets_low)
 
-## * 8.2.11 Clean the tweets
+## * 8.2.11 Clean the tweets----------------------------------------------------
+## ** Create a Corpus -----------------------------------------------------------
+
+## the `tm` library can be used to analyse the text (the `SnowballC` package
+## will be used for word stemming).
+
+## It's first necessary to create a `corpus` object:
+
+tweet_source <- tm::VectorSource(tweets)
+tweet_corpus <- tm::Corpus(x = tweet_source)
+
+## A corpus object is a list where each entry contains author, description,
+## content et cetera.
+
+tweet_corpus$content[1:5]
+tweet_corpus[[1]]$content
+tweet_corpus[1] %>% str()
+
+## Then use the `tm_map` function to apply a function to every document in the
+## corpus, in this case we will convert the text encoding to UTF8:
+
+make_UTF <- function(x) {
+  iconv(x, to = "UTF-8")
+}
+tweet_corpus <- tm_map(x = tweet_corpus, FUN = make_UTF)
+
+tweet_corpus[[1]]$content
+## ** Clean the Corpus ---------------------------------------------------------
+##
+## In order to clean the corpus it will be necessary to:
+##
+## 1. remove numbers
+## 2. remove punctuation
+## 3. remove whitespace
+## 4. case fold all characters to lower case
+## 5. remove a set of stop words
+## 6. reduce each word to its stem
+##
+## So for example to remove the numbers it would be ideal to use the
+## `tm::removeNumbers()` function, in order to apply this to the entire corpus the
+## `tm_map` package.
+
+clean_corp <- function(corpus) {
+  corpus <- tm_map(corpus, FUN = removeNumbers)
+  corpus <- tm_map(corpus, FUN = removePunctuation)
+  corpus <- tm_map(corpus, FUN = stripWhitespace)
+  corpus <- tm_map(corpus, FUN = removeWords, stopwords())
+      ## stopwords() returns characters and is fead as second argument
+  corpus <- tm_map(corpus, FUN = stemDocument)
+}
+tweet_corpus <- clean_corp(tweet_corpus)
+
+## These warnings are expected, they remove fluff from our data
+
+## * 8.2.12 Display the first two tweets before/after processing ---------------
