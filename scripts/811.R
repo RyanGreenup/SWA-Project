@@ -396,7 +396,8 @@ if(length(null)!=0){
   tweet_matrix = tdm[,-null]
 }
 
-tweet_matrix_dtm <- t(tweet_matrix_dtm)
+tweet_matrix_dtm <- t(tweet_matrix_tdm)
+colnames(tweet_matrix_dtm) %>% head() #Colnames are preserved
 
 ## Moving forward use dtm, it's more convenient
 
