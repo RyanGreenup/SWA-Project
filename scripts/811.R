@@ -366,6 +366,7 @@ tweet_corpus_raw[[2]]$content
 tweet_corpus_clean[[2]]$content
 
 ## * 8.2.13 Create a Term Document Matrix---------------------------------------
+## Remove Empty tweets
 
 ## Make a Document Term Matrix
                          ### RowColumnMatrix
@@ -412,4 +413,11 @@ ggplot(data, aes(label = word, size = weight)) +
   geom_text_wordcloud()
 
 ## ** How many documents are empty after processing=============================
+null = which(colSums(tweet_matrix_tdm) == 0)
+null
+length(null)
 
+
+if(length(null)!=0){
+  tweet_matrix = tdm[,-null]
+}

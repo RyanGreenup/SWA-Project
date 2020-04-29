@@ -286,9 +286,13 @@ CLOCK: [2020-04-29 Wed 11:00]--[2020-04-29 Wed 12:24] =>  1:24
 
 *** TODO 12 Display the first two tweets                                      :ryan:
 :LOGBOOK:
-CLOCK: [2020-04-29 Wed 12:26]
+CLOCK: [2020-04-29 Wed 12:26]--[2020-04-29 Wed 13:02] =>  0:36
 :END:
 *** TODO Create a TDM, use TFIDF, how many tweets were empty?                 :ryan:
+:LOGBOOK:
+CLOCK: [2020-04-29 Wed 15:15]
+CLOCK: [2020-04-29 Wed 13:04]--[2020-04-29 Wed 15:14] =>  2:10
+:END:
 *** TODO 14 Cluster the Results with respect to cosine distance               :ryan:
 
 ** TODO 8.3 Building Networks                                                  :Hassan:Navid:

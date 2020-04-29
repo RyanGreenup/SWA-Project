@@ -1,4 +1,4 @@
-% Created 2020-04-28 Tue 20:26
+% Created 2020-04-29 Wed 15:17
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -35,9 +35,9 @@
 
 
 \section{8.1 Analysing the Relationship Between Friends and Followers for Twitter Users}
-\label{sec:org5889f8b}
+\label{sec:orgfc04194}
 \subsection{8.1.1 Retrieve the posts from Twitter}
-\label{sec:orgef2694a}
+\label{sec:org9dd0e1e}
 relevant posts can be retrieved from twitter by utilising the \texttt{rtweet} package, packages can be loaded for use in \textbf{\textbf{\uline{R}}} thusly:
 
 \begin{listing}[htbp]
@@ -61,7 +61,7 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2,
                httpuv, SnowballC, RColorBrewer, wordcloud,
                ggwordcloud, tidyverse, boot)
 \end{minted}
-\caption{\label{orgf1d9527}Load the Packages for \textbf{\textbf{\emph{R}}}}
+\caption{\label{org009e617}Load the Packages for \textbf{\textbf{\emph{R}}}}
 \end{listing}
 
 
@@ -96,10 +96,10 @@ tk <-    rtweet::create_token(
   access_secret   = "*********************************************",
   set_renv        = FALSE
 \end{minted}
-\caption{\label{org95bbb17}Import the twitter tokens (redacted)}
+\caption{\label{org2a9bbc1}Import the twitter tokens (redacted)}
 \end{listing}
 
-and hence all tweets containing a mention of \emph{Ubisoft} can be returned and saved to disk as shown in listing \ref{org63ce22b}:
+and hence all tweets containing a mention of \emph{Ubisoft} can be returned and saved to disk as shown in listing \ref{org45faaa0}:
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -108,13 +108,13 @@ and hence all tweets containing a mention of \emph{Ubisoft} can be returned and 
                                  include_rts = FALSE)
  save(tweets.company[,], file = "resources/Download_1.Rdata")
 \end{minted}
-\caption{\label{org63ce22b}Save the Tweets to the HDD as an \texttt{rdata} file}
+\caption{\label{org45faaa0}Save the Tweets to the HDD as an \texttt{rdata} file}
 \end{listing}
 
 \subsection{8.2.2 Count of Followers and Friends}
-\label{sec:orgaeea5c7}
+\label{sec:org5d3ebdf}
 In order to identify the number of users that are contained in the \emph{tweets} the
-\texttt{unique()} function can be used to return a vector of names which can then be passed as an index to the vector of counts as shown in listing \ref{orga63e2eb}, this provides that 81.7\% of the tweets are by unique users.
+\texttt{unique()} function can be used to return a vector of names which can then be passed as an index to the vector of counts as shown in listing \ref{orgea7611c}, this provides that 81.7\% of the tweets are by unique users.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -124,13 +124,13 @@ y <- tweets.company$friends_count[duplicated(tweets.company$name)]
 
 ## > [1] 817
 \end{minted}
-\caption{\label{orga63e2eb}Return follower count of twitter posts}
+\caption{\label{orgea7611c}Return follower count of twitter posts}
 \end{listing}
 
 
 \subsection{8.1.3 Summary Statistics}
-\label{sec:orgf12e89e}
-The average number of friends and followers from users who posted tweets mentioning \emph{Ubisoft} can be returned using the \texttt{mean()} as shown in listing \ref{orgffe6a83}
+\label{sec:org6062dd9}
+The average number of friends and followers from users who posted tweets mentioning \emph{Ubisoft} can be returned using the \texttt{mean()} as shown in listing \ref{org81b11c2}
 this provides that on average each user has 586 friends and 63,620 followers.
 
 \begin{listing}[htbp]
@@ -143,15 +143,15 @@ y<- rnorm(090)
 ## > [1] 4295.195
 ## > [1] 435.9449
 \end{minted}
-\caption{\label{orgffe6a83}Determine the average number of friends and followers}
+\caption{\label{org81b11c2}Determine the average number of friends and followers}
 \end{listing}
 
 \subsection{8.1.4 Above Average Followers}
-\label{sec:orga10ba78}
+\label{sec:org416104c}
 Each user can be compared to the average number of followers, by using a logical
 operator on the vector (e.g. \texttt{y > ybar}), this will return an output of logical
 values. \textbf{\emph{R}} will coerce logicals into 1/0 values meaning that the mean value
-will return the proportion of \texttt{TRUE} responses as shown in listing \ref{org767ccba}. This
+will return the proportion of \texttt{TRUE} responses as shown in listing \ref{orgdd44daf}. This
 provides that:
 
 \begin{itemize}
@@ -167,19 +167,19 @@ provides that:
 ## > [1] 0.0244798
 ## > [1] 0.2729498
 \end{minted}
-\caption{\label{org767ccba}Calculate the proportion of users with above average follower counts}
+\caption{\label{orgdd44daf}Calculate the proportion of users with above average follower counts}
 \end{listing}
 
 
 \subsection{8.1.5 Bootstrap confidence intervals}
-\label{sec:org78aeca1}
+\label{sec:org91d5980}
 \subsubsection{a/b.) Generate a bootsrap distribution}
-\label{sec:org8dd440e}
+\label{sec:orgb6da90e}
 
 A bootstrap assumes that the population is an infinitely large repetition of the
 sample and may be produces with respect to follower counts by resampling with
 replacement/repetition and plotted using the \texttt{ggplot2} library as deomonstrated
-in listings \ref{org664252a} and \ref{org30c2135} and shown in figure \ref{fig:org17e811a}.
+in listings \ref{orgc37fce0} and \ref{orgbedacb6} and shown in figure \ref{fig:org168f792}.
 
 This shows that the population follower counts is a non-normal skew-right
 distribution, which is expected because the number of friends is an integer value bound by zero \cite{nist2013}.
@@ -191,7 +191,7 @@ distribution, which is expected because the number of friends is an integer valu
 
 ## > [1]   7 515 262 309 186 166
 \end{minted}
-\caption{\label{org664252a}Bootstrapping a population from the sample.}
+\caption{\label{orgc37fce0}Bootstrapping a population from the sample.}
 \end{listing}
 
 \begin{listing}[htbp]
@@ -207,17 +207,17 @@ ggplot(data = bt_pop_data, aes(x = Followers)) +
        title = "Bootstrapped population of Follower Numbers")
 
 \end{minted}
-\label{org30c2135}
+\label{orgbedacb6}
 \end{listing}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=12cm]{./Figures/BootStrap_Pop.png}
-\caption{\label{fig:org17e811a}Histogram of the bootrapped population of follower counts}
+\caption{\label{fig:org168f792}Histogram of the bootrapped population of follower counts}
 \end{figure}
 
 \subsubsection{c.) Estimate a Confidence Interval for the population mean Follower Counts}
-\label{sec:org0126d40}
+\label{sec:org9fc8204}
 In order to perform a bootrap for the population mean value of follower counts it is necessary to:
 
 \begin{enumerate}
@@ -232,7 +232,7 @@ In order to perform a bootrap for the population mean value of follower counts i
 \end{itemize}
 \end{enumerate}
 
-This is equivalent to drawing a sample from a population that is infinitely large and constructed of repetitions of the sample. This can be performed in \textbf{\emph{R}} as shown in listing \ref{orga2403c8}.
+This is equivalent to drawing a sample from a population that is infinitely large and constructed of repetitions of the sample. This can be performed in \textbf{\emph{R}} as shown in listing \ref{orge29de2f}.
 
 
 \begin{listing}[htbp]
@@ -246,14 +246,14 @@ quantile(xbar_boot_loop, c((1-0.97)/2, (1+0.97)/2))
 ##       1.5%      98.5%
 ##   588.4189 10228.7352
 \end{minted}
-\caption{\label{orga2403c8}Confidence Interval of Mean Follower Count in Population}
+\caption{\label{orge29de2f}Confidence Interval of Mean Follower Count in Population}
 \end{listing}
 
 A 97\% probability interval is such that a sample drawn from a population will contain the population mean in that interval 97\% of the time, this means that it may be concluded with a high degree of certainty that the true population mean lies between 588 and 10228.
 
 \begin{enumerate}
 \item Alternative Approaches
-\label{sec:orgd753a49}
+\label{sec:org4d8b19a}
 If this data was normally distributed it may have been appropriate to consider
 bootstrapping the standard error and using a \(t\) distribution, however it is more appropriate to use a
 percentile interval for skewed data such as this, in saying that however this method is not considered to be very accurate in the literature and is often too narrow. \cite[Section 4.1]{hesterberg2015}
@@ -273,7 +273,7 @@ In this work it is provided that the \(BC_{a}\) method of constructing confidenc
  intervals is  superior to mere percentile
  methods in terms of accuracy \cite[Ch. 5]{davison1997}, a sentiment echoed in the literature. \cite[Ch. 5]{carpenter2000,davison1997}
 
-Such methods can be implemented in \textbf{\emph{R}} by passing a function to the the \texttt{boot} call as shown in listing \ref{org7d9831b}. This provides a broader interval, providing that the true confidence interval could lie between 1079 and 16227 followers.
+Such methods can be implemented in \textbf{\emph{R}} by passing a function to the the \texttt{boot} call as shown in listing \ref{org0cf9569}. This provides a broader interval, providing that the true confidence interval could lie between 1079 and 16227 followers.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -295,19 +295,19 @@ boot.ci(xbar_boot, conf = 0.97, type = "bca", index = 1)
 ## Warning message:
 ## In norm.inter(t, adj.alpha) : extreme order statistics used as endpoints
 \end{minted}
-\caption{\label{org7d9831b}Bootstrap of population mean follower count implementing the \(BC_{a}\) method}
+\caption{\label{org0cf9569}Bootstrap of population mean follower count implementing the \(BC_{a}\) method}
 \end{listing}
 
-\label{org0738fac}
+\label{org32a191a}
 \bibliography{references}
 
-\label{org0be2314}
+\label{org18d78ff}
  \bibliographystyle{unsrt}
 \end{enumerate}
 
 \subsubsection{d.) Estimate a Confidence Interval for the population mean Friend Counts}
-\label{sec:org98d0be7}
-A Confidence interval for the population mean friend counts may be constructed in a like wise fashion as shown in listings \ref{org117420a}. This provides that the 97\% confidence interval for the population mean friend count is between 384 and 502 (or 387 and 496 if the \(BC_{a}\) method used, they're quite close and so the more conservative percentile method will be accepted).
+\label{sec:org71503ef}
+A Confidence interval for the population mean friend counts may be constructed in a like wise fashion as shown in listings \ref{org9c4343a}. This provides that the 97\% confidence interval for the population mean friend count is between 384 and 502 (or 387 and 496 if the \(BC_{a}\) method used, they're quite close and so the more conservative percentile method will be accepted).
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -344,16 +344,16 @@ boot.ci(xbar_boot, conf = 0.97, type = "bca", index = 1)
 ## Calculations and Intervals on Original Scale
 ## Some BCa intervals may be unstable
 \end{minted}
-\caption{\label{org117420a}Bootstrap of population mean follower count}
+\caption{\label{org9c4343a}Bootstrap of population mean follower count}
 \end{listing}
 
 \subsection{{\bfseries\sffamily FIXME} 8.1.6 Estimate a 97\% Confidence Interval for the High Friend Count Proportion}
-\label{sec:org84fb543}
+\label{sec:orgd833ef9}
 In order to bootstrap a confidence interval for the proportion of users with
 above average follower counts, repeteadly draw random samples from an infinitely
 large population composed entirely of the sample, and record the sampled
 proportion. this can be acheived by resampling the observations of above and
-below as shown in listing \ref{org12ed2c0}.
+below as shown in listing \ref{org94d606a}.
 
 This provides that:
 \begin{itemize}
@@ -393,15 +393,15 @@ quantile(py_hat_bt, c(0.015, 0.985))
 ## 97%   ( 0.2399,  0.3072 )
 ## Calculations and Intervals on Original Scale
 \end{minted}
-\caption{\label{org12ed2c0}Bootstrap of Proportion of Friends above average}
+\caption{\label{org94d606a}Bootstrap of Proportion of Friends above average}
 \end{listing}
 \subsection{8.1.7 Is the Number of Friends Independent to the Number of Followers}
-\label{sec:orgd350321}
+\label{sec:org5bcd431}
 One method to determine whether or not the number of followers is independent of the number of friends is to bin the counts and determine whether or not the distribution of users across those counts is consistent with the hypothesis of independence.
 
 \subsubsection{Bin the Follower and Friend Categories}
-\label{sec:orge2d3b55}
-The counts may be binned by performing a logical interval test as shown in listing \ref{orge7aaa1b}.
+\label{sec:orgd299648}
+The counts may be binned by performing a logical interval test as shown in listing \ref{org03beae9}.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -438,12 +438,12 @@ y_df$cat <- factor(y_df$cat, levels = var_levels, ordered = TRUE)
 ### Determine Frequencies
 (y_freq <- table(y_df$cat) %>% as.matrix())
 \end{minted}
-\caption{\label{orge7aaa1b}Use Logical Test to Assign observations into bins}
+\caption{\label{org03beae9}Use Logical Test to Assign observations into bins}
 \end{listing}
 
 \subsubsection{Find the Group frequency}
-\label{sec:orge8b56d4}
-These values may be tabluated in order to count the occurence of users among these categories as shown in listing \ref{org3d51644} and table \ref{tab:org9c45940}.
+\label{sec:org4a47caf}
+These values may be tabluated in order to count the occurence of users among these categories as shown in listing \ref{orge7a6c2a} and table \ref{tab:org1055669}.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -458,11 +458,11 @@ vals
 ## Followers.x              18
 ## followers.y               2
 \end{minted}
-\caption{\label{org3d51644}Tabulate the binned counts for the distribution of users among among amount and status.}
+\caption{\label{orge7a6c2a}Tabulate the binned counts for the distribution of users among among amount and status.}
 \end{listing}
 
 \begin{table}[htbp]
-\caption{\label{tab:org9c45940}Table of Binned Friend and Follower counts, transposed relative to code.}
+\caption{\label{tab:org1055669}Table of Binned Friend and Follower counts, transposed relative to code.}
 \centering
 \begin{tabular}{lrr}
  & \textbf{\textbf{\emph{Followers}}} & \textbf{\textbf{\emph{Friends}}}\\
@@ -477,7 +477,7 @@ vals
 \end{table}
 
 \subsubsection{Find the Expected Counts under each group and test for independence}
-\label{sec:org15aa7b6}
+\label{sec:orgbbdf108}
 The expected count of each cell, under the assumption that the two metrics are
 independent, will be the proportion users per bracket multiplied by the number
 of users in that status group. This implies that any cell will be:
@@ -489,7 +489,7 @@ of users in that status group. This implies that any cell will be:
 This can be equivalently expressed as an outer product as shown in equation
 \eqref{eq:1}, in \textbf{\emph{R}} this operation is denoted by the \texttt{\%o\%} operator, which is
 shorthand for the \texttt{outer()} function, this and other summary statistics may be
-evaluated as shown in listing \ref{org610e916}.
+evaluated as shown in listing \ref{org0b38e77}.
 
 The outer product is such that:
 
@@ -501,7 +501,7 @@ $$
 This means the matrix of expected frequencies can be expressed as an outer product thusly:
 
 \begin{align}
-\label{eq:org00a6e2d}
+\label{eq:orga86b987}
 \mathbf{\vec{e}}= \frac{1}{n} \times \begin{bmatrix} \sum^{n}_{j= 1} \left[ o_{1j} \right] \\  \sum^{n}_{j= 1}
 \left[ o_{2j} \right]  \\ \sum^{n}_{j= 1} \left[ o_{3j} \right]   \\
 \sum^{n}_{j= 1} \left[ o_{4j} \right]  \\ \vdots  \\
@@ -521,16 +521,16 @@ o <- vals
 e <- rowSums(vals) %o% colSums(vals) / n
 chi_obs <- sum((e-o)^2/e)
 \end{minted}
-\caption{\label{org610e916}Calculate Expected frequency of values under the assumption of independence.}
+\caption{\label{org0b38e77}Calculate Expected frequency of values under the assumption of independence.}
 \end{listing}
 
 \begin{enumerate}
 \item Testing Independence
-\label{sec:org56bfa76}
+\label{sec:org38ad42d}
 In order to test whether or not the distribution of users among brackets is
 independent of being a follower or friend a \(\chi^{2}\) test may be used, this
 can be evaluated from a model or simulated, in \textbf{\emph{R}}, the simulated test is
-shown in listing \ref{orgae26287}, this provides a \(p\) -value < 0.0005, which means that the hypothesis of independence may be rejected with a high degree of certainty.
+shown in listing \ref{orge4fee83}, this provides a \(p\) -value < 0.0005, which means that the hypothesis of independence may be rejected with a high degree of certainty.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -543,18 +543,18 @@ chisq.test(vals, simulate.p.value = TRUE)
 ## data:  vals
 ## X-squared = 88.109, df = NA, p-value = 0.0004998
 \end{minted}
-\caption{\label{orgae26287}Chi-Square testing for independence between friend and follower bin categories.}
+\caption{\label{orge4fee83}Chi-Square testing for independence between friend and follower bin categories.}
 \end{listing}
 
 \begin{enumerate}
 \item From First Principles
-\label{sec:orgf497726}
+\label{sec:org61cab4f}
 The \(\chi^{2}\) statistic may be performed from first principles by randomly
 sampling the values at the rate at which they occured, tabulating those counts, measuring the \(\chi^{2}\) -value and then repeating this many times.
 
 Because the samples are random they must be independent and average number of
 positives is hence an estimate for the \emph{FPR}, which is in turn an estimate for
-the \(p\) -value. This technique is demonstrated in listing \ref{org9630c55}, the p-value
+the \(p\) -value. This technique is demonstrated in listing \ref{orgde78bcf}, the p-value
 being returned as 0.0004, this value is consistent with the value produced by
 \textbf{\emph{R}}'s built in \texttt{chisq.test} function and so is accepted.
 
@@ -594,15 +594,35 @@ s <- replicate(10^4,{
 
 mean(s)
 \end{minted}
-\caption{\label{org9630c55}Performing a \(\chi^{2}\) statistic from first principles}
+\caption{\label{orgde78bcf}Performing a \(\chi^{2}\) statistic from first principles}
 \end{listing}
 \end{enumerate}
 \end{enumerate}
 \subsubsection{{\bfseries\sffamily FIXME} Conclusion}
-\label{sec:org2b0c16d}
+\label{sec:org8349860}
 The \(p\) -value measures the probability of rejecting the null hypothesis when it is true, i.e. the probability of a detecting a \emph{false positive}, a very small \(p\) -value is hence good evidence that the null hypothesis should be rejected (because doing so would unlikely to be a mistake).
 
 In saying that however the \(p\) -value is distinct from the \emph{power} statistic, which is a measure of \emph{/the probability of accepting the alternative hypothesis} when it is true, a low \(p\) -value is not a measurement of the probability of being correct.
 
 Hence me way conclude, with a high degree of certainty, that the follower and friend counts are not independent of one another.
+\section{8.2 Finding Themes in tweets}
+\label{sec:org8d97c81}
+
+\begin{quote}
+In order to clean the corpus it will be necessary to:
+
+\begin{enumerate}
+\item remove numbers
+\item remove punctuation
+\item remove whitespace
+\item case fold all characters to lower case
+\item remove a set of stop words
+\item reduce each word to its stem
+\end{enumerate}
+\end{quote}
+\subsection{Should Emoji's be removed}
+\label{sec:orgf3135f6}
+These studies suggest that
+
+Emoji's are variables that can be used as a predictive features \cite{lecompte2017}  and can improve the performance of Sentiment Analysis Models \cite{shiha2017} that use the \emph{Bag of Words Approach}
 \end{document}
