@@ -288,9 +288,9 @@ CLOCK: [2020-04-29 Wed 11:00]--[2020-04-29 Wed 12:24] =>  1:24
 :LOGBOOK:
 CLOCK: [2020-04-29 Wed 12:26]--[2020-04-29 Wed 13:02] =>  0:36
 :END:
-*** TODO Create a TDM, use TFIDF, how many tweets were empty?                 :ryan:
+*** DONE Create a TDM, use TFIDF, how many tweets were empty?                 :ryan:
 :LOGBOOK:
-CLOCK: [2020-04-29 Wed 16:00]
+CLOCK: [2020-04-29 Wed 16:00]--[2020-04-29 Wed 16:25] =>  0:25
 CLOCK: [2020-04-29 Wed 15:15]--[2020-04-29 Wed 15:34] =>  0:19
 CLOCK: [2020-04-29 Wed 13:04]--[2020-04-29 Wed 15:14] =>  2:10
 :END:
@@ -315,6 +315,11 @@ if(length(empties)!=0){
 #+end_src
 
 The only issue is that I'm getting no empties in mine.
-*** TODO 14 Cluster the Results with respect to cosine distance               :ryan:
 
+I think this is fine though.
+*** TODO 14 Cluster the Results with respect to cosine distance               :ryan:
+:LOGBOOK:
+CLOCK: [2020-04-29 Wed 16:23]--[2020-04-29 Wed 16:27] =>  0:04
+:END:
+I need to review clustering before I start this, but the elbow method is discussed [[pdf:~/Dropbox/Studies/2020Autumn/Social_Web_Analytics/06_Slides_TM2_Clustering.pdf::42++0.00??elbow][here]]
 ** TODO 8.3 Building Networks                                                  :Hassan:Navid:
