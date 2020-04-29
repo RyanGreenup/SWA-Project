@@ -319,6 +319,7 @@ tweet_corpus[1] %>% str()
 
 make_UTF <- function(x) {
   iconv(x, to = "UTF-8")
+#  iconv(x, to = "ASCII")
 }
 tweet_corpus <- tm_map(x = tweet_corpus, FUN = make_UTF)
 tweet_corpus_raw <- tweet_corpus
@@ -370,8 +371,6 @@ tweet_corpus_clean[[2]]$content
 ## ** Make a Document Term Matrix===============================================
                          ### RowColumnMatrix
 tweet_matrix_tdm   <- as.matrix(TermDocumentMatrix(tweet_corpus_clean))
-tweet_matrix_dtm   <- as.matrix(DocumentTermMatrix(tweet_corpus_clean))
-colnames(tweet_matrix_dtm)[1:10]
 
 ## ** Remove Empty tweets=======================================================
 ## <<empties>>
@@ -380,7 +379,7 @@ null
 length(null)
 
 if(length(null)!=0){
-  tweet_matrix = tdm[,-null]
+  tweet_matrix = tweet_matrix_tdm[,-null]
 }
 
 tweet_matrix_dtm <- t(tweet_matrix_tdm)
@@ -460,16 +459,19 @@ D =dist(norm.tweet_weighted, method = "euclidean")^2/2
 #scaling to project the data into a 2d space
 ## perform MDS using 100 dimensions
 mds.tweet_weighted <- cmdscale(D, k=100)
-n = 1 #we assume elbow bends at 5 clusters
+n = 300 #we assume elbow bends at 5 clusters
 SSW = rep(0, n)
 for (a in 1:n) {
   ## use nstart to reduce the effect of the random initialisation
   set.seed(40)#seed for random number generator to ensure consistency in our results
   K = kmeans(mds.tweet_weighted, a, nstart = 20)
   SSW[a] = K$tot.withinss
+  paste(a*100/n, "%") %>% print()
 }
 SSW
 
 ## plot the results
+plot(1:15, SSW, type = "b")
+abline(v = 8)
 plot(1:n, SSW, type = "b")
 
