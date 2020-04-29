@@ -290,9 +290,31 @@ CLOCK: [2020-04-29 Wed 12:26]--[2020-04-29 Wed 13:02] =>  0:36
 :END:
 *** TODO Create a TDM, use TFIDF, how many tweets were empty?                 :ryan:
 :LOGBOOK:
-CLOCK: [2020-04-29 Wed 15:15]
+CLOCK: [2020-04-29 Wed 16:00]
+CLOCK: [2020-04-29 Wed 15:15]--[2020-04-29 Wed 15:34] =>  0:19
 CLOCK: [2020-04-29 Wed 13:04]--[2020-04-29 Wed 15:14] =>  2:10
 :END:
+
+So this is how he did it [[file:~/Dropbox/Notes/DataSci/Social_Web_Analytics/05_Solutions.R::remove empty tweets][here]]:
+
+#+begin_src R
+# remove empty tweets
+# if a tweet contains all stop words, then after preprocessing, it will be empty
+# We remove these from the tweet set so they don't effect the calculations (an
+# empty tweet is represented as a vector with all zeros, the Cosine with this
+# vector does not make sense.)
+tdm
+dim(tdm)
+empties = which(colSums(as.matrix(tdm)) == 0)
+empties
+length(empties)
+
+if(length(empties)!=0){
+  tdm = tdm[,-empties]
+}
+#+end_src
+
+The only issue is that I'm getting no empties in mine.
 *** TODO 14 Cluster the Results with respect to cosine distance               :ryan:
 
 ** TODO 8.3 Building Networks                                                  :Hassan:Navid:

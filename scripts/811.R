@@ -367,6 +367,14 @@ tweet_corpus_clean[[2]]$content
 
 ## * 8.2.13 Create a Term Document Matrix---------------------------------------
 ## Remove Empty tweets
+## <<empties>>
+null = which(colSums(tweet_matrix_tdm) == 0)
+null
+length(null)
+
+if(length(null)!=0){
+  tweet_matrix = tdm[,-null]
+}
 
 ## Make a Document Term Matrix
                          ### RowColumnMatrix
@@ -413,11 +421,7 @@ ggplot(data, aes(label = word, size = weight)) +
   geom_text_wordcloud()
 
 ## ** How many documents are empty after processing=============================
-null = which(colSums(tweet_matrix_tdm) == 0)
-null
-length(null)
-
-
-if(length(null)!=0){
-  tweet_matrix = tdm[,-null]
-}
+## this was shown in [[empties]]
+## We can see the distribution of frequencies like so:
+(colSums(tweet_matrix_tdm)) %>% table()
+## No document was empty, each had atleast >= 18 terms
