@@ -17,6 +17,15 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2, ggmap, parallel,
 
 mise()
 
+## Redefine head for simplicity sake
+head <- function(x, n=6) {
+  if(class(x) == "matrix") {
+    x[1:n, 1:n]
+  } else {
+    head(x)
+  }
+}
+
 ## * Set up Tokens -----------------------------------------------------------
 options(RCurlOptions = list(
   verbose = FALSE,
@@ -317,13 +326,14 @@ tweet_corpus[1] %>% str()
 ## Then use the `tm_map` function to apply a function to every document in the
 ## corpus, in this case we will convert the text encoding to UTF8:
 
-make_UTF <- function(x) {
-  iconv(x, to = "UTF-8")
-#  iconv(x, to = "ASCII")
+encode <- function(x) {
+#  iconv(x, to = "UTF-8")
+  iconv(x, to = "ASCII")
 }
-tweet_corpus <- tm_map(x = tweet_corpus, FUN = make_UTF)
+tweet_corpus <- tm_map(x = tweet_corpus, FUN = encode)
 tweet_corpus_raw <- tweet_corpus
 
+#TODO Maybe I should Remove Bad terms before inspection and before cleaning?
 tweet_corpus[[1]]$content
 ## ** Clean the Corpus ---------------------------------------------------------
 ##
@@ -379,7 +389,7 @@ null
 length(null)
 
 if(length(null)!=0){
-  tweet_matrix = tweet_matrix_tdm[,-null]
+  tweet_matrix_tdm = tweet_matrix_tdm[,-null]
 }
 
 tweet_matrix_dtm <- t(tweet_matrix_tdm)
@@ -453,13 +463,15 @@ SSW = rep(0, n)
 
 
 norm.tweet_weighted = diag(1/sqrt(rowSums(tweet_weighted^2))) %*% tweet_weighted
+head(norm.tweet_weighted)
+# TODO fix NaN, Not sure why
 ## then create the distance matrix
 D =dist(norm.tweet_weighted, method = "euclidean")^2/2
 #To visualise the clustering, we will use multidimensional
 #scaling to project the data into a 2d space
 ## perform MDS using 100 dimensions
 mds.tweet_weighted <- cmdscale(D, k=100)
-n = 300 #we assume elbow bends at 5 clusters
+n = 15 #we assume elbow bends at 5 clusters
 SSW = rep(0, n)
 for (a in 1:n) {
   ## use nstart to reduce the effect of the random initialisation
@@ -471,7 +483,5 @@ for (a in 1:n) {
 SSW
 
 ## plot the results
-plot(1:15, SSW, type = "b")
-abline(v = 8)
 plot(1:n, SSW, type = "b")
 
