@@ -384,7 +384,7 @@ colnames(tweet_matrix_dtm)[1:10]
 
 ## Use Term-Frequency and Inter-Document Frequency
 N <- nrow(tweet_matrix_dtm)   # Number of Documents
-ft <- apply(tweet_matrix_dtm, 2, sum)
+ft=colSums(tweet_matrix_dtm > 0) #in how many documents term t appeared in,
 
 TF <- log(tweet_matrix_dtm + 1)
 IDF <- log(N/ft)
