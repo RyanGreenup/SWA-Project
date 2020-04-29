@@ -566,3 +566,7 @@ In order to clean the corpus it will be necessary to:
 5. remove a set of stop words
 6. reduce each word to its stem
 #+end_quote
+** Should Emoji's be removed
+These studies suggest that
+
+Emoji's are variables that can be used as a predictive features cite:lecompte2017  and can improve the performance of Sentiment Analysis Models cite:shiha2017 that use the /Bag of Words Approach/

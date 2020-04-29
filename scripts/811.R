@@ -292,7 +292,6 @@ if ((nrow(low_friends) + nrow(high_friends))!=length(users)) {
 }
 
 ## * 8.2.10 Find the tweets of those users indentified above --------------------
-## TODO this doesn't work
 tweets_high <- tweets.company$text[tweets.company$name %in%  high_friends$name]
 tweets_low  <- tweets.company$text[tweets.company$name %in%  low_friends$name]
 tweets <- c(tweets_high, tweets_low)
@@ -340,18 +339,25 @@ tweet_corpus[[1]]$content
 ## `tm::removeNumbers()` function, in order to apply this to the entire corpus the
 ## `tm_map` package.
 
+mystop <- c(stopwords(), "ubisoft", "@ubisoft", "#ubisoft")# <<stphere>>
 
 clean_corp <- function(corpus) {
   corpus <- tm_map(corpus, FUN = removeNumbers)
   corpus <- tm_map(corpus, FUN = removePunctuation)
   corpus <- tm_map(corpus, FUN = stripWhitespace)
-  corpus <- tm_map(corpus, FUN = removeWords, stopwords())
+  corpus <- tm_map(corpus, FUN = removeWords, mystop)
       ## stopwords() returns characters and is fead as second argument
   corpus <- tm_map(corpus, FUN = stemDocument)
+  return(corpus)
 }
+
 tweet_corpus_clean <- clean_corp(tweet_corpus)
 
 ## These warnings are expected, they remove fluff from our data
+## Make a plot and consider adding stop words to [[stphere]]
+## Make plot
+wordcloud(tweet_corpus_clean)
+## TODO should katakana be removed?
 
 ## * 8.2.12 Display the first two tweets before/after processing ---------------
 tweet_corpus_raw[[1]]$content
@@ -360,3 +366,50 @@ tweet_corpus_raw[[2]]$content
 tweet_corpus_clean[[2]]$content
 
 ## * 8.2.13 Create a Term Document Matrix---------------------------------------
+
+## Make a Document Term Matrix
+                         ### RowColumnMatrix
+tweet_matrix_tdm   <- as.matrix(TermDocumentMatrix(tweet_corpus_clean))
+tweet_matrix_dtm   <- as.matrix(DocumentTermMatrix(tweet_corpus_clean))
+colnames(tweet_matrix_dtm)[1:10]
+
+## Use Term-Frequency and Inter-Document Frequency
+N <- nrow(tweet_matrix_dtm)   # Number of Documents
+ft <- apply(tweet_matrix_dtm, 2, sum)
+
+TF <- log(tweet_matrix_dtm + 1)
+IDF <- log(N/ft)
+
+    # Because each term in TF needs to be multiplied through
+    # each column of IDF there would be two ways to do it,
+      # a for loop which will be really slow
+      # Diagonalise the matrix then use Matrix multiplication
+
+tweet_weighted           <- TF %*% diag(IDF)
+colnames(tweet_weighted) <- colnames(tweet_matrix_dtm)
+
+                         ### RowColumnMatrix
+
+## ** Visualise the Cleaned Tweets to Find stop words or issues==================
+## Only consider the first 30 words
+(relevant <- sort(apply(tweet_weighted, 2, mean), decreasing = TRUE)[1:30]) %>% head()
+wordcloud(relevant)
+
+p <- brewer.pal(n = 5, name = "Set3")
+wordcloud(
+  words = names(relevant),
+  freq = relevant,
+  colors = p,
+  random.color = FALSE
+)
+
+
+data <- tibble(word = names(relevant), weight = relevant)
+
+ggplot(data, aes(label = word, size = weight)) +
+  scale_radius(range = c(0, 20), limits = c(0, NA)) +
+ scale_size_area(max_size = 24) +
+  geom_text_wordcloud()
+
+## ** How many documents are empty after processing=============================
+
