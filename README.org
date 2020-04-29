@@ -4,7 +4,7 @@
 
 #+BEGIN_HTML
 <p> <img src="https://img.shields.io/badge/Chat-5%20Members-green" /> <img
-src="https://img.shields.io/badge/Contributors-5%20Member-green" /> <img src="https://img.shields.io/badge/Questions-7%20Completed-orange" /> </p>
+src="https://img.shields.io/badge/Contributors-5%20Member-green" /> <img src="https://img.shields.io/badge/Questions-12%20Completed-orange" /> </p>
 #+END_HTML
 #+begin_comment
 See [[https://shields.io/][Shields io]]
@@ -264,11 +264,21 @@ hence you're seeing how many times you see a false positive for independent data
 ** TODO 8.2 Finding Themes
 *** 8 Find unique users with above average friend counts                      :ryan:
 :LOGBOOK:
-CLOCK: [2020-04-29 Wed 08:23]
+CLOCK: [2020-04-29 Wed 08:23]--[2020-04-29 Wed 9:23] =>  1:00
 :END:
 *** TODO 9 Find Unique users who have $\leq$ average friend counts            :ryan:
+:LOGBOOK:
+CLOCK: [2020-04-29 Wed 10:21]--[2020-04-29 Wed 10:25] =>  0:04
+:END:
 *** TODO 10 Combine tweets of users identified in 8/9                         :ryan:
+:LOGBOOK:
+CLOCK: [2020-04-29 Wed 10:26]--[2020-04-29 Wed 11:00] =>  0:34
+:END:
 *** TODO 11 Clean and pre-process the tweet text data
+:LOGBOOK:
+CLOCK: [2020-04-29 Wed 11:00]--[2020-04-29 Wed 12:24] =>  1:24
+:END:
+
 *** TODO 12 Display the first two tweets                                      :Keiran:
 *** TODO Create a TDM, use TFIDF, how many tweets were empty?                 :ryan:
 *** TODO 14 Cluster the Results with respect to cosine distance               :ryan:
