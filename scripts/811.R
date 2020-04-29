@@ -358,6 +358,7 @@ tweet_corpus_clean <- clean_corp(tweet_corpus)
 ## Make plot
 wordcloud(tweet_corpus_clean)
 ## TODO should katakana be removed?
+## TODO why are the stop words appearing in the word cloud!
 
 ## * 8.2.12 Display the first two tweets before/after processing ---------------
 tweet_corpus_raw[[1]]$content
@@ -366,7 +367,7 @@ tweet_corpus_raw[[2]]$content
 tweet_corpus_clean[[2]]$content
 
 ## * 8.2.13 Create a Term Document Matrix---------------------------------------
-## Remove Empty tweets
+## ** Remove Empty tweets=======================================================
 ## <<empties>>
 null = which(colSums(tweet_matrix_tdm) == 0)
 null
@@ -376,17 +377,17 @@ if(length(null)!=0){
   tweet_matrix = tdm[,-null]
 }
 
-## Make a Document Term Matrix
+## ** Make a Document Term Matrix===============================================
                          ### RowColumnMatrix
 tweet_matrix_tdm   <- as.matrix(TermDocumentMatrix(tweet_corpus_clean))
 tweet_matrix_dtm   <- as.matrix(DocumentTermMatrix(tweet_corpus_clean))
 colnames(tweet_matrix_dtm)[1:10]
 
-## Use Term-Frequency and Inter-Document Frequency
+## *** Use Term-Frequency and Inter-Document Frequency##########################
 N <- nrow(tweet_matrix_dtm)   # Number of Documents
 ft=colSums(tweet_matrix_dtm > 0) #in how many documents term t appeared in,
 
-TF <- log(tweet_matrix_dtm + 1)
+TF <- log(tweet_matrix_dtm + 1)  # built in uses log2()
 IDF <- log(N/ft)
 
     # Because each term in TF needs to be multiplied through
@@ -400,8 +401,10 @@ colnames(tweet_weighted) <- colnames(tweet_matrix_dtm)
                          ### RowColumnMatrix
 tweet_weighted[1:6, 1:6]
 
-tweet_weighted_two <- as.matrix(weightTfIdf(DocumentTermMatrix(tweet_corpus_clean)))
-tweet_weighted_two[1:6, 1:6]
+## ** Use the built in Method to be sure
+tweet_weighted <- t(as.matrix(weightTfIdf(TermDocumentMatrix(tweet_corpus_clean))))
+tweet_weighted[1:6, 1:6]
+# TODO why are these different??
 
 ## ** Visualise the Cleaned Tweets to Find stop words or issues==================
 ## Only consider the first 30 words
