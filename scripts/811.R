@@ -345,6 +345,7 @@ clean_corp <- function(corpus) {
   corpus <- tm_map(corpus, FUN = removeNumbers)
   corpus <- tm_map(corpus, FUN = removePunctuation)
   corpus <- tm_map(corpus, FUN = stripWhitespace)
+  corpus <- tm_map(corpus, FUN = tolower)
   corpus <- tm_map(corpus, FUN = removeWords, mystop)
       ## stopwords() returns characters and is fead as second argument
   corpus <- tm_map(corpus, FUN = stemDocument)
@@ -352,19 +353,6 @@ clean_corp <- function(corpus) {
 }
 
 tweet_corpus_clean <- clean_corp(tweet_corpus)
-
-##################################################3
-##################################################3
-##################################################3
-## This proves it, they're not being removed
-tdm <- TermDocumentMatrix(tweet_corpus_clean)
-m <- as.matrix(tdm)
-v <- sort(rowSums(m),decreasing=TRUE)
-d <- data.frame(word = names(v),freq=v, stringsAsFactors = FALSE)
-head(d, 10)
-##################################################3
-##################################################3
-##################################################3
 
 ## These warnings are expected, they remove fluff from our data
 ## Make a plot and consider adding stop words to [[stphere]]
