@@ -359,7 +359,6 @@ tweet_corpus_clean <- clean_corp(tweet_corpus)
 ## Make plot
 wordcloud(tweet_corpus_clean)
 ## TODO should katakana be removed?
-## TODO why are the stop words appearing in the word cloud!
 
 ## * 8.2.12 Display the first two tweets before/after processing ---------------
 tweet_corpus_raw[[1]]$content
@@ -417,7 +416,7 @@ tweet_weighted[1:6, 1:6]
 (relevant <- sort(apply(tweet_weighted, 2, mean), decreasing = TRUE)[1:30]) %>% head()
 wordcloud(relevant)
 
-p <- brewer.pal(n = 5, name = "Set3")
+p <- brewer.pal(n = 5, name = "Set2")
 wordcloud(
   words = names(relevant),
   freq = relevant,
