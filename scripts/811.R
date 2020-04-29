@@ -18,7 +18,7 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2, ggmap, parallel,
 mise()
 
 ## Redefine head for simplicity sake
-head <- function(x, n=6) {
+hd <- function(x, n=6) {
   if(class(x) == "matrix") {
     x[1:n, 1:n]
   } else {
@@ -62,7 +62,8 @@ options(RCurlOptions = list(
 ##   save(tweets.company, file = "resources/Download_1_Huge.Rdata")
 
 ## ** Load the Tweets ==============================================================
-mise(); load("./resources/Download_1.Rdata")
+## mise()
+load("./resources/Download_1.Rdata")
 
 ## * 8.1.2 Friend and Follower Count ----------------------------------------------------
 ## <<8.1.2>>
@@ -381,8 +382,9 @@ tweet_corpus_clean[[2]]$content
 ## ** Make a Document Term Matrix===============================================
                          ### RowColumnMatrix
 tweet_matrix_tdm   <- as.matrix(TermDocumentMatrix(tweet_corpus_clean))
+tweet_matrix_dtm   <- as.matrix(DocumentTermMatrix(tweet_corpus_clean))
 
-## ** Remove Empty tweets=======================================================
+## *** Remove Empty tweets#######################################################
 ## <<empties>>
 null = which(colSums(tweet_matrix_tdm) == 0)
 null
@@ -395,7 +397,35 @@ if(length(null)!=0){
 tweet_matrix_dtm <- t(tweet_matrix_tdm)
 colnames(tweet_matrix_dtm) %>% head() #Colnames are preserved
 
-## Moving forward use dtm, it's more convenient
+if (ncol(tweet_matrix_tdm) == length(tweet_corpus_clean)-length(null) ) {
+  print("Success! Empty Documents removed from TDM")
+} else {
+  "Error! Number of documents exceeds non-empty documents in TDM"
+}
+
+
+
+
+## ** Make a DTM (Moving forward, it's more convenient)========================
+tweet_matrix_dtm_r <- DocumentTermMatrix(tweet_corpus_clean)
+null = which(rowSums(as.matrix(tweet_matrix_dtm_r)) == 0)
+null
+length(null)
+
+if(length(null)!=0){
+  tweet_matrix_dtm_r = tweet_matrix_dtm_r[-null,]
+}
+
+if (nrow(tweet_matrix_dtm_r) == length(tweet_corpus_clean)-length(null) ) {
+  print("Success! Empty Documents removed from DTM")
+} else {
+  "Error! Number of documents exceeds non-empty documents in DTM"
+}
+
+tweet_matrix_dtm <- as.matrix(tweet_matrix_dtm_r)
+colnames(tweet_matrix_dtm) %>% head() #Colnames are preserved
+
+
 
 ## *** Use Term-Frequency and Inter-Document Frequency##########################
 N <- nrow(tweet_matrix_dtm)   # Number of Documents
@@ -416,7 +446,7 @@ colnames(tweet_weighted) <- colnames(tweet_matrix_dtm)
 tweet_weighted[1:6, 1:6]
 
 ## ** Use the built in Method to be sure
-tweet_weighted <- t(as.matrix(weightTfIdf(TermDocumentMatrix(tweet_corpus_clean))))
+tweet_weighted <- weightTfIdf(tweet_matrix_dtm)
 tweet_weighted[1:6, 1:6]
 # TODO why are these different??
 
@@ -463,7 +493,7 @@ SSW = rep(0, n)
 
 
 norm.tweet_weighted = diag(1/sqrt(rowSums(tweet_weighted^2))) %*% tweet_weighted
-head(norm.tweet_weighted)
+hd(norm.tweet_weighted)
 # TODO fix NaN, Not sure why
 ## then create the distance matrix
 D =dist(norm.tweet_weighted, method = "euclidean")^2/2

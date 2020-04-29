@@ -319,7 +319,8 @@ The only issue is that I'm getting no empties in mine.
 I think this is fine though.
 *** TODO 14 Cluster the Results with respect to cosine distance               :ryan:
 :LOGBOOK:
-CLOCK: [2020-04-30 Thu 06:25]
+CLOCK: [2020-04-30 Thu 09:20]
+CLOCK: [2020-04-30 Thu 06:25]--[2020-04-30 Thu 08:50] =>  2:25
 CLOCK: [2020-04-29 Wed 18:08]--[2020-04-29 Wed 22:08] =>  4:00
 CLOCK: [2020-04-29 Wed 16:23]--[2020-04-29 Wed 16:27] =>  0:04
 :END:
