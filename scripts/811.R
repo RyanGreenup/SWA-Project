@@ -262,7 +262,8 @@ s <- replicate(10^4,{
 mean(s)
 
 
-## * 8.2.8 Find users with Above Average Friend Count
+## * 8.2.8 Find users with Above Average Friend Count-------------------------------
+##
 ## <<8.2.8>>
 ## y is friends count, see [[8.1.3]]
 ## Remember these users must not be duplicated
@@ -279,6 +280,8 @@ interested_vars <- c("name", "followers_count")
 (high_friends <- follower_counts %>%
   filter(followers_count > mean(followers_count, na.rm = TRUE)))
 
+## * 8.2.8 Find users with Below Average Friend Count-------------------------------
+
 (low_friends <- follower_counts %>%
   filter(followers_count <= mean(followers_count, na.rm = TRUE)))
 
@@ -288,14 +291,7 @@ if ((nrow(low_friends) + nrow(high_friends))!=length(users)) {
 
 }
 
-## This doesn't account for duplicated users between high_friend and low_friend
-## counts It is necessary to first filter out the unique users, I did this with
-## dplyr instead [[dplyr812]]
-
-##     (users_high_friend <- tweets.company$name[y>ybar] %>%
-##                               unique()) %>%
-##                               length()
-##     (users_low_friend <- tweets.company$name[y<=ybar] %>%
-##                                  unique()) %>%
-##                                  length()
-
+## * 8.2.10 Find the tweets of those users indentified above --------------------
+## TODO this doesn't work
+tweets_high <- tweets.company$text[tweets.company$name ==  high_friends]
+tweets_low  <- tweets.company$text[tweets.company$name %in%  low_friends]
