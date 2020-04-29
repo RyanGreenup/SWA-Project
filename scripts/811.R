@@ -444,10 +444,11 @@ SSW = rep(0, n)
 for (a in 1:n) {
   #nstart option attempts multiple initial configurations and
   #reports on the best one. For example,nstart=10 will generate
-  #10 initial random centroids and chooses the best one for
+  # 10 initial random centroids and chooses the best one for
   #the algorithm.
   set.seed(40)#seed for random number generator to ensure consistency in our results
-  K = kmeans(tweet.matrix, a, nstart = 10) #
+  ## Use Document Term Matrix for Clustering and PCA
+  K = kmeans(tweet_weighted, a, nstart = 10) #
   SSW[a] = K$tot.withinss #total within cluster sum of squares
 }
 
