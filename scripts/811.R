@@ -439,7 +439,7 @@ ggplot(data, aes(label = word, size = weight)) +
 ## No document was empty, each had atleast >= 18 terms
 
 ## * 8.2.14 How many clusters are there?-----------------------------------------
-n = 15
+n = 3
 SSW = rep(0, n)
 for (a in 1:n) {
   #nstart option attempts multiple initial configurations and
@@ -451,8 +451,3 @@ for (a in 1:n) {
   K = kmeans(tweet_weighted, a, nstart = 10) #
   SSW[a] = K$tot.withinss #total within cluster sum of squares
 }
-
-
-
-
-
