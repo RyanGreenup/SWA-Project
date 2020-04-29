@@ -295,3 +295,5 @@ if ((nrow(low_friends) + nrow(high_friends))!=length(users)) {
 ## TODO this doesn't work
 tweets_high <- tweets.company$text[tweets.company$name %in%  high_friends$name]
 tweets_low  <- tweets.company$text[tweets.company$name %in%  low_friends$name]
+
+## * 8.2.11 Clean the tweets

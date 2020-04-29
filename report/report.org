@@ -554,3 +554,15 @@ The $p$ -value measures the probability of rejecting the null hypothesis when it
 In saying that however the $p$ -value is distinct from the /power/ statistic, which is a measure of //the probability of accepting the alternative hypothesis/ when it is true, a low $p$ -value is not a measurement of the probability of being correct.
 
 Hence me way conclude, with a high degree of certainty, that the follower and friend counts are not independent of one another.
+* 8.2 Finding Themes in tweets
+
+#+begin_quote
+In order to clean the corpus it will be necessary to:
+
+1. remove numbers
+2. remove punctuation
+3. remove whitespace
+4. case fold all characters to lower case
+5. remove a set of stop words
+6. reduce each word to its stem
+#+end_quote
