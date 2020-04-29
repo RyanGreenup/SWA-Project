@@ -353,6 +353,19 @@ clean_corp <- function(corpus) {
 
 tweet_corpus_clean <- clean_corp(tweet_corpus)
 
+##################################################3
+##################################################3
+##################################################3
+## This proves it, they're not being removed
+tdm <- TermDocumentMatrix(tweet_corpus_clean)
+m <- as.matrix(tdm)
+v <- sort(rowSums(m),decreasing=TRUE)
+d <- data.frame(word = names(v),freq=v, stringsAsFactors = FALSE)
+head(d, 10)
+##################################################3
+##################################################3
+##################################################3
+
 ## These warnings are expected, they remove fluff from our data
 ## Make a plot and consider adding stop words to [[stphere]]
 ## Make plot
@@ -367,6 +380,12 @@ tweet_corpus_raw[[2]]$content
 tweet_corpus_clean[[2]]$content
 
 ## * 8.2.13 Create a Term Document Matrix---------------------------------------
+## ** Make a Document Term Matrix===============================================
+                         ### RowColumnMatrix
+tweet_matrix_tdm   <- as.matrix(TermDocumentMatrix(tweet_corpus_clean))
+tweet_matrix_dtm   <- as.matrix(DocumentTermMatrix(tweet_corpus_clean))
+colnames(tweet_matrix_dtm)[1:10]
+
 ## ** Remove Empty tweets=======================================================
 ## <<empties>>
 null = which(colSums(tweet_matrix_tdm) == 0)
@@ -377,11 +396,9 @@ if(length(null)!=0){
   tweet_matrix = tdm[,-null]
 }
 
-## ** Make a Document Term Matrix===============================================
-                         ### RowColumnMatrix
-tweet_matrix_tdm   <- as.matrix(TermDocumentMatrix(tweet_corpus_clean))
-tweet_matrix_dtm   <- as.matrix(DocumentTermMatrix(tweet_corpus_clean))
-colnames(tweet_matrix_dtm)[1:10]
+tweet_matrix_dtm <- t(tweet_matrix_dtm)
+
+## Moving forward use dtm, it's more convenient
 
 ## *** Use Term-Frequency and Inter-Document Frequency##########################
 N <- nrow(tweet_matrix_dtm)   # Number of Documents
@@ -445,3 +462,8 @@ for (a in 1:n) {
   K = kmeans(tweet.matrix, a, nstart = 10) #
   SSW[a] = K$tot.withinss #total within cluster sum of squares
 }
+
+
+
+
+
