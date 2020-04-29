@@ -398,6 +398,10 @@ tweet_weighted           <- TF %*% diag(IDF)
 colnames(tweet_weighted) <- colnames(tweet_matrix_dtm)
 
                          ### RowColumnMatrix
+tweet_weighted[1:6, 1:6]
+
+tweet_weighted_two <- as.matrix(weightTfIdf(DocumentTermMatrix(tweet_corpus_clean)))
+tweet_weighted_two[1:6, 1:6]
 
 ## ** Visualise the Cleaned Tweets to Find stop words or issues==================
 ## Only consider the first 30 words
@@ -425,3 +429,16 @@ ggplot(data, aes(label = word, size = weight)) +
 ## We can see the distribution of frequencies like so:
 (colSums(tweet_matrix_tdm)) %>% table()
 ## No document was empty, each had atleast >= 18 terms
+
+## * 8.2.14 How many clusters are there?-----------------------------------------
+n = 15
+SSW = rep(0, n)
+for (a in 1:n) {
+  #nstart option attempts multiple initial configurations and
+  #reports on the best one. For example,nstart=10 will generate
+  #10 initial random centroids and chooses the best one for
+  #the algorithm.
+  set.seed(40)#seed for random number generator to ensure consistency in our results
+  K = kmeans(tweet.matrix, a, nstart = 10) #
+  SSW[a] = K$tot.withinss #total within cluster sum of squares
+}
