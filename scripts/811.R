@@ -451,3 +451,24 @@ for (a in 1:n) {
   K = kmeans(tweet_weighted, a, nstart = 10) #
   SSW[a] = K$tot.withinss #total within cluster sum of squares
 }
+
+
+norm.tweet_weighted = diag(1/sqrt(rowSums(tweet_weighted^2))) %*% tweet_weighted
+## then create the distance matrix
+D =dist(norm.tweet_weighted, method = "euclidean")^2/2
+#To visualise the clustering, we will use multidimensional
+#scaling to project the data into a 2d space
+## perform MDS using 100 dimensions
+mds.tweet_weighted <- cmdscale(D, k=100)
+n = 5 #we assume elbow bends at 5 clusters
+SSW = rep(0, n)
+for (a in 1:n) {
+  ## use nstart to reduce the effect of the random initialisation
+  set.seed(40)#seed for random number generator to ensure consistency in our results
+  K = kmeans(mds.tweet_weighted, a, nstart = 20)
+  SSW[a] = K$tot.withinss
+}
+
+
+## plot the results
+plot(1:n, SSW, type = "b")
