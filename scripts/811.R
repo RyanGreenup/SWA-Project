@@ -366,8 +366,7 @@ clean_corp <- function(corpus) {
   corpus <- tm_map(corpus, FUN = removeWords, mystop)
       ## stopwords() returns characters and is fead as second argument
   corpus <- tm_map(corpus, FUN = stemDocument)
-  tm::stemDocument
-  return(corpus)
+  ## return(corpus)
 }
 
 tweet_corpus_clean <- clean_corp(tweet_corpus)
