@@ -1,6 +1,7 @@
 #+TITLE: SWA-Project
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="./style.css">
 #+OPTIONS: num:nil
+#+TODO: TODO CODE REPORT DONE
 
 #+BEGIN_HTML
 <p> <img src="https://img.shields.io/badge/Chat-5%20Members-green" /> <img
@@ -27,9 +28,9 @@ Github for Social Web Analytics
 * TODO Add Members as Collaborators
 + [X] Ryan
 + [X] Kieran
-+ [ ] Navid
-+ [ ] Hassan
-+ [ ] Ben
++ [X] Navid
++ [X] Hassan
++ [X] Ben
 
 * DONE Documentation
 ** DONE Make a Wiki
@@ -270,25 +271,24 @@ hence you're seeing how many times you see a false positive for independent data
 :LOGBOOK:
 CLOCK: [2020-04-29 Wed 08:23]--[2020-04-29 Wed 9:23] =>  1:00
 :END:
-*** TODO 9 Find Unique users who have $\leq$ average friend counts            :ryan:
+*** REPORT 9 Find Unique users who have $\leq$ average friend counts          :ryan:
 :LOGBOOK:
 CLOCK: [2020-04-29 Wed 10:21]--[2020-04-29 Wed 10:25] =>  0:04
 :END:
-*** TODO 10 Combine tweets of users identified in 8/9                         :ryan:
+*** REPORT 10 Combine tweets of users identified in 8/9                       :ryan:
 :LOGBOOK:
 CLOCK: [2020-04-29 Wed 10:26]--[2020-04-29 Wed 11:00] =>  0:34
 :END:
-*** TODO 11 Clean and pre-process the tweet text data
+*** REPORT 11 Clean and pre-process the tweet text data
 :LOGBOOK:
 CLOCK: [2020-04-29 Wed 11:00]--[2020-04-29 Wed 12:24] =>  1:24
 :END:
 
-
-*** TODO 12 Display the first two tweets                                      :ryan:
+*** REPORT 12 Display the first two tweets                                    :ryan:
 :LOGBOOK:
 CLOCK: [2020-04-29 Wed 12:26]--[2020-04-29 Wed 13:02] =>  0:36
 :END:
-*** DONE Create a TDM, use TFIDF, how many tweets were empty?                 :ryan:
+*** REPORT Create a TDM, use TFIDF, how many tweets were empty?               :ryan:
 :LOGBOOK:
 CLOCK: [2020-04-29 Wed 16:00]--[2020-04-29 Wed 16:25] =>  0:25
 CLOCK: [2020-04-29 Wed 15:15]--[2020-04-29 Wed 15:34] =>  0:19
@@ -317,12 +317,39 @@ if(length(empties)!=0){
 The only issue is that I'm getting no empties in mine.
 
 I think this is fine though.
-*** TODO 14 Cluster the Results with respect to cosine distance               :ryan:
+*** REPORT 14 Cluster the Results with respect to cosine distance             :ryan:
 :LOGBOOK:
-CLOCK: [2020-04-30 Thu 09:20]
+CLOCK: [2020-04-30 Thu 15:06]--[2020-04-30 Thu 16:07] =>  1:01
+CLOCK: [2020-04-30 Thu 09:20]--[2020-04-30 Thu 14:06] =>  4:46
 CLOCK: [2020-04-30 Thu 06:25]--[2020-04-30 Thu 08:50] =>  2:25
 CLOCK: [2020-04-29 Wed 18:08]--[2020-04-29 Wed 22:08] =>  4:00
 CLOCK: [2020-04-29 Wed 16:23]--[2020-04-29 Wed 16:27] =>  0:04
 :END:
 I need to review clustering before I start this, but the elbow method is discussed [[pdf:~/Dropbox/Studies/2020Autumn/Social_Web_Analytics/06_Slides_TM2_Clustering.pdf::42++0.00??elbow][here]]
+
+*** REPORT 15 Count the Number of Clusters                                    :ryan:
+:LOGBOOK:
+CLOCK: [2020-04-30 Thu 16:22]--[2020-04-30 Thu 17:02] =>  0:40
+:END:
+
+*This was easy, I just used =table(K)=
+
+*** CODE 16 Visualise in 2 Dimensions
+:LOGBOOK:
+CLOCK: [2020-04-30 Thu 17:05]--[2020-04-30 Thu 17:23] =>  0:18
+:END:
+*** CODE 17 Commend on the visualisation
+*** CODE 18 Which Cluster has the highest proportion of above Average Tweets :ryan:
+*** CODE 19 Display five tweets in clusters that you found in 18             :ryan:
+*** CODE 20 Find the important themes in high/low friend prop clusters       :ryan:
+*** TODO Use a word cloud to display the themes of the clusters               :ryan:
+*One big word cloud but colour based on the cluster?
+*** TODO Use a dendrogram to display the themes of the clusters in 20         :ryan:
+*** TODO What is the conclusion regarding the themes                          :ryan:
+
 ** TODO 8.3 Building Networks                                                  :Hassan:Navid:
+*** TODO 24 Find the 10 most popular friends
+*** TODO 25 Obtain a 2-degree egocentric graph centred at twitter handle
+*** TODO 26 Compute the closeness centrality score for each handle graphed
+*** TODO 27 List the top 3 most central people
+*** TODO 28 Comment on your results

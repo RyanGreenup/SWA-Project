@@ -545,4 +545,6 @@ ggplot(SSW_tb, aes(x = name, y = value)) +
   K = kmeans(mds.tweet_weighted_dtm, 3, nstart = 20)
 table(K$cluster)
 
-## ** Visualise the Clusters in 2D Space
+## * 8.2.16 Visualise the Clusters in 2D Space----------------------------------
+## *** Build a Data Frame
+##
