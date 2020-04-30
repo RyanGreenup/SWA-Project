@@ -497,7 +497,7 @@ D =dist(norm.tweet_weighted_dtm, method = "euclidean")^2/2
 #To visualise the clustering, we will use multidimensional
 #scaling to project the data into a 2d space
 ## perform MDS using 100 dimensions
-mds.tweet_weighted_dtm <- cmdscale(D, k=100)
+mds.tweet_weighted_dtm <- cmdscale(D, k=100) #TODO What should K be? see issue #10
 mds.tweet_weighted_dtm <- cmdscale(D, k=ncol(norm.tweet_weighted_dtm)-1)
 n = 15 #we assume elbow bends at 5 clusters
 SSW = rep(0, n)
