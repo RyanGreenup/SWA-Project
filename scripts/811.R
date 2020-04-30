@@ -491,20 +491,6 @@ length(null)
 
 ## * 8.2.14 How many clusters are there?-----------------------------------------
 ## <<8214Clust>>
-n = 3
-SSW = rep(0, n)
-## for (a in 1:n) {
-##   #nstart option attempts multiple initial configurations and
-##   #reports on the best one. For example,nstart=10 will generate
-##   # 10 initial random centroids and chooses the best one for
-##   #the algorithm.
-##   set.seed(40)#seed for random number generator to ensure consistency in our results
-##   ## Use Document Term Matrix for Clustering and PCA
-##   K = kmeans(tweet_weighted_dtm, a, nstart = 10) #
-##   SSW[a] = K$tot.withinss #total within cluster sum of squares
-## }
-
-
 norm.tweet_weighted_dtm = diag(1/sqrt(rowSums(tweet_weighted_dtm^2))) %*% tweet_weighted_dtm
 ## then create the distance matrix
 D =dist(norm.tweet_weighted_dtm, method = "euclidean")^2/2
@@ -512,6 +498,7 @@ D =dist(norm.tweet_weighted_dtm, method = "euclidean")^2/2
 #scaling to project the data into a 2d space
 ## perform MDS using 100 dimensions
 mds.tweet_weighted_dtm <- cmdscale(D, k=100)
+mds.tweet_weighted_dtm <- cmdscale(D, k=ncol(norm.tweet_weighted_dtm)-1)
 n = 15 #we assume elbow bends at 5 clusters
 SSW = rep(0, n)
 for (a in 1:n) {
