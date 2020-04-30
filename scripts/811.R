@@ -512,7 +512,7 @@ D =dist(norm.tweet_weighted_dtm, method = "euclidean")^2/2
 #scaling to project the data into a 2d space
 ## perform MDS using 100 dimensions
 mds.tweet_weighted_dtm <- cmdscale(D, k=100)
-n = 100 #we assume elbow bends at 5 clusters
+n = 15 #we assume elbow bends at 5 clusters
 SSW = rep(0, n)
 for (a in 1:n) {
   ## use nstart to reduce the effect of the random initialisation
