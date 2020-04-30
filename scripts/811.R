@@ -366,6 +366,7 @@ clean_corp <- function(corpus) {
   corpus <- tm_map(corpus, FUN = removeWords, mystop)
       ## stopwords() returns characters and is fead as second argument
   corpus <- tm_map(corpus, FUN = stemDocument)
+  tm::stemDocument
   return(corpus)
 }
 
@@ -497,8 +498,18 @@ D =dist(norm.tweet_weighted_dtm, method = "euclidean")^2/2
 #To visualise the clustering, we will use multidimensional
 #scaling to project the data into a 2d space
 ## perform MDS using 100 dimensions
-mds.tweet_weighted_dtm <- cmdscale(D, k=100) #TODO What should K be? see issue #10
-mds.tweet_weighted_dtm <- cmdscale(D, k=ncol(norm.tweet_weighted_dtm)-1)
+
+## Use the rank of the matrix to determine the dimension to project into
+(l <- min(nrow(tweet_weighted_dtm),
+         ncol(tweet_weighted_dtm)))
+ev <- eigen(tweet_weighted_dtm[1:l, 1:l]) 
+k <- (ev$values != 0) %>% sum()
+
+## Take only the top 20% of the eigenvalues.
+x <- quantile(abs(ev$values), 0.2) # TODO is this meaningful?
+k <- sum(abs(ev$values) < x)
+
+mds.tweet_weighted_dtm <- cmdscale(D, k=k) #TODO What should K be? see issue #10
 n = 15 #we assume elbow bends at 5 clusters
 SSW = rep(0, n)
 for (a in 1:n) {
@@ -512,4 +523,9 @@ SSW
 
 ## plot the results
 plot(1:n, SSW, type = "b")
+
+
+
+
+
 
