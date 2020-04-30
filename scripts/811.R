@@ -492,26 +492,28 @@ length(null)
 
 ## * 8.2.14 How many clusters are there?-----------------------------------------
 ## <<8214Clust>>
+## ** Normalise the Vectors
 norm.tweet_weighted_dtm = diag(1/sqrt(rowSums(tweet_weighted_dtm^2))) %*% tweet_weighted_dtm
-## then create the distance matrix
+## ** Create the Distance Matrix=================================================
 D =dist(norm.tweet_weighted_dtm, method = "euclidean")^2/2
 #To visualise the clustering, we will use multidimensional
 #scaling to project the data into a 2d space
 ## perform MDS using 100 dimensions
 
-## Use the rank of the matrix to determine the dimension to project into
+## ** Use the Rank of the Matrix to Determine the Projection Dimension==========
 (l <- min(nrow(tweet_weighted_dtm),
          ncol(tweet_weighted_dtm)))
 ev <- eigen(tweet_weighted_dtm[1:l, 1:l]) 
 k <- (ev$values != 0) %>% sum()
 
-## Take only the top 20% of the eigenvalues.
+## *** Take only the top 20% of the eigenvalues.################################
 x <- quantile(abs(ev$values), 0.2) # TODO is this meaningful?
 k <- sum(abs(ev$values) < x)
 
+## ** Project the Cosine Distance into Euclidean Space==========================
 mds.tweet_weighted_dtm <- cmdscale(D, k=k) #TODO What should K be? see issue #10
 set.seed(271)
-n = 15 #we assume elbow bends at 5 clusters
+n = 15 # Assume it bends at 7 clusters
 SSW = rep(0, n)
 for (a in 1:n) {
   K = kmeans(mds.tweet_weighted_dtm, a, nstart = 20)
@@ -519,9 +521,8 @@ for (a in 1:n) {
   paste(a*100/n, "%") %>% print()
 }
 SSW
-## This Plot is the perfect shape for the discussion, I'll save it
 
-## plot the results
+## *** plot the results
 plot(1:n, SSW, type = "b")
 
 SSW_tb <- tibble::enframe(SSW)
@@ -530,12 +531,18 @@ ggplot(SSW_tb, aes(x = name, y = value)) +
   geom_line(col = "#Da70d6") +
   geom_vline(xintercept = 7, lty  = 3, col = "blue") +
   theme_bw() +
-  labs(x = "Number of Clusters", y = "Within Cluster Sum of Square Distance", title = "Within Cluster Variance across Clusters")
+  labs(x = "Number of Clusters",
+       y = "Within Cluster Sum of Square Distance",
+       title = "Within Cluster Variance across Clusters")
 
 ## We would choose 7 clusters because there's a slight decrease in performance after that.
 
+## * 8.2.15 Find the Number of tweets in each cluster---------------------------
 
+## We'll assume there is 3 clusters because that's a reasonable and managable
+## amount
 
+  K = kmeans(mds.tweet_weighted_dtm, 3, nstart = 20)
+table(K$cluster)
 
-
-
+## ** Visualise the Clusters in 2D Space
