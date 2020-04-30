@@ -351,7 +351,7 @@ tweet_corpus[[1]]$content
 ## `tm::removeNumbers()` function, in order to apply this to the entire corpus the
 ## `tm_map` package.
 
-mystop <- c(stopwords(), "’s", "ubisoft", "@ubisoft", "#ubisoft")# <<stphere>>
+mystop <- c(stopwords(), "’s", "can", "ubisoft", "@ubisoft", "#ubisoft")# <<stphere>>
 
 clean_corp <- function(corpus) {
 ## Remove URL's
@@ -374,7 +374,7 @@ tweet_corpus_clean <- clean_corp(tweet_corpus)
 ## These warnings are expected, they remove fluff from our data
 ## Make a plot and consider adding stop words to [[stphere]]
 ## Make plot
-wordcloud(tweet_corpus_clean)
+# wordcloud(tweet_corpus_clean)
 ## TODO should katakana be removed?
 
 ## * 8.2.12 Display the first two tweets before/after processing ---------------
@@ -384,59 +384,32 @@ tweet_corpus_raw[[2]]$content
 tweet_corpus_clean[[2]]$content
 
 ## * 8.2.13 Create a Term Document Matrix---------------------------------------
-## ** Make a Document Term Matrix===============================================
-                         ### RowColumnMatrix
-tweet_matrix_tdm   <- as.matrix(TermDocumentMatrix(tweet_corpus_clean))
-tweet_matrix_dtm   <- as.matrix(DocumentTermMatrix(tweet_corpus_clean))
-
-## *** Remove Empty tweets#######################################################
-## <<empties>>
-null = which(colSums(tweet_matrix_tdm) == 0)
-null
+## ** Calculate by hand via DTM (Moving forward, it's more convenient)==========
+tweet_matrix_dtm <- DocumentTermMatrix(tweet_corpus_clean)
+null = which(rowSums(as.matrix(tweet_matrix_dtm)) == 0)
 length(null)
 
+(rowSums(as.matrix(tweet_matrix_dtm))) %>% table()
 if(length(null)!=0){
-  tweet_matrix_tdm = tweet_matrix_tdm[,-null]
+  tweet_matrix_dtm = tweet_matrix_dtm[-null,]
 }
+(rowSums(as.matrix(tweet_matrix_dtm))) %>% table()
 
-tweet_matrix_dtm <- t(tweet_matrix_tdm)
-colnames(tweet_matrix_dtm) %>% head() #Colnames are preserved
-
-if (ncol(tweet_matrix_tdm) == length(tweet_corpus_clean)-length(null) ) {
-  print("Success! Empty Documents removed from TDM")
-} else {
-  "Error! Number of documents exceeds non-empty documents in TDM"
-}
-
-
-
-
-## ** Make a DTM (Moving forward, it's more convenient)========================
-tweet_matrix_dtm_r <- DocumentTermMatrix(tweet_corpus_clean)
-null = which(rowSums(as.matrix(tweet_matrix_dtm_r)) == 0)
-null
-length(null)
-
-if(length(null)!=0){
-  tweet_matrix_dtm_r = tweet_matrix_dtm_r[-null,]
-}
-
-if (nrow(tweet_matrix_dtm_r) == length(tweet_corpus_clean)-length(null) ) {
+if (nrow(tweet_matrix_dtm) == length(tweet_corpus_clean)-length(null) ) {
   print("Success! Empty Documents removed from DTM")
 } else {
   "Error! Number of documents exceeds non-empty documents in DTM"
 }
 
-tweet_matrix_dtm <- as.matrix(tweet_matrix_dtm_r)
-colnames(tweet_matrix_dtm) %>% head() #Colnames are preserved
+colnames(as.matrix(tweet_matrix_dtm)) %>% head() #Colnames are working
 
 
 
 ## *** Use Term-Frequency and Inter-Document Frequency##########################
-N <- nrow(tweet_matrix_dtm)   # Number of Documents
-ft=colSums(tweet_matrix_dtm > 0) #in how many documents term t appeared in,
+N <- nrow(as.matrix(tweet_matrix_dtm))   # Number of Documents
+ft=colSums(as.matrix(tweet_matrix_dtm) > 0) #in how many documents term t appeared in,
 
-TF <- log(tweet_matrix_dtm + 1)  # built in uses log2()
+TF <- log(as.matrix(tweet_matrix_dtm) + 1)  # built in uses log2()
 IDF <- log(N/ft)
 
     # Because each term in TF needs to be multiplied through
@@ -450,14 +423,48 @@ colnames(tweet_weighted) <- colnames(tweet_matrix_dtm)
                          ### RowColumnMatrix
 tweet_weighted[1:6, 1:6]
 
-## ** Use the built in Method to be sure
-tweet_weighted <- as.matrix(weightTfIdf(tweet_matrix_dtm_r))
-tweet_weighted[1:6, 1:6]
-# TODO why are these different??
+## ** Use built in method (via TDM)=============================================
+## *** Make a Term Document Matrix===============================================
+                         ### RowColumnMatrix
+tweet_matrix_tdm   <- (TermDocumentMatrix(tweet_corpus_clean))
+tweet_matrix_dtm   <- (DocumentTermMatrix(tweet_corpus_clean))
 
+## *** Weight the Matrix
+tweet_weighted_tdm <- as.matrix(weightTfIdf(tweet_matrix_tdm))
+tweet_weighted_tdm[1:6, 1:6]
+
+## Need DTM for Unsupervised Learning
+(tweet_weighted_dtm <- t(tweet_weighted_tdm)) %>% hd()
+colnames(tweet_weighted_dtm) <- rownames(tweet_weighted_tdm)
+# TODO why are these different??
+#
+## *** Remove Empty tweets#######################################################
+## Do this after the weighting because a TDM object needs to given to
+## weightTFIdf
+## This was done in the solutions
+## [[~/Dropbox/Studies/2020Autumn/Social_Web_Analytics/06_Solutions_Clustering.R]]
+## <<empties>>
+null = which(rowSums(as.matrix(tweet_weighted_dtm)) == 0)
+rowSums(as.matrix(tweet_weighted_dtm)==0)
+null
+length(null)
+
+if(length(null)!=0){
+  tweet_weighted_dtm = tweet_weighted_dtm[-null,]
+}
+
+if (nrow(tweet_weighted_dtm) == length(tweet_corpus_clean)-length(null) ) {
+  print("Success! Empty Documents removed from TDM")
+} else {
+  "Error! Number of documents exceeds non-empty documents in TDM"
+}
+
+
+
+# TODO rename tweet_weighted as tweet_weighted_dtm below here VVV
 ## ** Visualise the Cleaned Tweets to Find stop words or issues==================
 ## Only consider the first 30 words
-(relevant <- sort(apply(tweet_weighted, 2, mean), decreasing = TRUE)[1:30]) %>% head()
+(relevant <- sort(apply(tweet_weighted_dtm, 2, mean), decreasing = TRUE)[1:30]) %>% head()
 
 p <- brewer.pal(n = 5, name = "Set2")
 wordcloud(
@@ -478,7 +485,8 @@ ggplot(data, aes(label = word, size = weight)) +
 ## ** How many documents are empty after processing=============================
 ## this was shown in [[empties]]
 ## We can see the distribution of frequencies like so:
-(colSums(tweet_matrix_tdm)) %>% table()
+(colSums(as.matrix(tweet_matrix_tdm))) %>% table()
+length(null)
 ## No document was empty, each had atleast >= 18 terms
 
 ## * 8.2.14 How many clusters are there?-----------------------------------------
@@ -492,24 +500,24 @@ SSW = rep(0, n)
 ##   #the algorithm.
 ##   set.seed(40)#seed for random number generator to ensure consistency in our results
 ##   ## Use Document Term Matrix for Clustering and PCA
-##   K = kmeans(tweet_weighted, a, nstart = 10) #
+##   K = kmeans(tweet_weighted_dtm, a, nstart = 10) #
 ##   SSW[a] = K$tot.withinss #total within cluster sum of squares
 ## }
 
 
-norm.tweet_weighted = diag(1/sqrt(rowSums(tweet_weighted^2))) %*% tweet_weighted
+norm.tweet_weighted_dtm = diag(1/sqrt(rowSums(tweet_weighted_dtm^2))) %*% tweet_weighted_dtm
 ## then create the distance matrix
-D =dist(norm.tweet_weighted, method = "euclidean")^2/2
+D =dist(norm.tweet_weighted_dtm, method = "euclidean")^2/2
 #To visualise the clustering, we will use multidimensional
 #scaling to project the data into a 2d space
 ## perform MDS using 100 dimensions
-mds.tweet_weighted <- cmdscale(D, k=100)
-n = 15 #we assume elbow bends at 5 clusters
+mds.tweet_weighted_dtm <- cmdscale(D, k=100)
+n = 100 #we assume elbow bends at 5 clusters
 SSW = rep(0, n)
 for (a in 1:n) {
   ## use nstart to reduce the effect of the random initialisation
   set.seed(40)#seed for random number generator to ensure consistency in our results
-  K = kmeans(mds.tweet_weighted, a, nstart = 20)
+  K = kmeans(mds.tweet_weighted_dtm, a, nstart = 20)
   SSW[a] = K$tot.withinss
   paste(a*100/n, "%") %>% print()
 }
