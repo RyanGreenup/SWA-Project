@@ -328,7 +328,8 @@ tweet_corpus[1] %>% str()
 ## corpus, in this case we will convert the text encoding to UTF8:
 
 encode <- function(x) {
-  iconv(x, to = "UTF-8")
+#  iconv(x, to = "UTF-8")
+  iconv(x, to = "latin1")
 #  iconv(x, to = "ASCII")
 }
 tweet_corpus <- tm_map(x = tweet_corpus, FUN = encode)
@@ -509,19 +510,29 @@ x <- quantile(abs(ev$values), 0.2) # TODO is this meaningful?
 k <- sum(abs(ev$values) < x)
 
 mds.tweet_weighted_dtm <- cmdscale(D, k=k) #TODO What should K be? see issue #10
+set.seed(271)
 n = 15 #we assume elbow bends at 5 clusters
 SSW = rep(0, n)
 for (a in 1:n) {
-  ## use nstart to reduce the effect of the random initialisation
-  set.seed(40)#seed for random number generator to ensure consistency in our results
   K = kmeans(mds.tweet_weighted_dtm, a, nstart = 20)
   SSW[a] = K$tot.withinss
   paste(a*100/n, "%") %>% print()
 }
 SSW
+## This Plot is the perfect shape for the discussion, I'll save it
 
 ## plot the results
 plot(1:n, SSW, type = "b")
+
+SSW_tb <- tibble::enframe(SSW)
+ggplot(SSW_tb, aes(x = name, y = value)) +
+  geom_point(col = "#Cd5b45", size = 5) +
+  geom_line(col = "#Da70d6") +
+  geom_vline(xintercept = 7, lty  = 3, col = "blue") +
+  theme_bw() +
+  labs(x = "Number of Clusters", y = "Within Cluster Sum of Square Distance", title = "Within Cluster Variance across Clusters")
+
+## We would choose 7 clusters because there's a slight decrease in performance after that.
 
 
 
