@@ -328,8 +328,8 @@ tweet_corpus[1] %>% str()
 ## corpus, in this case we will convert the text encoding to UTF8:
 
 encode <- function(x) {
-#  iconv(x, to = "UTF-8")
-  iconv(x, to = "ASCII")
+  iconv(x, to = "UTF-8")
+#  iconv(x, to = "ASCII")
 }
 tweet_corpus <- tm_map(x = tweet_corpus, FUN = encode)
 tweet_corpus_raw <- tweet_corpus
@@ -351,9 +351,14 @@ tweet_corpus[[1]]$content
 ## `tm::removeNumbers()` function, in order to apply this to the entire corpus the
 ## `tm_map` package.
 
-mystop <- c(stopwords(), "ubisoft", "@ubisoft", "#ubisoft")# <<stphere>>
+mystop <- c(stopwords(), "’s", "ubisoft", "@ubisoft", "#ubisoft")# <<stphere>>
 
 clean_corp <- function(corpus) {
+## Remove URL's
+  corpus <- tm_map(corpus,content_transformer(function(x) gsub("(f|ht)tp(s?)://\\S+","",x)))
+## Remove Usernames
+  corpus <- tm_map(corpus,content_transformer(function(x) gsub("@\\w+","",x)))
+## Misc
   corpus <- tm_map(corpus, FUN = removeNumbers)
   corpus <- tm_map(corpus, FUN = removePunctuation)
   corpus <- tm_map(corpus, FUN = stripWhitespace)
@@ -446,7 +451,7 @@ colnames(tweet_weighted) <- colnames(tweet_matrix_dtm)
 tweet_weighted[1:6, 1:6]
 
 ## ** Use the built in Method to be sure
-tweet_weighted <- weightTfIdf(tweet_matrix_dtm)
+tweet_weighted <- as.matrix(weightTfIdf(tweet_matrix_dtm_r))
 tweet_weighted[1:6, 1:6]
 # TODO why are these different??
 
@@ -493,8 +498,6 @@ SSW = rep(0, n)
 
 
 norm.tweet_weighted = diag(1/sqrt(rowSums(tweet_weighted^2))) %*% tweet_weighted
-hd(norm.tweet_weighted)
-# TODO fix NaN, Not sure why
 ## then create the distance matrix
 D =dist(norm.tweet_weighted, method = "euclidean")^2/2
 #To visualise the clustering, we will use multidimensional
