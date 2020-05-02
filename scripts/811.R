@@ -305,6 +305,9 @@ if ((nrow(low_friends) + nrow(high_friends))!=length(users)) {
 tweets_high <- tweets.company$text[tweets.company$name %in%  high_friends$name]
 tweets_low  <- tweets.company$text[tweets.company$name %in%  low_friends$name]
 tweets <- c(tweets_high, tweets_low)
+
+length(tweets_high)
+length(high_friends$name)
 ## * 8.2.11 Clean the tweets----------------------------------------------------
 ## ** Create a Corpus -----------------------------------------------------------
 
@@ -438,6 +441,8 @@ tweet_weighted_tdm[1:6, 1:6]
 colnames(tweet_weighted_dtm) <- rownames(tweet_weighted_tdm)
 # TODO why are these different??
 #
+ncol(tweet_weighted_tdm)
+nrow(tweet_weighted_dtm)
 ## *** Remove Empty tweets#######################################################
 ## Do this after the weighting because a TDM object needs to given to
 ## weightTFIdf
@@ -454,10 +459,10 @@ if(length(null)!=0){
 }
 
 if (nrow(tweet_weighted_dtm) == length(tweet_corpus_clean)-length(null) ) {
-  print("Success! Empty Documents removed from TDM")
-} else {
-  "Error! Number of documents exceeds non-empty documents in TDM"
-}
+   print("Success! Empty Documents removed from TDM")
+ } else {
+   "Error! Number of documents exceeds non-empty documents in TDM"
+ }
 
 
 
@@ -467,12 +472,12 @@ if (nrow(tweet_weighted_dtm) == length(tweet_corpus_clean)-length(null) ) {
 (relevant <- sort(apply(tweet_weighted_dtm, 2, mean), decreasing = TRUE)[1:30]) %>% head()
 
 p <- brewer.pal(n = 5, name = "Set2")
-wordcloud(
-  words = names(relevant),
-  freq = relevant,
-  colors = p,
-  random.color = FALSE
-)
+ wordcloud(
+   words = names(relevant),
+   freq = relevant,
+   colors = p,
+   random.color = FALSE
+ )
 
 
 data <- tibble(word = names(relevant), weight = relevant)
@@ -545,27 +550,45 @@ K = kmeans(mds.tweet_weighted_dtm, 3, nstart = 20)
 table(K$cluster)
 
 ## * 8.2.16 Visualise the Clusters in 2D Space----------------------------------
-## *** Build a Data Frame
+## ** Perform PCA ===============================================================
 tweets.pca <- prcomp(tweet_weighted_dtm)
-
-
+## ** Create Factor of Friend Status ============================================
 friend_counts <-
     c("Friend Count" =
       rep("High Friend Count", length(tweets_high)),
       rep("Low Friend Count", length(tweets_low))
       )
-(high_friends, low_friends)  %>%
+friend_counts <- factor(friend_counts, labels = unique(friend_counts))
+## *** Check Vector Lengths ######################################################
+nrow(tweets.pca$x)
+length(friend_counts[-null])
+length(K$cluster)
+cbind("Friend_Count" = friend_counts, tweets.pca$x[,1:2], K$cluster)  %>% nrow()
+if(nrow(tweets.pca$x)!=friend_counts[-null]) {
+  print("Number of Tweets and Number of Friends are unequal")
+} else {
+print("Success")
+}
+
+## ** Build a Data Frame ========================================================
+## *** Build a Data Frame
+pca_data <-
+  tweets.pca$x[,1:2] %>%
+    cbind("Cluster" = K$cluster)  %>%
+  ## This causes the factors to change and they don't line up either
+  ##    cbind("Friend_Count" = friend_counts)  %>%
+    as_tibble()
+pca_data$Friend_Count  <- friend_counts[-null]
 
 
+## *** Inspect the Friend Counts #################################################
+## A higher proportion of low friend count tweets were removed
+## This is expected because they would be more likely to be ingenuine accounts
+table(pca_data$Friend_Count)
+table(friend_counts[-null])
+table(friend_counts)
 
-data_2d_viz <-
-    tweets.pca$x[,1:2]  %>%
-      cbind("Cluster" = K$cluster) %>%
-      cbind("Friend_Counts" = friend_counts)  %>%
-      c
-      as_tibble()
 
-table(data_2d_viz$Friend_Counts)
 length(tweets_high)
 length(tweets_low)
 length(high_friends )
