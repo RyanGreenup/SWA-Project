@@ -1,12 +1,11 @@
 ## * Load Packages -----------------------------------------------------------
 setwd("~/Dropbox/Notes/DataSci/Social_Web_Analytics/SWA-Project/scripts/")
-
 if (require("pacman")) {
-  library(pacman)
-} else{
-  install.packages("pacman")
-  library(pacman)
-}
+     library(pacman)
+ } else {
+ install.packages("pacman")
+    library(pacman)
+ }
 
 pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2, ggmap, parallel,
                dplyr, plotly, tidyverse, reticulate, UsingR, Rmpfr, swirl,
@@ -82,7 +81,7 @@ load("./resources/Download_1.Rdata")
 
 ## ** 8.1.5 BootStrap --------------------------------------------------------------
 ## ** a.)  Generate Bootstrap Distribution ===========================================
-## Re-Sampling with replacement is 
+## Re-Sampling with replacement is
 ## bt_pop <- replicate(10^2, {
 ##  sample(x, replace = TRUE)
 ## })
@@ -212,7 +211,7 @@ y_df$cat <- factor(y_df$cat, levels = var_levels, ordered = TRUE)
 ## *** Combine the frequencies into a matrix #######################################
 vals <- t(cbind(x_freq, y_freq))
 rownames(vals) <- c("Followers.x", "Friends.y")
-vals 
+vals
 
 ## **** Calculate Summary Stats
 n  <- sum(vals)
@@ -281,19 +280,18 @@ mean(s)
 ## <<dplyr812>>
 select <- dplyr::select
 filter <- dplyr::filter
-interested_vars <- c("name", "followers_count")
-
+interested_vars <- c("name", "friends_count")
 (follower_counts <- tweets.company %>%
   select(interested_vars) %>%
   filter(!duplicated(name)))
 
 (high_friends <- follower_counts %>%
-  filter(followers_count > mean(followers_count, na.rm = TRUE)))
+  filter(friends_count > mean(friends_count, na.rm = TRUE)))
 
 ## * 8.2.8 Find users with Below Average Friend Count-------------------------------
 
 (low_friends <- follower_counts %>%
-  filter(followers_count <= mean(followers_count, na.rm = TRUE)))
+  filter(friends_count <= mean(friends_count, na.rm = TRUE)))
 
 
 if ((nrow(low_friends) + nrow(high_friends))!=length(users)) {
@@ -301,11 +299,12 @@ if ((nrow(low_friends) + nrow(high_friends))!=length(users)) {
 
 }
 
-## * 8.2.10 Find the tweets of those users indentified above --------------------
+## * 8.2.10 Find the tweets of those users indentified above
+## The point of this is that the data is now ordered, the
+## top part is the high friends and the low part is the low friends
 tweets_high <- tweets.company$text[tweets.company$name %in%  high_friends$name]
 tweets_low  <- tweets.company$text[tweets.company$name %in%  low_friends$name]
 tweets <- c(tweets_high, tweets_low)
-
 ## * 8.2.11 Clean the tweets----------------------------------------------------
 ## ** Create a Corpus -----------------------------------------------------------
 
@@ -328,9 +327,9 @@ tweet_corpus[1] %>% str()
 ## corpus, in this case we will convert the text encoding to UTF8:
 
 encode <- function(x) {
-#  iconv(x, to = "UTF-8")
-  iconv(x, to = "latin1")
-#  iconv(x, to = "ASCII")
+  #  iconv(x, to = "UTF-8")
+    iconv(x, to = "latin1")
+  #  iconv(x, to = "ASCII")
 }
 tweet_corpus <- tm_map(x = tweet_corpus, FUN = encode)
 tweet_corpus_raw <- tweet_corpus
@@ -355,19 +354,19 @@ tweet_corpus[[1]]$content
 mystop <- c(stopwords(), "’s", "can", "ubisoft", "@ubisoft", "#ubisoft")# <<stphere>>
 
 clean_corp <- function(corpus) {
-## Remove URL's
+  ## Remove URL's
   corpus <- tm_map(corpus,content_transformer(function(x) gsub("(f|ht)tp(s?)://\\S+","",x)))
-## Remove Usernames
+  ## Remove Usernames
   corpus <- tm_map(corpus,content_transformer(function(x) gsub("@\\w+","",x)))
-## Misc
+  ## Misc
   corpus <- tm_map(corpus, FUN = removeNumbers)
   corpus <- tm_map(corpus, FUN = removePunctuation)
   corpus <- tm_map(corpus, FUN = stripWhitespace)
   corpus <- tm_map(corpus, FUN = tolower)
   corpus <- tm_map(corpus, FUN = removeWords, mystop)
-      ## stopwords() returns characters and is fead as second argument
+  ## stopwords() returns characters and is fead as second argument
   corpus <- tm_map(corpus, FUN = stemDocument)
-   return(corpus)
+  return(corpus)
 }
 
 tweet_corpus_clean <- clean_corp(tweet_corpus)
@@ -397,10 +396,10 @@ if(length(null)!=0){
 (rowSums(as.matrix(tweet_matrix_dtm))) %>% table()
 
 if (nrow(tweet_matrix_dtm) == length(tweet_corpus_clean)-length(null) ) {
-  print("Success! Empty Documents removed from DTM")
-} else {
-  "Error! Number of documents exceeds non-empty documents in DTM"
-}
+    print("Success! Empty Documents removed from DTM")
+  } else {
+    "Error! Number of documents exceeds non-empty documents in DTM"
+  }
 
 colnames(as.matrix(tweet_matrix_dtm)) %>% head() #Colnames are working
 
@@ -503,7 +502,7 @@ D =dist(norm.tweet_weighted_dtm, method = "euclidean")^2/2
 ## ** Use the Rank of the Matrix to Determine the Projection Dimension==========
 (l <- min(nrow(tweet_weighted_dtm),
          ncol(tweet_weighted_dtm)))
-ev <- eigen(tweet_weighted_dtm[1:l, 1:l]) 
+ev <- eigen(tweet_weighted_dtm[1:l, 1:l])
 k <- (ev$values != 0) %>% sum()
 
 ## *** Take only the top 20% of the eigenvalues.################################
@@ -542,9 +541,32 @@ ggplot(SSW_tb, aes(x = name, y = value)) +
 ## We'll assume there is 3 clusters because that's a reasonable and managable
 ## amount
 
-  K = kmeans(mds.tweet_weighted_dtm, 3, nstart = 20)
+K = kmeans(mds.tweet_weighted_dtm, 3, nstart = 20)
 table(K$cluster)
 
 ## * 8.2.16 Visualise the Clusters in 2D Space----------------------------------
 ## *** Build a Data Frame
-##
+tweets.pca <- prcomp(tweet_weighted_dtm)
+
+
+friend_counts <-
+    c("Friend Count" =
+      rep("High Friend Count", length(tweets_high)),
+      rep("Low Friend Count", length(tweets_low))
+      )
+(high_friends, low_friends)  %>%
+
+
+
+data_2d_viz <-
+    tweets.pca$x[,1:2]  %>%
+      cbind("Cluster" = K$cluster) %>%
+      cbind("Friend_Counts" = friend_counts)  %>%
+      c
+      as_tibble()
+
+table(data_2d_viz$Friend_Counts)
+length(tweets_high)
+length(tweets_low)
+length(high_friends )
+length(low_friends )
