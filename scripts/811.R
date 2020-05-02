@@ -552,6 +552,7 @@ table(K$cluster)
 ## * 8.2.16 Visualise the Clusters in 2D Space----------------------------------
 ## ** Perform PCA ===============================================================
 tweets.pca <- prcomp(tweet_weighted_dtm, scale = TRUE)
+PCA_Euclid_2D <- cmdscale(tweet_weighted_dtm, k=2) #TODO What should K be? see issue #10
 ## ** Create Factor of Friend Status ============================================
 friend_counts <-
     c("Friend Count" =
@@ -560,11 +561,11 @@ friend_counts <-
       )
 friend_counts <- factor(friend_counts, labels = unique(friend_counts))
 ## *** Check Vector Lengths ######################################################
-nrow(tweets.pca$x)
+nrow(PCA_Euclid_2D$x)
 length(friend_counts[-null])
 length(K$cluster)
-cbind("Friend_Count" = friend_counts, tweets.pca$x[,1:2], K$cluster)  %>% nrow()
-if(nrow(tweets.pca$x)!=friend_counts[-null]) {
+cbind("Friend_Count" = friend_counts, PCA_Euclid_2D$x[,1:2], K$cluster)  %>% nrow()
+if(nrow(PCA_Euclid_2D$x)!=friend_counts[-null]) {
   print("Number of Tweets and Number of Friends are unequal")
 } else {
 print("Success")
@@ -573,7 +574,7 @@ print("Success")
 ## ** Build a Data Frame ========================================================
 ## *** Build a Data Frame
 pca_data <-
-  tweets.pca$x[,1:2] %>%
+  PCA_Euclid_2D$x[,1:2] %>%
     cbind("Cluster" = K$cluster)  %>%
   ## This causes the factors to change and they don't line up either
   ##    cbind("Friend_Count" = friend_counts)  %>%
