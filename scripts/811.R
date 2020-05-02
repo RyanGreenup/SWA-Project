@@ -551,8 +551,7 @@ table(K$cluster)
 
 ## * 8.2.16 Visualise the Clusters in 2D Space----------------------------------
 ## ** Perform PCA ===============================================================
-tweets.pca <- prcomp(tweet_weighted_dtm, scale = TRUE)
-PCA_Euclid_2D <- cmdscale(tweet_weighted_dtm, k=2) #TODO What should K be? see issue #10
+PCA_Euclid_2D <- cmdscale(D, k=2) #TODO What should K be? see issue #10
 ## ** Create Factor of Friend Status ============================================
 friend_counts <-
     c("Friend Count" =
@@ -574,13 +573,14 @@ print("Success")
 ## ** Build a Data Frame ========================================================
 ## *** Build a Data Frame
 pca_data <-
-  PCA_Euclid_2D$x[,1:2] %>%
+  PCA_Euclid_2D[,1:2] %>%
     cbind("Cluster" = K$cluster)  %>%
   ## This causes the factors to change and they don't line up either
   ##    cbind("Friend_Count" = friend_counts)  %>%
     as_tibble()
 pca_data$Friend_Count  <- friend_counts[-null]
 pca_data$Cluster       <- factor(pca_data$Cluster)
+names(pca_data)[1:2] <- c("PC1", "PC2")
 
 
 ## *** Inspect the Friend Counts #################################################
@@ -590,7 +590,8 @@ table(pca_data$Friend_Count)
 table(friend_counts[-null])
 table(friend_counts)
 
-ggplot(pca_data, aes(x = PC1, y = PC2, col = Cluster, shape = Friend_Count)) +
-  geom_point()
-
-pca_data$PC1
+ggplot(pca_data, aes(x = PC1, y = PC2, col = Cluster)) +
+  geom_point(aes(shape = Friend_Count), size = 2) +
+  stat_ellipse(level = 0.9) +
+  theme_classic() +
+  labs(main = "Principal Components of Twitter Data")
