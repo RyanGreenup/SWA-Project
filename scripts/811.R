@@ -53,7 +53,7 @@ options(RCurlOptions = list(
 ##  n <- 1000
 ##  tweets.company <- search_tweets(q = 'ubisoft', n = n, token = tk,
 ##                                  include_rts = FALSE)
-##  save(tweets.company, file = "resources/Download_1.Rdata")
+#  save(tweets.company, file = "resources/Download_1.Rdata")
 ## ** Extra just in Case ===========================================================
 ##   n <- 10000
 ##   tweets.company <- search_tweets(q = 'ubisoft', n = n, token = tk,
@@ -508,15 +508,16 @@ D =dist(norm.tweet_weighted_dtm, method = "euclidean")^2/2
 (l <- min(nrow(tweet_weighted_dtm),
          ncol(tweet_weighted_dtm)))
 ev <- eigen(tweet_weighted_dtm[1:l, 1:l])
-k <- (ev$values != 0) %>% sum()
+k <- (abs(ev$values) != 0) %>% sum()
 
 ## *** Take only the top 20% of the eigenvalues.################################
-x <- quantile(abs(ev$values), 0.2) # TODO is this meaningful?
-k <- sum(abs(ev$values) < x)
-
+## x <- quantile(abs(ev$values), 0.2) # TODO is this meaningful?
+## k <- sum(abs(ev$values) < x)
+##
+## k <- nrow(tweet_weighted_dtm)-1
 ## ** Project the Cosine Distance into Euclidean Space==========================
 mds.tweet_weighted_dtm <- cmdscale(D, k=k) #TODO What should K be? see issue #10
-set.seed(271)
+set.seed(314)
 n = 15 # Assume it bends at 7 clusters
 SSW = rep(0, n)
 for (a in 1:n) {
