@@ -551,7 +551,7 @@ table(K$cluster)
 
 ## * 8.2.16 Visualise the Clusters in 2D Space----------------------------------
 ## ** Perform PCA ===============================================================
-tweets.pca <- prcomp(tweet_weighted_dtm)
+tweets.pca <- prcomp(tweet_weighted_dtm, scale = TRUE)
 ## ** Create Factor of Friend Status ============================================
 friend_counts <-
     c("Friend Count" =
@@ -579,6 +579,7 @@ pca_data <-
   ##    cbind("Friend_Count" = friend_counts)  %>%
     as_tibble()
 pca_data$Friend_Count  <- friend_counts[-null]
+pca_data$Cluster       <- factor(pca_data$Cluster)
 
 
 ## *** Inspect the Friend Counts #################################################
@@ -588,8 +589,7 @@ table(pca_data$Friend_Count)
 table(friend_counts[-null])
 table(friend_counts)
 
+ggplot(pca_data, aes(x = PC1, y = PC2, col = Cluster, shape = Friend_Count)) +
+  geom_point()
 
-length(tweets_high)
-length(tweets_low)
-length(high_friends )
-length(low_friends )
+pca_data$PC1
