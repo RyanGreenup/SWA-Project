@@ -299,6 +299,14 @@ if ((nrow(low_friends) + nrow(high_friends))!=length(users)) {
 
 }
 
+
+friends_count <- cbind(tweets.company$name, tweets.company$friends_count)
+
+high_friends <- friends_count[friends_count > mean(friends_count),]
+low_friends <- friends_count[friends_count > mean(friends_count),]
+
+
+
 ## * 8.2.10 Find the tweets of those users indentified above
 ## The point of this is that the data is now ordered, the
 ## top part is the high friends and the low part is the low friends
