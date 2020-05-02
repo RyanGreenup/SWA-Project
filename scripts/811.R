@@ -595,3 +595,10 @@ ggplot(pca_data, aes(x = PC1, y = PC2, col = Cluster)) +
   stat_ellipse(level = 0.9) +
   theme_classic() +
   labs(main = "Principal Components of Twitter Data")
+
+
+ggplot(pca_data, aes(x = PC1, y = PC2, col = Friend_Count)) +
+  geom_point(aes(shape = Cluster), size = 2) +
+  stat_ellipse(level = 0.95) +
+  theme_classic() +
+  labs(main = "Principal Components of Twitter Data")
