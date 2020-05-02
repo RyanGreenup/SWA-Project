@@ -592,7 +592,14 @@ table(pca_data$Friend_Count)
 table(friend_counts[-null])
 table(friend_counts)
 
-ggplot(pca_data, aes(x = PC1, y = PC2, col = Cluster, shape = Friend_Count)) +
+pca_data <- pca_data[order(pca_data$PC1, decreasing = TRUE)]
+
+sdpc1 <- sd(pca_data$PC1)
+sdpc2 <- sd(pca_data$PC2)
+pca_data <- pca_data[abs(pca_data$PC1)<1,]
+pca_data <- pca_data[abs(pca_data$PC2)<1,]
+
+ggplot(pca_data[1:500,], aes(x = PC1, y = PC2, col = Cluster, shape = Friend_Count)) +
   geom_point()
 
 pca_data$PC1
