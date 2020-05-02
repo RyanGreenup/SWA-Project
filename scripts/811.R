@@ -355,6 +355,7 @@ tweet_corpus[[1]]$content
 ## `tm_map` package.
 
 mystop <- c(stopwords(), "’s", "can", "ubisoft", "@ubisoft", "#ubisoft")# <<stphere>>
+mystop <- c(stopwords())
 
 clean_corp <- function(corpus) {
   ## Remove URL's
@@ -560,11 +561,11 @@ friend_counts <-
       )
 friend_counts <- factor(friend_counts, labels = unique(friend_counts))
 ## *** Check Vector Lengths ######################################################
-nrow(PCA_Euclid_2D$x)
+nrow(PCA_Euclid_2D)
 length(friend_counts[-null])
 length(K$cluster)
-cbind("Friend_Count" = friend_counts, PCA_Euclid_2D$x[,1:2], K$cluster)  %>% nrow()
-if(nrow(PCA_Euclid_2D$x)!=friend_counts[-null]) {
+cbind("Friend_Count" = friend_counts, PCA_Euclid_2D[,1:2], K$cluster)  %>% nrow()
+if(nrow(PCA_Euclid_2D)!=friend_counts[-null]) {
   print("Number of Tweets and Number of Friends are unequal")
 } else {
 print("Success")
