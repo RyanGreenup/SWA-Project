@@ -552,6 +552,9 @@ table(K$cluster)
 ## * 8.2.16 Visualise the Clusters in 2D Space----------------------------------
 ## ** Perform PCA ===============================================================
 tweets.pca <- prcomp(tweet_weighted_dtm, scale = TRUE)
+tweets.pca <- prcomp(norm.tweet_weighted_dtm, scale = TRUE)
+
+norm.tweet_weighted_dtm
 ## ** Create Factor of Friend Status ============================================
 friend_counts <-
     c("Friend Count" =
