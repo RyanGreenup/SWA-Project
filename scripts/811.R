@@ -307,7 +307,7 @@ if ((nrow(low_friends) + nrow(high_friends))!=length(users)) {
   print("More users identified that exist, review the method to count high_friends")
 }
 
-## * 8.2.10 Find the tweets of those users indentified above------------------     :828:
+## * FIXME 8.2.10 Find the tweets of those users indentified above------------------     :828:
 ## The point of this is that the data is now ordered, the
 ## top part is the high friends and the low part is the low friends
 tweets_high <- tweets.company$text[(tweets.company$user_id  %in% high_friends$user_id)]
@@ -320,11 +320,13 @@ sum(tweets.company$user_id  %in% low_friends$user_id)
 length(tweets_low)
 tweets_low <- cbind(tweets_low, rep("Low_Friend", length(tweets_low)))
 
-tweets <- rbind(tweets_high, tweets_low)
-nrow(tweets)
+tweets <- as.data.frame(rbind(tweets_high, tweets_low))
+names(tweets) <- c("text", "Friend_Status")
+tweets$Friend_Status  <- factor(tweets$Friend_Status)
 
 nrow(tweets)
 nrow(tweets.company)
+
 
 ## TODO I think this is the issue, the number of tweets relating to high friends
 ## Is Different from the number of frieds with high friends and I've made
@@ -341,7 +343,7 @@ length(high_friends$user_id)
 
 ## It's first necessary to create a `corpus` object:
 
-tweet_source <- tm::VectorSource(tweets)
+tweet_source <- tm::VectorSource(tweets$text)
 tweet_corpus <- tm::Corpus(x = tweet_source)
 
 ## A corpus object is a list where each entry contains author, description,
@@ -363,7 +365,7 @@ tweet_corpus <- tm_map(x = tweet_corpus, FUN = encode)
 tweet_corpus_raw <- tweet_corpus
 
 ## TODO Maybe I should Remove Bad terms before inspection and before cleaning?
-tweet_corpus[[1]]$content
+head(tweet_corpus[[1]]$content)
 ## ** Clean the Corpus ---------------------------------------------------------
 
 ## In order to clean the corpus it will be necessary to:
@@ -598,6 +600,7 @@ print("Success")
 
 ## ** FIXME Build a Data Frame ========================================================
 ## *** Build a Data Frame #############################################################
+nrow(pca_data)
 pca_data <-
   PCA_Euclid_2D[,1:2] %>%
     cbind("Cluster" = K$cluster)  %>%
