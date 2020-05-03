@@ -162,7 +162,6 @@ prop <- function(data, index) {
 py_hat_boot <- boot(data = y>mean(y), statistic = prop, R = 10^3)
 boot.ci(py_hat_boot, conf = 0.97, type = "bca")
 
-
 ## * 8.1.7 Find Evidence to suggest independence-----------------------------------
 ## ** a) Bin the Counts=============================================================
 ## variables and names should not start with numbers
@@ -314,10 +313,26 @@ if ((nrow(low_friends) + nrow(high_friends))!=length(users)) {
 ## * 8.2.10 Find the tweets of those users indentified above
 ## The point of this is that the data is now ordered, the
 ## top part is the high friends and the low part is the low friends
-tweets_high <- tweets.company$text[tweets.company$user_id %in%  high_friends$user_id]
-tweets_low  <- tweets.company$text[tweets.company$user_id %in%  low_friends$user_id]
-tweets <- c(tweets_high, tweets_low)
+tweets_high <- tweets.company$text[(tweets.company$user_id  %in% high_friends$user_id)]
+sum(tweets.company$user_id  %in% high_friends$user_id)
+length(tweets_high)
+tweets_high <- cbind(tweets_high, rep("High_Friend", length(tweets_high)))
 
+tweets_low <- tweets.company$text[(tweets.company$user_id  %in% low_friends$user_id)]
+sum(tweets.company$user_id  %in% low_friends$user_id)
+length(tweets_low)
+tweets_low <- cbind(tweets_low, rep("Low_Friend", length(tweets_low)))
+
+tweets <- rbind(tweets_high, tweets_low)
+nrow(tweets)
+
+nrow(tweets)
+nrow(tweets.company)
+
+## TODO I think this is the issue, the number of tweets relating to high friends
+## Is Different from the number of frieds with high friends and I've made
+## the assumption that they were equal in [[:8216:]]
+nrow(tweets)==(nrow(low_friends)+nrow(high_friends))
 length(tweets_high)
 length(high_friends$user_id)
 ## * 8.2.11 Clean the tweets----------------------------------------------------
@@ -562,7 +577,7 @@ ggplot(SSW_tb, aes(x = name, y = value)) +
 K = kmeans(mds.tweet_weighted_dtm, 3, nstart = 20)
 table(K$cluster)
 
-## * 8.2.16 Visualise the Clusters in 2D Space----------------------------------
+## * 8.2.16 Visualise the Clusters in 2D Space----------------------------------   :8216:
 ## ** Perform PCA ===============================================================
 PCA_Euclid_2D <- cmdscale(D, k=2) #TODO What should K be? see issue #10
 ## ** Create Factor of Friend Status ============================================
