@@ -51,8 +51,8 @@ options(RCurlOptions = list(
 
 ## * 8.1.1   Pull the Tweets -------------------------------------------------     :811:
 ##  n <- 1000
-##  tweets.company <- search_tweets(q = 'ubisoft', n = n, token = tk,
-##                                  include_rts = FALSE)
+##  tweets.company <- search_tweets(q = 'samsung', n = n, token = tk,
+                                  include_rts = FALSE)
 ##  save(tweets.company, file = "resources/Download_1.Rdata")
 ## ** Extra just in Case ===========================================================
 ##   n <- 10000
@@ -277,27 +277,27 @@ mean(s)
 select <- dplyr::select
 filter <- dplyr::filter
 interested_vars <- c("user_id", "friends_count")
-(follower_counts <- tweets.company %>%
+(friend_counts <- tweets.company %>%
   select(interested_vars) %>%
   filter(!duplicated(user_id)))
 
-(high_friends <- follower_counts %>%
+(high_friends <- friend_counts %>%
   filter(friends_count > mean(friends_count, na.rm = TRUE)))
 
-high_friends <- high_friends[order(
-  high_friends$friends_count,
-  decreasing = TRUE),]
+## high_friends <- high_friends[order(
+##   high_friends$friends_count,
+##   decreasing = TRUE),]
 
 head(high_friends)
 tail(high_friends)
 
 ## * FIXME 8.2.8 Find users with Below Average Friend Count-------------------------     :817:
-(low_friends <- follower_counts %>%
+(low_friends <- friend_counts %>%
   filter(friends_count <= mean(friends_count, na.rm = TRUE)))
 
- low_friends <- low_friends[order(
-   low_friends$friends_count,
-   decreasing = TRUE),]
+## low_friends <- low_friends[order(
+##   low_friends$friends_count,
+##   decreasing = TRUE),]
 
 head(low_friends)
 tail(low_friends)
