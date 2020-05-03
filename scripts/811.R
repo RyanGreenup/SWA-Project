@@ -49,7 +49,7 @@ options(RCurlOptions = list(
 ## =8/Cr
 ## -----END PGP MESSAGE-----
 
-## * 8.1.1   Pull the Tweets --------------------------------------------------------
+## * 8.1.1   Pull the Tweets -------------------------------------------------     :811:
 ##  n <- 1000
 ##  tweets.company <- search_tweets(q = 'ubisoft', n = n, token = tk,
 ##                                  include_rts = FALSE)
@@ -64,7 +64,7 @@ options(RCurlOptions = list(
 ## mise()
 load("./resources/Download_1.Rdata")
 
-## * 8.1.2 Friend and Follower Count ----------------------------------------------------
+## * 8.1.2 Friend and Follower Count -----------------------------------------     :812:
 ## <<8.1.2>>
 (users <- unique(tweets.company$user_id)) %>% length()
 (x <- tweets.company$followers_count[!duplicated(tweets.company$name)]) %>% length()
@@ -75,7 +75,7 @@ load("./resources/Download_1.Rdata")
 (xbar <- mean(x))
 (ybar <- mean(y))
 
-## * 8.1.4 Above Average Followers ------------------------------------------------
+## * 8.1.4 Above Average Followers -------------------------------------------     :813:
 (px_hat <- mean(x>xbar))
 (py_hat <- mean(y>ybar))
 
@@ -128,7 +128,7 @@ ybar_boot_loop <- replicate(10^3, {
   })
 quantile(ybar_boot_loop, c(0.015, 0.985))
 
-# Using BCA Method #############################################################
+## Using BCA Method #############################################################
 mean_val <- function(data, index) {
   X = data[index]
   return(mean(X))
@@ -140,7 +140,7 @@ boot.ci(xbar_boot, conf = 0.97, type = "bca", index = 1)
 ## We just want Percentile type
 ## https://www.datacamp.com/community/tutorials/bootstrap-r
 
-## * 8.1.6 High Friend Count Proportion -------------------------------------------
+## * 8.1.6 High Friend Count Proportion --------------------------------------     :814:
 prop <- factor(c("Below", "Above"))
 ## 1 is above average, 2 is below
 py_hat_bt <- replicate(10^3, {
@@ -162,12 +162,12 @@ prop <- function(data, index) {
 py_hat_boot <- boot(data = y>mean(y), statistic = prop, R = 10^3)
 boot.ci(py_hat_boot, conf = 0.97, type = "bca")
 
-## * 8.1.7 Find Evidence to suggest independence-----------------------------------
+## * 8.1.7 Find Evidence to suggest independence------------------------------     :815:
 ## ** a) Bin the Counts=============================================================
 ## variables and names should not start with numbers
 ## this is syntactically incorrect
 ## https://stat.ethz.ch/R-manual/R-devel/library/base/html/make.names.html
-##
+
 var_levels <- c("Tens","Hundreds","1Thousands","2Thousands","3Thousands",
                 "4Thousands","5ThousandOrMore")
 
@@ -183,10 +183,10 @@ x_df$cat[3000    <= x_df$x & x_df$x < 4000] <- "3Thousands"
 x_df$cat[4000    <= x_df$x & x_df$x < 5000] <- "4Thousands"
 x_df$cat[5000    <= x_df$x & x_df$x < Inf] <- "5ThousandOrMore"
 
-### Make a factor
+## Make a factor
 x_df$cat <- factor(x_df$cat, levels = var_levels, ordered = TRUE)
 
-### Determine Frequencies
+## Determine Frequencies
 (x_freq <- table(x_df$cat) %>% as.matrix())
 
 ## ** b) Find the Friend Count Frequency ===========================================
@@ -200,10 +200,10 @@ y_df$cat[3000    <= y_df$y & y_df$y < 4000] <- "3Thousands"
 y_df$cat[4000    <= y_df$y & y_df$y < 5000] <- "4Thousands"
 y_df$cat[5000    <= y_df$y & y_df$y < Inf]  <- "5ThousandOrMore"
 
-### Make a factor
+## Make a factor
 y_df$cat <- factor(y_df$cat, levels = var_levels, ordered = TRUE)
 
-### Determine Frequencies
+## Determine Frequencies
 (y_freq <- table(y_df$cat) %>% as.matrix())
 
 ## ** c) Find the Expected counts under each group and Chi Test Independence =======
@@ -269,9 +269,8 @@ s <- replicate(10^4,{
 
 mean(s)
 
+## * 8.2.8 Find users with Above Average Friend Count-------------------------     :816:
 
-## * 8.2.8 Find users with Above Average Friend Count-------------------------------
-##
 ## <<8.2.8>>
 ## y is friends count, see [[8.1.3]]
 ## Remember these users must not be duplicated
@@ -294,7 +293,7 @@ high_friends <- high_friends[order(
 head(high_friends)
 tail(high_friends)
 
-## * 8.2.8 Find users with Below Average Friend Count-------------------------------
+## * 8.2.8 Find users with Below Average Friend Count-------------------------     :817:
 
 (low_friends <- follower_counts %>%
   filter(friends_count <= mean(friends_count, na.rm = TRUE)))
@@ -310,7 +309,7 @@ if ((nrow(low_friends) + nrow(high_friends))!=length(users)) {
   print("More users identified that exist, review the method to count high_friends")
 }
 
-## * 8.2.10 Find the tweets of those users indentified above
+## * 8.2.10 Find the tweets of those users indentified above------------------     :828:
 ## The point of this is that the data is now ordered, the
 ## top part is the high friends and the low part is the low friends
 tweets_high <- tweets.company$text[(tweets.company$user_id  %in% high_friends$user_id)]
@@ -335,7 +334,8 @@ nrow(tweets.company)
 nrow(tweets)==(nrow(low_friends)+nrow(high_friends))
 length(tweets_high)
 length(high_friends$user_id)
-## * 8.2.11 Clean the tweets----------------------------------------------------
+
+## * 8.2.11 Clean the tweets----------------------------------------------------   :8211:
 ## ** Create a Corpus -----------------------------------------------------------
 
 ## the `tm` library can be used to analyse the text (the `SnowballC` package
@@ -364,19 +364,19 @@ encode <- function(x) {
 tweet_corpus <- tm_map(x = tweet_corpus, FUN = encode)
 tweet_corpus_raw <- tweet_corpus
 
-#TODO Maybe I should Remove Bad terms before inspection and before cleaning?
+## TODO Maybe I should Remove Bad terms before inspection and before cleaning?
 tweet_corpus[[1]]$content
 ## ** Clean the Corpus ---------------------------------------------------------
-##
+
 ## In order to clean the corpus it will be necessary to:
-##
+
 ## 1. remove numbers
 ## 2. remove punctuation
 ## 3. remove whitespace
 ## 4. case fold all characters to lower case
 ## 5. remove a set of stop words
 ## 6. reduce each word to its stem
-##
+
 ## So for example to remove the numbers it would be ideal to use the
 ## `tm::removeNumbers()` function, in order to apply this to the entire corpus the
 ## `tm_map` package.
@@ -405,16 +405,16 @@ tweet_corpus_clean <- clean_corp(tweet_corpus)
 ## These warnings are expected, they remove fluff from our data
 ## Make a plot and consider adding stop words to [[stphere]]
 ## Make plot
-# wordcloud(tweet_corpus_clean)
+## wordcloud(tweet_corpus_clean)
 ## TODO should katakana be removed?
 
-## * 8.2.12 Display the first two tweets before/after processing ---------------
+## * 8.2.12 Display the first two tweets before/after processing ---------------   :8212:
 tweet_corpus_raw[[1]]$content
 tweet_corpus_clean[[1]]$content
 tweet_corpus_raw[[2]]$content
 tweet_corpus_clean[[2]]$content
 
-## * 8.2.13 Create a Term Document Matrix---------------------------------------
+## * 8.2.13 Create a Term Document Matrix---------------------------------------   :8213:
 ## ** Calculate by hand via DTM (Moving forward, it's more convenient)==========
 tweet_matrix_dtm <- DocumentTermMatrix(tweet_corpus_clean)
 null = which(rowSums(as.matrix(tweet_matrix_dtm)) == 0)
@@ -467,8 +467,8 @@ tweet_weighted_tdm[1:6, 1:6]
 ## Need DTM for Unsupervised Learning
 (tweet_weighted_dtm <- t(tweet_weighted_tdm)) %>% hd()
 colnames(tweet_weighted_dtm) <- rownames(tweet_weighted_tdm)
-# TODO why are these different??
-#
+## TODO why are these different??
+
 ncol(tweet_weighted_tdm)
 nrow(tweet_weighted_dtm)
 ## *** Remove Empty tweets#######################################################
@@ -494,7 +494,7 @@ if (nrow(tweet_weighted_dtm) == length(tweet_corpus_clean)-length(null) ) {
 
 
 
-# TODO rename tweet_weighted as tweet_weighted_dtm below here VVV
+## TODO rename tweet_weighted as tweet_weighted_dtm below here VVV
 ## ** Visualise the Cleaned Tweets to Find stop words or issues==================
 ## Only consider the first 30 words
 (relevant <- sort(apply(tweet_weighted_dtm, 2, mean), decreasing = TRUE)[1:30]) %>% head()
@@ -522,14 +522,14 @@ ggplot(data, aes(label = word, size = weight)) +
 length(null)
 ## No document was empty, each had atleast >= 18 terms
 
-## * 8.2.14 How many clusters are there?-----------------------------------------
+## * 8.2.14 How many clusters are there?-----------------------------------------  :8214:
 ## <<8214Clust>>
 ## ** Normalise the Vectors
 norm.tweet_weighted_dtm = diag(1/sqrt(rowSums(tweet_weighted_dtm^2))) %*% tweet_weighted_dtm
 ## ** Create the Distance Matrix=================================================
 D =dist(norm.tweet_weighted_dtm, method = "euclidean")^2/2
-#To visualise the clustering, we will use multidimensional
-#scaling to project the data into a 2d space
+## To visualise the clustering, we will use multidimensional
+## scaling to project the data into a 2d space
 ## perform MDS using 100 dimensions
 
 ## ** Use the Rank of the Matrix to Determine the Projection Dimension==========
@@ -569,7 +569,7 @@ ggplot(SSW_tb, aes(x = name, y = value)) +
 
 ## We would choose 7 clusters because there's a slight decrease in performance after that.
 
-## * 8.2.15 Find the Number of tweets in each cluster---------------------------
+## * 8.2.15 Find the Number of tweets in each cluster---------------------------   :8215:
 
 ## We'll assume there is 3 clusters because that's a reasonable and managable
 ## amount
