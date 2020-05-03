@@ -601,13 +601,15 @@ print("Success")
 ## ** FIXME Build a Data Frame ========================================================
 ## *** Build a Data Frame #############################################################
 nrow(pca_data)
+nrow(tweets[-null,])
+
 pca_data <-
   PCA_Euclid_2D[,1:2] %>%
     cbind("Cluster" = K$cluster)  %>%
+    cbind(tweets[-null,]) %>% 
   ## This causes the factors to change and they don't line up either
   ##    cbind("Friend_Count" = friend_counts)  %>%
     as_tibble()
-pca_data$Friend_Count  <- friend_counts[-null]
 pca_data$Cluster       <- factor(pca_data$Cluster)
 names(pca_data)[1:2] <- c("PC1", "PC2")
 
@@ -615,18 +617,18 @@ names(pca_data)[1:2] <- c("PC1", "PC2")
 ## *** Inspect the Friend Counts #################################################
 ## A higher proportion of low friend count tweets were removed
 ## This is expected because they would be more likely to be ingenuine accounts
-table(pca_data$Friend_Count)
-table(friend_counts[-null])
-table(friend_counts)
+table(pca_data$Friend_Status)
+table(tweets$Friend_Status[-null])
+table(tweets$Friend_Status)
 
 ggplot(pca_data, aes(x = PC1, y = PC2, col = Cluster)) +
-  geom_point(aes(shape = Friend_Count), size = 2) +
+  geom_point(aes(shape = Friend_Status), size = 2) +
   stat_ellipse(level = 0.9) +
   theme_classic() +
   labs(main = "Principal Components of Twitter Data")
 
 
-ggplot(pca_data, aes(x = PC1, y = PC2, col = Friend_Count)) +
+ggplot(pca_data, aes(x = PC1, y = PC2, col = Friend_Status)) +
   geom_point(aes(shape = Cluster), size = 2) +
   stat_ellipse(level = 0.95) +
   theme_classic() +
