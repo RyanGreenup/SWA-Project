@@ -3,7 +3,7 @@
 
 
 
-##* Load the Packages
+## * Load the Packages
 setwd("~/Dropbox/Notes/DataSci/Social_Web_Analytics/SWA-Project/scripts/")
 if (require("pacman")) {
      library(pacman)
@@ -86,14 +86,14 @@ data <- cmdscale(d = D, k = 2)
 
 ## Identify high Friend Counts
 hf <- tweets.company$friends_count > mean(tweets.company$friends_count)
+hf <- tweets.company$friends_count > quantile(tweets.company$friends_count, 0.90)
+hf <- sample(c("High_Random","Low_Random"), size = nrow(tweets.company), replace = TRUE)
 hf <- factor(hf)
 
 plot(data[,1], data[,2], col = c("red", "blue")[hf])
 
 ## Take the First Two PC's
 tweets.pca <- prcomp(tweets_dtm_mat)
-plot(tweets.pca$x[,1], tweets.pca$x[,2], 
-
 tddata <- as_tibble(cbind(data, hf))
 names(tddata)  <- c("PC1", "PC2", "Friends")
 tddata$Friends  <- factor(tddata$Friends)
