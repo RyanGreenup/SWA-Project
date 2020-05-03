@@ -310,12 +310,13 @@ if ((nrow(low_friends) + nrow(high_friends))!=length(users)) {
 ## * FIXME 8.2.10 Find the tweets of those users indentified above------------------     :828:
 ## The point of this is that the data is now ordered, the
 ## top part is the high friends and the low part is the low friends
-tweets_high <- tweets.company$text[(tweets.company$user_id  %in% high_friends$user_id)]
+tweets_high <- tweets.company$text[tweets.company$friends_count > mean(tweets.company$friends_count)]
 sum(tweets.company$user_id  %in% high_friends$user_id)
 length(tweets_high)
 tweets_high <- cbind(tweets_high, rep("High_Friend", length(tweets_high)))
 
-tweets_low <- tweets.company$text[(tweets.company$user_id  %in% low_friends$user_id)]
+tweets_low <- tweets.company$text[tweets.company$friends_count <= mean(tweets.company$friends_count)]
+
 sum(tweets.company$user_id  %in% low_friends$user_id)
 length(tweets_low)
 tweets_low <- cbind(tweets_low, rep("Low_Friend", length(tweets_low)))
