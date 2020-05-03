@@ -269,8 +269,7 @@ s <- replicate(10^4,{
 
 mean(s)
 
-## * 8.2.8 Find users with Above Average Friend Count-------------------------     :816:
-
+## * FIXME 8.2.8 Find users with Above Average Friend Count-------------------------     :816:
 ## <<8.2.8>>
 ## y is friends count, see [[8.1.3]]
 ## Remember these users must not be duplicated
@@ -293,8 +292,7 @@ high_friends <- high_friends[order(
 head(high_friends)
 tail(high_friends)
 
-## * 8.2.8 Find users with Below Average Friend Count-------------------------     :817:
-
+## * FIXME 8.2.8 Find users with Below Average Friend Count-------------------------     :817:
 (low_friends <- follower_counts %>%
   filter(friends_count <= mean(friends_count, na.rm = TRUE)))
 
@@ -494,7 +492,7 @@ if (nrow(tweet_weighted_dtm) == length(tweet_corpus_clean)-length(null) ) {
 
 
 
-## TODO rename tweet_weighted as tweet_weighted_dtm below here VVV
+## TODO rename tweet_weighted as tweet_weighted_dtm below here
 ## ** Visualise the Cleaned Tweets to Find stop words or issues==================
 ## Only consider the first 30 words
 (relevant <- sort(apply(tweet_weighted_dtm, 2, mean), decreasing = TRUE)[1:30]) %>% head()
@@ -580,7 +578,7 @@ table(K$cluster)
 ## * 8.2.16 Visualise the Clusters in 2D Space----------------------------------   :8216:
 ## ** Perform PCA ===============================================================
 PCA_Euclid_2D <- cmdscale(D, k=2) #TODO What should K be? see issue #10
-## ** Create Factor of Friend Status ============================================
+## ** FIXME Create Factor of Friend Status ============================================
 friend_counts <-
     c("Friend Count" =
       rep("High Friend Count", length(tweets_high)),
@@ -598,8 +596,8 @@ if(nrow(PCA_Euclid_2D)!=friend_counts[-null]) {
 print("Success")
 }
 
-## ** Build a Data Frame ========================================================
-## *** Build a Data Frame
+## ** FIXME Build a Data Frame ========================================================
+## *** Build a Data Frame #############################################################
 pca_data <-
   PCA_Euclid_2D[,1:2] %>%
     cbind("Cluster" = K$cluster)  %>%
