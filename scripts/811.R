@@ -66,7 +66,7 @@ load("./resources/Download_1.Rdata")
 
 ## * 8.1.2 Friend and Follower Count ----------------------------------------------------
 ## <<8.1.2>>
-(users <- unique(tweets.company$name)) %>% length()
+(users <- unique(tweets.company$user_id)) %>% length()
 (x <- tweets.company$followers_count[!duplicated(tweets.company$name)]) %>% length()
 (y <- tweets.company$friends_count[!duplicated(tweets.company$name)]) %>% length()
 
@@ -280,34 +280,46 @@ mean(s)
 ## <<dplyr812>>
 select <- dplyr::select
 filter <- dplyr::filter
-interested_vars <- c("name", "friends_count")
+interested_vars <- c("user_id", "friends_count")
 (follower_counts <- tweets.company %>%
   select(interested_vars) %>%
-  filter(!duplicated(name)))
+  filter(!duplicated(user_id)))
 
 (high_friends <- follower_counts %>%
   filter(friends_count > mean(friends_count, na.rm = TRUE)))
+
+high_friends <- high_friends[order(
+  high_friends$friends_count,
+  decreasing = TRUE),]
+
+head(high_friends)
+tail(high_friends)
 
 ## * 8.2.8 Find users with Below Average Friend Count-------------------------------
 
 (low_friends <- follower_counts %>%
   filter(friends_count <= mean(friends_count, na.rm = TRUE)))
 
+ low_friends <- low_friends[order(
+   low_friends$friends_count,
+   decreasing = TRUE),]
+
+head(low_friends)
+tail(low_friends)
 
 if ((nrow(low_friends) + nrow(high_friends))!=length(users)) {
   print("More users identified that exist, review the method to count high_friends")
-
 }
 
 ## * 8.2.10 Find the tweets of those users indentified above
 ## The point of this is that the data is now ordered, the
 ## top part is the high friends and the low part is the low friends
-tweets_high <- tweets.company$text[tweets.company$name %in%  high_friends$name]
-tweets_low  <- tweets.company$text[tweets.company$name %in%  low_friends$name]
+tweets_high <- tweets.company$text[tweets.company$user_id %in%  high_friends$user_id]
+tweets_low  <- tweets.company$text[tweets.company$user_id %in%  low_friends$user_id]
 tweets <- c(tweets_high, tweets_low)
 
 length(tweets_high)
-length(high_friends$name)
+length(high_friends$user_id)
 ## * 8.2.11 Clean the tweets----------------------------------------------------
 ## ** Create a Corpus -----------------------------------------------------------
 
