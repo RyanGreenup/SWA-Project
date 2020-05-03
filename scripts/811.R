@@ -144,13 +144,13 @@ boot.ci(xbar_boot, conf = 0.97, type = "bca", index = 1)
 prop <- factor(c("Below", "Above"))
 ## 1 is above average, 2 is below
 py_hat_bt <- replicate(10^3, {
-  rs      <- sample(c("Below", "Above"),
-                    size = length(y),
-                    prob = c(1-py_hat, py_hat),
-                    replace = TRUE)
-isabove <- rs == "Above"
-mean(isabove)
-})
+   rs      <- sample(c("Below", "Above"),
+                     size = length(y),
+                     prob = c(1-py_hat, py_hat),
+                     replace = TRUE)
+ isabove <- rs == "Above"
+ mean(isabove)
+ })
 quantile(py_hat_bt, c(0.015, 0.985))
 
 
@@ -617,5 +617,3 @@ ggplot(pca_data, aes(x = PC1, y = PC2, col = Friend_Status)) +
 
 
 # do it all again to check ------------------------------------------------
-
-
