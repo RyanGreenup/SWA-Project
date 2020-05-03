@@ -245,27 +245,26 @@ chi_obs <- sum((e-o)^2/e)
 ## [[file:~/Notes/Org/AbstractAlgebraNotes.org::#relation-types][Relation Types]]
 
 s <- replicate(10^4,{
-  ## Sample the set of Metrics
-  m <- sample(metrics, size = n, replace = TRUE, prob = metric_prop)
+   ## Sample the set of Metrics
+   m <- sample(metrics, size = n, replace = TRUE, prob = metric_prop)
 
-  ## Sample the set of Brackets (i.e. which performance bracket the user falls in)
-  b <- sample(brackets, size = n, replace = TRUE, prob = bracket_prop)
+   ## Sample the set of Brackets (i.e. which performance bracket the user falls in)
+   b <- sample(brackets, size = n, replace = TRUE, prob = bracket_prop)
 
-  ## Make a table of results
-  o <- table(m, b)
-  o
+   ## Make a table of results
+   o <- table(m, b)
+   o
 
-  ## Find What the expected value would be
-  e_sim <- t(colSums(e) %o% rowSums(e) / n)
+   ## Find What the expected value would be
+   e_sim <- t(colSums(e) %o% rowSums(e) / n)
 
-  ## Calculate the Chi Stat
-  chi_sim <- sum((e_sim-o)^2/e_sim)
-  chi_sim
+   ## Calculate the Chi Stat
+   chi_sim <- sum((e_sim-o)^2/e_sim)
+   chi_sim
 
-  ## Is this more extreme, i.e. would we reject null hypothesis?
-  chi_sim > chi_obs
-
-})
+   ## Is this more extreme, i.e. would we reject null hypothesis?
+   chi_sim > chi_obs
+ })
 
 mean(s)
 
