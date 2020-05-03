@@ -277,11 +277,11 @@ mean(s)
 select <- dplyr::select
 filter <- dplyr::filter
 interested_vars <- c("user_id", "friends_count")
-(follower_counts <- tweets.company %>%
+(friend_counts <- tweets.company %>%
   select(interested_vars) %>%
   filter(!duplicated(user_id)))
 
-(high_friends <- follower_counts %>%
+(high_friends <- friend_counts %>%
   filter(friends_count > mean(friends_count, na.rm = TRUE)))
 
 high_friends <- high_friends[order(
@@ -292,7 +292,7 @@ head(high_friends)
 tail(high_friends)
 
 ## * FIXME 8.2.8 Find users with Below Average Friend Count-------------------------     :817:
-(low_friends <- follower_counts %>%
+(low_friends <- friend_counts %>%
   filter(friends_count <= mean(friends_count, na.rm = TRUE)))
 
  low_friends <- low_friends[order(
@@ -301,6 +301,7 @@ tail(high_friends)
 
 head(low_friends)
 tail(low_friends)
+
 
 if ((nrow(low_friends) + nrow(high_friends))!=length(users)) {
   print("More users identified that exist, review the method to count high_friends")
@@ -381,7 +382,6 @@ head(tweet_corpus[[1]]$content)
 ## `tm_map` package.
 
 mystop <- c(stopwords(), "’s", "can", "ubisoft", "@ubisoft", "#ubisoft")# <<stphere>>
-mystop <- c(stopwords())
 
 clean_corp <- function(corpus) {
   ## Remove URL's
@@ -579,38 +579,19 @@ table(K$cluster)
 ## * 8.2.16 Visualise the Clusters in 2D Space----------------------------------   :8216:
 ## ** Perform PCA ===============================================================
 PCA_Euclid_2D <- cmdscale(D, k=2) #TODO What should K be? see issue #10
-## ** FIXME Create Factor of Friend Status ============================================
-friend_counts <-
-    c("Friend Count" =
-      rep("High Friend Count", length(tweets_high)),
-      rep("Low Friend Count", length(tweets_low))
-      )
-friend_counts <- factor(friend_counts, labels = unique(friend_counts))
-## *** Check Vector Lengths ######################################################
-nrow(PCA_Euclid_2D)
-length(friend_counts[-null])
-length(K$cluster)
-cbind("Friend_Count" = friend_counts, PCA_Euclid_2D[,1:2], K$cluster)  %>% nrow()
-if(nrow(PCA_Euclid_2D)!=friend_counts[-null]) {
-  print("Number of Tweets and Number of Friends are unequal")
-} else {
-print("Success")
-}
-
 ## ** FIXME Build a Data Frame ========================================================
 ## *** Build a Data Frame #############################################################
-nrow(pca_data)
+nrow(PCA_Euclid_2D)
 nrow(tweets[-null,])
 
-pca_data <-
-  PCA_Euclid_2D[,1:2] %>%
-    cbind("Cluster" = K$cluster)  %>%
-    cbind(tweets[-null,]) %>% 
-  ## This causes the factors to change and they don't line up either
-  ##    cbind("Friend_Count" = friend_counts)  %>%
-    as_tibble()
+if (nrow(PCA_Euclid_2D[,1:2]) == length(K$cluster)
+   && length(K$cluster) == nrow(tweets[-null,])) {
+pca_data <- cbind(PCA_Euclid_2D[,1:2], "Cluster" = K$cluster, tweets[-null,])
+}
+head(pca_data)
 pca_data$Cluster       <- factor(pca_data$Cluster)
 names(pca_data)[1:2] <- c("PC1", "PC2")
+names(pca_data)
 
 
 ## *** Inspect the Friend Counts #################################################
@@ -620,6 +601,7 @@ table(pca_data$Friend_Status)
 table(tweets$Friend_Status[-null])
 table(tweets$Friend_Status)
 
+names(pca_data)
 ggplot(pca_data, aes(x = PC1, y = PC2, col = Cluster)) +
   geom_point(aes(shape = Friend_Status), size = 2) +
   stat_ellipse(level = 0.9) +
@@ -632,3 +614,8 @@ ggplot(pca_data, aes(x = PC1, y = PC2, col = Friend_Status)) +
   stat_ellipse(level = 0.95) +
   theme_classic() +
   labs(main = "Principal Components of Twitter Data")
+
+
+# do it all again to check ------------------------------------------------
+
+
