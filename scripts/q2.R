@@ -32,7 +32,7 @@ hd <- function(x) {
 
 
 load("resources/Download_1.Rdata")
-tweets.company <- tweets.company[order(tweets.company$friends_count, decreasing = TRUE), ]
+tweets.company <- tweets.company[order(tweets.company$favourites_count, decreasing = TRUE), ]
 n <- sample(1:200)
 tweets.company <- tweets.company[n,]
 tweets_df <- data.frame(doc_id = tweets.company$user_id, text = tweets.company$text)
@@ -40,7 +40,7 @@ tweets_source <- tm::DataframeSource(tweets_df)
 
 tweets_corpus <- tm::Corpus(tweets_source)
 
-
+tweets.company$favourites_count
 
 clean_corp <- function(corpus) {
   ## Remove URL's
@@ -81,22 +81,20 @@ if (empties > 0) {
 ## Find the Cosine Distance
 norm.tweet_weighted_dtm = diag(1/sqrt(rowSums(tweets_dtm_mat^2))) %*% tweets_dtm_mat
 D =dist(norm.tweet_weighted_dtm, method = "euclidean")^2/2
-
 ## PerformClustering
-data_hd  <- cmdscale(d = D, k =(nrow(tweets_dtm_mat)-1)) 
+data_hd  <- cmdscale(d = D, k =(nrow(tweets_dtm_mat)-1))
 K <- kmeans(x = data_hd, 3, nstart = 20)
 K$cluster
 
 ## Project into 2D Euclidean Space
 data <- cmdscale(d = D, k = 2)
- ?TermDocumentMatrix
 
-## Identify high Friend Counts
-hf <- tweets.company$friends_count > mean(tweets.company$friends_count)
-hf <- tweets.company$friends_count > quantile(tweets.company$friends_count, 0.90)
+## Identify high favourites_count Counts
+hf <- tweets.company$favourites_count > mean(tweets.company$favourites_count, na.rm = TRUE)
+hf <- tweets.company$favourites_count > quantile(tweets.company$favourites_count, 0.90)
 # hf <- factor(hf)
 
-## Identify ID of high Friend Counts
+## Identify ID of high favourites_count Counts
 id_high <- tweets.company$user_id[hf]
 id_high <- tweets.company$user_id[-hf]
 
@@ -107,14 +105,13 @@ plot(prcomp(tweets_dtm_mat)$x[,1], prcomp(tweets_dtm_mat)$x[,2], col = c("red", 
 ## Take the First Two PC's
 tweets.pca <- prcomp(tweets_dtm_mat)
 tddata <- as_tibble(cbind(data, hf))
-names(tddata)  <- c("PC1", "PC2", "Friends")
-tddata$Friends  <- factor(tddata$Friends)
+names(tddata)  <- c("PC1", "PC2", "favourites_counts")
+tddata$favourites_counts  <- factor(tddata$favourites_counts)
 
-ggplot(tddata, aes(x = PC1, y = PC2, col = Friends)) + 
+ggplot(tddata, aes(x = PC1, y = PC2, col = favourites_counts)) +
     geom_point() +
     stat_ellipse(level = 0.9) +
     theme_classic()
 
 ## vim:fdm=expr:fdl=0
 ## vim:fde=getline(v\:lnum)=~'^##'?'>'.(matchend(getline(v\:lnum),'##*')-2)\:'='
-
