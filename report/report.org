@@ -586,7 +586,6 @@ write.csv(high_friends[order(
 #+end_src
 
 
-
 ** 8.2.9 Find Users with Below Average Friend Counts
 Users with high friends may be determined by a similar method (or by taking the complement of the high friends) as shown in listing [[lfcd]], the lowest 20 of these users are shown in table [[lftb]] of the appendix.
 
@@ -800,6 +799,84 @@ length(null)
 
 ## [1] 328
 #+end_src
+** 8.2.14 How many Clusters are there
+*** Use Cosine Distance
+In order to consider clustering, it can be more effective to consider the distance between the weigted documents in terms of cosine distance, the cosine distance can be calculated from the euclidean distance using the identity shown in eqref:cos, and this can be performed in */R/* by taking the matrix product of a diagonalised matrix as shown in listing [[dist]].
+
+\begin{align}
+\mathrm{dist}\left( \mathbf{X}, \mathbf{Y} \right)= \left| \left| \mathbf{X}-\mathbf{Y} \right| \right| \\
+&= \sqrt{\sum^{n}_{i= 1}   \left[ \left( x_i-y_i \right)^2 \right] } \\
+\mathrm{dist}\left( \mathbf{X}, \mathbf{Y} \right)^2&= \sum^{n}_{i= 1}  \left[ \left( x_i-y_i \right)^2 \right] \\
+&= \sum^{n}_{i= 1}   \left( x^2 \right)+  \sum^{n}_{i= 1}   \left( y_i^2 \right)+ 2 \sum^{n}_{i= 1}   \left( x_iy_i \right) \\
+&= 1+ 1 +  2 \times  \frac{\sum^{n}_{i= 1}   \left( x_iy_i \right)}{\left( 1 \right) }\\
+&= 2+ 2\times \frac{\sum^{n}_{i= 1}   \left( x_iy_i \right)}{\left| \left| \mathbf{X} \right| \right|\times \left| \left| \mathbf{Y} \right| \right|}\\
+&= 2+ 2 \cos\left( \mathbf{X}, \mathbf{Y} \right)\\
+\ \\
+& \implies  \left( 1- \cos\left( \mathbf{X}, \mathbf{Y} \right) \right) = \frac{\mathrm{dist}\left( \mathbf{X}, \mathbf{Y} \right)}{2} \label{cos}
+\end{align}
+
+#+NAME: dist
+#+CAPTION: Load the Packages for **/R/**
+#+begin_src R
+norm.tweet_weighted_dtm = diag(
+                    1/sqrt(rowSums(tweet_weighted_dtm^2))
+                    ) %*% tweet_weighted_dtm
+D =dist(norm.tweet_weighted_dtm, method = "euclidean")^2/2
+#+end_src
+
+*** Project into Euclidean Space
+The cosine distance however is not appropriate to perform clustering on and so instead should be projected back into euclidean space, this can be acheived using /Multi-Dimensional Scaling/ via the =cmdscale= functionas shown in listing [[mds]]. The distance is a measure of between document distance so the number of dimensions should correspond to the number of documents, however, if there are zero-value eigenvalues, these dimensions won't help explain the data in the projection, hence the number of eigenvalues has been used as the dimension of projection in this case.
+
+#+NAME: mds
+#+CAPTION: Load the Packages for **/R/**
+#+begin_src R
+l <- min(nrow(tweet_weighted_dtm),
+         ncol(tweet_weighted_dtm))
+ev <- eigen(tweet_weighted_dtm[1:l, 1:l])
+k <- (ev$values != 0) %>% sum()
+
+mds.tweet_weighted_dtm <- cmdscale(D, k=k) #TODO What should K be? see issue #10
+#+end_src
+
+*** Measure Within Cluster Variance
+In order to determine the appropriate number of clusters, the within cluster
+variance can be measurd, the number of clusters at which this value ceases to
+decrease is indicative of a potentially appropriate number of clusters. This is
+implemented in listing [[ssw]] and shown in figure [[sswp]].
+
+#+NAME: ssw
+#+CAPTION: Use a loop to evaluate the performace of various cluster models, plot this with /ggplot2/
+#+begin_src R
+set.seed(271)
+n = 15 # Assume it bends at 7 clusters
+SSW = rep(0, n)
+for (a in 1:n) {
+  K = kmeans(mds.tweet_weighted_dtm, a, nstart = 20)
+  SSW[a] = K$tot.withinss
+  paste(a*100/n, "%") %>% print()
+}
+SSW
+
+
+SSW_tb <- tibble::enframe(SSW)
+ggplot(SSW_tb, aes(x = name, y = value)) +
+  geom_point(col = "#Cd5b45", size = 5) +
+  geom_line(col = "#Da70d6") +
+  geom_vline(xintercept = 7, lty  = 3, col = "blue") +
+  theme_bw() +
+  labs(x = "Number of Clusters",
+       y = "Within Cluster Sum of Square Distance",
+       title = "Within Cluster Variance across Clusters")
+#+end_src
+
+Figure [[sswp]] Indicates a sudden stop of decrease in variance at 7 clusters and following that the within cluster variance begins to decrease at a slightly slower rate. For this reason 7 could be an appropriate candidate for the number of clusters, however the minimal amount of change in the within-cluster variance indicates that the data is most likely not clustered at all.
+
+
+#+NAME: sswp
+#+CAPTION: Plot of the Within Cluster Variance of the tweets using cosine distance (projected into Euclidean Space)
+#+attr_html: :width 400px
+#+attr_latex: :width 10cm
+[[./Figures/Q14WithinClusterVariance.png]]
 
 * Appendix
 ** Users with High Friend Count

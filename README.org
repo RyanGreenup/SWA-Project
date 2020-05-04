@@ -93,23 +93,27 @@ get started, I haven't decided on the company to use but it doesn't really matte
 ** Clock Tables
 *** Ryan
 #+BEGIN: clocktable :scope nil :maxlevel 6 :match "ryan"
-#+CAPTION: Clock summary at [2020-04-29 Wed 12:25]
-| Headline                                       | Time      |         |      |
-|------------------------------------------------+-----------+---------+------|
-| *Total time*                                   | *1d 2:57* |         |      |
-|------------------------------------------------+-----------+---------+------|
-| Working                                        | 1d 2:57   |         |      |
-| \_  8.1 Analysing friend and follower count    |           | 1d 1:19 |      |
-| \_    1 Pull Tweets                            |           |         | 2:53 |
-| \_    2 Extract the Friend and Follower Count  |           |         | 1:12 |
-| \_    3 Find the Average Followers             |           |         | 0:07 |
-| \_    5 Bootstrap a confidence interval        |           |         | 9:27 |
-| \_    6 Who has a higher friend count given... |           |         | 2:25 |
-| \_    7 Test for Independence                  |           |         | 9:15 |
-| \_  8.2 Finding Themes                         |           |    1:38 |      |
-| \_    8 Find unique users with above...        |           |         | 1:00 |
-| \_    9 Find Unique users who have $\leq$...   |           |         | 0:04 |
-| \_    10 Combine tweets of users identified... |           |         | 0:34 |
+#+CAPTION: Clock summary at [2020-05-04 Mon 15:23]
+| Headline                                       | Time       |         |       |
+|------------------------------------------------+------------+---------+-------|
+| *Total time*                                   | *1d 21:07* |         |       |
+|------------------------------------------------+------------+---------+-------|
+| Working                                        | 1d 21:07   |         |       |
+| \_  8.1 Analysing friend and follower count    |            | 1d 1:19 |       |
+| \_    1 Pull Tweets                            |            |         |  2:53 |
+| \_    2 Extract the Friend and Follower Count  |            |         |  1:12 |
+| \_    3 Find the Average Followers             |            |         |  0:07 |
+| \_    5 Bootstrap a confidence interval        |            |         |  9:27 |
+| \_    6 Who has a higher friend count given... |            |         |  2:25 |
+| \_    7 Test for Independence                  |            |         |  9:15 |
+| \_  8.2 Finding Themes                         |            |   19:48 |       |
+| \_    8 Find unique users with above...        |            |         |  1:05 |
+| \_    9 Find Unique users who have $\leq$...   |            |         |  0:05 |
+| \_    10 Combine tweets of users identified... |            |         |  0:57 |
+| \_    12 Display the first two tweets          |            |         |  1:10 |
+| \_    Create a TDM, use TFIDF, how many...     |            |         |  3:35 |
+| \_    14 Cluster the Results with respect...   |            |         | 12:16 |
+| \_    15 Count the Number of Clusters          |            |         |  0:40 |
 #+END:
 *** Navid
 #+BEGIN: clocktable :scope nil :maxlevel 6 :match "navid"
@@ -295,6 +299,8 @@ CLOCK: [2020-04-29 Wed 12:26]--[2020-04-29 Wed 13:02] =>  0:36
 :END:
 *** REPORT Create a TDM, use TFIDF, how many tweets were empty?               :ryan:
 :LOGBOOK:
+CLOCK: [2020-05-04 Mon 15:41]--[2020-05-04 Mon 15:49] =>  0:08
+CLOCK: [2020-05-04 Mon 14:41]--[2020-05-04 Mon 15:22] =>  0:41
 CLOCK: [2020-04-29 Wed 16:00]--[2020-04-29 Wed 16:25] =>  0:25
 CLOCK: [2020-04-29 Wed 15:15]--[2020-04-29 Wed 15:34] =>  0:19
 CLOCK: [2020-04-29 Wed 13:04]--[2020-04-29 Wed 15:14] =>  2:10
