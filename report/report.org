@@ -25,6 +25,14 @@
 #+latex_header: \usepackage[citestyle=numeric, bibstyle=numeric,hyperref=true,backref=true, maxcitenames=3,url=true,backend=biber,natbib=true]{biblatex}
 #+latex_header: \addbibresource{/home/ryan/Dropbox/Studies/Papers/references.bib}
 #+latex_header: %%% TeX-command-extra-options: "-shell-escape"
+#+latex_header: \RequirePackage{fix-cm}
+#+latex_header: \documentclass[fontsize=13pt,oneside]{scrbook}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \usepackage[Latin,Greek]{ucharclasses}
+#+latex_header: \newfontfamily\substitutefont{CMU Serif}
+#+latex_header: \setTransitionsForGreek{\begingroup\substitutefont}{\endgroup}
+#+latex_header: \usepackage{polyglossia}
+
 :END:
 
 
@@ -1001,6 +1009,64 @@ cbind(clust_friend,
 | =1=         |                17 |                27 |           0.39 |
 | =2=         |               141 |               407 |           0.26 |
 | =3=         |                16 |                64 |           0.20 |
+
+** 8.2.18 Sample Tweets from cluster
+Tweets can be sampled from the clusters by using the =sample= function with a logical test, this can be combined with a =for= loop as shown in listing [[8218]], this provides the following output.
+
+
+#+begin_quote
++ *Cluster 1*
+  + [[https://twitter.com/search?q=%40BelovedOfBayek&src=typed_query][@BelovedOfBayek]]
+     [[https://twitter.com/search?q=%40BayekOfSiwa&src=typed_query][@BayekOfSiwa]] [[https://twitter.com/search?q=%40assassinscreed&src=typed_query][@assassinscreed]] [[https://twitter.com/search?q=%40Ubisoft&src=typed_query][@Ubisoft]] [[https://twitter.com/search?q=%40UbisoftMTL&src=typed_query][@UbisoftMTL]]
+    [[https://twitter.com/search?q=%40Captured_Collec&src=typed_query][@Captured_Collec]] [[https://twitter.com/search?q=%40GamerGram_GG&src=typed_query][@GamerGram_GG]] [[https://twitter.com/search?q=%40_GameScreenshot&src=typed_query][@_GameScreenshot]] And those smiles - and
+    love - are contagious. Believe me, it makes me very happy! What you have is
+    special! 💗 ~ Steffi
+  + [[https://twitter.com/search?q=%40Ubisoft][@Ubisoft]] why is it wen I headshot sumone why don’t it register a headshot
+    is a 1 shot kill fix your game sir
+  + [[https://twitter.com/search?q=%40BikiniBodhi][@BikiniBodhi]] I think we need another movement going. Obviously Ubisoft
+    already has plans for the next few releases of ops but we really need an Op
+    whose ability is to reinforce more walls than others. Especially another
+    castle on the team but for walls. Like 4 walls instead of 2.
+  + The United Arab Emirates logged into my Ubisoft account. For why?
+  + [[https://twitter.com/search?q=%40Atalagummy][@Atalagummy]] Está gratis este finde en lo de ubisoft creo
++ *Cluster 2*
+  + Here's everything you need to know about Ubisoft's Watch Dogs Legion in
+   Hindi - Release date, Story - Everything we know about it till now.
+   https://t.co/B4lMshJdqw via [[https://twitter.com/search?q=%40YouTube][@YouTube]]
+  + [[https://twitter.com/search?q=%40Rainbow6Game][@Rainbow6Game]] [[https://twitter.com/search?q=%40TheGodlyNoob][@TheGodlyNoob]] I have never seen a game company ruin their
+   reputation so fast and so careless as Ubisoft
+  + tiltei com a ubisoft, dei block na minha conta sem querer, to mt puto, real
+  + My first game that really hyped me was a game called rolling thunder back in
+   the 80’s https://t.co/mPWim2hwVY
+  + [[https://twitter.com/search?q=%40videogamemorals][@videogamemorals]] [[https://twitter.com/search?q=%40PartisanClown][@PartisanClown]] \Two more remakes of Lunar: The Silver
+   Star, Lunar Legend and Lunar: Silver Star Harmony, were released in 2002
+   by Media Rings and Ubisoft and in 2009 by GungHo Online
+   Entertainment and Xseed Games, respectively.\
++ *Cluster 3*
+  + [[https://twitter.com/search?q=%40Ubisoft][@Ubisoft]] [[https://twitter.com/search?q=%40UbisoftSupport][@UbisoftSupport]] crossplay between xbox and pc for Division 2
+    please?
+  + [[https://twitter.com/search?q=%40tornado_raphi][@tornado_raphi]] [[https://twitter.com/search?q=%40Ubisoft][@Ubisoft]] [[https://twitter.com/search?q=%40UbisoftDE][@UbisoftDE]] Haha wollte auch einmal schlau sein
+    :(
+  + =@Ubisoft= I was in the middle in a game waiting for us to spawn in and it
+    took forever and it somehow kicked me from the game for inactivity. Anyway to
+    fix this https://t.co/Uz1yZ73R4M
+  + [[https://twitter.com/search?q=%40Operatedleech87][@Operatedleech87]] Yo lo veia al revez algo de Ubisoft en Girls Frontline,
+    pero igual un juego en consola jalaria.
+  + [[https://twitter.com/search?q=%40VGPNetwork][@VGPNetwork]] [[https://twitter.com/search?q=%40GamerGram_GG][@GamerGram_GG]] [[https://twitter.com/search?q=%40Ubisoft][@Ubisoft]] Haha.. I love that film!
+#+end_quote
+
+
+#+NAME: 8218
+#+CAPTION: Sample Tweets from the Individual Clusters
+#+begin_src R
+set.seed(8923)
+  for(i in 1:3) {
+    n <- sample(which(pca_data$Cluster == i), size = 5)
+    print(tweets$text[n])
+    print("===========================")
+    print("===========================")
+  }
+#+end_src
 
 * Appendix
 ** Users with High Friend Count

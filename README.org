@@ -387,13 +387,24 @@ Yeah nah this confiremed that the order was preserved, see issue =#13=.
 I also tried with a different metric on the branch =FavouritesCount= branch, no
 luck, same issue so I I'm just gonna have to accept that there is no seperation.
 
-*** CODE 17 Comment on the visualisation
+*** DONE 17 Comment on the visualisation
 :LOGBOOK:
 CLOCK: [2020-05-04 Mon 19:12]--[2020-05-04 Mon 19:32] =>  0:20
 :END:
 [[file:report/report.org::*8.2.17 Comment on the Visualisation][+ Link]]
-*** CODE 18 Which Cluster has the highest proportion of above Average Tweets :ryan:
-*** CODE 19 Display five tweets in clusters that you found in 18             :ryan:
+*** DONE 18 Which Cluster has the highest proportion of above Average Tweets  :ryan:
+:LOGBOOK:
+CLOCK: [2020-05-04 Mon 20:26]--[2020-05-04 Mon 21:26] =>  1:00
+:END:
++ [[file:report/report.org::*8.2.18 Cluster with Highest Number Friends][Link]]
+*** DONE 19 Display five tweets in clusters that you found in 18              :ryan:
+:LOGBOOK:
+CLOCK: [2020-05-04 Mon 21:30]--[2020-05-04 Mon 22:17] =>  0:47
+:END:
+I think we'll use =sample= and take the index from the =pca_data= dataframe.
+
+Check it out I even made the links work in the PDF! :)
+
 *** CODE 20 Find the important themes in high/low friend prop clusters       :ryan:
 *** TODO Use a word cloud to display the themes of the clusters               :ryan:
 *One big word cloud but colour based on the cluster?
