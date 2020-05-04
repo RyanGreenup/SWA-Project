@@ -336,8 +336,38 @@ CLOCK: [2020-04-30 Thu 16:22]--[2020-04-30 Thu 17:02] =>  0:40
 
 *** CODE 16 Visualise in 2 Dimensions
 :LOGBOOK:
+CLOCK: [2020-05-04 Mon 09:28]
+CLOCK: [2020-05-02 Sun 09:00]--[2020-05-02 Sat 15:00] =>  6:00
+CLOCK: [2020-05-02 Sat 09:00]--[2020-05-02 Sat 15:00] =>  6:00
 CLOCK: [2020-04-30 Thu 17:05]--[2020-04-30 Thu 17:23] =>  0:18
 :END:
+
+I might also consider trying (but probably later given that I've burnt too much
+time on this already), putting ID's into the corpus just in case the data get's
+re-arranged during the DTM process, I don't believe this is the case though
+because I tested with my own weighting function using /Linear Algebra/, so it's
+probably not the issue.
+
+if anybody does want to try that though,
+[[https://stackoverflow.com/a/51086240/10593632][here's a /StackOverflow/]] post
+detailing how to make a corpus from a dataframe, this would be the logical next
+step, see the code in listing [[stc]].
+
+
+
+#+NAME: stc
+#+CAPTION: How to make a Corpus from a DataFrame Source
+#+begin_src R
+dd <-data.frame( doc_id=10:13,
+    text=c("No wonder, then, that ever gathering
+            volume from the mere transit ", "So that in many cases such a panic did he
+            finally strike, that few ", "But there were still other and more vital
+            practical influences at work", "Not even at the present day has the original
+            prestige of the Sperm Whale"),
+    stringsAsFactors=F )
+
+Corpus = VCorpus(DataframeSource(dd))
+#+end_src
 *** CODE 17 Commend on the visualisation
 *** CODE 18 Which Cluster has the highest proportion of above Average Tweets :ryan:
 *** CODE 19 Display five tweets in clusters that you found in 18             :ryan:

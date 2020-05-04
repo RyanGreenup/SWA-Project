@@ -33,6 +33,8 @@ hd <- function(x) {
 
 load("resources/Download_1.Rdata")
 tweets.company <- tweets.company[order(tweets.company$friends_count, decreasing = TRUE), ]
+n <- sample(1:200)
+tweets.company <- tweets.company[n,]
 tweets_vector  <- tweets.company$text
 tweets_source  <- tm::VectorSource(tweets_vector)
 tweets_corpus <- tm::Corpus(tweets_source)
