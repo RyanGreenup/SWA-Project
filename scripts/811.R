@@ -509,7 +509,6 @@ ggplot(data, aes(label = word, size = weight)) +
 ## ** How many documents are empty after processing=============================
 ## this was shown in [[empties]]
 ## We can see the distribution of frequencies like so:
-(colSums(as.matrix(tweet_matrix_tdm))) %>% table()
 length(null)
 ## No document was empty, each had atleast >= 18 terms
 
@@ -582,7 +581,7 @@ pca_data <- cbind(PCA_Euclid_2D[,1:2], "Cluster" = K$cluster, tweets[-null,])
 }
 head(pca_data)
 pca_data$Cluster       <- factor(pca_data$Cluster)
-names(pca_data)[1:2] <- c("PC1", "PC2")
+names(pca_data)[1:2] <- c("MDS1", "MDS2")
 names(pca_data)
 
 
@@ -594,18 +593,24 @@ table(tweets$Friend_Status[-null])
 table(tweets$Friend_Status)
 
 names(pca_data)
-ggplot(pca_data, aes(x = PC1, y = PC2, col = Cluster)) +
+ggplot(pca_data, aes(x = MDS1, y = MDS2, col = Cluster)) +
   geom_point(aes(shape = Friend_Status), size = 2) +
   stat_ellipse(level = 0.9) +
   theme_classic() +
-  labs(main = "Principal Components of Twitter Data")
+  labs(main = "Principal Components of Twitter Data",
+       x = TeX("MDS_1"), y = TeX("MDS_2")) +
+  scale_shape_discrete(label = c("High Friends", "Low Friends")) +
+  guides(shape = guide_legend("Friend Count \n Status"))
 
 
-ggplot(pca_data, aes(x = PC1, y = PC2, col = Friend_Status)) +
+ggplot(pca_data, aes(x = MDS1, y = MDS2, col = Friend_Status)) +
   geom_point(aes(shape = Cluster), size = 2) +
   stat_ellipse(level = 0.95) +
   theme_classic() +
-  labs(main = "Principal Components of Twitter Data")
+  labs(main = "Principal Components of Twitter Data",
+       x = TeX("MDS_1"), y = TeX("MDS_2")) +
+  scale_color_discrete(label = c("High Friends", "Low Friends")) +
+  guides(col = guide_legend("Friend Count \n Status"))
 
 
 # do it all again to check ------------------------------------------------
