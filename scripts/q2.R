@@ -35,8 +35,9 @@ load("resources/Download_1.Rdata")
 tweets.company <- tweets.company[order(tweets.company$friends_count, decreasing = TRUE), ]
 n <- sample(1:200)
 tweets.company <- tweets.company[n,]
-tweets_vector  <- tweets.company$text
-tweets_source  <- tm::VectorSource(tweets_vector)
+tweets_df <- data.frame(doc_id = tweets.company$user_id, text = tweets.company$text)
+tweets_source <- tm::DataframeSource(tweets_df)
+
 tweets_corpus <- tm::Corpus(tweets_source)
 
 
@@ -62,7 +63,8 @@ tweets_corpus_clean <- clean_corp(tweets_corpus)
 
 tweets_tdm <- tm::TermDocumentMatrix(x = tweets_corpus_clean, control = list(weighting = weightTfIdf))
 tweets_tdm <- tm::TermDocumentMatrix(x = tweets_corpus_clean, control = list(weighting = weightSMART))
-weightSMART
+sum(tweets_tdm[["dimnames"]][["Docs"]]==tweets.company$user_id)
+  ## This shows that the tm::TDM function preservers order
 tweets_dtm  <- as.DocumentTermMatrix(tweets_tdm)
 tweets_dtm_mat <- as.matrix(tweets_dtm)
 hd(tweets_dtm_mat)
@@ -92,7 +94,12 @@ data <- cmdscale(d = D, k = 2)
 ## Identify high Friend Counts
 hf <- tweets.company$friends_count > mean(tweets.company$friends_count)
 hf <- tweets.company$friends_count > quantile(tweets.company$friends_count, 0.90)
-hf <- factor(hf)
+# hf <- factor(hf)
+
+## Identify ID of high Friend Counts
+id_high <- tweets.company$user_id[hf]
+id_high <- tweets.company$user_id[-hf]
+
 
 plot(data[,1], data[,2], col = c("red", "blue")[hf])
 plot(prcomp(tweets_dtm_mat)$x[,1], prcomp(tweets_dtm_mat)$x[,2], col = c("red", "blue")[hf])
