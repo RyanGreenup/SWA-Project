@@ -27,6 +27,17 @@
 #+latex_header: %%% TeX-command-extra-options: "-shell-escape"
 :END:
 
+
+#+begin_comment
+TODO Does it make sense to plot the average friend user like in [[pt2]]
+Really we need to
+  + take into consideration that a user with 9999 friends is better than a user with 666 friends even if the average is 500
+  + 0.4 is a lot better than 0.2, so why doesn't my chart reflect that?
+
+It might be more appropriate to take this plot out, it might only confuse things
+#+end_comment
+
+
 * 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users
 ** 8.1.1 Retrieve the posts from Twitter
 relevant posts can be retrieved from twitter by utilising the =rtweet= package, packages can be loaded for use in **_R_** thusly:
@@ -907,6 +918,7 @@ colour is demonstrated in listing [[pt1c]] shown in [[pt2]], In order to get a b
 understanding of the distribution of friend counts a plot of the friend count
 status mapped to colour is demonstrated in listing [[pt2c]] and shown in figure [[pt2]].
 
+
 #+NAME: cmds
 #+CAPTION: Use /Multi-Dimensional/ scaling to project the data into 2 dimensions
 #+begin_src R
@@ -961,7 +973,34 @@ ggplot(pca_data, aes(x = MDS1, y = MDS2, col = Cluster)) +
 [[./Figures/betfriendplot8216.png]]
 
 ** 8.2.17 Comment on the Visualisation
-Figure [[pt1]] indicates that altough there isn't a clear distinction between clusters there is seperation of the tweets in such a way that does allow some degree of classification to occur. Figure [[pt1]] and [[pt2]] both indicate that having many or few friends is reasonably independent of the cluster that the tweet belongs to.
+Figure [[pt1]] indicates that altough there isn't a clear distinction between
+clusters there is seperation of the tweets in such a way that does allow some
+degree of classification to occur. Figure [[pt1]] and [[pt2]] both indicate that having
+many or few friends is reasonably independent of the cluster that the tweet
+belongs to.
+** 8.2.18 Cluster with Highest Number Friends
+The Number of above or below friends corresponsing to a given cluster can be tabulated by using the =table= function as shown in listing [[tfc]] and table [[tfct]], this indicates that there is a difference in the proportion of users with above average friend counts between clusters with cluster =#1= having the highest proportion of users with above average friend counts.
+
+#+NAME: tfc
+#+CAPTION: Tabulate the distribution of friends in
+#+begin_src R
+(clust_friend <- table(
+  pca_data[,names(pca_data) %in% c("Cluster", "Friend_Status")])
+)
+
+cbind(clust_friend,
+        "Proportion" = signif(
+            (clust_friend[,1] / rowSums(clust_friend)),
+            2)
+      )
+#+end_src
+
+#+NAME: tfct
+#+CAPTION: Above Average Friend Counts Across Clusters
+| */Cluster/* | */Above Average/* | */Below Average/* | */Proportion/* |
+| =1=         |                17 |                27 |           0.39 |
+| =2=         |               141 |               407 |           0.26 |
+| =3=         |                16 |                64 |           0.20 |
 
 * Appendix
 ** Users with High Friend Count

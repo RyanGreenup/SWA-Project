@@ -612,5 +612,21 @@ ggplot(pca_data, aes(x = MDS1, y = MDS2, col = Friend_Status)) +
   scale_color_discrete(label = c("High Friends", "Low Friends")) +
   guides(col = guide_legend("Friend Count \n Status"))
 
+## *** Inspect the Friend Counts (Continuous Data)################################
+#' What I could do is visualise the number of friends as colour and size with
+#the cluster ellipses as well, I have removed data by indicating that above
+#average is above average regardless of amount.
 
-# do it all again to check ------------------------------------------------
+## * 8.2.17 Which Cluster has the highest above-average friend counts ?---------   :8217:
+(clust_friend <- table(
+  pca_data[,names(pca_data) %in% c("Cluster", "Friend_Status")])
+)
+
+cbind(clust_friend,
+        "Proportion" = signif(
+            (clust_friend[,1] / rowSums(clust_friend)),
+            2)
+      )
+
+
+names(pca_data)
