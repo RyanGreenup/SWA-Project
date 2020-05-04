@@ -555,23 +555,6 @@ In saying that however the $p$ -value is distinct from the /power/ statistic, wh
 
 Hence me way conclude, with a high degree of certainty, that the follower and friend counts are not independent of one another.
 * 8.2 Finding Themes in tweets
-
-
-
-#+begin_quote
-In order to clean the corpus it will be necessary to:
-
-1. remove numbers
-2. remove punctuation
-3. remove whitespace
-4. case fold all characters to lower case
-5. remove a set of stop words
-6. reduce each word to its stem
-#+end_quote
-** Should Emoji's be removed
-These studies suggest that
-
-Emoji's are variables that can be used as a predictive features cite:lecompte2017  and can improve the performance of Sentiment Analysis Models cite:shiha2017 that use the /Bag of Words Approach/
 ** 8.2.8 Find Users with Above Average Friend Counts
 Users with Above average Friend Counts can be identified by filtering the tweets
 data frame for two conditions:
@@ -602,12 +585,11 @@ write.csv(high_friends[order(
 
 
 
-
 ** 8.2.9 Find Users with Below Average Friend Counts
 Users with high friends may be determined by a similar method (or by taking the complement of the high friends) as shown in listing [[lfcd]], the lowest 20 of these users are shown in table [[lftb]] of the appendix.
 
 #+NAME: lfcd
-#+CAPTION: Load the Packages for **/R/**
+#+CAPTION: Use =dplyr= to Filter for Users with a low Friend Count
 #+begin_src R
 (low_friends <- friend_counts %>%
   filter(friends_count <= mean(friends_count, na.rm = TRUE)))
@@ -622,6 +604,107 @@ write.csv(low_friends[order(
   decreasing = FALSE),], file = "/tmp/lowfriend.csv")
 #+end_src
 
+** 8.2.10 Find the /Tweets/ corresponding to users with high or low friend counts
+The tweets corresponding to users with high and low friend counts can be
+identified by filtering the dataframe based on the friend count and using that
+to the index the tweets from the data frame [fn:1], alternatively it is possible
+to test whether or not the ID of a user appears in the high or low vector
+set using the =%in%= operator as shown in listing [[8210]].
+
+#+NAME: 8210
+#+CAPTION: Identify tweets corresponding to users with high and low friend counts
+#+begin_src R
+## Method 1
+friend_test <- tweets.company$friends_count > mean(tweets.company$friends_count)
+tweets_high <- tweets.company$text[friend_test]
+tweets_low <- tweets.company$text[!friend_test]
+
+## Method 2                                                                 :15b5a74:
+## top part is the high friends and the low part is the low friends
+
+tweets_high <- tweets.company$text[tweets.company$user_id %in%  high_friends$user_id]
+tweets_low  <- tweets.company$text[tweets.company$user_id %in%  low_friends$user_id]
+tweets <- c(tweets_high, tweets_low)
+#+end_src
+** 8.2.11 Clean the tweets
+*** Create a Corpus Object
+In order to clean the tweets it is necessary to create a corpus object as shown in listing [[cpmk]], it is possible to pass a dataframe source in order to include the user ID, this isn't strictly necessary however because the =tm= package preserves order when performing transformations.
+
+#+NAME: cpmk
+#+CAPTION: Create a Corpus from the tweets
+#+begin_src R
+tweet_source <- tm::VectorSource(doc_id = tweets$user_id, text = tweets$text)
+tweet_corpus <- tm::Corpus(x = tweet_source)
+#+end_src
+
+Next it is necessary to choose an enoding, a primary consideration of this is whether or not the use of /emoji/ characters will influence the model performance. There is research to suggest that Emoji's can be used as predictive features cite:lecompte2017 and that they can improve /sentiment analysis/ models cite:shiha2017 that implement a /bag of words/ approach. For these reasons /emoji/ characters will be preserved and [[http://www.utf-8.com/][UTF-8]] implemented.
+
+In order to encode the data as /UTF-8/, the =iconv= function can be used as shown in listing [[icv]].
+
+#+NAME: lfcd
+#+CAPTION: Encode the Data as UTF-8
+#+begin_src R
+encode <- function(x) {
+    iconv(x, to = "UTF-8")
+#    iconv(x, to = "latin1")
+  #  iconv(x, to = "ASCII")
+}
+
+tweet_corpus <- tm_map(x = tweet_corpus, FUN = encode)
+tweet_corpus_raw <- tweet_corpus
+#+end_src
+
+*** Process the tweets
+Before analysis the tweets should be modified to remove characters that may interfere with categorising words, this is referred to as cleaning, in particular the following should be implemented:
+
+1. Remove URL's
+2. Remove Usernames
+3. remove numbers
+4. remove punctuation
+5. remove whitespace
+6. case fold all characters to lower case
+7. remove a set of stop words
+8. reduce each word to its stem
+
+In particular it is important to reduce words to lower case before removing stop words otherwise an unorthodox use of capitalisation may prevent the word from being removed throughout.
+
+The stop word =ubisoft= will also be used, this was the query term so it's expected to turn up at a very high frequency, the words =can= and ='s= also occured quite frequently and so were removed.
+
+The cleaning can be implemented by mapping functions over the corpus, which is fundamentally a list, this can be performed via the =tm_map= function as shown in listing [[cltw]].
+
+
+
+#+NAME: cltw
+#+CAPTION: Use the =tm_map= function to clean the tweets
+#+begin_src R
+mystop <- c(stopwords(), "’s", "can", "ubisoft", "@ubisoft", "#ubisoft")# <<stphere>>
+
+clean_corp <- function(corpus) {
+  ## Remove URL's
+  corpus <- tm_map(corpus,content_transformer(function(x) gsub("(f|ht)tp(s?)://\\S+","",x)))
+  ## Remove Usernames
+  corpus <- tm_map(corpus,content_transformer(function(x) gsub("@\\w+","",x)))
+  ## Misc
+  corpus <- tm_map(corpus, FUN = removeNumbers)
+  corpus <- tm_map(corpus, FUN = removePunctuation)
+  corpus <- tm_map(corpus, FUN = stripWhitespace)
+  corpus <- tm_map(corpus, FUN = tolower)
+  corpus <- tm_map(corpus, FUN = removeWords, mystop)
+  ## stopwords() returns characters and is fead as second argument
+  corpus <- tm_map(corpus, FUN = stemDocument)
+  return(corpus)
+}
+
+tweet_corpus_clean <- clean_corp(tweet_corpus)
+#+end_src
+
+** 8.2.12 Display the first two tweets before/after processing
+
+
+# tweet_corpus_raw[[1]]$content
+# tweet_corpus_clean[[1]]$content
+# tweet_corpus_raw[[2]]$content
+# tweet_corpus_clean[[2]]$content
 
 * Appendix
 ** Users with High Friend Count
@@ -675,3 +758,8 @@ write.csv(low_friends[order(
  | 3380784928            |                3 |
  | 1177274165239275520   |                3 |
  | 54645521              |                3 |
+
+* Footnotes
+
+[fn:1] This works because the =tm= package preserves the order of the data, this can be confirmed by using a dataframe source as opposed to a vector source (e.g. in listing [[cpmk]]) and comparing the ID's before/after transformation.
+# see ./scripts/q2.R
