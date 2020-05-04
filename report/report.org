@@ -585,7 +585,6 @@ write.csv(high_friends[order(
   decreasing = TRUE),], file = "/tmp/highfriend.csv")
 #+end_src
 
-
 ** 8.2.9 Find Users with Below Average Friend Counts
 Users with high friends may be determined by a similar method (or by taking the complement of the high friends) as shown in listing [[lfcd]], the lowest 20 of these users are shown in table [[lftb]] of the appendix.
 
@@ -962,6 +961,8 @@ ggplot(pca_data, aes(x = MDS1, y = MDS2, col = Cluster)) +
 [[./Figures/betfriendplot8216.png]]
 
 ** 8.2.17 Comment on the Visualisation
+Figure [[pt1]] indicates that altough there isn't a clear distinction between clusters there is seperation of the tweets in such a way that does allow some degree of classification to occur. Figure [[pt1]] and [[pt2]] both indicate that having many or few friends is reasonably independent of the cluster that the tweet belongs to.
+
 * Appendix
 ** Users with High Friend Count
 

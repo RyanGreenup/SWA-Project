@@ -388,6 +388,10 @@ I also tried with a different metric on the branch =FavouritesCount= branch, no
 luck, same issue so I I'm just gonna have to accept that there is no seperation.
 
 *** CODE 17 Comment on the visualisation
+:LOGBOOK:
+CLOCK: [2020-05-04 Mon 19:12]--[2020-05-04 Mon 19:32] =>  0:20
+:END:
+[[file:report/report.org::*8.2.17 Comment on the Visualisation][+ Link]]
 *** CODE 18 Which Cluster has the highest proportion of above Average Tweets :ryan:
 *** CODE 19 Display five tweets in clusters that you found in 18             :ryan:
 *** CODE 20 Find the important themes in high/low friend prop clusters       :ryan:
