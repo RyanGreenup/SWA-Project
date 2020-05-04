@@ -1,1 +1,7 @@
 ./site/*
+report/_minted-report/*
+report/report.synctex.gz
+
+*.swp
+report/.auctex-auto/*
+report/*.synctex*
