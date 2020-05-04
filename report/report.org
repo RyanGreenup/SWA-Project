@@ -556,6 +556,8 @@ In saying that however the $p$ -value is distinct from the /power/ statistic, wh
 Hence me way conclude, with a high degree of certainty, that the follower and friend counts are not independent of one another.
 * 8.2 Finding Themes in tweets
 
+
+
 #+begin_quote
 In order to clean the corpus it will be necessary to:
 
@@ -570,3 +572,61 @@ In order to clean the corpus it will be necessary to:
 These studies suggest that
 
 Emoji's are variables that can be used as a predictive features cite:lecompte2017  and can improve the performance of Sentiment Analysis Models cite:shiha2017 that use the /Bag of Words Approach/
+** 8.2.8 Find Users with Above Average Friend Counts
+Users with Above average Friend Counts can be identified by filtering the tweets
+data frame for two conditions:
+
+1. non-duplicated =user-id=
+2. =friend_count= greater than average
+
+This can be acheived easily using the =dplyr= package as shown in [[hfdp]], these users are shown in the appendix in table [[hfls]].
+
+#+NAME: hfdp
+#+CAPTION: Use =dplyr= to Filter for Users with a high Friend Count
+#+begin_src R
+select <- dplyr::select
+filter <- dplyr::filter
+interested_vars <- c("user_id", "friends_count")
+(friend_counts <- tweets.company %>%
+  select(interested_vars) %>%
+  filter(!duplicated(user_id)))
+
+(high_friends <- friend_counts %>%
+  filter(friends_count > mean(friends_count, na.rm = TRUE)))
+
+## Export Friends List
+write.csv(high_friends[order(
+  high_friends$friends_count,
+  decreasing = TRUE),], file = "/tmp/highfriend.csv")
+#+end_src
+
+
+
+
+
+* Appendix
+** Users with High Friend Count
+
+#+NAME: hfls
+#+CAPTION: User ID and Friend Count of users with above highest friend count in sample
+| ""    | */User ID/*           | */Friend Count/* |
+| "1"   | "274488119"           |             8752 |
+| "2"   | "743771665"           |             5002 |
+| "3"   | "1036014247"          |             4999 |
+| "4"   | "2281452613"          |             4992 |
+| "5"   | "1554453560"          |             4958 |
+| "6"   | "981233818408570880"  |             4944 |
+| "7"   | "931765564388921344"  |             4836 |
+| "8"   | "807405140"           |             4710 |
+| "9"   | "1112579152970842112" |             4514 |
+| "10"  | "2441577446"          |             4322 |
+| "11"  | "552692862"           |             4229 |
+| "12"  | "956297007127252992"  |             3976 |
+| "13"  | "22493896"            |             3675 |
+| "14"  | "255922782"           |             3500 |
+| "15"  | "1067409881332936709" |             3312 |
+| "16"  | "27998570"            |             3210 |
+| "17"  | "715118521555017728"  |             3099 |
+| "18"  | "2356170174"          |             2885 |
+| "19"  | "2372688230"          |             2880 |
+| "20"  | "1868357425"          |             2719 |
