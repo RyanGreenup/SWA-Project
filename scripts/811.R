@@ -455,21 +455,12 @@ colnames(tweet_weighted) <- colnames(tweet_matrix_dtm)
 tweet_weighted[1:6, 1:6]
 
 ## ** Use built in method (via TDM)=============================================
-## *** Make a Term Document Matrix===============================================
-                         ### RowColumnMatrix
-tweet_matrix_tdm   <- (TermDocumentMatrix(tweet_corpus_clean))
-tweet_matrix_dtm   <- (DocumentTermMatrix(tweet_corpus_clean))
+tweet_weighted_dtm <- tm::TermDocumentMatrix(x = tweet_corpus_clean, control = list(weighting = weightTfIdf)) %>%
+  as.DocumentTermMatrix()  %>%
+  as.matrix()
+## TODO why are these different from what I performed??
 
-## *** Weight the Matrix
-tweet_weighted_tdm <- as.matrix(weightTfIdf(tweet_matrix_tdm))
-tweet_weighted_tdm[1:6, 1:6]
-
-## Need DTM for Unsupervised Learning
-(tweet_weighted_dtm <- t(tweet_weighted_tdm)) %>% hd()
-colnames(tweet_weighted_dtm) <- rownames(tweet_weighted_tdm)
-## TODO why are these different??
-
-ncol(tweet_weighted_tdm)
+ncol(tweet_weighted_dtm)
 nrow(tweet_weighted_dtm)
 ## *** Remove Empty tweets#######################################################
 ## Do this after the weighting because a TDM object needs to given to
