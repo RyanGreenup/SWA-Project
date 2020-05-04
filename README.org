@@ -269,14 +269,17 @@ hence you're seeing how many times you see a false positive for independent data
 ** TODO 8.2 Finding Themes
 *** 8 Find unique users with above average friend counts                      :ryan:
 :LOGBOOK:
+CLOCK: [2020-05-04 Mon 13:10]--[2020-05-04 Mon 13:15] =>  0:05
 CLOCK: [2020-04-29 Wed 08:23]--[2020-04-29 Wed 9:23] =>  1:00
 :END:
-*** REPORT 9 Find Unique users who have $\leq$ average friend counts          :ryan:
+*** DONE 9 Find Unique users who have $\leq$ average friend counts            :ryan:
 :LOGBOOK:
+CLOCK: [2020-05-04 Mon 13:15]--[2020-05-04 Mon 13:16] =>  0:00
 CLOCK: [2020-04-29 Wed 10:21]--[2020-04-29 Wed 10:25] =>  0:04
 :END:
 *** REPORT 10 Combine tweets of users identified in 8/9                       :ryan:
 :LOGBOOK:
+CLOCK: [2020-05-04 Mon 13:16]
 CLOCK: [2020-04-29 Wed 10:26]--[2020-04-29 Wed 11:00] =>  0:34
 :END:
 *** REPORT 11 Clean and pre-process the tweet text data

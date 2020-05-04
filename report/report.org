@@ -579,7 +579,7 @@ data frame for two conditions:
 1. non-duplicated =user-id=
 2. =friend_count= greater than average
 
-This can be acheived easily using the =dplyr= package as shown in [[hfdp]], these users are shown in the appendix in table [[hfls]].
+This can be acheived easily using the =dplyr= package as shown in [[hfdp]], the top 20 of these users are shown in table [[hfls]] of the appendix
 
 #+NAME: hfdp
 #+CAPTION: Use =dplyr= to Filter for Users with a high Friend Count
@@ -603,30 +603,75 @@ write.csv(high_friends[order(
 
 
 
+** 8.2.9 Find Users with Below Average Friend Counts
+Users with high friends may be determined by a similar method (or by taking the complement of the high friends) as shown in listing [[lfcd]], the lowest 20 of these users are shown in table [[lftb]] of the appendix.
+
+#+NAME: lfcd
+#+CAPTION: Load the Packages for **/R/**
+#+begin_src R
+(low_friends <- friend_counts %>%
+  filter(friends_count <= mean(friends_count, na.rm = TRUE)))
+
+ low_friends <- low_friends[order(
+   low_friends$friends_count,
+   decreasing = TRUE),]
+
+## Export Users
+write.csv(low_friends[order(
+  low_friends$friends_count,
+  decreasing = FALSE),], file = "/tmp/lowfriend.csv")
+#+end_src
+
 
 * Appendix
 ** Users with High Friend Count
 
 #+NAME: hfls
 #+CAPTION: User ID and Friend Count of users with above highest friend count in sample
-| ""    | */User ID/*           | */Friend Count/* |
-| "1"   | "274488119"           |             8752 |
-| "2"   | "743771665"           |             5002 |
-| "3"   | "1036014247"          |             4999 |
-| "4"   | "2281452613"          |             4992 |
-| "5"   | "1554453560"          |             4958 |
-| "6"   | "981233818408570880"  |             4944 |
-| "7"   | "931765564388921344"  |             4836 |
-| "8"   | "807405140"           |             4710 |
-| "9"   | "1112579152970842112" |             4514 |
-| "10"  | "2441577446"          |             4322 |
-| "11"  | "552692862"           |             4229 |
-| "12"  | "956297007127252992"  |             3976 |
-| "13"  | "22493896"            |             3675 |
-| "14"  | "255922782"           |             3500 |
-| "15"  | "1067409881332936709" |             3312 |
-| "16"  | "27998570"            |             3210 |
-| "17"  | "715118521555017728"  |             3099 |
-| "18"  | "2356170174"          |             2885 |
-| "19"  | "2372688230"          |             2880 |
-| "20"  | "1868357425"          |             2719 |
+|         */User ID/* | */Friend Count/* |
+|---------------------+------------------|
+|           274488119 |             8752 |
+|           743771665 |             5002 |
+|          1036014247 |             4999 |
+|          2281452613 |             4992 |
+|          1554453560 |             4958 |
+|  981233818408570880 |             4944 |
+|  931765564388921344 |             4836 |
+|           807405140 |             4710 |
+| 1112579152970842112 |             4514 |
+|          2441577446 |             4322 |
+|           552692862 |             4229 |
+|  956297007127252992 |             3976 |
+|            22493896 |             3675 |
+|           255922782 |             3500 |
+| 1067409881332936709 |             3312 |
+|            27998570 |             3210 |
+|  715118521555017728 |             3099 |
+|          2356170174 |             2885 |
+|          2372688230 |             2880 |
+|          1868357425 |             2719 |
+** Users with Low Friend Count
+#+NAME: lftb
+#+CAPTION: User ID and Friend Count of users with above highest friend count in sample
+ | */User ID/*           | */Friend Count/* |
+ |-----------------------+------------------|
+ | 1254280995592966145   |                0 |
+ | 875126772978913280    |                0 |
+ | 1254256124217319425   |                0 |
+ | 1250219450210480128   |                0 |
+ | 1214921087328411648   |                0 |
+ | 1254115699628421120   |                0 |
+ | 1217600080376520704   |                0 |
+ | 1253480062453600257   |                0 |
+ | 1254178435502571521   |                0 |
+ | 1251955545092718592   |                0 |
+ | 1106864828700712960   |                0 |
+ | 1160744587620524032   |                0 |
+ | 1254256536710504448   |                1 |
+ | 1129040408384868352   |                1 |
+ | 1254121201871589376   |                1 |
+ | 1248687797755658243   |                2 |
+ | 1210265263867932675   |                2 |
+ | 3380784928            |                3 |
+ | 1177274165239275520   |                3 |
+ | 54645521              |                3 |
