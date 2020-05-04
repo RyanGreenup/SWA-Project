@@ -547,6 +547,8 @@ s <- replicate(10^4,{
 })
 
 mean(s)
+
+## [1] 4e-04
 #+end_src
 *** FIXME Conclusion
 The $p$ -value measures the probability of rejecting the null hypothesis when it is true, i.e. the probability of a detecting a /false positive/, a very small $p$ -value is hence good evidence that the null hypothesis should be rejected (because doing so would unlikely to be a mistake).
@@ -727,6 +729,77 @@ tweet_corpus_raw[[3]]$content
 tweet_corpus_clean[[3]]$content
 #+end_src
 
+** 8.2.13 Create a Term Document Matrix
+*** Apply Weighting Manually
+**** Create Term Documen Matrix
+A term Document matrix (and it's transpose) can be constructed from a =corpus= using the
+=tm:TermDocumentMatrix= function as shown in listing [[tdm]].
+
+#+NAME: tdm
+#+CAPTION: Load the Packages for **/R/**
+#+begin_src R
+tweet_matrix_tdm <- TermDocumentMatrix(tweet_corpus_clean)
+tweet_matrix_dtm <- DocumentTermMatrix(tweet_corpus_clean)
+#+end_src
+
+**** Apply TF-IDF Weighting
+Weighted term frequency is defined as shown in equation eqref:tfidf, where:
+
++ $f_{d,t}$ is the frequency of a given term $t$ in the a document $d$
++ $w_{d,t}$ is the weight of a given term $t$ in the a document $d$
++ $N$ is the number of documents
++ $f_{t}$ is the number of documents containing $t$
+
+\begin{equation}\begin{aligned}
+w_{d, t} &=\mathrm{TF}_{t} \times \mathrm{IDF}_{d, t} \\
+&=\log _{e}\left(f_{d, t}+1\right) \log _{e}\left(\frac{N}{f_{t}}\right) \label{tfidf}
+\end{aligned}\end{equation}
+
+This would requre multiplying each term of each row of the $\mathrm{TF}_{t}$ matrix by the corresponding vector element of $\mathrm{IDF}_{d,t}$, this can be implemented by taking the matrix product of a diagonalised matrix, this is shown in listing [[mytfidf]].
+
+#+NAME: mytfidf
+#+CAPTION: Apply TF-IDF Weigting
+#+begin_src R
+N <- nrow(as.matrix(tweet_matrix_dtm))   # Number of Documents
+ft=colSums(as.matrix(tweet_matrix_dtm) > 0) #in how many documents term t appeared in,
+
+TF <- log(as.matrix(tweet_matrix_dtm) + 1)  # built in uses log2()
+IDF <- log(N/ft)
+
+tweet_weighted           <- TF %*% diag(IDF)
+colnames(tweet_weighted) <- colnames(tweet_matrix_dtm)
+#+end_src
+
+There is however a function built in to the =tm= package that will weight term document matrices and this will instead be implented to analyse the data because it will produce more maintainable code.
+
+*** Apply Weighting with Built in Function
+In order to create a term document matrix (and its transpose) with TF-IDF weighted values, the =weighting= argument may be specified as =weightTfIdf= by passing an appropriate list to the =control= argument of the =TermDocumentMatrix=, as shown in listing [[btdm]]
+
+#+NAME:btdm
+#+CAPTION: Create a Document Term Matrix by transforming a Term Document Matrix
+#+begin_src R
+tweet_weighted_tdm <- tm::TermDocumentMatrix(x = tweet_corpus_clean, control = list(weighting = weightTfIdf))
+tweet_weighted_dtm <- as.DocumentTermMatrix()  %>%
+                        as.matrix()
+#+end_src
+
+*** Remove Empty Documents
+Empty Documents may be removed from the matrix by a logical test as shown in listing  [[emp]] [fn:3] this provides that 328 documents were empty following the processing. A summary of the first rows and columns of this matrix, following the removal of empty documents, is provided in table [[tfidf]] of the appendix.
+
+#+NAME:emp
+#+CAPTION: Load the Packages for **/R/**
+#+begin_src R
+null = which(rowSums(as.matrix(tweet_weighted_dtm)) == 0)
+rowSums(as.matrix(tweet_weighted_dtm)==0)
+
+if(length(null)!=0){
+  tweet_weighted_dtm = tweet_weighted_dtm[-null,]
+}
+
+length(null)
+
+## [1] 328
+#+end_src
 
 * Appendix
 ** Users with High Friend Count
@@ -781,6 +854,18 @@ tweet_corpus_clean[[3]]$content
  | 1177274165239275520   |                3 |
  | 54645521              |                3 |
 
+** TF-IDF Matrix
+
+#+NAME: tfidf
+#+CAPTION: Document Term Matrix of first 6 documents and first 6 Words
+| **check** | **coronavirus** | **death** | **first** | **gone** | **hour** |
+|-----------+-----------------+-----------+-----------+----------+----------|
+|     0.615 |           0.747 |     0.830 |     0.596 |    0.747 |    0.698 |
+|         0 |               0 |         0 |         0 |        0 |        0 |
+|         0 |               0 |         0 |         0 |        0 |        0 |
+|         0 |               0 |         0 |         0 |        0 |        0 |
+|         0 |               0 |         0 |         0 |        0 |        0 |
+|         0 |               0 |         0 |         0 |        0 |        0 |
 ** Relevant XKCD
 #+NAME: xkcd
 #+CAPTION: /xkcd/ =#= 297
@@ -789,7 +874,13 @@ tweet_corpus_clean[[3]]$content
 [[./Figures/lisp_cycles.png]]
 * Footnotes
 
-[fn:2] The =[= function is actually shorthand for =Extract()=, most things in */R/* are functions, this is similar to /LISP/ and has to do with the origins of the language, e.g. ~sum(1:10) == (sum (1:10))~, also relevant see the relevant xkcd in figure [[xkcd]].
+[fn:3] It is important not to filter based the logic of an empty vector, because
+otherwise an empty vector will returned, hence the if statement in listing [[emp]].
+
+[fn:2] The =[= function is actually shorthand for =Extract()=, most things in
+*/R/* are functions, this is similar to /LISP/ and has to do with the origins of
+the language, e.g. ~sum(1:10) == (sum (1:10))~, also relevant see the relevant
+xkcd in figure [[xkcd]].
 
 
 
