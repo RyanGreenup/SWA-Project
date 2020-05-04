@@ -59,6 +59,8 @@ tweets_corpus_clean <- clean_corp(tweets_corpus)
 
 
 tweets_tdm <- tm::TermDocumentMatrix(x = tweets_corpus_clean, control = list(weighting = weightTfIdf))
+tweets_tdm <- tm::TermDocumentMatrix(x = tweets_corpus_clean, control = list(weighting = weightSMART))
+weightSMART
 tweets_dtm  <- as.DocumentTermMatrix(tweets_tdm)
 tweets_dtm_mat <- as.matrix(tweets_dtm)
 hd(tweets_dtm_mat)
@@ -83,14 +85,15 @@ K$cluster
 
 ## Project into 2D Euclidean Space
 data <- cmdscale(d = D, k = 2)
+ ?TermDocumentMatrix
 
 ## Identify high Friend Counts
 hf <- tweets.company$friends_count > mean(tweets.company$friends_count)
 hf <- tweets.company$friends_count > quantile(tweets.company$friends_count, 0.90)
-hf <- sample(c("High_Random","Low_Random"), size = nrow(tweets.company), replace = TRUE)
 hf <- factor(hf)
 
 plot(data[,1], data[,2], col = c("red", "blue")[hf])
+plot(prcomp(tweets_dtm_mat)$x[,1], prcomp(tweets_dtm_mat)$x[,2], col = c("red", "blue")[hf])
 
 ## Take the First Two PC's
 tweets.pca <- prcomp(tweets_dtm_mat)
@@ -100,7 +103,8 @@ tddata$Friends  <- factor(tddata$Friends)
 
 ggplot(tddata, aes(x = PC1, y = PC2, col = Friends)) + 
     geom_point() +
-    stat_ellipse(level = 0.9)
+    stat_ellipse(level = 0.9) +
+    theme_classic()
 
 ## vim:fdm=expr:fdl=0
 ## vim:fde=getline(v\:lnum)=~'^##'?'>'.(matchend(getline(v\:lnum),'##*')-2)\:'='
