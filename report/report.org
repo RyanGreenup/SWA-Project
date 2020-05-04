@@ -275,7 +275,7 @@ bibliography:./references.bib
 A Confidence interval for the population mean friend counts may be constructed in a like wise fashion as shown in listings [[booty]]. This provides that the 97% confidence interval for the population mean friend count is between 384 and 502 (or 387 and 496 if the $BC_{a}$ method used, they're quite close and so the more conservative percentile method will be accepted).
 
 #+NAME: booty
-#+CAPTION: Bootstrap of population mean follower count 
+#+CAPTION: Bootstrap of population mean follower count
 #+begin_src R
 # d.) Estimate a Confidence Interval for the populattion mean Friend Count ===
 # Using a Percentile Method #####################################################
@@ -464,7 +464,7 @@ This means the matrix of expected frequencies can be expressed as an outer produ
 \mathbf{\vec{e}}= \frac{1}{n} \times \begin{bmatrix} \sum^{n}_{j= 1} \left[ o_{1j} \right] \\  \sum^{n}_{j= 1}
 \left[ o_{2j} \right]  \\ \sum^{n}_{j= 1} \left[ o_{3j} \right]   \\
 \sum^{n}_{j= 1} \left[ o_{4j} \right]  \\ \vdots  \\
-\sum^{n}_{j= 1} \left[ o_{nj} \right]     \end{bmatrix} 
+\sum^{n}_{j= 1} \left[ o_{nj} \right]     \end{bmatrix}
 \begin{bmatrix}  \sum^{n}_{j= 1} \left[ o_{i1}  \right] \\  \sum^{n}_{j= 1}
 \left[ o_{i2}  \right] \\ \sum^{n}_{j= 1} \left[ o_{i3}  \right] \\ \cdots \\
 \sum^{n}_{j= 1} \left[ o_{in}  \right]   \end{bmatrix}  ^{\normalsize \mathrm{T}} \label{eq:1}
@@ -641,7 +641,7 @@ Next it is necessary to choose an enoding, a primary consideration of this is wh
 
 In order to encode the data as /UTF-8/, the =iconv= function can be used as shown in listing [[icv]].
 
-#+NAME: lfcd
+#+NAME: icv
 #+CAPTION: Encode the Data as UTF-8
 #+begin_src R
 encode <- function(x) {
@@ -699,12 +699,34 @@ tweet_corpus_clean <- clean_corp(tweet_corpus)
 #+end_src
 
 ** 8.2.12 Display the first two tweets before/after processing
+The tweets can be viewed from inside the corpus by selecting with the =[= function [fn:2] as demonstrated in listing [[ispt]], the first /tweet/ was rendered empty by the processing and the following two tweets were:
 
++ */Pre-Processing/*
+    #+begin_quote
+   + "Today was the first time in over a month that I have gone 24 hours without
+    checking the coronavirus death toll. Thanks =@Ubisoft=."
 
-# tweet_corpus_raw[[1]]$content
-# tweet_corpus_clean[[1]]$content
-# tweet_corpus_raw[[2]]$content
-# tweet_corpus_clean[[2]]$content
+   + "@btwimskrank =@TheDivisionGame= =@UbiMassive= =@Ubisoft= =@jgerighty= =@hamishbode=
+    =@Tideman92= =@janeyo_jane= =@slimjd= Very odd... I'll even post a video about it."
+    #+end_quote
++ */Post-Processing/*
+    #+begin_quote
+    + "today first time month gone hour without check coronavirus death toll thank"
+
+    + "odd ill even post video"
+    #+end_quote
+
+#+NAME: ispt
+#+CAPTION: Load the Packages for **/R/**
+#+begin_src R
+tweet_corpus_raw[[1]]$content
+tweet_corpus_clean[[1]]$content
+tweet_corpus_raw[[2]]$content
+tweet_corpus_clean[[2]]$content
+tweet_corpus_raw[[3]]$content
+tweet_corpus_clean[[3]]$content
+#+end_src
+
 
 * Appendix
 ** Users with High Friend Count
@@ -759,7 +781,18 @@ tweet_corpus_clean <- clean_corp(tweet_corpus)
  | 1177274165239275520   |                3 |
  | 54645521              |                3 |
 
+** Relevant XKCD
+#+NAME: xkcd
+#+CAPTION: /xkcd/ =#= 297
+#+attr_html: :width 400px
+#+attr_latex: :width 7cm
+[[./Figures/lisp_cycles.png]]
 * Footnotes
+
+[fn:2] The =[= function is actually shorthand for =Extract()=, most things in */R/* are functions, this is similar to /LISP/ and has to do with the origins of the language, e.g. ~sum(1:10) == (sum (1:10))~, also relevant see the relevant xkcd in figure [[xkcd]].
+
+
+
 
 [fn:1] This works because the =tm= package preserves the order of the data, this can be confirmed by using a dataframe source as opposed to a vector source (e.g. in listing [[cpmk]]) and comparing the ID's before/after transformation.
 # see ./scripts/q2.R

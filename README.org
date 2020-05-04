@@ -290,6 +290,7 @@ CLOCK: [2020-04-29 Wed 11:00]--[2020-04-29 Wed 12:24] =>  1:24
 
 *** REPORT 12 Display the first two tweets                                    :ryan:
 :LOGBOOK:
+CLOCK: [2020-05-04 Mon 14:07]--[2020-05-04 Mon 14:41] =>  0:34
 CLOCK: [2020-04-29 Wed 12:26]--[2020-04-29 Wed 13:02] =>  0:36
 :END:
 *** REPORT Create a TDM, use TFIDF, how many tweets were empty?               :ryan:
