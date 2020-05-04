@@ -336,7 +336,7 @@ CLOCK: [2020-04-30 Thu 16:22]--[2020-04-30 Thu 17:02] =>  0:40
 
 *** CODE 16 Visualise in 2 Dimensions
 :LOGBOOK:
-CLOCK: [2020-05-04 Mon 09:28]
+CLOCK: [2020-05-04 Mon 09:28]--[2020-05-04 Mon 12:07] =>  2:39
 CLOCK: [2020-05-02 Sun 09:00]--[2020-05-02 Sat 15:00] =>  6:00
 CLOCK: [2020-05-02 Sat 09:00]--[2020-05-02 Sat 15:00] =>  6:00
 CLOCK: [2020-04-30 Thu 17:05]--[2020-04-30 Thu 17:23] =>  0:18
@@ -368,6 +368,12 @@ dd <-data.frame( doc_id=10:13,
 
 Corpus = VCorpus(DataframeSource(dd))
 #+end_src
+
+Yeah nah this confiremed that the order was preserved, see issue =#13=.
+
+I also tried with a different metric on the branch =FavouritesCount= branch, no
+luck, same issue so I I'm just gonna have to accept that there is no seperation.
+
 *** CODE 17 Commend on the visualisation
 *** CODE 18 Which Cluster has the highest proportion of above Average Tweets :ryan:
 *** CODE 19 Display five tweets in clusters that you found in 18             :ryan:
