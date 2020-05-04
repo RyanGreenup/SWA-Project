@@ -621,12 +621,17 @@ tweets_high <- tweets.company$text[friend_test]
 tweets_low <- tweets.company$text[!friend_test]
 
 ## Method 2                                                                 :15b5a74:
-## top part is the high friends and the low part is the low friends
-
 tweets_high <- tweets.company$text[tweets.company$user_id %in%  high_friends$user_id]
 tweets_low  <- tweets.company$text[tweets.company$user_id %in%  low_friends$user_id]
 tweets <- c(tweets_high, tweets_low)
+
+## Mark as High or Low
+tweets_low <- cbind(tweets_low, rep("Low_Friend", length(tweets_low)))
+tweets_high <- cbind(tweets_high, rep("High_Friend", length(tweets_high)))
+tweets <- as.data.frame(rbind(tweets_high, tweets_low))
+tweets$Friend_Status  <- factor(tweets$Friend_Status)
 #+end_src
+
 ** 8.2.11 Clean the tweets
 *** Create a Corpus Object
 In order to clean the tweets it is necessary to create a corpus object as shown in listing [[cpmk]], it is possible to pass a dataframe source in order to include the user ID, this isn't strictly necessary however because the =tm= package preserves order when performing transformations.
@@ -634,7 +639,7 @@ In order to clean the tweets it is necessary to create a corpus object as shown 
 #+NAME: cpmk
 #+CAPTION: Create a Corpus from the tweets
 #+begin_src R
-tweet_source <- tm::VectorSource(doc_id = tweets$user_id, text = tweets$text)
+tweet_source <- tm::VectorSource(tweets$text)
 tweet_corpus <- tm::Corpus(x = tweet_source)
 #+end_src
 
@@ -895,24 +900,68 @@ table(K$cluster)
 | =#= of /tweets/ | 77 | 58 | 537 |
 
 ** 8.2.16 Visualise the Clusters
-The clusters can be projected into 2D /Euclidean/-Space using /Multi-Dimensional Scaling/, these dimensions would represent the first two principle components of the cosine distance of the weigted tweets. This is demonstrated in listings [[cmds]].
+The clusters can be projected into 2D /Euclidean/-Space using /Multi-Dimensional
+Scaling/, these dimensions would represent the first two principle components of
+the cosine distance of the weigted tweets. This is demonstrated in listings
+[[cmds]]. A plot of the friend countstaus mapped to shape and clusters mapped to
+colour is demonstrated in listing [[pt1c]] shown in [[pt2]], In order to get a better
+understanding of the distribution of friend counts a plot of the friend count
+status mapped to colour is demonstrated in listing [[pt2c]] and shown in figure [[pt2]].
 
 #+NAME: cmds
 #+CAPTION: Use /Multi-Dimensional/ scaling to project the data into 2 dimensions
 #+begin_src R
-PCA_Euclid_2D <- cmdscale(D, k=2) #TODO What should K be? see issue #10
-pca_data$Cluster       <- factor(pca_data$Cluster)
+MDS_Euclid_2D <- cmdscale(D, k=2) #TODO What should K be? see issue #10
+mds_data$Cluster       <- factor(mds_data$Cluster)
 
-if (nrow(PCA_Euclid_2D[,1:2]) == length(K$cluster)
+if (nrow(MDS_Euclid_2D[,1:2]) == length(K$cluster)
    && length(K$cluster) == nrow(tweets[-null,])) {
-pca_data <- cbind(PCA_Euclid_2D[,1:2], "Cluster" = K$cluster, tweets[-null,])
+mds_data <- cbind(MDS_Euclid_2D[,1:2], "Cluster" = K$cluster, tweets[-null,])
 }
 
-pca_data$Cluster       <- factor(pca_data$Cluster)
-names(pca_data)[1:2] <- c("PC1", "PC2")
+mds_data$Cluster       <- factor(mds_data$Cluster)
+names(mds_data)[1:2] <- c("MDS1", "MDS2")
 #+end_src
 
+#+NAME: pt2c
+#+CAPTION: Create a plot of the distribution of Friends among Clusters as shown in figure [[pt1]]
+#+begin_src R
+ggplot(pca_data, aes(x = MDS1, y = MDS2, col = Friend_Status)) +
+  geom_point(aes(shape = Cluster), size = 2) +
+  stat_ellipse(level = 0.95) +
+  theme_classic() +
+  labs(main = "Principal Components of Twitter Data",
+       x = TeX("MDS_1"), y = TeX("MDS_2")) +
+  scale_color_discrete(label = c("High Friends", "Low Friends")) +
+  guides(col = guide_legend("Friend Count \n Status"))
+#+end_src
 
+#+NAME: pt1c
+#+CAPTION: Create a plot of the distribution of Friends Count Status as shown in figure [[pt2]]
+#+begin_src R
+ggplot(pca_data, aes(x = MDS1, y = MDS2, col = Cluster)) +
+  geom_point(aes(shape = Friend_Status), size = 2) +
+  stat_ellipse(level = 0.9) +
+  theme_classic() +
+  labs(main = "Principal Components of Twitter Data",
+       x = TeX("MDS_1"), y = TeX("MDS_2")) +
+  scale_shape_discrete(label = c("High Friends", "Low Friends")) +
+  guides(shape = guide_legend("Friend Count \n Status"))
+#+end_src
+
+#+NAME: pt1
+#+CAPTION: Distribution of Friend Count Status over Clusters
+#+attr_html: :width 400px
+#+attr_latex: :width 9cm
+[[./Figures/betclustplot8216.png]]
+
+#+NAME: pt2
+#+CAPTION: Distribution of Friend Count Status
+#+attr_html: :width 400px
+#+attr_latex: :width 9cm
+[[./Figures/betfriendplot8216.png]]
+
+** 8.2.17 Comment on the Visualisation
 * Appendix
 ** Users with High Friend Count
 

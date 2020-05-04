@@ -93,12 +93,12 @@ get started, I haven't decided on the company to use but it doesn't really matte
 ** Clock Tables
 *** Ryan
 #+BEGIN: clocktable :scope nil :maxlevel 6 :match "ryan"
-#+CAPTION: Clock summary at [2020-05-04 Mon 15:23]
+#+CAPTION: Clock summary at [2020-05-04 Mon 16:35]
 | Headline                                       | Time       |         |       |
 |------------------------------------------------+------------+---------+-------|
-| *Total time*                                   | *1d 21:07* |         |       |
+| *Total time*                                   | *1d 21:22* |         |       |
 |------------------------------------------------+------------+---------+-------|
-| Working                                        | 1d 21:07   |         |       |
+| Working                                        | 1d 21:22   |         |       |
 | \_  8.1 Analysing friend and follower count    |            | 1d 1:19 |       |
 | \_    1 Pull Tweets                            |            |         |  2:53 |
 | \_    2 Extract the Friend and Follower Count  |            |         |  1:12 |
@@ -106,14 +106,14 @@ get started, I haven't decided on the company to use but it doesn't really matte
 | \_    5 Bootstrap a confidence interval        |            |         |  9:27 |
 | \_    6 Who has a higher friend count given... |            |         |  2:25 |
 | \_    7 Test for Independence                  |            |         |  9:15 |
-| \_  8.2 Finding Themes                         |            |   19:48 |       |
+| \_  8.2 Finding Themes                         |            |   20:03 |       |
 | \_    8 Find unique users with above...        |            |         |  1:05 |
 | \_    9 Find Unique users who have $\leq$...   |            |         |  0:05 |
 | \_    10 Combine tweets of users identified... |            |         |  0:57 |
 | \_    12 Display the first two tweets          |            |         |  1:10 |
-| \_    Create a TDM, use TFIDF, how many...     |            |         |  3:35 |
+| \_    Create a TDM, use TFIDF, how many...     |            |         |  3:43 |
 | \_    14 Cluster the Results with respect...   |            |         | 12:16 |
-| \_    15 Count the Number of Clusters          |            |         |  0:40 |
+| \_    15 Count the Number of Clusters          |            |         |  0:47 |
 #+END:
 *** Navid
 #+BEGIN: clocktable :scope nil :maxlevel 6 :match "navid"
@@ -346,8 +346,9 @@ CLOCK: [2020-04-30 Thu 16:22]--[2020-04-30 Thu 17:02] =>  0:40
 
 *This was easy, I just used =table(K)=
 
-*** REPORT 16 Visualise in 2 Dimensions
+*** DONE 16 Visualise in 2 Dimensions
 :LOGBOOK:
+CLOCK: [2020-05-04 Mon 15:56]--[2020-05-04 Mon 16:34] =>  0:00
 CLOCK: [2020-05-04 Mon 09:28]--[2020-05-04 Mon 12:07] =>  2:39
 CLOCK: [2020-05-02 Sun 09:00]--[2020-05-02 Sat 15:00] =>  6:00
 CLOCK: [2020-05-02 Sat 09:00]--[2020-05-02 Sat 15:00] =>  6:00
