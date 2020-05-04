@@ -894,6 +894,25 @@ table(K$cluster)
 |-----------------+----+----+-----|
 | =#= of /tweets/ | 77 | 58 | 537 |
 
+** 8.2.16 Visualise the Clusters
+The clusters can be projected into 2D /Euclidean/-Space using /Multi-Dimensional Scaling/, these dimensions would represent the first two principle components of the cosine distance of the weigted tweets. This is demonstrated in listings [[cmds]].
+
+#+NAME: cmds
+#+CAPTION: Use /Multi-Dimensional/ scaling to project the data into 2 dimensions
+#+begin_src R
+PCA_Euclid_2D <- cmdscale(D, k=2) #TODO What should K be? see issue #10
+pca_data$Cluster       <- factor(pca_data$Cluster)
+
+if (nrow(PCA_Euclid_2D[,1:2]) == length(K$cluster)
+   && length(K$cluster) == nrow(tweets[-null,])) {
+pca_data <- cbind(PCA_Euclid_2D[,1:2], "Cluster" = K$cluster, tweets[-null,])
+}
+
+pca_data$Cluster       <- factor(pca_data$Cluster)
+names(pca_data)[1:2] <- c("PC1", "PC2")
+#+end_src
+
+
 * Appendix
 ** Users with High Friend Count
 
