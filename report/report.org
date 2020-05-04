@@ -878,6 +878,22 @@ Figure [[sswp]] Indicates a sudden stop of decrease in variance at 7 clusters an
 #+attr_latex: :width 10cm
 [[./Figures/Q14WithinClusterVariance.png]]
 
+** 8.2.15 Find the Number of tweets in each cluster
+Moving forward we'll use 3 clusters, 7 is too large and a smaller number will likely be more effective at categorising the data (particularly given that the stratification of the data appears to be quite limited from figure [[sswp]]). The number of tweets in a cluster may be measured by using the =table= function as shown in listing [[tab]] and table [[tabo]].
+
+#+NAME: tab
+#+CAPTION: The =table= function can count the number of tweets per cluster.
+#+begin_src R
+K = kmeans(mds.tweet_weighted_dtm, 3, nstart = 20)
+table(K$cluster)
+#+end_src
+
+#+NAME: tabo
+#+CAPTION: Number of tweets in each cluster identified by $k$ means clustering
+| Cluster         |  1 |  2 |   3 |
+|-----------------+----+----+-----|
+| =#= of /tweets/ | 77 | 58 | 537 |
+
 * Appendix
 ** Users with High Friend Count
 

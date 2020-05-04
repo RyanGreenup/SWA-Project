@@ -292,12 +292,12 @@ CLOCK: [2020-05-04 Mon 13:39]--[2020-05-04 Mon 14:07] =>  0:28
 CLOCK: [2020-04-29 Wed 11:00]--[2020-04-29 Wed 12:24] =>  1:24
 :END:
 
-*** REPORT 12 Display the first two tweets                                    :ryan:
+*** DONE 12 Display the first two tweets                                      :ryan:
 :LOGBOOK:
 CLOCK: [2020-05-04 Mon 14:07]--[2020-05-04 Mon 14:41] =>  0:34
 CLOCK: [2020-04-29 Wed 12:26]--[2020-04-29 Wed 13:02] =>  0:36
 :END:
-*** REPORT Create a TDM, use TFIDF, how many tweets were empty?               :ryan:
+*** DONE Create a TDM, use TFIDF, how many tweets were empty?                 :ryan:
 :LOGBOOK:
 CLOCK: [2020-05-04 Mon 15:41]--[2020-05-04 Mon 15:49] =>  0:08
 CLOCK: [2020-05-04 Mon 14:41]--[2020-05-04 Mon 15:22] =>  0:41
@@ -328,7 +328,7 @@ if(length(empties)!=0){
 The only issue is that I'm getting no empties in mine.
 
 I think this is fine though.
-*** REPORT 14 Cluster the Results with respect to cosine distance             :ryan:
+*** DONE 14 Cluster the Results with respect to cosine distance               :ryan:
 :LOGBOOK:
 CLOCK: [2020-04-30 Thu 15:06]--[2020-04-30 Thu 16:07] =>  1:01
 CLOCK: [2020-04-30 Thu 09:20]--[2020-04-30 Thu 14:06] =>  4:46
@@ -338,8 +338,9 @@ CLOCK: [2020-04-29 Wed 16:23]--[2020-04-29 Wed 16:27] =>  0:04
 :END:
 I need to review clustering before I start this, but the elbow method is discussed [[pdf:~/Dropbox/Studies/2020Autumn/Social_Web_Analytics/06_Slides_TM2_Clustering.pdf::42++0.00??elbow][here]]
 
-*** REPORT 15 Count the Number of Clusters                                    :ryan:
+*** DONE 15 Count the Number of Clusters                                      :ryan:
 :LOGBOOK:
+CLOCK: [2020-05-04 Mon 15:49]--[2020-05-04 Mon 15:56] =>  0:07
 CLOCK: [2020-04-30 Thu 16:22]--[2020-04-30 Thu 17:02] =>  0:40
 :END:
 
