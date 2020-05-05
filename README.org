@@ -93,27 +93,31 @@ get started, I haven't decided on the company to use but it doesn't really matte
 ** Clock Tables
 *** Ryan
 #+BEGIN: clocktable :scope nil :maxlevel 6 :match "ryan"
-#+CAPTION: Clock summary at [2020-05-04 Mon 16:35]
-| Headline                                       | Time       |         |       |
-|------------------------------------------------+------------+---------+-------|
-| *Total time*                                   | *1d 21:22* |         |       |
-|------------------------------------------------+------------+---------+-------|
-| Working                                        | 1d 21:22   |         |       |
-| \_  8.1 Analysing friend and follower count    |            | 1d 1:19 |       |
-| \_    1 Pull Tweets                            |            |         |  2:53 |
-| \_    2 Extract the Friend and Follower Count  |            |         |  1:12 |
-| \_    3 Find the Average Followers             |            |         |  0:07 |
-| \_    5 Bootstrap a confidence interval        |            |         |  9:27 |
-| \_    6 Who has a higher friend count given... |            |         |  2:25 |
-| \_    7 Test for Independence                  |            |         |  9:15 |
-| \_  8.2 Finding Themes                         |            |   20:03 |       |
-| \_    8 Find unique users with above...        |            |         |  1:05 |
-| \_    9 Find Unique users who have $\leq$...   |            |         |  0:05 |
-| \_    10 Combine tweets of users identified... |            |         |  0:57 |
-| \_    12 Display the first two tweets          |            |         |  1:10 |
-| \_    Create a TDM, use TFIDF, how many...     |            |         |  3:43 |
-| \_    14 Cluster the Results with respect...   |            |         | 12:16 |
-| \_    15 Count the Number of Clusters          |            |         |  0:47 |
+#+CAPTION: Clock summary at [2020-05-05 Tue 20:47]
+| Headline                                       | Time      |         |       |
+|------------------------------------------------+-----------+---------+-------|
+| *Total time*                                   | *2d 5:13* |         |       |
+|------------------------------------------------+-----------+---------+-------|
+| Working                                        | 2d 5:13   |         |       |
+| \_  8.1 Analysing friend and follower count    |           | 1d 1:19 |       |
+| \_    1 Pull Tweets                            |           |         |  2:53 |
+| \_    2 Extract the Friend and Follower Count  |           |         |  1:12 |
+| \_    3 Find the Average Followers             |           |         |  0:07 |
+| \_    5 Bootstrap a confidence interval        |           |         |  9:27 |
+| \_    6 Who has a higher friend count given... |           |         |  2:25 |
+| \_    7 Test for Independence                  |           |         |  9:15 |
+| \_  8.2 Finding Themes                         |           | 1d 3:54 |       |
+| \_    8 Find unique users with above...        |           |         |  1:05 |
+| \_    9 Find Unique users who have $\leq$...   |           |         |  0:05 |
+| \_    10 Combine tweets of users identified... |           |         |  0:57 |
+| \_    12 Display the first two tweets          |           |         |  1:10 |
+| \_    Create a TDM, use TFIDF, how many...     |           |         |  3:43 |
+| \_    14 Cluster the Results with respect...   |           |         | 12:16 |
+| \_    15 Count the Number of Clusters          |           |         |  0:47 |
+| \_    18 Which Cluster has the highest...      |           |         |  1:00 |
+| \_    19 Display five tweets in clusters...    |           |         |  0:47 |
+| \_    20 Find the important themes in...       |           |         |  4:07 |
+| \_    Use a word cloud to display the...       |           |         |  1:57 |
 #+END:
 *** Navid
 #+BEGIN: clocktable :scope nil :maxlevel 6 :match "navid"
@@ -424,7 +428,13 @@ SCHEDULED: <2020-05-05 Tue>
 
 ** TODO 8.3 Building Networks                                                  :Hassan:Navid:
 *** TODO 24 Find the 10 most popular friends
+:LOGBOOK:
+CLOCK: [2020-05-05 Tue 19:05]--[2020-05-05 Tue 20:00] =>  0:55
+:END:
 *** TODO 25 Obtain a 2-degree egocentric graph centred at twitter handle
+:LOGBOOK:
+CLOCK: [2020-05-05 Tue 20:00]--[2020-05-05 Tue 20:46] =>  0:46
+:END:
 *** TODO 26 Compute the closeness centrality score for each handle graphed
 *** TODO 27 List the top 3 most central people
 *** TODO 28 Comment on your results

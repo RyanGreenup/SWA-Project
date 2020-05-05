@@ -762,7 +762,7 @@ t(unit_term.matrix)
 D = dist(t(unit_term.matrix), method = "euclidean")^2/2
 
 ## Perform Heirarchical Clustering
-h = hclust(D, method="Complete")
+h = hclust(D, method="complete")
 plot(h, main = "Themes of Cluster with Lowest Friend Count")
 
 

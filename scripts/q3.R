@@ -32,28 +32,21 @@ options(RCurlOptions = list(
   ssl.verifypeer = FALSE
 ))
 
-## -----BEGIN PGP MESSAGE-----
-##
-## jA0ECQMClqDOdZ22OWj/0ukBP+GobsGEIuYwIjk7+9c6MSFzpNx2beXfBWPtvN4s
-## 1XFim8Mvi2imEeQznCDCo5hLKe4FouPMHsU2Y+Rp0q54NHCbWR8iYalqohmc52rY
-## VPnzSVcFtH5y7juOcFirOmZ5BPGizEFx/OIQNECmsyA5P3e5cGt7+kezvunSGKL1
-## CuwgstsiSZCIjysou1cSoP0/Fx308gox287ZvYlHHA9L+54RlypCNDRtYMRc1ln6
-## Xh0CGbW01vt1LmA++n8l/zafqeu5iHCRWSEmlrJdXf0Dj2iCbTvtt0gWCO9eAOyu
-## N248+q7pRMDl0DOx9xOZL+ZaeS5hBSaKpyL3E8abtqZ8D/IcI6cUpRhVp3Qo4p49
-## dxli/Je1ulhXPYLeg1S8rKC9mm6QyU8dtwMl5LhL0s5gHqWemwdmsqojGFCZhj5t
-## rm2ZnD9uwrYSrDXE5BztvYayvRO6JU96LphDdnNXV2vJjLVh0+uUqAJWXm0poi6i
-## msB92v8Y+zEktXHtEWUYtrzHw/8Jg5Ddjv4YeRyPbCQb5YGZmd7tdmDbqYUCH0WI
-## V7RtOHEo7rF/cPlf6QZzoLBmpsR4CCQPOhl0rWG7sK3QjHT7g2iYxv9fj+0pB6+E
-## a73kebYTxh3D0S/g6nvZ08iBdTo+a7kMn1g6kd29AkpDD+PB+4Vu9NJESzCrcaDZ
-## WwEP
-## =8/Cr
-## -----END PGP MESSAGE-----
+tk <- rtweet::create_token(
+  app = "SWA",
+  consumer_key    = "dE7HNKhwHxMqqWdBl1qo9OAkN",
+  consumer_secret = "7ByyC6lR9d2aqLoXHHBkOtKRiU10cHhGguroiGKQ69AGDMMI9V",
+  access_token    = "1240821178014388225-sFWver0NDDY3BhPdPyg8d4mtQxnl0K",
+  access_secret   = "HLBWzHcemHzYJnw5ZLvKpEhQ5KaWwK6Nsj6cxBjUf51NJ",
+  set_renv        = FALSE)
 
 ## * 8.2.24 Find 10 Most Popular Friends of the Twitter Handle ---------------------
 ## ## ** Get the User ID of Friends of Ubisoft =====================================
-t <- get_friends("ubisoft", token = tk)
+# t <- get_friends("ubisoft", token = tk)
 ## *** Get More Information of Friends ###########################################
-friends = lookup_users(t$user_id, token = tk)
+# friends = lookup_users(t$user_id, token = tk)
+## save(list = c("t", "friends"), file = "./8224_Friends.Rdata")
+load("./8224_Friends.Rdata"); head(t); head(friends)
 ## **** Inspect the friends .......................................................
 dim(friends)
 names(friends)
@@ -68,7 +61,52 @@ topFriends = friends[friendPosition,] #ids of top 10 friends
 ## *** Print the top 10 most popular friends #####################################
 topFriends$screen_name
 
-## *** Print the top 10 Most Popular Friend
 ## * 8.2.25 2 Degree Egocentric graph-----------------------------------------------
+## ** Download 2nd Degree of Friends ============================================
+##
+#-----------Do the following to download directly from Twitter------
+more.friends = list() #a place to store the friends of friends
+#n = length(topFriends)
+n= nrow(topFriends)
+t = get_friends(topFriends$user_id[1], token = tk) #get friends of each friend
+more.friends[[1]]=lookup_users(t$user_id, token = tk)
+t = get_friends(topFriends$user_id[2], token = tk) #get friends of each friend
+more.friends[[2]]=lookup_users(t$user_id, token = tk)
+t = get_friends(topFriends$user_id[3], token = tk) #get friends of each friend
+more.friends[[3]]=lookup_users(t$user_id, token = tk)
+t = get_friends(topFriends$user_id[4], token = tk) #get friends of each friend
+more.friends[[4]]=lookup_users(t$user_id, token = tk)
+t = get_friends(topFriends$user_id[5], token = tk) #get friends of each friend
+more.friends[[5]]=lookup_users(t$user_id, token = tk)
+t = get_friends(topFriends$user_id[6], token = tk) #get friends of each friend
+more.friends[[6]]=lookup_users(t$user_id, token = tk)
+t = get_friends(topFriends$user_id[7], token = tk) #get friends of each friend
+more.friends[[7]]=lookup_users(t$user_id, token = tk)
+t = get_friends(topFriends$user_id[8], token = tk) #get friends of each friend
+more.friends[[8]]=lookup_users(t$user_id, token = tk)
+t = get_friends(topFriends$user_id[9], token = tk) #get friends of each friend
+more.friends[[9]]=lookup_users(t$user_id, token = tk)
+t = get_friends(topFriends$user_id[10], token = tk) #get friends of each friend
+more.friends[[10]]=lookup_users(t$user_id, token = tk)
+more.friends
+class(more.friends[[1]])
+dim(more.friends[[1]])
+nrow(more.friends[[1]])
+
+save(list = ls(), file = "AllGraphData.RData")
+rm(more.friends)
+load(file = "AllGraphData.RData")
+
+#-----------------Restrict to 100 records to manage big data----------------
+for(a in 1:10){
+  if(nrow(more.friends[[a]])>100){
+    more.friends[[a]]=more.friends[[a]][1:100,]
+  }
+}
+
+more.friends[[1]]$screen_name[1]
+more.friends[[1]]$screen_name[2]
+more.friends[[2]]$screen_name[2]
+#save(user, friends, more.friends, file="chris2019.RData")
 ## * 8.2.26 Compute the closeness cen. score for every user-------------------------
-## * 8.2.27 Commenton the Results---------------------------------------------------
+## * 8.2.27 Comment on the Results---------------------------------------------------
