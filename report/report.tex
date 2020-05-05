@@ -1,4 +1,4 @@
-% Created 2020-05-04 Mon 16:33
+% Created 2020-05-05 Tue 15:04
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -19,6 +19,13 @@
 \usepackage[citestyle=numeric, bibstyle=numeric,hyperref=true,backref=true, maxcitenames=3,url=true,backend=biber,natbib=true]{biblatex}
 \addbibresource{/home/ryan/Dropbox/Studies/Papers/references.bib}
 %%% TeX-command-extra-options: "-shell-escape"
+\RequirePackage{fix-cm}
+\documentclass[fontsize=13pt,oneside]{scrbook}
+\usepackage{fontspec}
+\usepackage[Latin,Greek]{ucharclasses}
+\newfontfamily\substitutefont{CMU Serif}
+\setTransitionsForGreek{\begingroup\substitutefont}{\endgroup}
+\usepackage{polyglossia}
 \author{Ryan Greenup}
 \date{\today}
 \title{Analysing Twitter for Ubisoft}
@@ -35,10 +42,12 @@
 \tableofcontents
 
 
+
+
 \section{8.1 Analysing the Relationship Between Friends and Followers for Twitter Users}
-\label{sec:org99272be}
+\label{sec:org21697e9}
 \subsection{8.1.1 Retrieve the posts from Twitter}
-\label{sec:orgce37a4b}
+\label{sec:org08d12b1}
 relevant posts can be retrieved from twitter by utilising the \texttt{rtweet} package, packages can be loaded for use in \textbf{\textbf{\uline{R}}} thusly:
 
 \begin{listing}[htbp]
@@ -62,7 +71,7 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2,
                httpuv, SnowballC, RColorBrewer, wordcloud,
                ggwordcloud, tidyverse, boot)
 \end{minted}
-\caption{\label{orga4680e7}Load the Packages for \textbf{\textbf{\emph{R}}}}
+\caption{\label{orgc9aca1c}Load the Packages for \textbf{\textbf{\emph{R}}}}
 \end{listing}
 
 
@@ -97,10 +106,10 @@ tk <-    rtweet::create_token(
   access_secret   = "*********************************************",
   set_renv        = FALSE
 \end{minted}
-\caption{\label{org08f98b4}Import the twitter tokens (redacted)}
+\caption{\label{orgf70e35f}Import the twitter tokens (redacted)}
 \end{listing}
 
-and hence all tweets containing a mention of \emph{Ubisoft} can be returned and saved to disk as shown in listing \ref{orgc83577d}:
+and hence all tweets containing a mention of \emph{Ubisoft} can be returned and saved to disk as shown in listing \ref{org96eb581}:
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -109,13 +118,13 @@ and hence all tweets containing a mention of \emph{Ubisoft} can be returned and 
                                  include_rts = FALSE)
  save(tweets.company[,], file = "resources/Download_1.Rdata")
 \end{minted}
-\caption{\label{orgc83577d}Save the Tweets to the HDD as an \texttt{rdata} file}
+\caption{\label{org96eb581}Save the Tweets to the HDD as an \texttt{rdata} file}
 \end{listing}
 
 \subsection{8.2.2 Count of Followers and Friends}
-\label{sec:org0f486ad}
+\label{sec:orgee043e7}
 In order to identify the number of users that are contained in the \emph{tweets} the
-\texttt{unique()} function can be used to return a vector of names which can then be passed as an index to the vector of counts as shown in listing \ref{orge0be59b}, this provides that 81.7\% of the tweets are by unique users.
+\texttt{unique()} function can be used to return a vector of names which can then be passed as an index to the vector of counts as shown in listing \ref{org8a46764}, this provides that 81.7\% of the tweets are by unique users.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -125,13 +134,13 @@ y <- tweets.company$friends_count[duplicated(tweets.company$name)]
 
 ## > [1] 817
 \end{minted}
-\caption{\label{orge0be59b}Return follower count of twitter posts}
+\caption{\label{org8a46764}Return follower count of twitter posts}
 \end{listing}
 
 
 \subsection{8.1.3 Summary Statistics}
-\label{sec:orgbcf0ca8}
-The average number of friends and followers from users who posted tweets mentioning \emph{Ubisoft} can be returned using the \texttt{mean()} as shown in listing \ref{org8499753}
+\label{sec:org55179f0}
+The average number of friends and followers from users who posted tweets mentioning \emph{Ubisoft} can be returned using the \texttt{mean()} as shown in listing \ref{orgfb8c0be}
 this provides that on average each user has 586 friends and 63,620 followers.
 
 \begin{listing}[htbp]
@@ -144,15 +153,15 @@ y<- rnorm(090)
 ## > [1] 4295.195
 ## > [1] 435.9449
 \end{minted}
-\caption{\label{org8499753}Determine the average number of friends and followers}
+\caption{\label{orgfb8c0be}Determine the average number of friends and followers}
 \end{listing}
 
 \subsection{8.1.4 Above Average Followers}
-\label{sec:orgfd8bb12}
+\label{sec:org893ae9c}
 Each user can be compared to the average number of followers, by using a logical
 operator on the vector (e.g. \texttt{y > ybar}), this will return an output of logical
 values. \textbf{\emph{R}} will coerce logicals into 1/0 values meaning that the mean value
-will return the proportion of \texttt{TRUE} responses as shown in listing \ref{org361fcc4}. This
+will return the proportion of \texttt{TRUE} responses as shown in listing \ref{orgf9de3b0}. This
 provides that:
 
 \begin{itemize}
@@ -168,19 +177,19 @@ provides that:
 ## > [1] 0.0244798
 ## > [1] 0.2729498
 \end{minted}
-\caption{\label{org361fcc4}Calculate the proportion of users with above average follower counts}
+\caption{\label{orgf9de3b0}Calculate the proportion of users with above average follower counts}
 \end{listing}
 
 
 \subsection{8.1.5 Bootstrap confidence intervals}
-\label{sec:org37a3f2d}
+\label{sec:org812625f}
 \subsubsection{a/b.) Generate a bootsrap distribution}
-\label{sec:org783e648}
+\label{sec:orgd40e64a}
 
 A bootstrap assumes that the population is an infinitely large repetition of the
 sample and may be produces with respect to follower counts by resampling with
 replacement/repetition and plotted using the \texttt{ggplot2} library as deomonstrated
-in listings \ref{org860da4c} and \ref{org891d1d9} and shown in figure \ref{fig:orga337826}.
+in listings \ref{orgd74843b} and \ref{org1e0cf70} and shown in figure \ref{fig:org8837024}.
 
 This shows that the population follower counts is a non-normal skew-right
 distribution, which is expected because the number of friends is an integer value bound by zero \cite{nist2013}.
@@ -192,7 +201,7 @@ distribution, which is expected because the number of friends is an integer valu
 
 ## > [1]   7 515 262 309 186 166
 \end{minted}
-\caption{\label{org860da4c}Bootstrapping a population from the sample.}
+\caption{\label{orgd74843b}Bootstrapping a population from the sample.}
 \end{listing}
 
 \begin{listing}[htbp]
@@ -208,17 +217,17 @@ ggplot(data = bt_pop_data, aes(x = Followers)) +
        title = "Bootstrapped population of Follower Numbers")
 
 \end{minted}
-\label{org891d1d9}
+\label{org1e0cf70}
 \end{listing}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=12cm]{./Figures/BootStrap_Pop.png}
-\caption{\label{fig:orga337826}Histogram of the bootrapped population of follower counts}
+\caption{\label{fig:org8837024}Histogram of the bootrapped population of follower counts}
 \end{figure}
 
 \subsubsection{c.) Estimate a Confidence Interval for the population mean Follower Counts}
-\label{sec:org26e5576}
+\label{sec:orga51f8fb}
 In order to perform a bootrap for the population mean value of follower counts it is necessary to:
 
 \begin{enumerate}
@@ -233,7 +242,7 @@ In order to perform a bootrap for the population mean value of follower counts i
 \end{itemize}
 \end{enumerate}
 
-This is equivalent to drawing a sample from a population that is infinitely large and constructed of repetitions of the sample. This can be performed in \textbf{\emph{R}} as shown in listing \ref{org219f158}.
+This is equivalent to drawing a sample from a population that is infinitely large and constructed of repetitions of the sample. This can be performed in \textbf{\emph{R}} as shown in listing \ref{orgea91021}.
 
 
 \begin{listing}[htbp]
@@ -247,14 +256,14 @@ quantile(xbar_boot_loop, c((1-0.97)/2, (1+0.97)/2))
 ##       1.5%      98.5%
 ##   588.4189 10228.7352
 \end{minted}
-\caption{\label{org219f158}Confidence Interval of Mean Follower Count in Population}
+\caption{\label{orgea91021}Confidence Interval of Mean Follower Count in Population}
 \end{listing}
 
 A 97\% probability interval is such that a sample drawn from a population will contain the population mean in that interval 97\% of the time, this means that it may be concluded with a high degree of certainty that the true population mean lies between 588 and 10228.
 
 \begin{enumerate}
 \item Alternative Approaches
-\label{sec:org8f592e7}
+\label{sec:orga182c0b}
 If this data was normally distributed it may have been appropriate to consider
 bootstrapping the standard error and using a \(t\) distribution, however it is more appropriate to use a
 percentile interval for skewed data such as this, in saying that however this method is not considered to be very accurate in the literature and is often too narrow. \cite[Section 4.1]{hesterberg2015}
@@ -274,7 +283,7 @@ In this work it is provided that the \(BC_{a}\) method of constructing confidenc
  intervals is  superior to mere percentile
  methods in terms of accuracy \cite[Ch. 5]{davison1997}, a sentiment echoed in the literature. \cite[Ch. 5]{carpenter2000,davison1997}
 
-Such methods can be implemented in \textbf{\emph{R}} by passing a function to the the \texttt{boot} call as shown in listing \ref{org79a287d}. This provides a broader interval, providing that the true confidence interval could lie between 1079 and 16227 followers.
+Such methods can be implemented in \textbf{\emph{R}} by passing a function to the the \texttt{boot} call as shown in listing \ref{org32155fe}. This provides a broader interval, providing that the true confidence interval could lie between 1079 and 16227 followers.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -296,19 +305,19 @@ boot.ci(xbar_boot, conf = 0.97, type = "bca", index = 1)
 ## Warning message:
 ## In norm.inter(t, adj.alpha) : extreme order statistics used as endpoints
 \end{minted}
-\caption{\label{org79a287d}Bootstrap of population mean follower count implementing the \(BC_{a}\) method}
+\caption{\label{org32155fe}Bootstrap of population mean follower count implementing the \(BC_{a}\) method}
 \end{listing}
 
-\label{orgba91979}
+\label{orgd14787d}
 \bibliography{references}
 
-\label{org3bcf1a0}
+\label{orgfeda47a}
  \bibliographystyle{unsrt}
 \end{enumerate}
 
 \subsubsection{d.) Estimate a Confidence Interval for the population mean Friend Counts}
-\label{sec:orgaac85ac}
-A Confidence interval for the population mean friend counts may be constructed in a like wise fashion as shown in listings \ref{org1fe2c00}. This provides that the 97\% confidence interval for the population mean friend count is between 384 and 502 (or 387 and 496 if the \(BC_{a}\) method used, they're quite close and so the more conservative percentile method will be accepted).
+\label{sec:org6f0b1da}
+A Confidence interval for the population mean friend counts may be constructed in a like wise fashion as shown in listings \ref{org9d646f0}. This provides that the 97\% confidence interval for the population mean friend count is between 384 and 502 (or 387 and 496 if the \(BC_{a}\) method used, they're quite close and so the more conservative percentile method will be accepted).
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -345,16 +354,16 @@ boot.ci(xbar_boot, conf = 0.97, type = "bca", index = 1)
 ## Calculations and Intervals on Original Scale
 ## Some BCa intervals may be unstable
 \end{minted}
-\caption{\label{org1fe2c00}Bootstrap of population mean follower count}
+\caption{\label{org9d646f0}Bootstrap of population mean follower count}
 \end{listing}
 
 \subsection{{\bfseries\sffamily FIXME} 8.1.6 Estimate a 97\% Confidence Interval for the High Friend Count Proportion}
-\label{sec:org28e2098}
+\label{sec:orge3aeb65}
 In order to bootstrap a confidence interval for the proportion of users with
 above average follower counts, repeteadly draw random samples from an infinitely
 large population composed entirely of the sample, and record the sampled
 proportion. this can be acheived by resampling the observations of above and
-below as shown in listing \ref{org132d6d2}.
+below as shown in listing \ref{org091fe85}.
 
 This provides that:
 \begin{itemize}
@@ -394,15 +403,15 @@ quantile(py_hat_bt, c(0.015, 0.985))
 ## 97%   ( 0.2399,  0.3072 )
 ## Calculations and Intervals on Original Scale
 \end{minted}
-\caption{\label{org132d6d2}Bootstrap of Proportion of Friends above average}
+\caption{\label{org091fe85}Bootstrap of Proportion of Friends above average}
 \end{listing}
 \subsection{8.1.7 Is the Number of Friends Independent to the Number of Followers}
-\label{sec:org511927d}
+\label{sec:org3535c9c}
 One method to determine whether or not the number of followers is independent of the number of friends is to bin the counts and determine whether or not the distribution of users across those counts is consistent with the hypothesis of independence.
 
 \subsubsection{Bin the Follower and Friend Categories}
-\label{sec:org29e7933}
-The counts may be binned by performing a logical interval test as shown in listing \ref{orgdd25aaa}.
+\label{sec:orgc01af38}
+The counts may be binned by performing a logical interval test as shown in listing \ref{org43de4b7}.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -439,12 +448,12 @@ y_df$cat <- factor(y_df$cat, levels = var_levels, ordered = TRUE)
 ### Determine Frequencies
 (y_freq <- table(y_df$cat) %>% as.matrix())
 \end{minted}
-\caption{\label{orgdd25aaa}Use Logical Test to Assign observations into bins}
+\caption{\label{org43de4b7}Use Logical Test to Assign observations into bins}
 \end{listing}
 
 \subsubsection{Find the Group frequency}
-\label{sec:org4ec28ef}
-These values may be tabluated in order to count the occurence of users among these categories as shown in listing \ref{org8061ed2} and table \ref{tab:orgc5219a2}.
+\label{sec:org162cd5a}
+These values may be tabluated in order to count the occurence of users among these categories as shown in listing \ref{org25acf6e} and table \ref{tab:orgbde6420}.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -459,11 +468,11 @@ vals
 ## Followers.x              18
 ## followers.y               2
 \end{minted}
-\caption{\label{org8061ed2}Tabulate the binned counts for the distribution of users among among amount and status.}
+\caption{\label{org25acf6e}Tabulate the binned counts for the distribution of users among among amount and status.}
 \end{listing}
 
 \begin{table}[htbp]
-\caption{\label{tab:orgc5219a2}Table of Binned Friend and Follower counts, transposed relative to code.}
+\caption{\label{tab:orgbde6420}Table of Binned Friend and Follower counts, transposed relative to code.}
 \centering
 \begin{tabular}{lrr}
  & \textbf{\textbf{\emph{Followers}}} & \textbf{\textbf{\emph{Friends}}}\\
@@ -478,7 +487,7 @@ vals
 \end{table}
 
 \subsubsection{Find the Expected Counts under each group and test for independence}
-\label{sec:org9a6e320}
+\label{sec:org6ebf0ff}
 The expected count of each cell, under the assumption that the two metrics are
 independent, will be the proportion users per bracket multiplied by the number
 of users in that status group. This implies that any cell will be:
@@ -490,7 +499,7 @@ of users in that status group. This implies that any cell will be:
 This can be equivalently expressed as an outer product as shown in equation
 \eqref{eq:1}, in \textbf{\emph{R}} this operation is denoted by the \texttt{\%o\%} operator, which is
 shorthand for the \texttt{outer()} function, this and other summary statistics may be
-evaluated as shown in listing \ref{orgba15af2}.
+evaluated as shown in listing \ref{org2ee7fc2}.
 
 The outer product is such that:
 
@@ -502,14 +511,14 @@ $$
 This means the matrix of expected frequencies can be expressed as an outer product thusly:
 
 \begin{align}
-\label{eq:org2cf1493}
+\label{eq:org616824e}
 \mathbf{\vec{e}}= \frac{1}{n} \times \begin{bmatrix} \sum^{n}_{j= 1} \left[ o_{1j} \right] \\  \sum^{n}_{j= 1}
 \left[ o_{2j} \right]  \\ \sum^{n}_{j= 1} \left[ o_{3j} \right]   \\
 \sum^{n}_{j= 1} \left[ o_{4j} \right]  \\ \vdots  \\
 \sum^{n}_{j= 1} \left[ o_{nj} \right]     \end{bmatrix}
 \begin{bmatrix}  \sum^{n}_{j= 1} \left[ o_{i1}  \right] \\  \sum^{n}_{j= 1}
 \left[ o_{i2}  \right] \\ \sum^{n}_{j= 1} \left[ o_{i3}  \right] \\ \cdots \\
-\sum^{n}_{j= 1} \left[ o_{in}  \right]   \end{bmatrix}  ^{\normalsize \mathrm{T}} \label{eq:1}
+\sum^{n}_{j= 1} \left[ o_{in}  \right]   \end{bmatrix}  ^{\mathrm{T}} \label{eq:1}
 \end{align}
 
 \begin{listing}[htbp]
@@ -522,16 +531,16 @@ o <- vals
 e <- rowSums(vals) %o% colSums(vals) / n
 chi_obs <- sum((e-o)^2/e)
 \end{minted}
-\caption{\label{orgba15af2}Calculate Expected frequency of values under the assumption of independence.}
+\caption{\label{org2ee7fc2}Calculate Expected frequency of values under the assumption of independence.}
 \end{listing}
 
 \begin{enumerate}
 \item Testing Independence
-\label{sec:orgbbb902c}
+\label{sec:orge878cf8}
 In order to test whether or not the distribution of users among brackets is
 independent of being a follower or friend a \(\chi^{2}\) test may be used, this
 can be evaluated from a model or simulated, in \textbf{\emph{R}}, the simulated test is
-shown in listing \ref{orgfca90d5}, this provides a \(p\) -value < 0.0005, which means that the hypothesis of independence may be rejected with a high degree of certainty.
+shown in listing \ref{org9b0be01}, this provides a \(p\) -value < 0.0005, which means that the hypothesis of independence may be rejected with a high degree of certainty.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -544,18 +553,18 @@ chisq.test(vals, simulate.p.value = TRUE)
 ## data:  vals
 ## X-squared = 88.109, df = NA, p-value = 0.0004998
 \end{minted}
-\caption{\label{orgfca90d5}Chi-Square testing for independence between friend and follower bin categories.}
+\caption{\label{org9b0be01}Chi-Square testing for independence between friend and follower bin categories.}
 \end{listing}
 
 \begin{enumerate}
 \item From First Principles
-\label{sec:org131ff39}
+\label{sec:org4ffd5eb}
 The \(\chi^{2}\) statistic may be performed from first principles by randomly
 sampling the values at the rate at which they occured, tabulating those counts, measuring the \(\chi^{2}\) -value and then repeating this many times.
 
 Because the samples are random they must be independent and average number of
 positives is hence an estimate for the \emph{FPR}, which is in turn an estimate for
-the \(p\) -value. This technique is demonstrated in listing \ref{org47bbf7e}, the p-value
+the \(p\) -value. This technique is demonstrated in listing \ref{orgca8430f}, the p-value
 being returned as 0.0004, this value is consistent with the value produced by
 \textbf{\emph{R}}'s built in \texttt{chisq.test} function and so is accepted.
 
@@ -597,21 +606,21 @@ mean(s)
 
 ## [1] 4e-04
 \end{minted}
-\caption{\label{org47bbf7e}Performing a \(\chi^{2}\) statistic from first principles}
+\caption{\label{orgca8430f}Performing a \(\chi^{2}\) statistic from first principles}
 \end{listing}
 \end{enumerate}
 \end{enumerate}
 \subsubsection{{\bfseries\sffamily FIXME} Conclusion}
-\label{sec:org9c1fccf}
+\label{sec:orgb7198ac}
 The \(p\) -value measures the probability of rejecting the null hypothesis when it is true, i.e. the probability of a detecting a \emph{false positive}, a very small \(p\) -value is hence good evidence that the null hypothesis should be rejected (because doing so would unlikely to be a mistake).
 
 In saying that however the \(p\) -value is distinct from the \emph{power} statistic, which is a measure of \emph{/the probability of accepting the alternative hypothesis} when it is true, a low \(p\) -value is not a measurement of the probability of being correct.
 
 Hence me way conclude, with a high degree of certainty, that the follower and friend counts are not independent of one another.
 \section{8.2 Finding Themes in tweets}
-\label{sec:orgd8cc4c6}
+\label{sec:orga99f593}
 \subsection{8.2.8 Find Users with Above Average Friend Counts}
-\label{sec:org841f22c}
+\label{sec:orgdbb9686}
 Users with Above average Friend Counts can be identified by filtering the tweets
 data frame for two conditions:
 
@@ -620,7 +629,7 @@ data frame for two conditions:
 \item \texttt{friend\_count} greater than average
 \end{enumerate}
 
-This can be acheived easily using the \texttt{dplyr} package as shown in \ref{orge6b70d0}, the top 20 of these users are shown in table \ref{tab:org876095a} of the appendix
+This can be acheived easily using the \texttt{dplyr} package as shown in \ref{org0e0007b}, the top 20 of these users are shown in table \ref{tab:orga91025a} of the appendix
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -639,13 +648,12 @@ write.csv(high_friends[order(
   high_friends$friends_count,
   decreasing = TRUE),], file = "/tmp/highfriend.csv")
 \end{minted}
-\caption{\label{orge6b70d0}Use \texttt{dplyr} to Filter for Users with a high Friend Count}
+\caption{\label{org0e0007b}Use \texttt{dplyr} to Filter for Users with a high Friend Count}
 \end{listing}
 
-
 \subsection{8.2.9 Find Users with Below Average Friend Counts}
-\label{sec:org21fb269}
-Users with high friends may be determined by a similar method (or by taking the complement of the high friends) as shown in listing \ref{org4949778}, the lowest 20 of these users are shown in table \ref{tab:org4b0a133} of the appendix.
+\label{sec:org7582360}
+Users with high friends may be determined by a similar method (or by taking the complement of the high friends) as shown in listing \ref{org1245ad4}, the lowest 20 of these users are shown in table \ref{tab:orgeefea2e} of the appendix.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -661,16 +669,16 @@ write.csv(low_friends[order(
   low_friends$friends_count,
   decreasing = FALSE),], file = "/tmp/lowfriend.csv")
 \end{minted}
-\caption{\label{org4949778}Use \texttt{dplyr} to Filter for Users with a low Friend Count}
+\caption{\label{org1245ad4}Use \texttt{dplyr} to Filter for Users with a low Friend Count}
 \end{listing}
 
 \subsection{8.2.10 Find the \emph{Tweets} corresponding to users with high or low friend counts}
-\label{sec:orgaf31b9a}
+\label{sec:org0d98676}
 The tweets corresponding to users with high and low friend counts can be
 identified by filtering the dataframe based on the friend count and using that
-to the index the tweets from the data frame \footnote{This works because the \texttt{tm} package preserves the order of the data, this can be confirmed by using a dataframe source as opposed to a vector source (e.g. in listing \ref{org99b939c}) and comparing the ID's before/after transformation.}, alternatively it is possible
+to the index the tweets from the data frame \footnote{This works because the \texttt{tm} package preserves the order of the data, this can be confirmed by using a dataframe source as opposed to a vector source (e.g. in listing \ref{org28e15ee}) and comparing the ID's before/after transformation.}, alternatively it is possible
 to test whether or not the ID of a user appears in the high or low vector
-set using the \texttt{\%in\%} operator as shown in listing \ref{orgfab0c89}.
+set using the \texttt{\%in\%} operator as shown in listing \ref{orga0516c4}.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -690,26 +698,26 @@ tweets_high <- cbind(tweets_high, rep("High_Friend", length(tweets_high)))
 tweets <- as.data.frame(rbind(tweets_high, tweets_low))
 tweets$Friend_Status  <- factor(tweets$Friend_Status)
 \end{minted}
-\caption{\label{orgfab0c89}Identify tweets corresponding to users with high and low friend counts}
+\caption{\label{orga0516c4}Identify tweets corresponding to users with high and low friend counts}
 \end{listing}
 
 \subsection{8.2.11 Clean the tweets}
-\label{sec:orga0915c4}
+\label{sec:orga69877a}
 \subsubsection{Create a Corpus Object}
-\label{sec:orga383ea9}
-In order to clean the tweets it is necessary to create a corpus object as shown in listing \ref{org99b939c}, it is possible to pass a dataframe source in order to include the user ID, this isn't strictly necessary however because the \texttt{tm} package preserves order when performing transformations.
+\label{sec:orgbacf813}
+In order to clean the tweets it is necessary to create a corpus object as shown in listing \ref{org28e15ee}, it is possible to pass a dataframe source in order to include the user ID, this isn't strictly necessary however because the \texttt{tm} package preserves order when performing transformations.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
 tweet_source <- tm::VectorSource(tweets$text)
 tweet_corpus <- tm::Corpus(x = tweet_source)
 \end{minted}
-\caption{\label{org99b939c}Create a Corpus from the tweets}
+\caption{\label{org28e15ee}Create a Corpus from the tweets}
 \end{listing}
 
 Next it is necessary to choose an enoding, a primary consideration of this is whether or not the use of \emph{emoji} characters will influence the model performance. There is research to suggest that Emoji's can be used as predictive features \cite{lecompte2017} and that they can improve \emph{sentiment analysis} models \cite{shiha2017} that implement a \emph{bag of words} approach. For these reasons \emph{emoji} characters will be preserved and \href{http://www.utf-8.com/}{UTF-8} implemented.
 
-In order to encode the data as \emph{UTF-8}, the \texttt{iconv} function can be used as shown in listing \ref{org2e700d6}.
+In order to encode the data as \emph{UTF-8}, the \texttt{iconv} function can be used as shown in listing \ref{org6173f55}.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -722,11 +730,11 @@ encode <- function(x) {
 tweet_corpus <- tm_map(x = tweet_corpus, FUN = encode)
 tweet_corpus_raw <- tweet_corpus
 \end{minted}
-\caption{\label{org2e700d6}Encode the Data as UTF-8}
+\caption{\label{org6173f55}Encode the Data as UTF-8}
 \end{listing}
 
 \subsubsection{Process the tweets}
-\label{sec:org93b639e}
+\label{sec:org185cc6a}
 Before analysis the tweets should be modified to remove characters that may interfere with categorising words, this is referred to as cleaning, in particular the following should be implemented:
 
 \begin{enumerate}
@@ -744,7 +752,7 @@ In particular it is important to reduce words to lower case before removing stop
 
 The stop word \texttt{ubisoft} will also be used, this was the query term so it's expected to turn up at a very high frequency, the words \texttt{can} and \texttt{'s} also occured quite frequently and so were removed.
 
-The cleaning can be implemented by mapping functions over the corpus, which is fundamentally a list, this can be performed via the \texttt{tm\_map} function as shown in listing \ref{orgd17978e}.
+The cleaning can be implemented by mapping functions over the corpus, which is fundamentally a list, this can be performed via the \texttt{tm\_map} function as shown in listing \ref{org0f1245d}.
 
 
 
@@ -770,15 +778,15 @@ clean_corp <- function(corpus) {
 
 tweet_corpus_clean <- clean_corp(tweet_corpus)
 \end{minted}
-\caption{\label{orgd17978e}Use the \texttt{tm\_map} function to clean the tweets}
+\caption{\label{org0f1245d}Use the \texttt{tm\_map} function to clean the tweets}
 \end{listing}
 
 \subsection{8.2.12 Display the first two tweets before/after processing}
-\label{sec:org3a7d5f1}
+\label{sec:org6a0c04c}
 The tweets can be viewed from inside the corpus by selecting with the \texttt{[} function \footnote{The \texttt{[} function is actually shorthand for \texttt{Extract()}, most things in
 \textbf{\emph{R}} are functions, this is similar to \emph{LISP} and has to do with the origins of
 the language, e.g. \texttt{sum(1:10) == (sum (1:10))}, also relevant see the relevant
-xkcd in figure \ref{fig:orga9eb8b6}.} as demonstrated in listing \ref{orge666a7c}, the first \emph{tweet} was rendered empty by the processing and the following two tweets were:
+xkcd in figure \ref{fig:org6679179}.} as demonstrated in listing \ref{orgd73a809}, the first \emph{tweet} was rendered empty by the processing and the following two tweets were:
 
 \begin{itemize}
 \item \textbf{\emph{Pre-Processing}}
@@ -810,29 +818,29 @@ tweet_corpus_clean[[2]]$content
 tweet_corpus_raw[[3]]$content
 tweet_corpus_clean[[3]]$content
 \end{minted}
-\caption{\label{orge666a7c}Load the Packages for \textbf{\textbf{\emph{R}}}}
+\caption{\label{orgd73a809}Load the Packages for \textbf{\textbf{\emph{R}}}}
 \end{listing}
 
 \subsection{8.2.13 Create a Term Document Matrix}
-\label{sec:orgde22f22}
+\label{sec:org2fdcaac}
 \subsubsection{Apply Weighting Manually}
-\label{sec:orgcc5df4b}
+\label{sec:orge66e7e9}
 \begin{enumerate}
 \item Create Term Documen Matrix
-\label{sec:orgb8dd6f5}
+\label{sec:org65753ee}
 A term Document matrix (and it's transpose) can be constructed from a \texttt{corpus} using the
-\texttt{tm:TermDocumentMatrix} function as shown in listing \ref{org0c7462b}.
+\texttt{tm:TermDocumentMatrix} function as shown in listing \ref{org160ec22}.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
 tweet_matrix_tdm <- TermDocumentMatrix(tweet_corpus_clean)
 tweet_matrix_dtm <- DocumentTermMatrix(tweet_corpus_clean)
 \end{minted}
-\caption{\label{org0c7462b}Load the Packages for \textbf{\textbf{\emph{R}}}}
+\caption{\label{org160ec22}Load the Packages for \textbf{\textbf{\emph{R}}}}
 \end{listing}
 
 \item Apply TF-IDF Weighting
-\label{sec:org49c40c3}
+\label{sec:org08afb94}
 Weighted term frequency is defined as shown in equation \eqref{tfidf}, where:
 
 \begin{itemize}
@@ -847,7 +855,7 @@ w_{d, t} &=\mathrm{TF}_{t} \times \mathrm{IDF}_{d, t} \\
 &=\log _{e}\left(f_{d, t}+1\right) \log _{e}\left(\frac{N}{f_{t}}\right) \label{tfidf}
 \end{aligned}\end{equation}
 
-This would requre multiplying each term of each row of the \(\mathrm{TF}_{t}\) matrix by the corresponding vector element of \(\mathrm{IDF}_{d,t}\), this can be implemented by taking the matrix product of a diagonalised matrix, this is shown in listing \ref{org12df63a}.
+This would requre multiplying each term of each row of the \(\mathrm{TF}_{t}\) matrix by the corresponding vector element of \(\mathrm{IDF}_{d,t}\), this can be implemented by taking the matrix product of a diagonalised matrix, this is shown in listing \ref{org9098be0}.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -860,15 +868,15 @@ IDF <- log(N/ft)
 tweet_weighted           <- TF %*% diag(IDF)
 colnames(tweet_weighted) <- colnames(tweet_matrix_dtm)
 \end{minted}
-\caption{\label{org12df63a}Apply TF-IDF Weigting}
+\caption{\label{org9098be0}Apply TF-IDF Weigting}
 \end{listing}
 
 There is however a function built in to the \texttt{tm} package that will weight term document matrices and this will instead be implented to analyse the data because it will produce more maintainable code.
 \end{enumerate}
 
 \subsubsection{Apply Weighting with Built in Function}
-\label{sec:orgf994c06}
-In order to create a term document matrix (and its transpose) with TF-IDF weighted values, the \texttt{weighting} argument may be specified as \texttt{weightTfIdf} by passing an appropriate list to the \texttt{control} argument of the \texttt{TermDocumentMatrix}, as shown in listing \ref{orgb7dc32c}
+\label{sec:orgc3dc22e}
+In order to create a term document matrix (and its transpose) with TF-IDF weighted values, the \texttt{weighting} argument may be specified as \texttt{weightTfIdf} by passing an appropriate list to the \texttt{control} argument of the \texttt{TermDocumentMatrix}, as shown in listing \ref{org0edc42f}
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -876,13 +884,13 @@ tweet_weighted_tdm <- tm::TermDocumentMatrix(x = tweet_corpus_clean, control = l
 tweet_weighted_dtm <- as.DocumentTermMatrix()  %>%
                         as.matrix()
 \end{minted}
-\caption{\label{orgb7dc32c}Create a Document Term Matrix by transforming a Term Document Matrix}
+\caption{\label{org0edc42f}Create a Document Term Matrix by transforming a Term Document Matrix}
 \end{listing}
 
 \subsubsection{Remove Empty Documents}
-\label{sec:org2bacc86}
-Empty Documents may be removed from the matrix by a logical test as shown in listing  \ref{org3bba59f} \footnote{It is important not to filter based the logic of an empty vector, because
-otherwise an empty vector will returned, hence the if statement in listing \ref{org3bba59f}.} this provides that 328 documents were empty following the processing. A summary of the first rows and columns of this matrix, following the removal of empty documents, is provided in table \ref{tab:orgeba235a} of the appendix.
+\label{sec:orge96f9d1}
+Empty Documents may be removed from the matrix by a logical test as shown in listing  \ref{org34fca74} \footnote{It is important not to filter based the logic of an empty vector, because
+otherwise an empty vector will returned, hence the if statement in listing \ref{org34fca74}.} this provides that 328 documents were empty following the processing. A summary of the first rows and columns of this matrix, following the removal of empty documents, is provided in table \ref{tab:orgdc9bfac} of the appendix.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -897,13 +905,13 @@ length(null)
 
 ## [1] 328
 \end{minted}
-\caption{\label{org3bba59f}Load the Packages for \textbf{\textbf{\emph{R}}}}
+\caption{\label{org34fca74}Load the Packages for \textbf{\textbf{\emph{R}}}}
 \end{listing}
 \subsection{8.2.14 How many Clusters are there}
-\label{sec:org2cdd52a}
+\label{sec:org5c847ed}
 \subsubsection{Use Cosine Distance}
-\label{sec:orgadea631}
-In order to consider clustering, it can be more effective to consider the distance between the weigted documents in terms of cosine distance, the cosine distance can be calculated from the euclidean distance using the identity shown in \eqref{cos}, and this can be performed in \textbf{\emph{R}} by taking the matrix product of a diagonalised matrix as shown in listing \ref{org7a1f206}.
+\label{sec:org871f72f}
+In order to consider clustering, it can be more effective to consider the distance between the weigted documents in terms of cosine distance, the cosine distance can be calculated from the euclidean distance using the identity shown in \eqref{cos}, and this can be performed in \textbf{\emph{R}} by taking the matrix product of a diagonalised matrix as shown in listing \ref{org7696fbf}.
 
 \begin{align}
 \mathrm{dist}\left( \mathbf{X}, \mathbf{Y} \right)= \left| \left| \mathbf{X}-\mathbf{Y} \right| \right| \\
@@ -924,12 +932,12 @@ norm.tweet_weighted_dtm = diag(
                     ) %*% tweet_weighted_dtm
 D =dist(norm.tweet_weighted_dtm, method = "euclidean")^2/2
 \end{minted}
-\caption{\label{org7a1f206}Load the Packages for \textbf{\textbf{\emph{R}}}}
+\caption{\label{org7696fbf}Load the Packages for \textbf{\textbf{\emph{R}}}}
 \end{listing}
 
 \subsubsection{Project into Euclidean Space}
-\label{sec:org0dede0b}
-The cosine distance however is not appropriate to perform clustering on and so instead should be projected back into euclidean space, this can be acheived using \emph{Multi-Dimensional Scaling} via the \texttt{cmdscale} functionas shown in listing \ref{orgb227400}. The distance is a measure of between document distance so the number of dimensions should correspond to the number of documents, however, if there are zero-value eigenvalues, these dimensions won't help explain the data in the projection, hence the number of eigenvalues has been used as the dimension of projection in this case.
+\label{sec:orga8ec7be}
+The cosine distance however is not appropriate to perform clustering on and so instead should be projected back into euclidean space, this can be acheived using \emph{Multi-Dimensional Scaling} via the \texttt{cmdscale} functionas shown in listing \ref{org84ff311}. The distance is a measure of between document distance so the number of dimensions should correspond to the number of documents, however, if there are zero-value eigenvalues, these dimensions won't help explain the data in the projection, hence the number of eigenvalues has been used as the dimension of projection in this case.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -940,15 +948,15 @@ k <- (ev$values != 0) %>% sum()
 
 mds.tweet_weighted_dtm <- cmdscale(D, k=k) #TODO What should K be? see issue #10
 \end{minted}
-\caption{\label{orgb227400}Load the Packages for \textbf{\textbf{\emph{R}}}}
+\caption{\label{org84ff311}Load the Packages for \textbf{\textbf{\emph{R}}}}
 \end{listing}
 
 \subsubsection{Measure Within Cluster Variance}
-\label{sec:orgc78e726}
+\label{sec:org97f452e}
 In order to determine the appropriate number of clusters, the within cluster
 variance can be measurd, the number of clusters at which this value ceases to
 decrease is indicative of a potentially appropriate number of clusters. This is
-implemented in listing \ref{orge6531f1} and shown in figure \ref{fig:orga698b06}.
+implemented in listing \ref{orgdc645fe} and shown in figure \ref{fig:org8146977}.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -973,32 +981,32 @@ ggplot(SSW_tb, aes(x = name, y = value)) +
        y = "Within Cluster Sum of Square Distance",
        title = "Within Cluster Variance across Clusters")
 \end{minted}
-\caption{\label{orge6531f1}Use a loop to evaluate the performace of various cluster models, plot this with \emph{ggplot2}}
+\caption{\label{orgdc645fe}Use a loop to evaluate the performace of various cluster models, plot this with \emph{ggplot2}}
 \end{listing}
 
-Figure \ref{fig:orga698b06} Indicates a sudden stop of decrease in variance at 7 clusters and following that the within cluster variance begins to decrease at a slightly slower rate. For this reason 7 could be an appropriate candidate for the number of clusters, however the minimal amount of change in the within-cluster variance indicates that the data is most likely not clustered at all.
+Figure \ref{fig:org8146977} Indicates a sudden stop of decrease in variance at 7 clusters and following that the within cluster variance begins to decrease at a slightly slower rate. For this reason 7 could be an appropriate candidate for the number of clusters, however the minimal amount of change in the within-cluster variance indicates that the data is most likely not clustered at all.
 
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=10cm]{./Figures/Q14WithinClusterVariance.png}
-\caption{\label{fig:orga698b06}Plot of the Within Cluster Variance of the tweets using cosine distance (projected into Euclidean Space)}
+\caption{\label{fig:org8146977}Plot of the Within Cluster Variance of the tweets using cosine distance (projected into Euclidean Space)}
 \end{figure}
 
 \subsection{8.2.15 Find the Number of tweets in each cluster}
-\label{sec:orgda0fb09}
-Moving forward we'll use 3 clusters, 7 is too large and a smaller number will likely be more effective at categorising the data (particularly given that the stratification of the data appears to be quite limited from figure \ref{fig:orga698b06}). The number of tweets in a cluster may be measured by using the \texttt{table} function as shown in listing \ref{org26993db} and table \ref{tab:org429b520}.
+\label{sec:org81b9076}
+Moving forward we'll use 3 clusters, 7 is too large and a smaller number will likely be more effective at categorising the data (particularly given that the stratification of the data appears to be quite limited from figure \ref{fig:org8146977}). The number of tweets in a cluster may be measured by using the \texttt{table} function as shown in listing \ref{org96775da} and table \ref{tab:org9e87b6b}.
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
 K = kmeans(mds.tweet_weighted_dtm, 3, nstart = 20)
 table(K$cluster)
 \end{minted}
-\caption{\label{org26993db}The \texttt{table} function can count the number of tweets per cluster.}
+\caption{\label{org96775da}The \texttt{table} function can count the number of tweets per cluster.}
 \end{listing}
 
 \begin{table}[htbp]
-\caption{\label{tab:org429b520}Number of tweets in each cluster identified by \(k\) means clustering}
+\caption{\label{tab:org9e87b6b}Number of tweets in each cluster identified by \(k\) means clustering}
 \centering
 \begin{tabular}{lrrr}
 Cluster & 1 & 2 & 3\\
@@ -1008,14 +1016,15 @@ Cluster & 1 & 2 & 3\\
 \end{table}
 
 \subsection{8.2.16 Visualise the Clusters}
-\label{sec:orgde77dca}
+\label{sec:orgf115c56}
 The clusters can be projected into 2D \emph{Euclidean}-Space using \emph{Multi-Dimensional
 Scaling}, these dimensions would represent the first two principle components of
 the cosine distance of the weigted tweets. This is demonstrated in listings
-\ref{org65d0e1f}. A plot of the friend countstaus mapped to shape and clusters mapped to
-colour is demonstrated in listing \ref{orgf9fdd22} shown in \ref{fig:orgfea885f}, In order to get a better
+\ref{orge66b90a}. A plot of the friend countstaus mapped to shape and clusters mapped to
+colour is demonstrated in listing \ref{orgef8dfd2} shown in \ref{fig:orga00fc7f}, In order to get a better
 understanding of the distribution of friend counts a plot of the friend count
-status mapped to colour is demonstrated in listing \ref{orgc7bc13b} and shown in figure \ref{fig:orgfea885f}.
+status mapped to colour is demonstrated in listing \ref{org6dc72b5} and shown in figure \ref{fig:orga00fc7f}.
+
 
 \begin{listing}[htbp]
 \begin{minted}[]{r}
@@ -1030,7 +1039,7 @@ mds_data <- cbind(MDS_Euclid_2D[,1:2], "Cluster" = K$cluster, tweets[-null,])
 mds_data$Cluster       <- factor(mds_data$Cluster)
 names(mds_data)[1:2] <- c("MDS1", "MDS2")
 \end{minted}
-\caption{\label{org65d0e1f}Use \emph{Multi-Dimensional} scaling to project the data into 2 dimensions}
+\caption{\label{orge66b90a}Use \emph{Multi-Dimensional} scaling to project the data into 2 dimensions}
 \end{listing}
 
 \begin{listing}[htbp]
@@ -1044,7 +1053,7 @@ ggplot(pca_data, aes(x = MDS1, y = MDS2, col = Friend_Status)) +
   scale_color_discrete(label = c("High Friends", "Low Friends")) +
   guides(col = guide_legend("Friend Count \n Status"))
 \end{minted}
-\caption{\label{orgc7bc13b}Create a plot of the distribution of Friends among Clusters as shown in figure \ref{fig:org08d24a8}}
+\caption{\label{org6dc72b5}Create a plot of the distribution of Friends among Clusters as shown in figure \ref{fig:orgf3b4e3e}}
 \end{listing}
 
 \begin{listing}[htbp]
@@ -1058,28 +1067,229 @@ ggplot(pca_data, aes(x = MDS1, y = MDS2, col = Cluster)) +
   scale_shape_discrete(label = c("High Friends", "Low Friends")) +
   guides(shape = guide_legend("Friend Count \n Status"))
 \end{minted}
-\caption{\label{orgf9fdd22}Create a plot of the distribution of Friends Count Status as shown in figure \ref{fig:orgfea885f}}
+\caption{\label{orgef8dfd2}Create a plot of the distribution of Friends Count Status as shown in figure \ref{fig:orga00fc7f}}
 \end{listing}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=9cm]{./Figures/betclustplot8216.png}
-\caption{\label{fig:org08d24a8}Distribution of Friend Count Status over Clusters}
+\caption{\label{fig:orgf3b4e3e}Distribution of Friend Count Status over Clusters}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=9cm]{./Figures/betfriendplot8216.png}
-\caption{\label{fig:orgfea885f}Distribution of Friend Count Status}
+\caption{\label{fig:orga00fc7f}Distribution of Friend Count Status}
 \end{figure}
 
-\section{Appendix}
-\label{sec:orgdf833d6}
-\subsection{Users with High Friend Count}
-\label{sec:orgbbdc172}
+\subsection{8.2.17 Comment on the Visualisation}
+\label{sec:orge748ba5}
+Figure \ref{fig:orgf3b4e3e} indicates that altough there isn't a clear distinction between
+clusters there is seperation of the tweets in such a way that does allow some
+degree of classification to occur. Figure \ref{fig:orgf3b4e3e} and \ref{fig:orga00fc7f} both indicate that having
+many or few friends is reasonably independent of the cluster that the tweet
+belongs to.
+\subsection{8.2.18 Cluster with Highest Number Friends}
+\label{sec:org4204e6f}
+The Number of above or below friends corresponsing to a given cluster can be tabulated by using the \texttt{table} function as shown in listing \ref{org1db8c28} and table \ref{tab:org157e2f4}, this indicates that there is a difference in the proportion of users with above average friend counts between clusters with cluster \texttt{\#1} having the highest proportion of users with above average friend counts.
+
+\begin{listing}[htbp]
+\begin{minted}[]{r}
+(clust_friend <- table(
+  pca_data[,names(pca_data) %in% c("Cluster", "Friend_Status")])
+)
+
+cbind(clust_friend,
+        "Proportion" = signif(
+            (clust_friend[,1] / rowSums(clust_friend)),
+            2)
+      )
+\end{minted}
+\caption{\label{org1db8c28}Tabulate the distribution of friends in}
+\end{listing}
 
 \begin{table}[htbp]
-\caption{\label{tab:org876095a}User ID and Friend Count of users with above highest friend count in sample}
+\caption{\label{tab:org157e2f4}Above Average Friend Counts Across Clusters}
+\centering
+\begin{tabular}{lrrr}
+\textbf{\emph{Cluster}} & \textbf{\emph{Above Average}} & \textbf{\emph{Below Average}} & \textbf{\emph{Proportion}}\\
+\texttt{1} & 17 & 27 & 0.39\\
+\texttt{2} & 141 & 407 & 0.26\\
+\texttt{3} & 16 & 64 & 0.20\\
+\end{tabular}
+\end{table}
+
+\subsection{8.2.18 Sample Tweets from cluster}
+\label{sec:org9dcd5b8}
+Tweets can be sampled from the clusters by using the \texttt{sample} function with a logical test, this can be combined with a \texttt{for} loop as shown in listing \ref{org0a123e9}, this provides the following output.
+
+
+\begin{quote}
+\begin{itemize}
+\item \textbf{Cluster 1}
+\begin{itemize}
+\item \href{https://twitter.com/search?q=\%40BelovedOfBayek\&src=typed\_query}{@BelovedOfBayek}
+ \href{https://twitter.com/search?q=\%40BayekOfSiwa\&src=typed\_query}{@BayekOfSiwa} \href{https://twitter.com/search?q=\%40assassinscreed\&src=typed\_query}{@assassinscreed} \href{https://twitter.com/search?q=\%40Ubisoft\&src=typed\_query}{@Ubisoft} \href{https://twitter.com/search?q=\%40UbisoftMTL\&src=typed\_query}{@UbisoftMTL}
+\href{https://twitter.com/search?q=\%40Captured\_Collec\&src=typed\_query}{@Captured\textsubscript{Collec}} \href{https://twitter.com/search?q=\%40GamerGram\_GG\&src=typed\_query}{@GamerGram\textsubscript{GG}} \href{https://twitter.com/search?q=\%40\_GameScreenshot\&src=typed\_query}{@\textsubscript{GameScreenshot}} And those smiles - and
+love - are contagious. Believe me, it makes me very happy! What you have is
+special! 💗 \textasciitilde{} Steffi
+\item \href{https://twitter.com/search?q=\%40Ubisoft}{@Ubisoft} why is it wen I headshot sumone why don’t it register a headshot
+is a 1 shot kill fix your game sir
+\item \href{https://twitter.com/search?q=\%40BikiniBodhi}{@BikiniBodhi} I think we need another movement going. Obviously Ubisoft
+already has plans for the next few releases of ops but we really need an Op
+whose ability is to reinforce more walls than others. Especially another
+castle on the team but for walls. Like 4 walls instead of 2.
+\item The United Arab Emirates logged into my Ubisoft account. For why?
+\item \href{https://twitter.com/search?q=\%40Atalagummy}{@Atalagummy} Está gratis este finde en lo de ubisoft creo
+\end{itemize}
+\item \textbf{Cluster 2}
+\begin{itemize}
+\item Here's everything you need to know about Ubisoft's Watch Dogs Legion in
+Hindi - Release date, Story - Everything we know about it till now.
+\url{https://t.co/B4lMshJdqw} via \href{https://twitter.com/search?q=\%40YouTube}{@YouTube}
+\item \href{https://twitter.com/search?q=\%40Rainbow6Game}{@Rainbow6Game} \href{https://twitter.com/search?q=\%40TheGodlyNoob}{@TheGodlyNoob} I have never seen a game company ruin their
+reputation so fast and so careless as Ubisoft
+\item tiltei com a ubisoft, dei block na minha conta sem querer, to mt puto, real
+\item My first game that really hyped me was a game called rolling thunder back in
+the 80’s \url{https://t.co/mPWim2hwVY}
+\item \href{https://twitter.com/search?q=\%40videogamemorals}{@videogamemorals} \href{https://twitter.com/search?q=\%40PartisanClown}{@PartisanClown} \Two more remakes of Lunar: The Silver
+Star, Lunar Legend and Lunar: Silver Star Harmony, were released in 2002
+by Media Rings and Ubisoft and in 2009 by GungHo Online
+Entertainment and Xseed Games, respectively.$\backslash$
+\end{itemize}
+\item \textbf{Cluster 3}
+\begin{itemize}
+\item \href{https://twitter.com/search?q=\%40Ubisoft}{@Ubisoft} \href{https://twitter.com/search?q=\%40UbisoftSupport}{@UbisoftSupport} crossplay between xbox and pc for Division 2
+please?
+\item \href{https://twitter.com/search?q=\%40tornado\_raphi}{@tornado\textsubscript{raphi}} \href{https://twitter.com/search?q=\%40Ubisoft}{@Ubisoft} \href{https://twitter.com/search?q=\%40UbisoftDE}{@UbisoftDE} Haha wollte auch einmal schlau sein
+:(
+\item \texttt{@Ubisoft} I was in the middle in a game waiting for us to spawn in and it
+took forever and it somehow kicked me from the game for inactivity. Anyway to
+fix this \url{https://t.co/Uz1yZ73R4M}
+\item \href{https://twitter.com/search?q=\%40Operatedleech87}{@Operatedleech87} Yo lo veia al revez algo de Ubisoft en Girls Frontline,
+pero igual un juego en consola jalaria.
+\item \href{https://twitter.com/search?q=\%40VGPNetwork}{@VGPNetwork} \href{https://twitter.com/search?q=\%40GamerGram\_GG}{@GamerGram\textsubscript{GG}} \href{https://twitter.com/search?q=\%40Ubisoft}{@Ubisoft} Haha.. I love that film!
+\end{itemize}
+\end{itemize}
+\end{quote}
+
+
+\begin{listing}[htbp]
+\begin{minted}[]{r}
+set.seed(8923)
+  for(i in 1:3) {
+    n <- sample(which(pca_data$Cluster == i), size = 5)
+    print(tweets$text[n])
+    print("===========================")
+    print("===========================")
+  }
+\end{minted}
+\caption{\label{org0a123e9}Sample Tweets from the Individual Clusters}
+\end{listing}
+
+\subsection{8.2.19 Identify themes in the Tweets}
+\label{sec:org7f99ff6}
+It appears that the first cluster of tweets is themed around newer games such as \emph{The Division 2}, cluster 2 appears to be focused on games generally and in particular \emph{Rainbow 6}, and finally, cluster 3 appears to be concerned with general discussion.
+
+\subsection{8.2.20 Create WordClouds}
+\label{sec:orgb09a683}
+Creating a wordcloud from the stemmed words will make for a poor visualisation
+while creating a wordcloud based merely on the frequency of words will poorly
+identify words central to the theme of the cluster.
+
+In light of this, the most appropriate method to generate wordclouds for the
+purpose visualisising the themes of the clusters is to create a document term
+matrix based on a corpus cleaned without word stemming as shown in listing \ref{org5fa03af}.
+Following that wordclouds can then be generated by indexing for the cluster,
+this is demonstrated in listing \ref{orgdddaf0c} and shown in figures \ref{fig:orgfceeaed}, \ref{fig:org10dec0b} and \ref{fig:org3586d94}.
+
+
+\begin{listing}[htbp]
+\begin{minted}[]{r}
+clean_corp_ns <- function(corpus) {
+  ## Remove URL's
+  corpus <- tm_map(corpus,content_transformer(
+    function(x) gsub("(f|ht)tp(s?)://\\S+","",x)))
+  ## Remove Usernames
+  corpus <- tm_map(corpus,content_transformer(function(x) gsub("@\\w+","",x)))
+  ## Misc
+  corpus <- tm_map(corpus, FUN = removeNumbers)
+  corpus <- tm_map(corpus, FUN = removePunctuation)
+  corpus <- tm_map(corpus, FUN = stripWhitespace)
+  corpus <- tm_map(corpus, FUN = tolower)
+  corpus <- tm_map(corpus, FUN = removeWords, mystop)
+  ## stopwords() returns characters and is fead as second argument
+  return(corpus)
+}
+
+tweet_corpus_clean_ns <- clean_corp(tweet_corpus)
+
+tweet_raw_dtm <- tm::TermDocumentMatrix(x = tweet_corpus_ns,
+   control = list(weighting = weightTfIdf)) %>%
+  as.DocumentTermMatrix()  %>%
+  as.matrix()
+
+null = which(rowSums(as.matrix(tweet_matrix_dtm)) == 0)
+length(null)
+
+(rowSums(as.matrix(tweet_matrix_dtm))) %>% table()
+if(length(null)!=0){
+  tweet_matrix_dtm = tweet_matrix_dtm[-null,]
+}
+
+\end{minted}
+\caption{\label{org5fa03af}Apply \emph{TF-IDF} weighting to an unstemmed corpus and then use a \texttt{for} loop to create wordclouds corresponding to each cluster.}
+\end{listing}
+
+\begin{listing}[htbp]
+\begin{minted}[]{r}
+i <- 1
+
+for (i in seq_len(3)) {
+  n <- which(pca_data$Cluster == i)
+
+  (relevant <- sort(apply(tweet_raw_dtm[n,], 2, mean),
+    decreasing = TRUE)[1:30]) %>% head()
+
+  p <- brewer.pal(n = 5, name = "Set2")
+    wordcloud(
+    words = names(relevant),
+    freq = relevant,
+    colors = p,
+    random.color = FALSE
+  )
+
+}
+\end{minted}
+\caption{\label{orgdddaf0c}Apply \emph{TF-IDF} weighting to an unstemmed corpus and then use a \texttt{for} loop to create wordclouds corresponding to each cluster.}
+\end{listing}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=8cm]{./Figures/Cluster1Cloud.png}
+\caption{\label{fig:orgfceeaed}Wordcloud of Cluster =\#=1 using \emph{TF-IDF} weighting}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=14cm]{./Figures/Cluster2Cloud.png}
+\caption{\label{fig:org10dec0b}Wordcloud of Cluster =\#=2 using \emph{TF-IDF} weighting}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=10cm]{./Figures/Cluster3Cloud.png}
+\caption{\label{fig:org3586d94}Wordcloud of Cluster =\#=3 using \emph{TF-IDF} weighting}
+\end{figure}
+
+
+\section{Appendix}
+\label{sec:org1cfa227}
+\subsection{Users with High Friend Count}
+\label{sec:orge3adb16}
+
+\begin{table}[htbp]
+\caption{\label{tab:orga91025a}User ID and Friend Count of users with above highest friend count in sample}
 \centering
 \begin{tabular}{rr}
 \textbf{\emph{User ID}} & \textbf{\emph{Friend Count}}\\
@@ -1107,9 +1317,9 @@ ggplot(pca_data, aes(x = MDS1, y = MDS2, col = Cluster)) +
 \end{tabular}
 \end{table}
 \subsection{Users with Low Friend Count}
-\label{sec:org00658cf}
+\label{sec:orgbfecc84}
 \begin{table}[htbp]
-\caption{\label{tab:org4b0a133}User ID and Friend Count of users with above highest friend count in sample}
+\caption{\label{tab:orgeefea2e}User ID and Friend Count of users with above highest friend count in sample}
 \centering
 \begin{tabular}{rr}
 \textbf{\emph{User ID}} & \textbf{\emph{Friend Count}}\\
@@ -1138,10 +1348,10 @@ ggplot(pca_data, aes(x = MDS1, y = MDS2, col = Cluster)) +
 \end{table}
 
 \subsection{TF-IDF Matrix}
-\label{sec:org6a32522}
+\label{sec:orgc088d56}
 
 \begin{table}[htbp]
-\caption{\label{tab:orgeba235a}Document Term Matrix of first 6 documents and first 6 Words}
+\caption{\label{tab:orgdc9bfac}Document Term Matrix of first 6 documents and first 6 Words}
 \centering
 \begin{tabular}{rrrrrr}
 \textbf{\textbf{check}} & \textbf{\textbf{coronavirus}} & \textbf{\textbf{death}} & \textbf{\textbf{first}} & \textbf{\textbf{gone}} & \textbf{\textbf{hour}}\\
@@ -1155,10 +1365,10 @@ ggplot(pca_data, aes(x = MDS1, y = MDS2, col = Cluster)) +
 \end{tabular}
 \end{table}
 \subsection{Relevant XKCD}
-\label{sec:orgcfed0a2}
+\label{sec:orgd580d22}
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=7cm]{./Figures/lisp_cycles.png}
-\caption{\label{fig:orga9eb8b6}\emph{xkcd} \texttt{\#} 297}
+\caption{\label{fig:org6679179}\emph{xkcd} \texttt{\#} 297}
 \end{figure}
 \end{document}

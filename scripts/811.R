@@ -657,21 +657,55 @@ set.seed(314)
 ## We can't get the actual terms because word stemming removes the one-to-one
 ## correspondence
 
+
+clean_corp_ns <- function(corpus) {
+  ## Remove URL's
+  corpus <- tm_map(corpus,content_transformer(
+    function(x) gsub("(f|ht)tp(s?)://\\S+","",x)))
+  ## Remove Usernames
+  corpus <- tm_map(corpus,content_transformer(function(x) gsub("@\\w+","",x)))
+  ## Misc
+  corpus <- tm_map(corpus, FUN = removeNumbers)
+  corpus <- tm_map(corpus, FUN = removePunctuation)
+  corpus <- tm_map(corpus, FUN = stripWhitespace)
+  corpus <- tm_map(corpus, FUN = tolower)
+  corpus <- tm_map(corpus, FUN = removeWords, mystop)
+  ## stopwords() returns characters and is fead as second argument
+  return(corpus)
+}
+
+tweet_corpus_clean_ns <- clean_corp(tweet_corpus)
+
+tweet_raw_dtm <- tm::TermDocumentMatrix(x = tweet_corpus_ns,
+   control = list(weighting = weightTfIdf)) %>%
+  as.DocumentTermMatrix()  %>%
+  as.matrix()
+
+null = which(rowSums(as.matrix(tweet_matrix_dtm)) == 0)
+length(null)
+
+(rowSums(as.matrix(tweet_matrix_dtm))) %>% table()
+if(length(null)!=0){
+  tweet_matrix_dtm = tweet_matrix_dtm[-null,]
+}
+
+
+
 i <- 1
 
 for (i in seq_len(3)) {
-n <- which(pca_data$Cluster == i)
+  n <- which(pca_data$Cluster == i)
 
-(relevant <- sort(apply(tweet_weighted_dtm[n,], 2, mean),
- decreasing = TRUE)[1:30]) %>% head()
+  (relevant <- sort(apply(tweet_raw_dtm[n,], 2, mean),
+    decreasing = TRUE)[1:30]) %>% head()
 
-p <- brewer.pal(n = 5, name = "Set2")
- wordcloud(
-   words = names(relevant),
-   freq = relevant,
-   colors = p,
-   random.color = FALSE
- )
+  p <- brewer.pal(n = 5, name = "Set2")
+    wordcloud(
+    words = names(relevant),
+    freq = relevant,
+    colors = p,
+    random.color = FALSE
+  )
 
 }
 ## * 8.2.21 TODO Use a dendrogram to display the themes of the clusters --------   :8222:
