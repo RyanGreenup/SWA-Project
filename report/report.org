@@ -1252,8 +1252,12 @@ plot(h, main = "Themes of Cluster with Lowest Friend Count")
 #+CAPTION: Dendrogram of Terms in the cluster with the highest friend count using average Linkage.
 #+attr_html: :width 400px
 #+attr_latex: :width 12cm
-[[./Figures/HighDend.png]]
+[[./Figures/LowDend.png]]
 
+** 8.2.23 Conclusion
+It appears that users that discuss newer titles and upcoming collaborations belong to a cluster with a higher proportion of users with an above average friend count, whereas users that discuss older titles (such as /Assasins Creed/ as demonstrated in figure [[dn3]]) tend to belong to a cluster with a lower proportion of users with high friend counts.
+
+This could imply that users discussing new titles are more likely to have more friends or it could imply that twitter users with a high friend count are more likely to show interest in newer titles and material.
 * Appendix
 ** Users with High Friend Count
 
