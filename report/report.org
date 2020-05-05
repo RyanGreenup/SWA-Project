@@ -486,7 +486,7 @@ This means the matrix of expected frequencies can be expressed as an outer produ
 \sum^{n}_{j= 1} \left[ o_{nj} \right]     \end{bmatrix}
 \begin{bmatrix}  \sum^{n}_{j= 1} \left[ o_{i1}  \right] \\  \sum^{n}_{j= 1}
 \left[ o_{i2}  \right] \\ \sum^{n}_{j= 1} \left[ o_{i3}  \right] \\ \cdots \\
-\sum^{n}_{j= 1} \left[ o_{in}  \right]   \end{bmatrix}  ^{\normalsize \mathrm{T}} \label{eq:1}
+\sum^{n}_{j= 1} \left[ o_{in}  \right]   \end{bmatrix}  ^{\mathrm{T}} \label{eq:1}
 \end{align}
 
 #+NAME: smst
