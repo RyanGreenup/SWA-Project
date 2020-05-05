@@ -65,36 +65,36 @@ topFriends$screen_name
 ## ** Download 2nd Degree of Friends ============================================
 ##
 #-----------Do the following to download directly from Twitter------
-more.friends = list() #a place to store the friends of friends
-#n = length(topFriends)
-n= nrow(topFriends)
-t = get_friends(topFriends$user_id[1], token = tk) #get friends of each friend
-more.friends[[1]]=lookup_users(t$user_id, token = tk)
-t = get_friends(topFriends$user_id[2], token = tk) #get friends of each friend
-more.friends[[2]]=lookup_users(t$user_id, token = tk)
-t = get_friends(topFriends$user_id[3], token = tk) #get friends of each friend
-more.friends[[3]]=lookup_users(t$user_id, token = tk)
-t = get_friends(topFriends$user_id[4], token = tk) #get friends of each friend
-more.friends[[4]]=lookup_users(t$user_id, token = tk)
-t = get_friends(topFriends$user_id[5], token = tk) #get friends of each friend
-more.friends[[5]]=lookup_users(t$user_id, token = tk)
-t = get_friends(topFriends$user_id[6], token = tk) #get friends of each friend
-more.friends[[6]]=lookup_users(t$user_id, token = tk)
-t = get_friends(topFriends$user_id[7], token = tk) #get friends of each friend
-more.friends[[7]]=lookup_users(t$user_id, token = tk)
-t = get_friends(topFriends$user_id[8], token = tk) #get friends of each friend
-more.friends[[8]]=lookup_users(t$user_id, token = tk)
-t = get_friends(topFriends$user_id[9], token = tk) #get friends of each friend
-more.friends[[9]]=lookup_users(t$user_id, token = tk)
-t = get_friends(topFriends$user_id[10], token = tk) #get friends of each friend
-more.friends[[10]]=lookup_users(t$user_id, token = tk)
-more.friends
-class(more.friends[[1]])
-dim(more.friends[[1]])
-nrow(more.friends[[1]])
-
-save(list = ls(), file = "AllGraphData.RData")
-rm(more.friends)
+# more.friends = list() #a place to store the friends of friends
+# #n = length(topFriends)
+# n= nrow(topFriends)
+# t = get_friends(topFriends$user_id[1], token = tk) #get friends of each friend
+# more.friends[[1]]=lookup_users(t$user_id, token = tk)
+# t = get_friends(topFriends$user_id[2], token = tk) #get friends of each friend
+# more.friends[[2]]=lookup_users(t$user_id, token = tk)
+# t = get_friends(topFriends$user_id[3], token = tk) #get friends of each friend
+# more.friends[[3]]=lookup_users(t$user_id, token = tk)
+# t = get_friends(topFriends$user_id[4], token = tk) #get friends of each friend
+# more.friends[[4]]=lookup_users(t$user_id, token = tk)
+# t = get_friends(topFriends$user_id[5], token = tk) #get friends of each friend
+# more.friends[[5]]=lookup_users(t$user_id, token = tk)
+# t = get_friends(topFriends$user_id[6], token = tk) #get friends of each friend
+# more.friends[[6]]=lookup_users(t$user_id, token = tk)
+# t = get_friends(topFriends$user_id[7], token = tk) #get friends of each friend
+# more.friends[[7]]=lookup_users(t$user_id, token = tk)
+# t = get_friends(topFriends$user_id[8], token = tk) #get friends of each friend
+# more.friends[[8]]=lookup_users(t$user_id, token = tk)
+# t = get_friends(topFriends$user_id[9], token = tk) #get friends of each friend
+# more.friends[[9]]=lookup_users(t$user_id, token = tk)
+# t = get_friends(topFriends$user_id[10], token = tk) #get friends of each friend
+# more.friends[[10]]=lookup_users(t$user_id, token = tk)
+# more.friends
+# class(more.friends[[1]])
+# dim(more.friends[[1]])
+# nrow(more.friends[[1]])
+#
+# save(list = ls(), file = "AllGraphData.RData")
+# rm(more.friends)
 load(file = "AllGraphData.RData")
 
 #-----------------Restrict to 100 records to manage big data----------------

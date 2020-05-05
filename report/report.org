@@ -1294,7 +1294,70 @@ topFriends$screen_name
 #+end_src
 
 
-** 8.3.25 Obtain a *2-degree* egocentric graph centred at /Ubisoft/
+** TODO 8.3.25 Obtain a *2-degree* egocentric graph centred at /Ubisoft/
+The tweets can be downloaded by using the =get_friends= and =lookup_users= functions as shown in listing [[gfd]].
+
+#+NAME: gfd
+#+CAPTION: Load the Packages for **/R/**
+#+begin_src R
+#-----------Do the following to download directly from Twitter------
+more.friends = list() #a place to store the friends of friends
+#n = length(topFriends)
+n= nrow(topFriends)
+t = get_friends(topFriends$user_id[1], token = tk) #get friends of each friend
+more.friends[[1]]=lookup_users(t$user_id, token = tk)
+t = get_friends(topFriends$user_id[2], token = tk) #get friends of each friend
+more.friends[[2]]=lookup_users(t$user_id, token = tk)
+t = get_friends(topFriends$user_id[3], token = tk) #get friends of each friend
+more.friends[[3]]=lookup_users(t$user_id, token = tk)
+t = get_friends(topFriends$user_id[4], token = tk) #get friends of each friend
+more.friends[[4]]=lookup_users(t$user_id, token = tk)
+t = get_friends(topFriends$user_id[5], token = tk) #get friends of each friend
+more.friends[[5]]=lookup_users(t$user_id, token = tk)
+t = get_friends(topFriends$user_id[6], token = tk) #get friends of each friend
+more.friends[[6]]=lookup_users(t$user_id, token = tk)
+t = get_friends(topFriends$user_id[7], token = tk) #get friends of each friend
+more.friends[[7]]=lookup_users(t$user_id, token = tk)
+t = get_friends(topFriends$user_id[8], token = tk) #get friends of each friend
+more.friends[[8]]=lookup_users(t$user_id, token = tk)
+t = get_friends(topFriends$user_id[9], token = tk) #get friends of each friend
+more.friends[[9]]=lookup_users(t$user_id, token = tk)
+t = get_friends(topFriends$user_id[10], token = tk) #get friends of each friend
+more.friends[[10]]=lookup_users(t$user_id, token = tk)
+more.friends
+class(more.friends[[1]])
+dim(more.friends[[1]])
+nrow(more.friends[[1]])
+
+save(list = ls(), file = "AllGraphData.RData")
+rm(more.friends)
+#+end_src
+
+*** TODO Change  the variables to be descriptive in [[gfd]]
+*** TODO Make this a for loop for want of being neat
+
+There is a significant amount of data here and so the number of records can be reduced as shown in listing [[rdc]]
+
+#+NAME: rdc
+#+CAPTION: Load the Packages for **/R/**
+#+begin_src R
+for(a in 1:10){
+  if(nrow(more.friends[[a]])>100){
+    more.friends[[a]]=more.friends[[a]][1:100,]
+  }
+}
+
+# Inspect Value
+more.friends[[1]]$screen_name[1]
+more.friends[[1]]$screen_name[2]
+
+
+## [1] "robertwolf32"
+## [1] "davidplouffe"
+#+end_src
+
+
+*** TODO Add the graphing stuff [[file:~/Dropbox/Studies/2020Autumn/Social_Web_Analytics/07_Solutions_Graphs1.R::----------------------6.3 Creating the Twitter Graph--------------][from the 07 tutorial]]
 ** 8.3.26 Compute the *closeness* centrality score for each user
 ** 8.3.28
 * Appendix
