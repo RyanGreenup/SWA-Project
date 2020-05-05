@@ -268,46 +268,46 @@ s <- replicate(10^4,{
 
 mean(s)
 
-## * FIXME 8.2.8 Find users with Above Average Friend Count-------------------------     :816:
-## <<8.2.8>>
-## y is friends count, see [[8.1.3]]
-## Remember these users must not be duplicated
+## * 8.2.8 Find users with Above Average Friend Count-------------------------     :816:
+## <>>
+## yiends count, see [[8.1.3]]
+## Rr these users must not be duplicated
 
-## <<dplyr812>>
-select <- dplyr::select
-filter <- dplyr::filter
-interested_vars <- c("user_id", "friends_count")
-(friend_counts <- tweets.company %>%
-  select(interested_vars) %>%
-  filter(!duplicated(user_id)))
+## <812>>
+seledplyr::select
+filtdplyr::filter
+inte_vars <- c("user_id", "friends_count")
+(friunts <- tweets.company %>%
+  senterested_vars) %>%
+  fiduplicated(user_id)))
 
-(high_friends <- friend_counts %>%
-  filter(friends_count > mean(friends_count, na.rm = TRUE)))
+(hignds <- friend_counts %>%
+  firiends_count > mean(friends_count, na.rm = TRUE)))
 
-high_friends <- high_friends[order(
-  high_friends$friends_count,
-  decreasing = TRUE),]
+highds <- high_friends[order(
+  hiends$friends_count,
+  deng = TRUE),]
 
-head(high_friends)
-tail(high_friends)
+headfriends)
+tailfriends)
 
-## * FIXME 8.2.8 Find users with Below Average Friend Count-------------------------     :817:
-(low_friends <- friend_counts %>%
-  filter(friends_count <= mean(friends_count, na.rm = TRUE)))
+## * 8.2.8 Find users with Below Average Friend Count-------------------------     :817:
+(lowds <- friend_counts %>%
+  firiends_count <= mean(friends_count, na.rm = TRUE)))
 
- low_friends <- low_friends[order(
-   low_friends$friends_count,
-   decreasing = TRUE),]
+ lowds <- low_friends[order(
+   lends$friends_count,
+   ding = TRUE),]
 
-head(low_friends)
-tail(low_friends)
+headriends)
+tailriends)
 
 
-if ((nrow(low_friends) + nrow(high_friends))!=length(users)) {
-  print("More users identified that exist, review the method to count high_friends")
+if (low_friends) + nrow(high_friends))!=length(users)) {
+  prore users identified that exist, review the method to count high_friends")
 }
 
-## * FIXME 8.2.10 Find the tweets of those users indentified above------------------     :828:
+## * 8.2.10 Find the tweets of those users indentified above------------------     :828:
 ## The point of this is that the data is now ordered, the
 ## top part is the high friends and the low part is the low friends
 tweets_high <- tweets.company$text[tweets.company$friends_count > mean(tweets.company$friends_count)]
@@ -630,3 +630,14 @@ cbind(clust_friend,
 
 
 names(pca_data)
+
+## * 8.2.18 Display five tweets in clusters from 18-----------------------------   :8218:
+set.seed(314)
+  for(i in 1:3) {
+    n <- sample(which(pca_data$Cluster == i), size = 5)
+    print(tweets$text[n])
+    print("===========================")
+    print("===========================")
+  }
+
+
