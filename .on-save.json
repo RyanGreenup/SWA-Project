@@ -1,0 +1,14 @@
+[
+  {
+    "srcDir": "./",
+    "destDir": "./",
+    "files": "**/*.org",
+    "command": "pandoc -B ~/Templates/CSS/gitOrgWrapped.css --mathml -s   report/report.org -o ./report/report.html"
+  },
+  {
+    "srcDir": "./",
+    "destDir": "/tmp",
+    "files": "**/*.org",
+    "command": "pandoc -B ~/Templates/CSS/gitOrgWrapped.css --mathml -s   README.org --mathml -o /tmp/README.html"
+  }
+]
