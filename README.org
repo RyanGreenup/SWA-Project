@@ -405,17 +405,22 @@ I think we'll use =sample= and take the index from the =pca_data= dataframe.
 
 Check it out I even made the links work in the PDF! :)
 
-*** CODE 20 Find the important themes in high/low friend prop clusters       :ryan:
+*** DONE 20 Find the important themes in high/low friend prop clusters        :ryan:
+SCHEDULED: <2020-05-05 Tue>
 :LOGBOOK:
+CLOCK: [2020-05-05 Tue 13:00]--[2020-05-05 Tue 17:00] =>  4:00
 CLOCK: [2020-05-05 Tue 12:35]--[2020-05-05 Tue 12:42] =>  0:07
 :END:
 It appears that the first cluster of tweets is themed around newer games such as /The Division 2/, cluster 2 appears to be focused on games generally and in particular /Rainbow 6/, and finally, cluster 3 appears to be concerned with general discussion.
-*** TODO Use a word cloud to display the themes of the clusters               :ryan:
+*** DONE Use a word cloud to display the themes of the clusters               :ryan:
+SCHEDULED: <2020-05-05 Tue>
 :LOGBOOK:
 CLOCK: [2020-05-05 Tue 13:08]--[2020-05-05 Tue 15:05] =>  1:57
 :END:
-*** TODO Use a dendrogram to display the themes of the clusters in 20         :ryan:
-*** TODO What is the conclusion regarding the themes                          :ryan:
+*** DONE Use a dendrogram to display the themes of the clusters in 20         :ryan:
+SCHEDULED: <2020-05-05 Tue>
+*** DONE What is the conclusion regarding the themes                          :ryan:
+SCHEDULED: <2020-05-05 Tue>
 
 ** TODO 8.3 Building Networks                                                  :Hassan:Navid:
 *** TODO 24 Find the 10 most popular friends
