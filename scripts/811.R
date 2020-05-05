@@ -693,7 +693,7 @@ if(length(null)!=0){
 
 i <- 1
 
-for (i in seq_len(3)) {
+for (i in c(1,3)) {
   n <- which(pca_data$Cluster == i)
 
   (relevant <- sort(apply(tweet_raw_dtm[n,], 2, mean),
@@ -709,4 +709,65 @@ for (i in seq_len(3)) {
 
 }
 ## * 8.2.21 TODO Use a dendrogram to display the themes of the clusters --------   :8222:
+#Which of the two method provides more reasonable clusters?
+## ** Highest Friend Count ======================================================
+## Filter the Data To match the Cluster
+tweet_weighted_dtm_c1 <- tweet_weighted_dtm[pca_data$Cluster==1, ]
+
+## Choose terms of a given frequency to reduce the dimensions
+frequent.words = which(colSums(tweet_weighted_dtm_c1 > 0) > 1)
+term.matrix = tweet_weighted_dtm_c1[,frequent.words]
+
+## In order to use the Cosine Distance Make each vector have a
+## magnitude of 1
+unit_term.matrix = term.matrix %*% diag(1/sqrt(colSums(term.matrix^2)))
+
+## Preserve the column Names
+colnames(unit_term.matrix) = colnames(term.matrix)
+colnames(unit_term.matrix)
+
+## Find the Cosine Distance between the Terms
+## (Distance between terms so transpose)
+t(unit_term.matrix)
+D = dist(t(unit_term.matrix), method = "euclidean")^2/2
+
+## Perform Heirarchical Clustering
+h = hclust(D, method="average")
+plot(h, main = "Themes of Cluster with Highest Friend Count")
+
+
+
+
+
+
+## ** Lowest Friend Count ======================================================
+## Filter the Data To match the Cluster
+tweet_weighted_dtm_c1 <- tweet_weighted_dtm[pca_data$Cluster==3, ]
+
+## Choose terms of a given frequency to reduce the dimensions
+frequent.words = which(colSums(tweet_weighted_dtm_c1 > 0) > 3)
+term.matrix = tweet_weighted_dtm_c1[,frequent.words]
+
+## In order to use the Cosine Distance Make each vector have a
+## magnitude of 1
+unit_term.matrix = term.matrix %*% diag(1/sqrt(colSums(term.matrix^2)))
+
+## Preserve the column Names
+colnames(unit_term.matrix) = colnames(term.matrix)
+colnames(unit_term.matrix)
+
+## Find the Cosine Distance between the Terms
+## (Distance between terms so transpose)
+t(unit_term.matrix)
+D = dist(t(unit_term.matrix), method = "euclidean")^2/2
+
+## Perform Heirarchical Clustering
+h = hclust(D, method="Complete")
+plot(h, main = "Themes of Cluster with Lowest Friend Count")
+
+
+
+
+
+
 ## * 8.2.22 TODO REPORT What is the Conclusion regarding Themes? ---------------   :8223:

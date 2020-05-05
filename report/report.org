@@ -1056,12 +1056,9 @@ The themes in the cluster with the highest friend count are:
 
 + Discussion about upcoming titles
   + For example the /Sunborn-Ubisoft/ collaboration
-    + This is where the use of =collab= comes from
+    + This is where the use of =collab= comes from in figure [[wc1]]
   + The upcoming /Division 2/ release
-+ Multiplayer games as inferred from the use of words like
-  + being banned
-  + complaining (i.e. whining)
-  + Collab
++ Multiplayer games.
 *** Lowest Friends Count
 
 The themes in the cluster with the lowest friends count are:
@@ -1069,8 +1066,8 @@ The themes in the cluster with the lowest friends count are:
 + Discussion about older titles
   + e.g. =mincemeat= refers to /Farcry/, mozzi is a /Rainbow 6/ character
   + the recurring use of =remember= and =earliest=
-+ Console games as inferred from the use of =crossplay=
-  +
++ Console games and crossplay between them
++ Feature Requests
 
 ** 8.2.20 Create WordClouds
 Creating a wordcloud from the stemmed words will make for a poor visualisation
@@ -1160,6 +1157,102 @@ for (i in c(1,3)) {
 #+attr_latex: :width 10cm
 [[./Figures/Cluster3Cloud.png]]
 
+** 8.2.21 Use a Dendrogram to Display the Themes
+A Dendrogram can be used to display the themes of the higest and lowest
+clusters. In order to do this the most frequent words of a cluster need to be
+filtered out in order to reduce the dimensions of the dendrogram, following that
+a dendrogram may be made to model the cosine distance between the terms. To
+acheive this in **_R_** the identity from equation eqref:cos can be used and
+then a dendrogram modelled over the term document matrix.
+
+
+*** Highest Friend Count
+Any word that occurs more than once was a candidate for the dendrogram visualising the themes of the cluster with the highest number of friends. This dendrogram is shown in figure [[dn1]] and the corresponding code to produce it is provided in listing [[dn1c]].
+
+*** Lowest Friend Count
+Any word that occurs more than once was a candidate for the dendrogram visualising the themes of the cluster with the lowest number of friends. This dendrogram is shown in figure [[dn3]] and the corresponding code to produce it is provided in listing [[dn3c]].
+
+#+NAME: dn1c
+#+CAPTION: Create a dendrogram of the terms in the cluster with the higest friends count, average linkage was used.
+#+begin_src R
+## Filter the Data To match the Cluster
+tweet_weighted_dtm_c1 <- tweet_weighted_dtm[pca_data$Cluster==1, ]
+
+## Choose terms of a given frequency to reduce the dimensions
+frequent.words = which(colSums(tweet_weighted_dtm_c1 > 0) > 1)
+term.matrix = tweet_weighted_dtm_c1[,frequent.words]
+
+## In order to use the Cosine Distance Make each vector have a
+## magnitude of 1
+unit_term.matrix = term.matrix %*% diag(1/sqrt(colSums(term.matrix^2)))
+
+## Preserve the column Names
+colnames(unit_term.matrix) = colnames(term.matrix)
+colnames(unit_term.matrix)
+
+## Find the Cosine Distance between the Terms
+## (Distance between terms so transpose)
+t(unit_term.matrix)
+D = dist(t(unit_term.matrix), method = "euclidean")^2/2
+
+## Perform Heirarchical Clustering
+h = hclust(D, method="average")
+plot(h, main = "Themes of Cluster with Highest Friend Count")
+
+
+
+
+
+
+#+end_src
+
+#+NAME: dn3c
+#+CAPTION: Create a dendrogram of the terms in the cluster with the higest friends count, average linkage was used.
+#+begin_src R
+## Filter the Data To match the Cluster
+tweet_weighted_dtm_c1 <- tweet_weighted_dtm[pca_data$Cluster==3, ]
+
+## Choose terms of a given frequency to reduce the dimensions
+frequent.words = which(colSums(tweet_weighted_dtm_c1 > 0) > 3)
+term.matrix = tweet_weighted_dtm_c1[,frequent.words]
+
+## In order to use the Cosine Distance Make each vector have a
+## magnitude of 1
+unit_term.matrix = term.matrix %*% diag(1/sqrt(colSums(term.matrix^2)))
+
+## Preserve the column Names
+colnames(unit_term.matrix) = colnames(term.matrix)
+colnames(unit_term.matrix)
+
+## Find the Cosine Distance between the Terms
+## (Distance between terms so transpose)
+t(unit_term.matrix)
+D = dist(t(unit_term.matrix), method = "euclidean")^2/2
+
+## Perform Heirarchical Clustering
+h = hclust(D, method="complete")
+plot(h, main = "Themes of Cluster with Lowest Friend Count")
+
+
+
+
+
+
+#+end_src
+
+
+#+NAME: dn1
+#+CAPTION: Dendrogram of Terms in the cluster with the highest friend count using average Linkage.
+#+attr_html: :width 400px
+#+attr_latex: :width 12cm
+[[./Figures/HighDend.png]]
+
+
+#+NAME: dn3
+#+CAPTION: Dendrogram of Terms in the cluster with the highest friend count using average Linkage.
+#+attr_html: :width 400px
+#+attr_latex: :width 12cm
+[[./Figures/HighDend.png]]
 
 * Appendix
 ** Users with High Friend Count
