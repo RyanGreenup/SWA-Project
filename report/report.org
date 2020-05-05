@@ -1258,6 +1258,45 @@ plot(h, main = "Themes of Cluster with Lowest Friend Count")
 It appears that users that discuss newer titles and upcoming collaborations belong to a cluster with a higher proportion of users with an above average friend count, whereas users that discuss older titles (such as /Assasins Creed/ as demonstrated in figure [[dn3]]) tend to belong to a cluster with a lower proportion of users with high friend counts.
 
 This could imply that users discussing new titles are more likely to have more friends or it could imply that twitter users with a high friend count are more likely to show interest in newer titles and material.
+* 8.3 Building Networks
+** 8.3.24 Find the 10 Most Popular Friends of the Twitter Handle
+The =get_friends= function can be used to discover the friends of the [[https://twitter.com/Ubisoft][@ubisoft]] account, these user /ID/ values can then be passed as an argument to the =lookup_users= function, this will return the features of those given users and these results can be sorted by friend count in order to show the most popular friends, as shown in listing [[fdg]], this provides the following list of friends in order of the number of there popularity:
+
+
+| 1. =BarackObama=   | 2.  =XboxSupport= | 3. =DEADLINE= | 4.  =gameinformer= | 5.  =Arbys=      |
+| 6.  =PeterHollens= | 7.  =HarleyPlays= | 8. =G4C=      | 9.  =Xbox=         | 10. =GailSimone= |
+
+
+#+NAME: fdg
+#+CAPTION: Use =rtweet= to obtain the friends of /Ubisoft/ with the most friends
+#+begin_src R
+## * 8.2.24 Find 10 Most Popular Friends of the Twitter Handle ---------------------
+## ## ** Get the User ID of Friends of Ubisoft =====================================
+t <- get_friends("ubisoft", token = tk)
+## *** Get More Information of Friends ###########################################
+friends = lookup_users(t$user_id, token = tk)
+## **** Inspect the friends .......................................................
+dim(friends)
+names(friends)
+
+friends$screen_name[1] #name of friend at index 1
+friends$followers_count[1] #examine the follower count of the first friend
+friends$screen_name[2]
+
+## ** Find the 10 Most Popular Friends ==========================================
+friendPosition = order(friends$friends_count, decreasing = TRUE)[1:10]
+topFriends = friends[friendPosition,] #ids of top 10 friends
+## *** Print the top 10 most popular friends #####################################
+topFriends$screen_name
+
+## [1] "BarackObama"  "XboxSupport"  "DEADLINE"     "gameinformer" "Arbys"
+## [6] "PeterHollens" "HarleyPlays"  "G4C"          "Xbox"         "GailSimone"
+#+end_src
+
+
+** 8.3.25 Obtain a *2-degree* egocentric graph centred at /Ubisoft/
+** 8.3.26 Compute the *closeness* centrality score for each user
+** 8.3.28
 * Appendix
 ** Users with High Friend Count
 

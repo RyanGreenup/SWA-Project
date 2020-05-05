@@ -48,3 +48,27 @@ options(RCurlOptions = list(
 ## WwEP
 ## =8/Cr
 ## -----END PGP MESSAGE-----
+
+## * 8.2.24 Find 10 Most Popular Friends of the Twitter Handle ---------------------
+## ## ** Get the User ID of Friends of Ubisoft =====================================
+t <- get_friends("ubisoft", token = tk)
+## *** Get More Information of Friends ###########################################
+friends = lookup_users(t$user_id, token = tk)
+## **** Inspect the friends .......................................................
+dim(friends)
+names(friends)
+
+friends$screen_name[1] #name of friend at index 1
+friends$followers_count[1] #examine the follower count of the first friend
+friends$screen_name[2]
+
+## ** Find the 10 Most Popular Friends ==========================================
+friendPosition = order(friends$friends_count, decreasing = TRUE)[1:10]
+topFriends = friends[friendPosition,] #ids of top 10 friends
+## *** Print the top 10 most popular friends #####################################
+topFriends$screen_name
+
+## *** Print the top 10 Most Popular Friend
+## * 8.2.25 2 Degree Egocentric graph-----------------------------------------------
+## * 8.2.26 Compute the closeness cen. score for every user-------------------------
+## * 8.2.27 Commenton the Results---------------------------------------------------
