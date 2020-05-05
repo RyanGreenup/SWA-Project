@@ -238,6 +238,41 @@
       \verb https://rtweet.info/reference/search_tweets.html
       \endverb
     \endentry
+    \entry{lecompte2017}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=c1c085816c48d7d5e5a207338aeebfed}{%
+           family={LeCompte},
+           familyi={L\bibinitperiod},
+           given={Travis},
+           giveni={T\bibinitperiod}}}%
+        {{hash=0da2d307b34cd5024365912f1c317e4d}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Jianhua},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{e9b6e6f40c64f769d786265c9b902826}
+      \strng{fullhash}{e9b6e6f40c64f769d786265c9b902826}
+      \strng{bibnamehash}{e9b6e6f40c64f769d786265c9b902826}
+      \strng{authorbibnamehash}{e9b6e6f40c64f769d786265c9b902826}
+      \strng{authornamehash}{e9b6e6f40c64f769d786265c9b902826}
+      \strng{authorfullhash}{e9b6e6f40c64f769d786265c9b902826}
+      \field{sortinit}{L}
+      \field{sortinithash}{2c7981aaabc885868aba60f0c09ee20f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Sentiment analysis of text is a valuable tool used to identify and classify bodies of text for various purposes, including public sentiment detection in political campaigns, spam detection and threat assessment. In this paper, we examine the effectiveness of incorporating Emoji data for Twitter data emotion classification. We conducted experiments using Multinomial Na{ï}ve Bayes (MNB) and Support Vector Machine (SVM) classification methods, with automatically labeled Twitter data. We compare the accuracy of these classification methods with and without the Emoji data included over varying vocabulary sizes. We find that MNB outperforms SVM on the data for large vocabulary sizes, and both classifiers perform slightly better with the Emoji data included.}
+      \field{booktitle}{2017 {{International Conference}} on {{Computational Science}} and {{Computational Intelligence}} ({{CSCI}})}
+      \field{month}{12}
+      \field{title}{Sentiment {{Analysis}} of {{Tweets Including Emoji Data}}}
+      \field{year}{2017}
+      \field{pages}{793\bibrangedash 798}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1109/CSCI.2017.137
+      \endverb
+      \keyw{Bayes methods,Emoji,emoji data,emotion recognition,MNB,multinomial Naïve Bayes,pattern classification,political campaigns,public sentiment detection,Sentiment analysis,social networking (online),spam detection,Supervised Learning,support vector machine classification methods,support vector machines,SVM,text analysis,text sentiment analysis,threat assessment,Tweets sentiment analysis,Twitter,Twitter data emotion classification,vocabulary sizes}
+    \endentry
     \entry{nist2013}{misc}{}
       \name{author}{1}{}{%
         {{hash=a44b6b00e5eebd7494e1fd00658685e2}{%
@@ -305,6 +340,54 @@
       \endverb
       \verb{url}
       \verb https://www.rdocumentation.org/packages/boot/versions/1.3-25/topics/boot.ci
+      \endverb
+    \endentry
+    \entry{shiha2017}{article}{}
+      \name{author}{2}{}{%
+        {{hash=fdca19d289532506525a5e4cedd6b377}{%
+           family={Shiha},
+           familyi={S\bibinitperiod},
+           given={Mohammed\bibnamedelima O.},
+           giveni={M\bibinitperiod\bibinitdelim O\bibinitperiod}}}%
+        {{hash=d930a3779311a746f13220cd14cb6e65}{%
+           family={Ayvaz},
+           familyi={A\bibinitperiod},
+           given={Serkan},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{ab70c2e166caf6bd4c308a1112382fbb}
+      \strng{fullhash}{ab70c2e166caf6bd4c308a1112382fbb}
+      \strng{bibnamehash}{ab70c2e166caf6bd4c308a1112382fbb}
+      \strng{authorbibnamehash}{ab70c2e166caf6bd4c308a1112382fbb}
+      \strng{authornamehash}{ab70c2e166caf6bd4c308a1112382fbb}
+      \strng{authorfullhash}{ab70c2e166caf6bd4c308a1112382fbb}
+      \field{sortinit}{S}
+      \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{17938163}
+      \field{journaltitle}{International Journal of Computer and Electrical Engineering}
+      \field{number}{1}
+      \field{title}{The {{Effects}} of {{Emoji}} in {{Sentiment Analysis}}}
+      \field{urlday}{29}
+      \field{urlmonth}{4}
+      \field{urlyear}{2020}
+      \field{volume}{9}
+      \field{year}{2017}
+      \field{urldateera}{ce}
+      \field{pages}{360\bibrangedash 369}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.17706/IJCEE.2017.9.1.360-369
+      \endverb
+      \verb{file}
+      \verb /home/ryan/Dropbox/Studies/Papers/Zotero/Attachments/International Journal of Computer and Electrical Engineering/2017/Department of Software Engineering, Bahcesehir University, Besiktas, Istanbul, Turkey. et al_2017_The Effects of Emoji in Sentiment Analysis.pdf;/home/ryan/Zotero/storage/A9ZLNHPW/320446679_The_Effects_of_Emoji_in_Sentiment_Analysis.html
+      \endverb
+      \verb{urlraw}
+      \verb http://www.ijcee.org/vol9/943-T048.pdf
+      \endverb
+      \verb{url}
+      \verb http://www.ijcee.org/vol9/943-T048.pdf
       \endverb
     \endentry
     \entry{wiley2019}{book}{}
