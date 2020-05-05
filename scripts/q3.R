@@ -40,14 +40,15 @@ tk <- rtweet::create_token(
   access_secret   = "HLBWzHcemHzYJnw5ZLvKpEhQ5KaWwK6Nsj6cxBjUf51NJ",
   set_renv        = FALSE)
 
-## * 8.2.24 Find 10 Most Popular Friends of the Twitter Handle ---------------------
-## ## ** Get the User ID of Friends of Ubisoft =====================================
+## * 8.2.24 Find 10 Most Popular Friends of the Twitter Handle ----------------
+## ** Get the User ID of Friends of Ubisoft ================================
+## user <- lookup_users(c("ubisoft"), token = tk) # Get all Ubisoft Details
 # t <- get_friends("ubisoft", token = tk)
-## *** Get More Information of Friends ###########################################
+## *** Get More Information of Friends ########################################
 # friends = lookup_users(t$user_id, token = tk)
-## save(list = c("t", "friends"), file = "./8224_Friends.Rdata")
+## save(list = c("t", "friends", "user"), file = "./8224_Friends.Rdata")
 load("./8224_Friends.Rdata"); head(t); head(friends)
-## **** Inspect the friends .......................................................
+## **** Inspect the friends ....................................................
 dim(friends)
 names(friends)
 
@@ -55,58 +56,98 @@ friends$screen_name[1] #name of friend at index 1
 friends$followers_count[1] #examine the follower count of the first friend
 friends$screen_name[2]
 
-## ** Find the 10 Most Popular Friends ==========================================
+## ** Find the 10 Most Popular Friends =========================================
 friendPosition = order(friends$friends_count, decreasing = TRUE)[1:10]
 topFriends = friends[friendPosition,] #ids of top 10 friends
-## *** Print the top 10 most popular friends #####################################
+## *** Print the top 10 most popular friends ###################################
 topFriends$screen_name
 
-## * 8.2.25 2 Degree Egocentric graph-----------------------------------------------
-## ** Download 2nd Degree of Friends ============================================
-##
-#-----------Do the following to download directly from Twitter------
-# more.friends = list() #a place to store the friends of friends
-# #n = length(topFriends)
-# n= nrow(topFriends)
-# t = get_friends(topFriends$user_id[1], token = tk) #get friends of each friend
-# more.friends[[1]]=lookup_users(t$user_id, token = tk)
-# t = get_friends(topFriends$user_id[2], token = tk) #get friends of each friend
-# more.friends[[2]]=lookup_users(t$user_id, token = tk)
-# t = get_friends(topFriends$user_id[3], token = tk) #get friends of each friend
-# more.friends[[3]]=lookup_users(t$user_id, token = tk)
-# t = get_friends(topFriends$user_id[4], token = tk) #get friends of each friend
-# more.friends[[4]]=lookup_users(t$user_id, token = tk)
-# t = get_friends(topFriends$user_id[5], token = tk) #get friends of each friend
-# more.friends[[5]]=lookup_users(t$user_id, token = tk)
-# t = get_friends(topFriends$user_id[6], token = tk) #get friends of each friend
-# more.friends[[6]]=lookup_users(t$user_id, token = tk)
-# t = get_friends(topFriends$user_id[7], token = tk) #get friends of each friend
-# more.friends[[7]]=lookup_users(t$user_id, token = tk)
-# t = get_friends(topFriends$user_id[8], token = tk) #get friends of each friend
-# more.friends[[8]]=lookup_users(t$user_id, token = tk)
-# t = get_friends(topFriends$user_id[9], token = tk) #get friends of each friend
-# more.friends[[9]]=lookup_users(t$user_id, token = tk)
-# t = get_friends(topFriends$user_id[10], token = tk) #get friends of each friend
-# more.friends[[10]]=lookup_users(t$user_id, token = tk)
-# more.friends
-# class(more.friends[[1]])
-# dim(more.friends[[1]])
-# nrow(more.friends[[1]])
-#
-# save(list = ls(), file = "AllGraphData.RData")
-# rm(more.friends)
-load(file = "AllGraphData.RData")
+## * 8.2.25 2 Degree Egocentric graph-------------------------------------------
 
+## ** Download 2nd Degree of Friends ===========================================
+if (!file.exists("./AllGraphData.RData")) {
+    for (i in 1:10) {
+        ## Get friends of Each Friend
+        t <- get_friends(topFriends$user_id[i], token <- tk)
+
+        ## Get the Data from Each Friend
+        more.friends[[i]] <- lookup_users(t$user_id, token <- tk)
+
+        ## Save the Data
+        save(list = ls(), file = "AllGraphData.RData")
+    }
+} else {
+    load(file = "AllGraphData.RData")
+}
+
+## *** Inspect the Data #######################################################
+
+class(more.friends[[1]])
+dim(more.friends[[1]])
+nrow(more.friends[[1]])
+
+## ** Reduce Size of Data =====================================================
 #-----------------Restrict to 100 records to manage big data----------------
-for(a in 1:10){
-  if(nrow(more.friends[[a]])>100){
-    more.friends[[a]]=more.friends[[a]][1:100,]
+for (a in 1:10) {
+  if (nrow(more.friends[[a]]) > 5) {
+    more.friends[[a]] <- more.friends[[a]][1:5, ]
   }
 }
 
+## *** Inspect the Data #######################################################
 more.friends[[1]]$screen_name[1]
 more.friends[[1]]$screen_name[2]
 more.friends[[2]]$screen_name[2]
-#save(user, friends, more.friends, file="chris2019.RData")
-## * 8.2.26 Compute the closeness cen. score for every user-------------------------
-## * 8.2.27 Comment on the Results---------------------------------------------------
+
+
+
+#We can now build the edge list using:
+el = cbind(rep(user$screen_name, nrow(friends)),
+           friends$screen_name)  # bind the columns to create a matrix
+
+#Using what you have done above, write the function
+user.to.edgelist <- function(user, friends) {
+  # create the list of friend screen names
+  user.name = rep(user$screen_name, nrow(friends))  # repeat user's name
+  el = cbind(user.name, friends$screen_name)  # bind the columns to create a matrix
+  return(el)
+}
+
+#We can use the created function user.to.edgelist to create the edge list for Chris Hemsworth:
+el.chris = user.to.edgelist(user, friends)
+el.chris
+topFriends[1,4] #4th column is Screenname
+nrow(more.friends[[4]])
+topFriends[1,]
+user.to.edgelist(topFriends[1,], more.friends[[1]])
+#We can also build the edge list for the top 10 friends using a loop:
+for (a in c(1:length(more.friends))) {
+  el.friend = user.to.edgelist(topFriends[a,], more.friends[[a]])
+  el.chris = rbind(el.chris, el.friend)  # append the new edge list to the old one.
+}
+el.chris
+#Now that we have the edge list, we can create the graph:
+g = graph.edgelist(el.chris)
+g
+#Let's plot the graph. Since there are many vertices,
+#we will reduce the vertex size and use a special plot layout:
+plot(g, layout = layout.fruchterman.reingold, vertex.size = 5)
+
+#This graph contains many vertices that we did not examine. To remove these,
+#let's only keep the vertices with degree (in or out) greater than 1.
+g2=induced_subgraph(g, which(degree(g, mode = "all") > 1))
+#This graph is now easier to visualise:
+plot(g2, layout = layout.fruchterman.reingold, vertex.size = 5)
+
+#Who is at the centre of the graph? Use the centrality measures to examine this.
+g2.centres=order(closeness(g2), decreasing=TRUE)
+length(g2.centres)
+g2[g2.centres][,1]#names of the centres
+# Examine the graph density. Is it sparse or dense?
+graph.density(g2)
+
+#Examine the degree distribution. Is this graph more similar to an Erd??s-Renyi
+#graph or a Barab??si???Albert graph?
+degree.distribution(g2)
+## * 8.2.26 Compute the closeness cen. score for every user--------------------
+## * 8.2.27 Comment on the Results---------------------------------------------
