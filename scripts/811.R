@@ -268,45 +268,44 @@ s <- replicate(10^4,{
 
 mean(s)
 
-## * 8.2.8 Find users with Above Average Friend Count-------------------------     :816:
-## <>>
-## yiends count, see [[8.1.3]]
-## Rr these users must not be duplicated
+## * FIXME 8.2.8 Find users with Above Average Friend Count-------------------------     :816:
+## <<8.2.8>>
+## y is friends count, see [[8.1.3]]
+## Remember these users must not be duplicated
 
-## <812>>
-seledplyr::select
-filtdplyr::filter
-inte_vars <- c("user_id", "friends_count")
-(friunts <- tweets.company %>%
-  senterested_vars) %>%
-  fiduplicated(user_id)))
+## <<dplyr812>>
+select <- dplyr::select
+filter <- dplyr::filter
+interested_vars <- c("user_id", "friends_count")
+(friend_counts <- tweets.company %>%
+  select(interested_vars) %>%
+  filter(!duplicated(user_id)))
 
-(hignds <- friend_counts %>%
-  firiends_count > mean(friends_count, na.rm = TRUE)))
+(high_friends <- friend_counts %>%
+  filter(friends_count > mean(friends_count, na.rm = TRUE)))
 
-highds <- high_friends[order(
-  hiends$friends_count,
-  deng = TRUE),]
+high_friends <- high_friends[order(
+  high_friends$friends_count,
+  decreasing = TRUE),]
 
-headfriends)
-tailfriends)
+head(high_friends)
+tail(high_friends)
 
-## * 8.2.8 Find users with Below Average Friend Count-------------------------     :817:
-(lowds <- friend_counts %>%
-  firiends_count <= mean(friends_count, na.rm = TRUE)))
+## * FIXME 8.2.8 Find users with Below Average Friend Count-------------------------     :817:
+(low_friends <- friend_counts %>%
+  filter(friends_count <= mean(friends_count, na.rm = TRUE)))
 
- lowds <- low_friends[order(
-   lends$friends_count,
-   ding = TRUE),]
+ low_friends <- low_friends[order(
+   low_friends$friends_count,
+   decreasing = TRUE),]
 
-headriends)
-tailriends)
+head(low_friends)
+tail(low_friends)
 
 
-if (low_friends) + nrow(high_friends))!=length(users)) {
-  prore users identified that exist, review the method to count high_friends")
+if ((nrow(low_friends) + nrow(high_friends))!=length(users)) {
+  print("More users identified that exist, review the method to count high_friends")
 }
-
 ## * 8.2.10 Find the tweets of those users indentified above------------------     :828:
 ## The point of this is that the data is now ordered, the
 ## top part is the high friends and the low part is the low friends
@@ -617,7 +616,8 @@ ggplot(pca_data, aes(x = MDS1, y = MDS2, col = Friend_Status)) +
 #the cluster ellipses as well, I have removed data by indicating that above
 #average is above average regardless of amount.
 
-## * 8.2.17 Which Cluster has the highest above-average friend counts ?---------   :8217:
+## * 8.2.17 REPORT Comment on Viz -----------------------------------------------  :8217:
+## * 8.2.18 Which Cluster has the highest above-average friend counts ?---------   :8218:
 (clust_friend <- table(
   pca_data[,names(pca_data) %in% c("Cluster", "Friend_Status")])
 )
@@ -631,7 +631,7 @@ cbind(clust_friend,
 
 names(pca_data)
 
-## * 8.2.18 Display five tweets in clusters from 18-----------------------------   :8218:
+## * 8.2.19 Display five tweets in clusters from 18-----------------------------   :8219:
 set.seed(314)
   for(i in 1:3) {
     n <- sample(which(pca_data$Cluster == i), size = 5)
@@ -640,4 +640,22 @@ set.seed(314)
     print("===========================")
   }
 
+## * 8.2.20 TODO REPORT What are the Important Themes --------------------------   :8220:
+## * 8.2.21 TODO Generate a word cloud of the clusters -------------------------   :8221:
+## We can't get the actual terms because word stemming removes the one-to-one
+## correspondence
 
+i <- 1
+n <- which(pca_data$Cluster == i)
+
+(relevant <- sort(apply(tweet_weighted_dtm[n,], 2, mean), decreasing = TRUE)[1:30]) %>% head()
+
+p <- brewer.pal(n = 5, name = "Set2")
+ wordcloud(
+   words = names(relevant),
+   freq = relevant,
+   colors = p,
+   random.color = FALSE
+ )
+## * 8.2.21 TODO Use a dendrogram to display the themes of the clusters --------   :8222:
+## * 8.2.22 TODO REPORT What is the Conclusion regarding Themes? ---------------   :8223:
