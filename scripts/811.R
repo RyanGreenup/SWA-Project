@@ -67,8 +67,10 @@ load("./resources/Download_1.Rdata")
 ## * 8.1.2 Friend and Follower Count -----------------------------------------     :812:
 ## <<8.1.2>>
 (users <- unique(tweets.company$user_id)) %>% length()
-(x <- tweets.company$followers_count[!duplicated(tweets.company$name)]) %>% length()
-(y <- tweets.company$friends_count[!duplicated(tweets.company$name)]) %>% length()
+(x <- tweets.company$followers_count[!duplicated(tweets.company$name)]) %>%
+ length()
+(y <- tweets.company$friends_count[!duplicated(tweets.company$name)]) %>%
+ length()
 
 ## ** 8.1.3  Summary Statistics -----------------------------------------------------------
 ## <<8.1.3>>
@@ -92,7 +94,8 @@ load("./resources/Download_1.Rdata")
 ## ** b.) Plot the Bootstrap Distribution ==========================================
 bt_pop_data <- tibble("Followers" = bt_pop)
 ggplot(data = bt_pop_data, aes(x = Followers)) +
-  geom_histogram(aes(y = ..density..), fill = "lightblue", bins = 35, col = "pink") +
+  geom_histogram(aes(y = ..density..), fill = "lightblue", bins = 35,
+   col = "pink") +
   geom_density(col = "violetred2") +
   scale_x_continuous(limits = c(1, 800)) +
   theme_bw() +
@@ -248,7 +251,8 @@ s <- replicate(10^4,{
    ## Sample the set of Metrics
    m <- sample(metrics, size = n, replace = TRUE, prob = metric_prop)
 
-   ## Sample the set of Brackets (i.e. which performance bracket the user falls in)
+   ## Sample the set of Brackets
+   ##(i.e. which performance bracket the user falls in)
    b <- sample(brackets, size = n, replace = TRUE, prob = bracket_prop)
 
    ## Make a table of results
@@ -304,17 +308,20 @@ tail(low_friends)
 
 
 if ((nrow(low_friends) + nrow(high_friends))!=length(users)) {
-  print("More users identified that exist, review the method to count high_friends")
+  print("More users identified that exist,
+   review the method to count high_friends")
 }
 ## * 8.2.10 Find the tweets of those users indentified above------------------     :828:
 ## The point of this is that the data is now ordered, the
 ## top part is the high friends and the low part is the low friends
-tweets_high <- tweets.company$text[tweets.company$friends_count > mean(tweets.company$friends_count)]
+tweets_high <- tweets.company$text[
+tweets.company$friends_count > mean(tweets.company$friends_count)]
 sum(tweets.company$user_id  %in% high_friends$user_id)
 length(tweets_high)
 tweets_high <- cbind(tweets_high, rep("High_Friend", length(tweets_high)))
 
-tweets_low <- tweets.company$text[tweets.company$friends_count <= mean(tweets.company$friends_count)]
+tweets_low <- tweets.company$text[
+tweets.company$friends_count <= mean(tweets.company$friends_count)]
 
 sum(tweets.company$user_id  %in% low_friends$user_id)
 length(tweets_low)
@@ -385,7 +392,8 @@ mystop <- c(stopwords(), "’s", "can", "ubisoft", "@ubisoft", "#ubisoft")# <<st
 
 clean_corp <- function(corpus) {
   ## Remove URL's
-  corpus <- tm_map(corpus,content_transformer(function(x) gsub("(f|ht)tp(s?)://\\S+","",x)))
+  corpus <- tm_map(corpus,content_transformer(
+    function(x) gsub("(f|ht)tp(s?)://\\S+","",x)))
   ## Remove Usernames
   corpus <- tm_map(corpus,content_transformer(function(x) gsub("@\\w+","",x)))
   ## Misc
@@ -454,7 +462,8 @@ colnames(tweet_weighted) <- colnames(tweet_matrix_dtm)
 tweet_weighted[1:6, 1:6]
 
 ## ** Use built in method (via TDM)=============================================
-tweet_weighted_dtm <- tm::TermDocumentMatrix(x = tweet_corpus_clean, control = list(weighting = weightTfIdf)) %>%
+tweet_weighted_dtm <- tm::TermDocumentMatrix(x = tweet_corpus_clean,
+   control = list(weighting = weightTfIdf)) %>%
   as.DocumentTermMatrix()  %>%
   as.matrix()
 ## TODO why are these different from what I performed??
@@ -487,7 +496,9 @@ if (nrow(tweet_weighted_dtm) == length(tweet_corpus_clean)-length(null) ) {
 ## TODO rename tweet_weighted as tweet_weighted_dtm below here
 ## ** Visualise the Cleaned Tweets to Find stop words or issues==================
 ## Only consider the first 30 words
-(relevant <- sort(apply(tweet_weighted_dtm, 2, mean), decreasing = TRUE)[1:30]) %>% head()
+(relevant <- sort(apply(tweet_weighted_dtm, 2, mean),
+ decreasing = TRUE)[1:30]) %>%
+  head()
 
 p <- brewer.pal(n = 5, name = "Set2")
  wordcloud(
@@ -514,7 +525,8 @@ length(null)
 ## * 8.2.14 How many clusters are there?-----------------------------------------  :8214:
 ## <<8214Clust>>
 ## ** Normalise the Vectors
-norm.tweet_weighted_dtm = diag(1/sqrt(rowSums(tweet_weighted_dtm^2))) %*% tweet_weighted_dtm
+norm.tweet_weighted_dtm <-
+diag(1/sqrt(rowSums(tweet_weighted_dtm^2))) %*% tweet_weighted_dtm
 ## ** Create the Distance Matrix=================================================
 D =dist(norm.tweet_weighted_dtm, method = "euclidean")^2/2
 ## To visualise the clustering, we will use multidimensional
@@ -646,9 +658,12 @@ set.seed(314)
 ## correspondence
 
 i <- 1
+
+for (i in seq_len(3)) {
 n <- which(pca_data$Cluster == i)
 
-(relevant <- sort(apply(tweet_weighted_dtm[n,], 2, mean), decreasing = TRUE)[1:30]) %>% head()
+(relevant <- sort(apply(tweet_weighted_dtm[n,], 2, mean),
+ decreasing = TRUE)[1:30]) %>% head()
 
 p <- brewer.pal(n = 5, name = "Set2")
  wordcloud(
@@ -657,5 +672,7 @@ p <- brewer.pal(n = 5, name = "Set2")
    colors = p,
    random.color = FALSE
  )
+
+}
 ## * 8.2.21 TODO Use a dendrogram to display the themes of the clusters --------   :8222:
 ## * 8.2.22 TODO REPORT What is the Conclusion regarding Themes? ---------------   :8223:
