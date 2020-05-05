@@ -6,6 +6,12 @@
     "command": "pandoc -B ~/Templates/CSS/gitOrgWrapped.css --mathml -s   report/report.org -o ./report/report.html"
   },
   {
+    "srcDir": "./report/",
+    "destDir": "./report",
+    "files": "*.org",
+    "command": "cd report; pandoc -B ~/Templates/CSS/gitOrgWrapped.css --mathml -s --self-contained  report.org -o ./report.html"
+  },
+  {
     "srcDir": "./",
     "destDir": "/tmp",
     "files": "**/*.org",
