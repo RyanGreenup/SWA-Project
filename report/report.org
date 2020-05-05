@@ -25,14 +25,6 @@
 #+latex_header: \usepackage[citestyle=numeric, bibstyle=numeric,hyperref=true,backref=true, maxcitenames=3,url=true,backend=biber,natbib=true]{biblatex}
 #+latex_header: \addbibresource{/home/ryan/Dropbox/Studies/Papers/references.bib}
 #+latex_header: %%% TeX-command-extra-options: "-shell-escape"
-#+latex_header: \RequirePackage{fix-cm}
-#+latex_header: \documentclass[fontsize=13pt,oneside]{scrbook}
-#+latex_header: \usepackage{fontspec}
-#+latex_header: \usepackage[Latin,Greek]{ucharclasses}
-#+latex_header: \newfontfamily\substitutefont{CMU Serif}
-#+latex_header: \setTransitionsForGreek{\begingroup\substitutefont}{\endgroup}
-#+latex_header: \usepackage{polyglossia}
-
 :END:
 
 
@@ -280,15 +272,6 @@ boot.ci(xbar_boot, conf = 0.97, type = "bca", index = 1)
 ## In norm.inter(t, adj.alpha) : extreme order statistics used as endpoints
  #+end_src
 
-# * References
-# Remember, this is here for HTML and autocomplete, but latex uses biblatex for URL support
-# bibliography:/home/ryan/Dropbox/Studies/Papers/references.bib
-# I (Ryan) am managing this with zotero, please don't touch, I'll figure out how to sync the citations later or we can all just switch to a =.bib= file.
-<<bibliography link>>
-bibliography:./references.bib
-
-<<bibliographystyle link>>
- bibliographystyle:unsrt
 
 *** d.) Estimate a Confidence Interval for the population mean Friend Counts
 A Confidence interval for the population mean friend counts may be constructed in a like wise fashion as shown in listings [[booty]]. This provides that the 97% confidence interval for the population mean friend count is between 384 and 502 (or 387 and 496 if the $BC_{a}$ method used, they're quite close and so the more conservative percentile method will be accepted).
@@ -478,7 +461,6 @@ $$
 
 This means the matrix of expected frequencies can be expressed as an outer product thusly:
 
-#+NAME: rschi
 \begin{align}
 \mathbf{\vec{e}}= \frac{1}{n} \times \begin{bmatrix} \sum^{n}_{j= 1} \left[ o_{1j} \right] \\  \sum^{n}_{j= 1}
 \left[ o_{2j} \right]  \\ \sum^{n}_{j= 1} \left[ o_{3j} \right]   \\
@@ -1038,7 +1020,7 @@ Tweets can be sampled from the clusters by using the =sample= function with a lo
   + tiltei com a ubisoft, dei block na minha conta sem querer, to mt puto, real
   + My first game that really hyped me was a game called rolling thunder back in
    the 80’s https://t.co/mPWim2hwVY
-  + [[https://twitter.com/search?q=%40videogamemorals][@videogamemorals]] [[https://twitter.com/search?q=%40PartisanClown][@PartisanClown]] \Two more remakes of Lunar: The Silver
+  + [[https://twitter.com/search?q=%40videogamemorals][@videogamemorals]] [[https://twitter.com/search?q=%40PartisanClown][@PartisanClown]] Two more remakes of Lunar: The Silver
    Star, Lunar Legend and Lunar: Silver Star Harmony, were released in 2002
    by Media Rings and Ubisoft and in 2009 by GungHo Online
    Entertainment and Xseed Games, respectively.\
@@ -1142,19 +1124,19 @@ for (i in seq_len(3)) {
 #+end_src
 
 #+NAME: wc1
-#+CAPTION: Wordcloud of Cluster =#=1 using /TF-IDF/ weighting
+#+CAPTION: Wordcloud of Cluster =#= 1 using /TF-IDF/ weighting
 #+attr_html: :width 400px
 #+attr_latex: :width 8cm
 [[./Figures/Cluster1Cloud.png]]
 
 #+NAME: wc2
-#+CAPTION: Wordcloud of Cluster =#=2 using /TF-IDF/ weighting
+#+CAPTION: Wordcloud of Cluster =#= 2 using /TF-IDF/ weighting
 #+attr_html: :width 400px
 #+attr_latex: :width 14cm
 [[./Figures/Cluster2Cloud.png]]
 
 #+NAME: wc3
-#+CAPTION: Wordcloud of Cluster =#=3 using /TF-IDF/ weighting
+#+CAPTION: Wordcloud of Cluster =#= 3 using /TF-IDF/ weighting
 #+attr_html: :width 400px
 #+attr_latex: :width 10cm
 [[./Figures/Cluster3Cloud.png]]
@@ -1246,3 +1228,17 @@ xkcd in figure [[xkcd]].
 
 [fn:1] This works because the =tm= package preserves the order of the data, this can be confirmed by using a dataframe source as opposed to a vector source (e.g. in listing [[cpmk]]) and comparing the ID's before/after transformation.
 # see ./scripts/q2.R
+
+
+
+
+
+# * References
+# Remember, this is here for HTML and autocomplete, but latex uses biblatex for URL support
+# bibliography:/home/ryan/Dropbox/Studies/Papers/references.bib
+# I (Ryan) am managing this with zotero, please don't touch, I'll figure out how to sync the citations later or we can all just switch to a =.bib= file.
+<<bibliography link>>
+bibliography:./references.bib
+
+<<bibliographystyle link>>
+ bibliographystyle:unsrt
