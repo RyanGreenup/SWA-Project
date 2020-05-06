@@ -12,7 +12,7 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2, ggmap, parallel,
                corrplot, gridExtra, mise, latex2exp, tree, rpart, lattice, coin,
                primes, epitools, maps, clipr, ggmap, twitteR, ROAuth, tm,
                rtweet, base64enc, httpuv, SnowballC, RColorBrewer, wordcloud,
-               ggwordcloud, boot, SnowballC)
+               ggwordcloud, boot, SnowballC, igraph)
 
 mise()
 
@@ -95,7 +95,6 @@ dim(more.friends[[1]])
 nrow(more.friends[[1]])
 
 ## ** Reduce Size of Data =====================================================
-#-----------------Restrict to 100 records to manage big data----------------
 for (a in 1:10) {
   if (nrow(more.friends[[a]]) > 5) {
     more.friends[[a]] <- more.friends[[a]][1:5, ]
@@ -107,55 +106,57 @@ more.friends[[1]]$screen_name[1]
 more.friends[[1]]$screen_name[2]
 more.friends[[2]]$screen_name[2]
 
+## ** Build the Edge List =====================================================
+el = cbind(rep(user$screen_name, 10),
+           topFriends$screen_name[1:10])  # bind the columns to create a matrix
 
-
-#We can now build the edge list using:
-el = cbind(rep(user$screen_name, nrow(friends)),
-           friends$screen_name)  # bind the columns to create a matrix
-
-#Using what you have done above, write the function
+## *** Append Friends-of-Friends to Edge List #################################
 user.to.edgelist <- function(user, friends) {
   # create the list of friend screen names
-  user.name = rep(user$screen_name, nrow(friends))  # repeat user's name
-  el = cbind(user.name, friends$screen_name)  # bind the columns to create a matrix
-  return(el)
+  user.name <- rep(user$screen_name, nrow(friends))   # repeat user's name
+  (el       <- cbind(user.name, friends$screen_name))  # bind the columns
 }
+## ## Call the Function
+## el.chris = user.to.edgelist(user, friends)
+## ## **** Inspect the Data
+## el.chris
+## ## ***** extra
+## topFriends[1,4] #4th column is Screenname
+## nrow(more.friends[[4]])
+## topFriends[1,]
+## user.to.edgelist(topFriends[1,], more.friends[[1]])
+## 
 
-#We can use the created function user.to.edgelist to create the edge list for Chris Hemsworth:
-el.chris = user.to.edgelist(user, friends)
-el.chris
-topFriends[1,4] #4th column is Screenname
-nrow(more.friends[[4]])
-topFriends[1,]
-user.to.edgelist(topFriends[1,], more.friends[[1]])
-#We can also build the edge list for the top 10 friends using a loop:
+## We can also build the edge list for the top 10 friends using a loop:
+el.chris <- el
 for (a in c(1:length(more.friends))) {
   el.friend = user.to.edgelist(topFriends[a,], more.friends[[a]])
   el.chris = rbind(el.chris, el.friend)  # append the new edge list to the old one.
 }
 el.chris
-#Now that we have the edge list, we can create the graph:
+## Now that we have the edge list, we can create the graph:
 g = graph.edgelist(el.chris)
 g
-#Let's plot the graph. Since there are many vertices,
-#we will reduce the vertex size and use a special plot layout:
-plot(g, layout = layout.fruchterman.reingold, vertex.size = 5)
+## Let's plot the graph. Since there are many vertices,
+## we will reduce the vertex size and use a special plot layout:
+plot(g, layout = layout.fruchterman.reingold, vertex.size = 1)
 
-#This graph contains many vertices that we did not examine. To remove these,
-#let's only keep the vertices with degree (in or out) greater than 1.
+## This graph contains many vertices that we did not examine. To remove these,
+## let's only keep the vertices with degree (in or out) greater than 1.
 g2=induced_subgraph(g, which(degree(g, mode = "all") > 1))
-#This graph is now easier to visualise:
-plot(g2, layout = layout.fruchterman.reingold, vertex.size = 5)
+## This graph is now easier to visualise:
+plot(g2, layout = layout.fruchterman.reingold, vertex.size = 1)
 
-#Who is at the centre of the graph? Use the centrality measures to examine this.
+## Who is at the centre of the graph? Use the centrality measures to examine this.
 g2.centres=order(closeness(g2), decreasing=TRUE)
 length(g2.centres)
 g2[g2.centres][,1]#names of the centres
-# Examine the graph density. Is it sparse or dense?
+## Examine the graph density. Is it sparse or dense?
 graph.density(g2)
 
-#Examine the degree distribution. Is this graph more similar to an Erd??s-Renyi
-#graph or a Barab??si???Albert graph?
+## Examine the degree distribution. Is this graph more similar to an Erd??s-Renyi
+## graph or a Barab??si???Albert graph?
 degree.distribution(g2)
+
 ## * 8.2.26 Compute the closeness cen. score for every user--------------------
 ## * 8.2.27 Comment on the Results---------------------------------------------
