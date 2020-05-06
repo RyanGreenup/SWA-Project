@@ -1260,8 +1260,12 @@ It appears that users that discuss newer titles and upcoming collaborations belo
 This could imply that users discussing new titles are more likely to have more friends or it could imply that twitter users with a high friend count are more likely to show interest in newer titles and material.
 * 8.3 Building Networks
 ** 8.3.24 Find the 10 Most Popular Friends of the Twitter Handle
-The =get_friends= function can be used to discover the friends of the [[https://twitter.com/Ubisoft][@ubisoft]] account, these user /ID/ values can then be passed as an argument to the =lookup_users= function, this will return the features of those given users and these results can be sorted by friend count in order to show the most popular friends, as shown in listing [[fdg]], this provides the following list of friends in order of the number of there popularity:
-
+The =get_friends= function can be used to discover the friends of the [[https://twitter.com/Ubisoft][@ubisoft]]
+account, these user /ID/ values can then be passed as an argument to the
+=lookup_users= function, this will return the features of those given users and
+these results can be sorted by friend count in order to show the most popular
+friends, as shown in listing [[fdg]], this provides the following list of friends in
+order of the number of there popularity:
 
 | 1. =BarackObama=   | 2.  =XboxSupport= | 3. =DEADLINE= | 4.  =gameinformer= | 5.  =Arbys=      |
 | 6.  =PeterHollens= | 7.  =HarleyPlays= | 8. =G4C=      | 9.  =Xbox=         | 10. =GailSimone= |
@@ -1293,72 +1297,134 @@ topFriends$screen_name
 ## [6] "PeterHollens" "HarleyPlays"  "G4C"          "Xbox"         "GailSimone"
 #+end_src
 
-
 ** TODO 8.3.25 Obtain a *2-degree* egocentric graph centred at /Ubisoft/
-The tweets can be downloaded by using the =get_friends= and =lookup_users= functions as shown in listing [[gfd]].
+*** Download Friends of Friends
+
+The tweets can be downloaded by using the =get_friends= and =lookup_users=
+functions as shown in listing [[gfd]].
 
 #+NAME: gfd
 #+CAPTION: Load the Packages for **/R/**
 #+begin_src R
-#-----------Do the following to download directly from Twitter------
-more.friends = list() #a place to store the friends of friends
-#n = length(topFriends)
-n= nrow(topFriends)
-t = get_friends(topFriends$user_id[1], token = tk) #get friends of each friend
-more.friends[[1]]=lookup_users(t$user_id, token = tk)
-t = get_friends(topFriends$user_id[2], token = tk) #get friends of each friend
-more.friends[[2]]=lookup_users(t$user_id, token = tk)
-t = get_friends(topFriends$user_id[3], token = tk) #get friends of each friend
-more.friends[[3]]=lookup_users(t$user_id, token = tk)
-t = get_friends(topFriends$user_id[4], token = tk) #get friends of each friend
-more.friends[[4]]=lookup_users(t$user_id, token = tk)
-t = get_friends(topFriends$user_id[5], token = tk) #get friends of each friend
-more.friends[[5]]=lookup_users(t$user_id, token = tk)
-t = get_friends(topFriends$user_id[6], token = tk) #get friends of each friend
-more.friends[[6]]=lookup_users(t$user_id, token = tk)
-t = get_friends(topFriends$user_id[7], token = tk) #get friends of each friend
-more.friends[[7]]=lookup_users(t$user_id, token = tk)
-t = get_friends(topFriends$user_id[8], token = tk) #get friends of each friend
-more.friends[[8]]=lookup_users(t$user_id, token = tk)
-t = get_friends(topFriends$user_id[9], token = tk) #get friends of each friend
-more.friends[[9]]=lookup_users(t$user_id, token = tk)
-t = get_friends(topFriends$user_id[10], token = tk) #get friends of each friend
-more.friends[[10]]=lookup_users(t$user_id, token = tk)
-more.friends
-class(more.friends[[1]])
-dim(more.friends[[1]])
-nrow(more.friends[[1]])
+if (!file.exists("./AllGraphData.RData")) {
+    for (i in 1:10) {
+        ## Get friends of Each Friend
+        t <- get_friends(topFriends$user_id[i], token <- tk)
 
-save(list = ls(), file = "AllGraphData.RData")
-rm(more.friends)
-#+end_src
+        ## Get the Data from Each Friend
+        further_friends[[i]] <- lookup_users(t$user_id, token <- tk)
 
-*** TODO Change  the variables to be descriptive in [[gfd]]
-*** TODO Make this a for loop for want of being neat
-
-There is a significant amount of data here and so the number of records can be reduced as shown in listing [[rdc]]
-
-#+NAME: rdc
-#+CAPTION: Load the Packages for **/R/**
-#+begin_src R
-for(a in 1:10){
-  if(nrow(more.friends[[a]])>100){
-    more.friends[[a]]=more.friends[[a]][1:100,]
-  }
+        ## Save the Data
+        save(list = ls(), file = "AllGraphData.RData")
+    }
+} else {
+    load(file = "AllGraphData.RData")
 }
 
-# Inspect Value
-more.friends[[1]]$screen_name[1]
-more.friends[[1]]$screen_name[2]
+#+end_src
 
+*** Limit the number of Nodes for Want of Visualisation
+In order to effectively visualise this graph, the number of nodes will be limited to 13, this can be acheived by filtering the list for more than 13 observations as shown in listing [[shm]].
 
-## [1] "robertwolf32"
-## [1] "davidplouffe"
+#+NAME: shm
+#+CAPTION: Load the Packages for **/R/**
+#+begin_src R
+n  <- 13
+for (a in 1:10) {
+  if (nrow(further_friends[[a]]) > n) {
+    further_friends[[a]] <- further_friends[[a]][1:n, ]
+  }
+}
+#+end_src
+
+*** Build the Edge List
+
+By building a matrix of screen names a description of the edges of the graph can be built, this is shown in listing [[bded]].
+
+#+NAME: bded
+#+CAPTION: Load the Packages for **/R/**
+#+begin_src R
+Edges <- cbind(rep(user$screen_name, 10),
+           topFriends$screen_name[1:10])  # bind the columns to create a matrix
+
+#+end_src
+
+*** Build the Graph
+the =igraph= package can then be used to construct a graph object using the =graph.edgelist= function, this can then be passed to the plot function to produce a plot of the graph as demonstrated in listing [[mkg]] and shown in figure [[gp1]].
+
+#+NAME: mkg
+#+CAPTION: Load the Packages for **/R/**
+#+begin_src R
+g <- graph.edgelist(Edges)
+plot(g, layout = layout.fruchterman.reingold,
+     vertex.size = 7)
 #+end_src
 
 
-*** TODO Add the graphing stuff [[file:~/Dropbox/Studies/2020Autumn/Social_Web_Analytics/07_Solutions_Graphs1.R::----------------------6.3 Creating the Twitter Graph--------------][from the 07 tutorial]]
+#+NAME: gp1
+#+CAPTION: Base Plot of Graph using /Fruchterman-Reingold/ Alorighm
+#+attr_html: :width 400px
+#+attr_latex: :width 12cm
+[[./Figures/Graph_Base_1.png]]
+
+*** Use GGPlot2
+This Graph could also be produced using =ggplot2= and with an alternate algorithm for aranging the nodes, in order to do this a /tidy/ data frame needs to be produces as demonstrated in listing [[tdy]] and then the ggplot function can be used to build a plot as demonstrated in listing [[ggp]], this produces an alternative visualsation of the graph as shownin figure [[ggpt]].
+
+#+NAME: tdy
+#+CAPTION: Create a tidy data frame describing the graph in order to use =ggplot2=.
+#+begin_src R
+## *** Get Edges ###########
+Edges <- as.data.frame(Edges)
+names(Edges) <- c("Source", "Target")
+
+## *** Build the Data Frame #####
+ne <- nrow(Edges) # Number of Edges
+laytg <- as.data.frame(igraph::layout.kamada.kawai(g, dim = 2))
+laytg$node <- vertex_attr(g)[[1]]
+names(laytg)  <- c("xval", "yval", "node")
+
+laytg$xval[laytg$node==Edges$Source[2]]
+
+  ys <- xe <- ye <- xs <- vector(length = ne)
+  for (i in seq_len(length(xs))) {
+    xs[i] <- laytg$xval[laytg$node==Edges$Source[i]]
+    ys[i] <- laytg$yval[laytg$node==Edges$Source[i]]
+    xe[i] <- laytg$xval[laytg$node==Edges$Target[i]]
+    ye[i] <- laytg$yval[laytg$node==Edges$Target[i]]
+  }
+
+  starts    <- data.frame("xval" = xs, "yval" = ys, edgenum = 1:ne) # TODO Make a factor
+  ends      <- data.frame("xval" = xe, "yval" = ye, edgenum = 1:ne)
+  Edges_val <- as_tibble(rbind(starts,ends))
+#+end_src
+
+#+NAME: ggp
+#+CAPTION: Use =ggplot2= to construct a visualisation of the graph
+#+begin_src R
+ggplot(Edges_val, aes(x = xval, y = yval)) +
+geom_label_repel(data = laytg,
+    mapping = aes(x = xval, y = yval, label = node),
+    col = "darkblue", size = 1.5, nudge_x = 0, nudge_y = 0) +
+    geom_line(aes(group = edgenum), col = "grey", lty = 2) +
+    geom_point(data = laytg,
+        aes(x = xval,
+                y = yval,
+                col = node),
+                size = 2) +
+    theme_classic() +
+  theme(axis.line = element_blank(),
+    axis.text.y=element_blank(),axis.ticks=element_blank(),
+    axis.text.x=element_blank())
+    guides(col = FALSE)
+#+end_src
+
+#+NAME: ggpt
+#+CAPTION: Graph Visualised using /Kamada-Kawai/ algorithm and built with =ggplot2=
+#+attr_html: :width 400px
+#+attr_latex: :width 12cm
+[[./Figures/ggGraph.png]]
 ** 8.3.26 Compute the *closeness* centrality score for each user
+In order to compute a closeness centrality score
 ** 8.3.28
 * Appendix
 ** Users with High Friend Count
