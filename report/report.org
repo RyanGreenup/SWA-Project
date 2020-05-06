@@ -1424,8 +1424,44 @@ geom_label_repel(data = laytg,
 #+attr_latex: :width 12cm
 [[./Figures/ggGraph.png]]
 ** 8.3.26 Compute the *closeness* centrality score for each user
-In order to compute a closeness centrality score
-** 8.3.28
+In order to compute a closeness centrality score it is necessary to rebuild the
+graph as shown in /Question 8.3.25/, it is crucial however, that the data
+not be reduced in order for meaningful values to be provided, i.e. listing
+[[shm]] should be omitted when re-producing the graph object for the purposes of measuring centrality.
+
+The closeness centrality score can be determined by using the =closeness= function, the names of the nodes can be taken from the graph and then this can be sorted as shown in listing [[gst]].
+
+#+NAME: gst
+#+CAPTION: Calculating the /Closeness Centrality Score/
+#+begin_src R
+## Inspect the Closness
+closeness(g)[1:20]
+
+## Sort the Closeness
+index=order(closeness(g), decreasing = TRUE)
+centrality_vector <- c(names(g[index][,1]), closeness(g)[index])
+
+## Print the 3 most Central Users
+centrality_vector[1:4]
+
+## "Ubisoft" "BarackObama" "XboxSupport"    "DEADLINE"
+#+end_src
+
+** 8.3.27 List the Most Central People in the graph according to closeness centrality
+The most central people in order of clossess centrality are:
+
+1. Ubisoft
+2. Arbys
+3. Xbox
+4. GailSimone
+
+  Unsuprisingly /Ubisoft/ is the most central person, this is expected because the graph was produced from the perspective of /Ubisoft/ and the nodes had a very limited degree of inteconnectivity.
+
+
+** 8.3.28 Comment on the Results
+/Ubisoft/ has many connections as shown in figures [[gp1]] and [[ggpt]], these connections however have a limited amount of interconnectivity.
+
+  Suprisingly however, Gail Simone, a comic book author involved in works such as /Batgirl/ and /Birds of Prey/, is a very central character, in combination with the central connection to /Arbys/ this is indicative of the interests and lifestyle of the typical demographic of friends of the /Ubisoft/ account.
 * Appendix
 ** Users with High Friend Count
 
