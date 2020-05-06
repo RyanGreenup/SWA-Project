@@ -163,7 +163,7 @@ provides that:
 
 
 ** 8.1.5 Bootstrap confidence intervals
-*** a/b.) Generate a bootsrap distribution
+*** a/b.) Generate a bootstrap distribution
 
 A bootstrap assumes that the population is an infinitely large repetition of the
 sample and may be produces with respect to follower counts by resampling with
