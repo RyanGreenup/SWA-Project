@@ -71,7 +71,6 @@ topFriends = friends[friendPosition,] #ids of top 10 friends
 topFriends$screen_name
 
 ## * 8.2.25 2 Degree Egocentric graph-------------------------------------------
-
 ## ** Download 2nd Degree of Friends ===========================================
 if (!file.exists("./AllGraphData.RData")) {
     for (i in 1:10) {
@@ -79,7 +78,7 @@ if (!file.exists("./AllGraphData.RData")) {
         t <- get_friends(topFriends$user_id[i], token <- tk)
 
         ## Get the Data from Each Friend
-        more.friends[[i]] <- lookup_users(t$user_id, token <- tk)
+        further_friends[[i]] <- lookup_users(t$user_id, token <- tk)
 
         ## Save the Data
         save(list = ls(), file = "AllGraphData.RData")
@@ -90,15 +89,15 @@ if (!file.exists("./AllGraphData.RData")) {
 
 ## *** Inspect the Data #######################################################
 
-class(more.friends[[1]])
-dim(more.friends[[1]])
-nrow(more.friends[[1]])
+class(further_friends[[1]])
+dim(further_friends[[1]])
+nrow(further_friends[[1]])
 
 ## ** Set How many 2nd Degree Friends =========================================
 n  <- 13
 for (a in 1:10) {
-  if (nrow(more.friends[[a]]) > n) {
-    more.friends[[a]] <- more.friends[[a]][1:n, ]
+  if (nrow(further_friends[[a]]) > n) {
+    further_friends[[a]] <- further_friends[[a]][1:n, ]
   }
 }
 
@@ -112,8 +111,8 @@ user.to.edgelist <- function(user, friends) {
   user.name <- rep(user$screen_name, nrow(friends))   # repeat user's name
   (Edges       <- cbind(user.name, friends$screen_name))  # bind the columns
 }
-for (a in c(1:length(more.friends))) {
-  el.friend = user.to.edgelist(topFriends[a,], more.friends[[a]])
+for (a in c(1:length(further_friends))) {
+  el.friend = user.to.edgelist(topFriends[a,], further_friends[[a]])
   Edges = rbind(Edges, el.friend)  # append the new edge list to the old one.
 }
 Edges
@@ -131,10 +130,10 @@ plot(g, layout = layout.fruchterman.reingold, vertex.size = 7)
 Edges <- as.data.frame(Edges)
 names(Edges) <- c("Source", "Target")
 
+## *** Build the Data Frame ###################################################
 ne <- nrow(Edges) # Number of Edges
 laytg <- as.data.frame(igraph::layout.kamada.kawai(g, dim = 2))
 laytg$node <- vertex_attr(g)[[1]]
-
 names(laytg)  <- c("xval", "yval", "node")
 
 laytg$xval[laytg$node==Edges$Source[2]]
@@ -147,37 +146,87 @@ laytg$xval[laytg$node==Edges$Source[2]]
     ye[i] <- laytg$yval[laytg$node==Edges$Target[i]]
   }
 
-
-
   starts    <- data.frame("xval" = xs, "yval" = ys, edgenum = 1:ne) # TODO Make a factor
   ends      <- data.frame("xval" = xe, "yval" = ye, edgenum = 1:ne)
   Edges_val <- as_tibble(rbind(starts,ends))
 
-  ggplot(Edges_val, aes(x = xval, y = yval)) +
-        geom_label_repel(data = laytg, aes(x = xval, y = yval, label = node), col = "darkblue", size = 1.5, nudge_x = 0, nudge_y = 0) +
-        geom_line(aes(group = edgenum)) +
-        geom_point(data = laytg, aes(x = xval, y = yval, col = node), size = 2) +
-        theme_classic() +
-        guides(col = FALSE) 
+## *** Call ggplot to make the plot ###########################################
+ggplot(Edges_val, aes(x = xval, y = yval)) +
+geom_label_repel(data = laytg,
+    mapping = aes(x = xval, y = yval, label = node),
+    col = "darkblue", size = 1.5, nudge_x = 0, nudge_y = 0) +
+    geom_line(aes(group = edgenum)) +
+    geom_point(data = laytg,
+        aes(x = xval,
+                y = yval,
+                col = node),
+                size = 2) +
+    theme_classic() +
+    guides(col = FALSE)
 
-  ggplot(Edges_val, aes(x = xval, y = yval)) +
-        geom_line(aes(group = edgenum)) +
-        geom_point(data = laytg, aes(x = xval, y = yval, col = node), size = 2) +
-        theme_classic() +
-        guides(col = FALSE) 
+## ** Heirarchical ggplot2 ====================================================
+## *** Set How many 2nd Degree Friends #########################################
+n  <- 1
+for (a in 1:10) {
+  if (nrow(further_friends[[a]]) > n) {
+    further_friends[[a]] <- further_friends[[a]][1:n, ]
+  }
+}
 
+## *** Build the Edge List #####################################################
+Edges <- cbind(rep(user$screen_name, 10),
+           topFriends$screen_name[1:10])  # bind the columns to create a matrix
 
+## **** Append Friends-of-Friends to Edge List #################################
+user.to.edgelist <- function(user, friends) {
+  # create the list of friend screen names
+  user.name <- rep(user$screen_name, nrow(friends))   # repeat user's name
+  (Edges       <- cbind(user.name, friends$screen_name))  # bind the columns
+}
+for (a in c(1:length(further_friends))) {
+  el.friend = user.to.edgelist(topFriends[a,], further_friends[[a]])
+  Edges = rbind(Edges, el.friend)  # append the new edge list to the old one.
+}
+Edges
+
+## *** Get Edges ##############################################################
+Edges <- as.data.frame(Edges)
+names(Edges) <- c("Source", "Target")
+
+## *** Build the Data Frame ###################################################
+ne <- nrow(Edges) # Number of Edges
+laytg <- as.data.frame(igraph::layout_as_tree(g))
+laytg$node <- vertex_attr(g)[[1]]
+names(laytg)  <- c("xval", "yval", "node")
+
+laytg$xval[laytg$node==Edges$Source[2]]
+
+  ys <- xe <- ye <- xs <- vector(length = ne)
+  for (i in seq_len(length(xs))) {
+    xs[i] <- laytg$xval[laytg$node==Edges$Source[i]]
+    ys[i] <- laytg$yval[laytg$node==Edges$Source[i]]
+    xe[i] <- laytg$xval[laytg$node==Edges$Target[i]]
+    ye[i] <- laytg$yval[laytg$node==Edges$Target[i]]
+  }
+
+  starts    <- data.frame("xval" = xs, "yval" = ys, edgenum = 1:ne)
+  ends      <- data.frame("xval" = xe, "yval" = ye, edgenum = 1:ne)
+
+## *** Call ggplot to make the plot ###########################################
 
 library(ggrepel)
- ggplot(rbind(starts,ends), aes(x = xval, y = yval)) +
-  geom_line(aes(group = edgenum), lty = 3, col = "darkgrey", size = 0.3) +
-  geom_point(data = laytg, aes(x = xval, y = yval, col = node), size = 4) +
-  labs(x = "", y = "") +
-  geom_label_repel(data = laytg, aes(x = xval, y = yval, label = node, col = node), size = 1.5, nudge_x = 0, nudge_y = 0) +
-  guides(col = FALSE) +
-  theme_classic() +
-  theme(axis.line = element_blank(),  # https://stackoverflow.com/a/6542792/12843551
-    axis.text.y=element_blank(),axis.ticks=element_blank(),
-    axis.text.x=element_blank())
+ggplot(rbind(starts,ends), aes(x = xval, y = yval)) +
+geom_line(aes(group = edgenum), lty = 3, col = "darkgrey", size = 0.3) +
+geom_point(data = laytg, aes(x = xval, y = yval, col = node), size = 4) +
+labs(x = "", y = "") +
+geom_label_repel(data = laytg,
+            aes(x = xval, y = yval, label = node, col = node),
+            size = 1.5, nudge_x = 0, nudge_y = 0) +
+            guides(col = FALSE) +
+            theme_classic() +
+            theme(axis.line = element_blank(),
+                    axis.text.y=element_blank(),axis.ticks=element_blank(),
+                    axis.text.x=element_blank())
+
 ## * 8.2.26 Compute the closeness cen. score for every user--------------------
 ## * 8.2.27 Comment on the Results---------------------------------------------
