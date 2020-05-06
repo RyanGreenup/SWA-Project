@@ -12,7 +12,7 @@ pacman::p_load(xts, sp, gstat, ggplot2, rmarkdown, reshape2, ggmap, parallel,
                corrplot, gridExtra, mise, latex2exp, tree, rpart, lattice, coin,
                primes, epitools, maps, clipr, ggmap, twitteR, ROAuth, tm,
                rtweet, base64enc, httpuv, SnowballC, RColorBrewer, wordcloud,
-               ggwordcloud, boot, SnowballC, igraph)
+               ggwordcloud, boot, SnowballC, igraph, ggrepel)
 
 mise()
 
@@ -97,7 +97,7 @@ nrow(more.friends[[1]])
 ## ** Reduce Size of Data =====================================================
 for (a in 1:10) {
   if (nrow(more.friends[[a]]) > 5) {
-    more.friends[[a]] <- more.friends[[a]][1:5, ]
+    more.friends[[a]] <- more.friends[[a]][1:13, ]
   }
 }
 
@@ -139,24 +139,63 @@ g = graph.edgelist(el.chris)
 g
 ## Let's plot the graph. Since there are many vertices,
 ## we will reduce the vertex size and use a special plot layout:
-plot(g, layout = layout.fruchterman.reingold, vertex.size = 1)
+plot(g, layout = layout.fruchterman.reingold, vertex.size = 7)
 
-## This graph contains many vertices that we did not examine. To remove these,
-## let's only keep the vertices with degree (in or out) greater than 1.
-g2=induced_subgraph(g, which(degree(g, mode = "all") > 1))
-## This graph is now easier to visualise:
-plot(g2, layout = layout.fruchterman.reingold, vertex.size = 1)
+adj_mat_2deg_ego  <- igraph::get.adjacency(g)  %>% as.matrix()
 
-## Who is at the centre of the graph? Use the centrality measures to examine this.
-g2.centres=order(closeness(g2), decreasing=TRUE)
-length(g2.centres)
-g2[g2.centres][,1]#names of the centres
-## Examine the graph density. Is it sparse or dense?
-graph.density(g2)
 
-## Examine the degree distribution. Is this graph more similar to an Erd??s-Renyi
-## graph or a Barab??si???Albert graph?
-degree.distribution(g2)
+Edges <- as.data.frame(igraph::get.edgelist(g))
+names(Edges) <- c("Source", "Target")
 
+
+ne <- nrow(Edges) # Number of Edges
+laytg <- as.data.frame(igraph::layout.kamada.kawai(g, dim = 2))
+laytg <- as.data.frame(igraph::layout_as_tree(g))
+laytg$node <- vertex_attr(g)[[1]]
+
+names(laytg)  <- c("xval", "yval", "node")
+
+laytg$xval[laytg$node==Edges$Source[2]]
+
+  ys <- xe <- ye <- xs <- vector(length = ne)
+  for (i in seq_len(length(xs))) {
+    xs[i] <- laytg$xval[laytg$node==Edges$Source[i]]
+    ys[i] <- laytg$yval[laytg$node==Edges$Source[i]]
+    xe[i] <- laytg$xval[laytg$node==Edges$Target[i]]
+    ye[i] <- laytg$yval[laytg$node==Edges$Target[i]]
+  }
+
+
+
+  starts    <- data.frame("xval" = xs, "yval" = ys, edgenum = 1:ne) # TODO Make a factor
+  ends      <- data.frame("xval" = xe, "yval" = ye, edgenum = 1:ne)
+  Edges_val <- as_tibble(rbind(starts,ends))
+
+  ggplot(Edges_val, aes(x = xval, y = yval)) +
+        geom_label_repel(data = laytg, aes(x = xval, y = yval, label = node), col = "darkblue", size = 1.5, nudge_x = 0, nudge_y = 0) +
+        geom_line(aes(group = edgenum)) +
+        geom_point(data = laytg, aes(x = xval, y = yval, col = node), size = 2) +
+        theme_classic() +
+        guides(col = FALSE) 
+
+  ggplot(Edges_val, aes(x = xval, y = yval)) +
+        geom_line(aes(group = edgenum)) +
+        geom_point(data = laytg, aes(x = xval, y = yval, col = node), size = 2) +
+        theme_classic() +
+        guides(col = FALSE) 
+
+
+
+library(ggrepel)
+ ggplot(rbind(starts,ends), aes(x = xval, y = yval)) +
+  geom_line(aes(group = edgenum), lty = 3, col = "darkgrey", size = 0.3) +
+  geom_point(data = laytg, aes(x = xval, y = yval, col = node), size = 4) +
+  labs(x = "", y = "") +
+  geom_label_repel(data = laytg, aes(x = xval, y = yval, label = node, col = node), size = 1.5, nudge_x = 0, nudge_y = 0) +
+  guides(col = FALSE) +
+  theme_classic() +
+  theme(axis.line = element_blank(),  # https://stackoverflow.com/a/6542792/12843551
+    axis.text.y=element_blank(),axis.ticks=element_blank(),
+    axis.text.x=element_blank())
 ## * 8.2.26 Compute the closeness cen. score for every user--------------------
 ## * 8.2.27 Comment on the Results---------------------------------------------
