@@ -243,7 +243,7 @@ percentile interval for skewed data such as this, in saying that however this me
   The =boot= package is a bootstrapping library common among authors in the data science sphere
   [[cite:james2013][p. 295]] [[cite:wiley2019][p. 237]] that implements
   confidence intervals consistent with work by Davison and Hinkley
-  cite:ripley2020 in there texbook /Bootstrap Methods and their Application/.
+  cite:ripley2020 in their texbook /Bootstrap Methods and their Application/.
  In this work it is provided that the $BC_{a}$ method of constructing confidence
   intervals is  superior to mere percentile
   methods in terms of accuracy [[cite:davison1997][Ch. 5]], a sentiment echoed in the literature. [[cite:carpenter2000,davison1997][Ch. 5]]
