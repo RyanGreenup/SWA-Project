@@ -93,7 +93,7 @@ get started, I haven't decided on the company to use but it doesn't really matte
 ** Clock Tables
 *** Ryan
 #+BEGIN: clocktable :scope nil :maxlevel 6 :match "ryan"
-#+CAPTION: Clock summary at [2020-05-05 Tue 20:47]
+#+CAPTION: Clock summary at [2020-05-06 Wed 12:41]
 | Headline                                       | Time      |         |       |
 |------------------------------------------------+-----------+---------+-------|
 | *Total time*                                   | *2d 5:13* |         |       |
@@ -426,16 +426,29 @@ SCHEDULED: <2020-05-05 Tue>
 *** DONE What is the conclusion regarding the themes                          :ryan:
 SCHEDULED: <2020-05-05 Tue>
 
-** TODO 8.3 Building Networks                                                  :Hassan:Navid:
-*** TODO 24 Find the 10 most popular friends
-:LOGBOOK:
-CLOCK: [2020-05-05 Tue 19:05]--[2020-05-05 Tue 20:00] =>  0:55
-:END:
-*** TODO 25 Obtain a 2-degree egocentric graph centred at twitter handle
-:LOGBOOK:
-CLOCK: [2020-05-05 Tue 20:00]--[2020-05-05 Tue 21:10] =>  1:10
-:END:
-Look at the [[file:~/Dropbox/Studies/2020Autumn/Social_Web_Analytics/07_Solutions_Graphs1.R::----------------------6.3 Creating the Twitter Graph--------------][07 Tutorial]]
-*** TODO 26 Compute the closeness centrality score for each handle graphed
-*** TODO 27 List the top 3 most central people
-*** TODO 28 Comment on your results
+** REPORT 8.3 Building Networks                                                :ryan:
+*** 24 Find the 10 most popular friends
+:LOG
+CLOC020-05-05 Tue 19:05]--[2020-05-05 Tue 20:00] =>  0:55
+:END
+*** 25 Obtain a 2-degree egocentric graph centred at twitter handle
+:LOG
+CLOC020-05-06 Wed 08:56]--[2020-05-06 Wed 12:41] =>  3:45
+CLOC020-05-05 Tue 20:00]--[2020-05-05 Tue 21:10] =>  1:10
+:END
+Lookhe [[file:~/Dropbox/Studies/2020Autumn/Social_Web_Analytics/07_Solutions_Graphs1.R::----------------------6.3 Creating the Twitter Graph--------------][07 Tutorial]]
+
+I wr it into a =for= loop but Chris mentioned that this may cause
+perfce issues, if this is the case checkout commit =4b97fea= in order to
+downthe tweets, it doesn't matter I've already downloaded them
+*** 26 Compute the closeness centrality score for each handle graphed
+:LOG
+CLOC020-05-06 Wed 12:41]--[2020-05-06 Wed 12:41] =>  0:00
+:END
+
+*** 27 List the top 3 most central people
+:LOG:
+CLOC2020-05-06 Wed 12:41]--[2020-05-06 Wed 12:41] =>  0:00
+:END
+
+*** 28 Comment on your results

@@ -1,0 +1,14 @@
+Hey guys,
+
+I downloaded the friends and users for the Network and started on building the
+graph, all we really need to do now is:
+
+1. Compute the Closeness Centrality Score for each user
+2. Find the 3 most central users
+3. Conclude the Network stuff in the report
+4. Proof Read the Report
+
+
+
+Cheers,
+Ryan.
