@@ -200,7 +200,7 @@ ggplot(data = bt_pop_data, aes(x = Followers)) +
 #+attr_html: :width 400px
 #+attr_latex: :width 12cm
 #+NAME: btpopfg
-#+CAPTION: Histogram of the bootrapped population of follower counts
+#+CAPTION: Histogram of the bootsrapped population of follower counts
 [[./Figures/BootStrap_Pop.png]]
 
 *** c.) Estimate a Confidence Interval for the population mean Follower Counts
