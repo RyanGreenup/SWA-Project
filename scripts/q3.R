@@ -94,63 +94,45 @@ class(more.friends[[1]])
 dim(more.friends[[1]])
 nrow(more.friends[[1]])
 
-## ** Reduce Size of Data =====================================================
+## ** Set How many 2nd Degree Friends =========================================
+n  <- 13
 for (a in 1:10) {
-  if (nrow(more.friends[[a]]) > 5) {
-    more.friends[[a]] <- more.friends[[a]][1:13, ]
+  if (nrow(more.friends[[a]]) > n) {
+    more.friends[[a]] <- more.friends[[a]][1:n, ]
   }
 }
 
-## *** Inspect the Data #######################################################
-more.friends[[1]]$screen_name[1]
-more.friends[[1]]$screen_name[2]
-more.friends[[2]]$screen_name[2]
-
 ## ** Build the Edge List =====================================================
-el = cbind(rep(user$screen_name, 10),
+Edges <- cbind(rep(user$screen_name, 10),
            topFriends$screen_name[1:10])  # bind the columns to create a matrix
 
 ## *** Append Friends-of-Friends to Edge List #################################
 user.to.edgelist <- function(user, friends) {
   # create the list of friend screen names
   user.name <- rep(user$screen_name, nrow(friends))   # repeat user's name
-  (el       <- cbind(user.name, friends$screen_name))  # bind the columns
+  (Edges       <- cbind(user.name, friends$screen_name))  # bind the columns
 }
-## ## Call the Function
-## el.chris = user.to.edgelist(user, friends)
-## ## **** Inspect the Data
-## el.chris
-## ## ***** extra
-## topFriends[1,4] #4th column is Screenname
-## nrow(more.friends[[4]])
-## topFriends[1,]
-## user.to.edgelist(topFriends[1,], more.friends[[1]])
-## 
-
-## We can also build the edge list for the top 10 friends using a loop:
-el.chris <- el
 for (a in c(1:length(more.friends))) {
   el.friend = user.to.edgelist(topFriends[a,], more.friends[[a]])
-  el.chris = rbind(el.chris, el.friend)  # append the new edge list to the old one.
+  Edges = rbind(Edges, el.friend)  # append the new edge list to the old one.
 }
-el.chris
+Edges
+
+## ** Make The Graph ==========================================================
 ## Now that we have the edge list, we can create the graph:
-g = graph.edgelist(el.chris)
+g = graph.edgelist(Edges)
 g
 ## Let's plot the graph. Since there are many vertices,
 ## we will reduce the vertex size and use a special plot layout:
 plot(g, layout = layout.fruchterman.reingold, vertex.size = 7)
 
-adj_mat_2deg_ego  <- igraph::get.adjacency(g)  %>% as.matrix()
-
-
-Edges <- as.data.frame(igraph::get.edgelist(g))
+## ** Use GGPlot2 =============================================================
+## *** Get Edges ##############################################################
+Edges <- as.data.frame(Edges)
 names(Edges) <- c("Source", "Target")
-
 
 ne <- nrow(Edges) # Number of Edges
 laytg <- as.data.frame(igraph::layout.kamada.kawai(g, dim = 2))
-laytg <- as.data.frame(igraph::layout_as_tree(g))
 laytg$node <- vertex_attr(g)[[1]]
 
 names(laytg)  <- c("xval", "yval", "node")
