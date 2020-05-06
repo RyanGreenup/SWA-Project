@@ -42,12 +42,20 @@ tk <- rtweet::create_token(
 
 ## * 8.2.24 Find 10 Most Popular Friends of the Twitter Handle ----------------
 ## ** Get the User ID of Friends of Ubisoft ================================
-## user <- lookup_users(c("ubisoft"), token = tk) # Get all Ubisoft Details
-# t <- get_friends("ubisoft", token = tk)
-## *** Get More Information of Friends ########################################
-# friends = lookup_users(t$user_id, token = tk)
-## save(list = c("t", "friends", "user"), file = "./8224_Friends.Rdata")
-load("./8224_Friends.Rdata"); head(t); head(friends)
+if (!file.exists("./8224_Friends.Rdata")) {
+
+    user <- lookup_users(c("ubisoft"), token = tk) # Get all Details
+    t <- get_friends("ubisoft", token = tk)
+
+    ## *** Get More Information of Friends ####################################
+    friends = lookup_users(t$user_id, token = tk)
+
+    ## *** Save the Data ######################################################
+    save(list = c("t", "friends", "user"), file = "./8224_Friends.Rdata")
+} else {
+    load("./8224_Friends.Rdata"); head(t); head(friends)
+}
+
 ## **** Inspect the friends ....................................................
 dim(friends)
 names(friends)
