@@ -119,11 +119,11 @@ Edges
 
 ## ** Make The Graph ==========================================================
 ## Now that we have the edge list, we can create the graph:
-g = graph.edgelist(Edges)
+g <- graph.edgelist(Edges)
 g
 ## Let's plot the graph. Since there are many vertices,
 ## we will reduce the vertex size and use a special plot layout:
-plot(g, layout = layout.fruchterman.reingold, vertex.size = 7)
+plot(g, layout = layout.fruchterman.reingold, vertex.size = 3)
 
 ## ** Use GGPlot2 =============================================================
 ## *** Get Edges ##############################################################
@@ -155,14 +155,18 @@ ggplot(Edges_val, aes(x = xval, y = yval)) +
 geom_label_repel(data = laytg,
     mapping = aes(x = xval, y = yval, label = node),
     col = "darkblue", size = 1.5, nudge_x = 0, nudge_y = 0) +
-    geom_line(aes(group = edgenum)) +
+    geom_line(aes(group = edgenum), col = "grey", lty = 2) +
     geom_point(data = laytg,
         aes(x = xval,
                 y = yval,
                 col = node),
                 size = 2) +
     theme_classic() +
+  theme(axis.line = element_blank(),
+    axis.text.y=element_blank(),axis.ticks=element_blank(),
+    axis.text.x=element_blank())
     guides(col = FALSE)
+
 
 ## ** Heirarchical ggplot2 ====================================================
 ## *** Set How many 2nd Degree Friends #########################################
@@ -219,8 +223,8 @@ ggplot(rbind(starts,ends), aes(x = xval, y = yval)) +
 geom_line(aes(group = edgenum), lty = 3, col = "darkgrey", size = 0.3) +
 geom_point(data = laytg, aes(x = xval, y = yval, col = node), size = 4) +
 labs(x = "", y = "") +
-geom_label_repel(data = laytg,
-            aes(x = xval, y = yval, label = node, col = node),
+geom_label_repel(data = laytg, col = "darkblue",
+            aes(x = xval, y = yval, label = node),
             size = 1.5, nudge_x = 0, nudge_y = 0) +
             guides(col = FALSE) +
             theme_classic() +
