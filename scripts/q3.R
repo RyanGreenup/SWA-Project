@@ -229,4 +229,62 @@ geom_label_repel(data = laytg,
                     axis.text.x=element_blank())
 
 ## * 8.2.26 Compute the closeness cen. score for every user--------------------
+## We won't all the nodes to do this
+## *** Download 2nd Degree of Friends ===========================================
+if (!file.exists("./AllGraphData.RData")) {
+    for (i in 1:10) {
+        ## Get friends of Each Friend
+        t <- get_friends(topFriends$user_id[i], token <- tk)
+
+        ## Get the Data from Each Friend
+        further_friends[[i]] <- lookup_users(t$user_id, token <- tk)
+
+        ## Save the Data
+        save(list = ls(), file = "AllGraphData.RData")
+    }
+} else {
+    load(file = "AllGraphData.RData")
+}
+
+## ** Set How many 2nd Degree Friends =========================================
+## n  <- 13
+## for (a in 1:10) {
+##   if (nrow(further_friends[[a]]) > n) {
+##     further_friends[[a]] <- further_friends[[a]][1:n, ]
+##   }
+## }
+
+## ** Build the Edge List =====================================================
+Edges <- cbind(rep(user$screen_name, 10),
+           topFriends$screen_name[1:10])  # bind the columns to create a matrix
+
+## *** Append Friends-of-Friends to Edge List #################################
+user.to.edgelist <- function(user, friends) {
+  # create the list of friend screen names
+  user.name <- rep(user$screen_name, nrow(friends))   # repeat user's name
+  (Edges       <- cbind(user.name, friends$screen_name))  # bind the columns
+}
+for (a in c(1:length(further_friends))) {
+  el.friend = user.to.edgelist(topFriends[a,], further_friends[[a]])
+  Edges = rbind(Edges, el.friend)  # append the new edge list to the old one.
+}
+
+## ** Make The Graph ==========================================================
+## Now that we have the edge list, we can create the graph:
+g = graph.edgelist(Edges)
+## ** Compute Centrality ======================================================
+
+## Inspect the Closness
+closeness(g)[1:20]
+
+## Sort the Closeness
+index=order(closeness(g), decreasing = TRUE)
+centrality_vector <- c(names(g[index][,1]), closeness(g)[index])
+
+## Print the 3 most Central Users
+centrality_vector[1:4]
+
 ## * 8.2.27 Comment on the Results---------------------------------------------
+## Gail Simone is a comic book writer, she did like birds of prey, batgirl and
+## even some deadpool It appears video game companies and comic books and fast
+## food are very interconnected
