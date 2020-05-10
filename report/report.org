@@ -324,8 +324,12 @@ proportion. this can be acheived by resampling the observations of above and
 below as shown in listing [[phat]].
 
 This provides that:
- + The 97% confidence interval for the population proportion of users that have an above average number of friends is between 0.24 and 0.31.
-  + i.e. The probability of any given sample containing the population mean within this interval would be 97%, although  that doesn't however mean that there is a 97% probability that this interval contains the value, merely that we may be 97% /confident/
+ + The 97% confidence interval for the population proportion of users that have
+   an above average number of friends is between 0.24 and 0.31.
+  + i.e. The probability of any given sample containing the population mean
+    within this interval would be 97%, that does not, however, imply that there is
+    a 97% probability that this interval contains the value, merely that we may
+    be 97% /confident/
 
    #+begin_comment
    i.e. 97% of samples drawn from a population will have the population mean inside the corresponding confidence interval, So if we intended to sample a population and draw a confidence interval, that confidence interval would be the probability of any given sample containing the population mean.

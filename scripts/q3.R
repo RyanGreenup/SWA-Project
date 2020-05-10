@@ -94,7 +94,7 @@ dim(further_friends[[1]])
 nrow(further_friends[[1]])
 
 ## ** Set How many 2nd Degree Friends =========================================
-n  <- 13
+n  <- 130
 for (a in 1:10) {
   if (nrow(further_friends[[a]]) > n) {
     further_friends[[a]] <- further_friends[[a]][1:n, ]
