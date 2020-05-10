@@ -243,12 +243,12 @@ percentile interval for skewed data such as this, in saying that however this me
   The =boot= package is a bootstrapping library common among authors in the data science sphere
   [[cite:james2013][p. 295]] [[cite:wiley2019][p. 237]] that implements
   confidence intervals consistent with work by Davison and Hinkley
-  cite:ripley2020 in their texbook /Bootstrap Methods and their Application/.
+  cite:ripley2020 in their textbook /Bootstrap Methods and their Application/.
  In this work it is provided that the $BC_{a}$ method of constructing confidence
   intervals is  superior to mere percentile
   methods in terms of accuracy [[cite:davison1997][Ch. 5]], a sentiment echoed in the literature. [[cite:carpenter2000,davison1997][Ch. 5]]
 
- Such methods can be implemented in */R/* by passing a function to the the =boot= call as shown in listing [[bootx]]. This provides a broader interval, providing that the true confidence interval could lie between 1079 and 16227 followers.
+ Such methods can be implemented in */R/* by passing a function to the =boot= call as shown in listing [[bootx]]. This provides a broader interval, providing that the true confidence interval could lie between 1079 and 16227 followers.
 
  #+NAME: bootx
  #+CAPTION: Bootstrap of population mean follower count implementing the $BC_{a}$ method
@@ -318,9 +318,9 @@ boot.ci(xbar_boot, conf = 0.97, type = "bca", index = 1)
 :DIR:      /home/ryan/Dropbox/Notes/DataSci/Social_Web_Analytics/SWA-Project/docs/
 :END:
 In order to bootstrap a confidence interval for the proportion of users with
-above average follower counts, repeteadly draw random samples from an infinitely
+above average follower counts, repeatedly draw random samples from an infinitely
 large population composed entirely of the sample, and record the sampled
-proportion. this can be acheived by resampling the observations of above and
+proportion. This can be achieved by resampling the observations of above and
 below as shown in listing [[phat]].
 
 This provides that:
@@ -419,7 +419,7 @@ y_df$cat <- factor(y_df$cat, levels = var_levels, ordered = TRUE)
 These values may be tabluated in order to count the occurence of users among these categories as shown in listing [[7fr]] and table [[7frt]].
 
 #+NAME: 7fr
-#+CAPTION: Tabulate the binned counts for the distribution of users among among amount and status.
+#+CAPTION: Tabulate the binned counts for the distribution of users among amount and status.
 #+begin_src R
 vals <- t(cbind(x_freq, y_freq))
 rownames(vals) <- c("Followers.x", "followers.y")
@@ -508,7 +508,7 @@ chisq.test(vals, simulate.p.value = TRUE)
 
 ***** From First Principles
 The $\chi^{2}$ statistic may be performed from first principles by randomly
-sampling the values at the rate at which they occured, tabulating those counts, measuring the $\chi^{2}$ -value and then repeating this many times.
+sampling the values at the rate at which they occurred, tabulating those counts, measuring the $\chi^{2}$ -value and then repeating this many times.
 
 Because the samples are random they must be independent and average number of
 positives is hence an estimate for the /FPR/, which is in turn an estimate for
@@ -560,7 +560,7 @@ The $p$ -value measures the probability of rejecting the null hypothesis when it
 
 In saying that however the $p$ -value is distinct from the /power/ statistic, which is a measure of //the probability of accepting the alternative hypothesis/ when it is true, a low $p$ -value is not a measurement of the probability of being correct.
 
-Hence me way conclude, with a high degree of certainty, that the follower and friend counts are not independent of one another.
+Hence, may we conclude, with a high degree of certainty, that the follower and friend counts are not independent of one another.
 * 8.2 Finding Themes in tweets
 ** 8.2.8 Find Users with Above Average Friend Counts
 Users with Above average Friend Counts can be identified by filtering the tweets
@@ -569,7 +569,7 @@ data frame for two conditions:
 1. non-duplicated =user-id=
 2. =friend_count= greater than average
 
-This can be acheived easily using the =dplyr= package as shown in [[hfdp]], the top 20 of these users are shown in table [[hfls]] of the appendix
+This can be achieved easily using the =dplyr= package as shown in [[hfdp]], the top 20 of these users are shown in table [[hfls]] of the appendix
 
 #+NAME: hfdp
 #+CAPTION: Use =dplyr= to Filter for Users with a high Friend Count
@@ -647,7 +647,7 @@ tweet_source <- tm::VectorSource(tweets$text)
 tweet_corpus <- tm::Corpus(x = tweet_source)
 #+end_src
 
-Next it is necessary to choose an enoding, a primary consideration of this is whether or not the use of /emoji/ characters will influence the model performance. There is research to suggest that Emoji's can be used as predictive features cite:lecompte2017 and that they can improve /sentiment analysis/ models cite:shiha2017 that implement a /bag of words/ approach. For these reasons /emoji/ characters will be preserved and [[http://www.utf-8.com/][UTF-8]] implemented.
+Next it is necessary to choose an encoding, a primary consideration of this is whether or not the use of /emoji/ characters will influence the model performance. There is research to suggest that Emoji's can be used as predictive features cite:lecompte2017 and that they can improve /sentiment analysis/ models cite:shiha2017 that implement a /bag of words/ approach. For these reasons /emoji/ characters will be preserved and [[http://www.utf-8.com/][UTF-8]] implemented.
 
 In order to encode the data as /UTF-8/, the =iconv= function can be used as shown in listing [[icv]].
 
@@ -678,7 +678,7 @@ Before analysis the tweets should be modified to remove characters that may inte
 
 In particular it is important to reduce words to lower case before removing stop words otherwise an unorthodox use of capitalisation may prevent the word from being removed throughout.
 
-The stop word =ubisoft= will also be used, this was the query term so it's expected to turn up at a very high frequency, the words =can= and ='s= also occured quite frequently and so were removed.
+The stop word =ubisoft= will also be used, this was the query term so it's expected to turn up at a very high frequency, the words =can= and ='s= also occurred quite frequently and so were removed.
 
 The cleaning can be implemented by mapping functions over the corpus, which is fundamentally a list, this can be performed via the =tm_map= function as shown in listing [[cltw]].
 
@@ -778,7 +778,7 @@ tweet_weighted           <- TF %*% diag(IDF)
 colnames(tweet_weighted) <- colnames(tweet_matrix_dtm)
 #+end_src
 
-There is however a function built in to the =tm= package that will weight term document matrices and this will instead be implented to analyse the data because it will produce more maintainable code.
+There is however a function built in to the =tm= package that will weight term document matrices and this will instead be implemented to analyse the data because it will produce more maintainable code.
 
 *** Apply Weighting with Built in Function
 In order to create a term document matrix (and its transpose) with TF-IDF weighted values, the =weighting= argument may be specified as =weightTfIdf= by passing an appropriate list to the =control= argument of the =TermDocumentMatrix=, as shown in listing [[btdm]]
@@ -810,7 +810,7 @@ length(null)
 #+end_src
 ** 8.2.14 How many Clusters are there
 *** Use Cosine Distance
-In order to consider clustering, it can be more effective to consider the distance between the weigted documents in terms of cosine distance, the cosine distance can be calculated from the euclidean distance using the identity shown in eqref:cos, and this can be performed in */R/* by taking the matrix product of a diagonalised matrix as shown in listing [[dist]].
+In order to consider clustering, it can be more effective to consider the distance between the weighted documents in terms of cosine distance, the cosine distance can be calculated from the euclidean distance using the identity shown in eqref:cos, and this can be performed in */R/* by taking the matrix product of a diagonalised matrix as shown in listing [[dist]].
 
 \begin{align}
 \mathrm{dist}\left( \mathbf{X}, \mathbf{Y} \right)= \left| \left| \mathbf{X}-\mathbf{Y} \right| \right| \\
@@ -834,7 +834,7 @@ D =dist(norm.tweet_weighted_dtm, method = "euclidean")^2/2
 #+end_src
 
 *** Project into Euclidean Space
-The cosine distance however is not appropriate to perform clustering on and so instead should be projected back into euclidean space, this can be acheived using /Multi-Dimensional Scaling/ via the =cmdscale= functionas shown in listing [[mds]]. The distance is a measure of between document distance so the number of dimensions should correspond to the number of documents, however, if there are zero-value eigenvalues, these dimensions won't help explain the data in the projection, hence the number of eigenvalues has been used as the dimension of projection in this case.
+The cosine distance however is not appropriate to perform clustering on and so instead should be projected back into euclidean space, this can be achieved using /Multi-Dimensional Scaling/ via the =cmdscale= function as shown in listing [[mds]]. The distance is a measure of between document distance so the number of dimensions should correspond to the number of documents, however, if there are zero-value eigenvalues, these dimensions won't help explain the data in the projection, hence the number of eigenvalues has been used as the dimension of projection in this case.
 
 #+NAME: mds
 #+CAPTION: Load the Packages for **/R/**
@@ -849,7 +849,7 @@ mds.tweet_weighted_dtm <- cmdscale(D, k=k) #TODO What should K be? see issue #10
 
 *** Measure Within Cluster Variance
 In order to determine the appropriate number of clusters, the within cluster
-variance can be measurd, the number of clusters at which this value ceases to
+variance can be measured, the number of clusters at which this value ceases to
 decrease is indicative of a potentially appropriate number of clusters. This is
 implemented in listing [[ssw]] and shown in figure [[sswp]].
 
@@ -906,8 +906,8 @@ table(K$cluster)
 ** 8.2.16 Visualise the Clusters
 The clusters can be projected into 2D /Euclidean/-Space using /Multi-Dimensional
 Scaling/, these dimensions would represent the first two principle components of
-the cosine distance of the weigted tweets. This is demonstrated in listings
-[[cmds]]. A plot of the friend countstaus mapped to shape and clusters mapped to
+the cosine distance of the weighted tweets. This is demonstrated in listings
+[[cmds]]. A plot of the friend count-status mapped to shape and clusters mapped to
 colour is demonstrated in listing [[pt1c]] shown in [[pt2]], In order to get a better
 understanding of the distribution of friend counts a plot of the friend count
 status mapped to colour is demonstrated in listing [[pt2c]] and shown in figure [[pt2]].
@@ -967,13 +967,13 @@ ggplot(pca_data, aes(x = MDS1, y = MDS2, col = Cluster)) +
 [[./Figures/betfriendplot8216.png]]
 
 ** 8.2.17 Comment on the Visualisation
-Figure [[pt1]] indicates that altough there isn't a clear distinction between
-clusters there is seperation of the tweets in such a way that does allow some
+Figure [[pt1]] indicates that although there isn't a clear distinction between
+clusters there is separation of the tweets in such a way that does allow some
 degree of classification to occur. Figure [[pt1]] and [[pt2]] both indicate that having
 many or few friends is reasonably independent of the cluster that the tweet
 belongs to.
 ** 8.2.18 Cluster with Highest Number Friends
-The Number of above or below friends corresponsing to a given cluster can be tabulated by using the =table= function as shown in listing [[tfc]] and table [[tfct]], this indicates that there is a difference in the proportion of users with above average friend counts between clusters with cluster =#1= having the highest proportion of users with above average friend counts.
+The Number of above or below friends corresponding to a given cluster can be tabulated by using the =table= function as shown in listing [[tfc]] and table [[tfct]], this indicates that there is a difference in the proportion of users with above average friend counts between clusters with cluster =#1= having the highest proportion of users with above average friend counts.
 
 #+NAME: tfc
 #+CAPTION: Tabulate the distribution of friends in
@@ -1079,7 +1079,7 @@ while creating a wordcloud based merely on the frequency of words will poorly
 identify words central to the theme of the cluster.
 
 In light of this, the most appropriate method to generate wordclouds for the
-purpose visualisising the themes of the clusters is to create a document term
+purpose visualising the themes of the clusters is to create a document term
 matrix based on a corpus cleaned without word stemming as shown in listing [[wcm0]].
 Following that wordclouds can then be generated by indexing for the cluster,
 this is demonstrated in listing [[wcm]] and shown in figures [[wc1]] and [[wc3]].
@@ -1162,7 +1162,7 @@ for (i in c(1,3)) {
 [[./Figures/Cluster3Cloud.png]]
 
 ** 8.2.21 Use a Dendrogram to Display the Themes
-A Dendrogram can be used to display the themes of the higest and lowest
+A Dendrogram can be used to display the themes of the highest and lowest
 clusters. In order to do this the most frequent words of a cluster need to be
 filtered out in order to reduce the dimensions of the dendrogram, following that
 a dendrogram may be made to model the cosine distance between the terms. To
@@ -1177,7 +1177,7 @@ Any word that occurs more than once was a candidate for the dendrogram visualisi
 Any word that occurs more than once was a candidate for the dendrogram visualising the themes of the cluster with the lowest number of friends. This dendrogram is shown in figure [[dn3]] and the corresponding code to produce it is provided in listing [[dn3c]].
 
 #+NAME: dn1c
-#+CAPTION: Create a dendrogram of the terms in the cluster with the higest friends count, average linkage was used.
+#+CAPTION: Create a dendrogram of the terms in the cluster with the highest friends count, average linkage was used.
 #+begin_src R
 ## Filter the Data To match the Cluster
 tweet_weighted_dtm_c1 <- tweet_weighted_dtm[pca_data$Cluster==1, ]
@@ -1211,7 +1211,7 @@ plot(h, main = "Themes of Cluster with Highest Friend Count")
 #+end_src
 
 #+NAME: dn3c
-#+CAPTION: Create a dendrogram of the terms in the cluster with the higest friends count, average linkage was used.
+#+CAPTION: Create a dendrogram of the terms in the cluster with the highest friends count, average linkage was used.
 #+begin_src R
 ## Filter the Data To match the Cluster
 tweet_weighted_dtm_c1 <- tweet_weighted_dtm[pca_data$Cluster==3, ]
@@ -1328,7 +1328,7 @@ if (!file.exists("./AllGraphData.RData")) {
 #+end_src
 
 *** Limit the number of Nodes for Want of Visualisation
-In order to effectively visualise this graph, the number of nodes will be limited to 13, this can be acheived by filtering the list for more than 13 observations as shown in listing [[shm]].
+In order to effectively visualise this graph, the number of nodes will be limited to 13, this can be achieved by filtering the list for more than 13 observations as shown in listing [[shm]].
 
 #+NAME: shm
 #+CAPTION: Load the Packages for **/R/**
@@ -1372,7 +1372,7 @@ plot(g, layout = layout.fruchterman.reingold,
 [[./Figures/Graph_Base_1.png]]
 
 *** Use GGPlot2
-This Graph could also be produced using =ggplot2= and with an alternate algorithm for aranging the nodes, in order to do this a /tidy/ data frame needs to be produces as demonstrated in listing [[tdy]] and then the ggplot function can be used to build a plot as demonstrated in listing [[ggp]], this produces an alternative visualsation of the graph as shownin figure [[ggpt]].
+This Graph could also be produced using =ggplot2= and with an alternate algorithm for arranging the nodes, in order to do this a /tidy/ data frame needs to be produces as demonstrated in listing [[tdy]] and then the ggplot function can be used to build a plot as demonstrated in listing [[ggp]], this produces an alternative visualsation of the graph as shownin figure [[ggpt]].
 
 #+NAME: tdy
 #+CAPTION: Create a tidy data frame describing the graph in order to use =ggplot2=.
@@ -1459,13 +1459,13 @@ The most central people in order of clossess centrality are:
 3. Xbox
 4. GailSimone
 
-  Unsuprisingly /Ubisoft/ is the most central person, this is expected because the graph was produced from the perspective of /Ubisoft/ and the nodes had a very limited degree of inteconnectivity.
+  Unsurprisingly /Ubisoft/ is the most central person, this is expected because the graph was produced from the perspective of /Ubisoft/ and the nodes had a very limited degree of interconnectivity.
 
 
 ** 8.3.28 Comment on the Results
 /Ubisoft/ has many connections as shown in figures [[gp1]] and [[ggpt]], these connections however have a limited amount of interconnectivity.
 
-  Suprisingly however, Gail Simone, a comic book author involved in works such as /Batgirl/ and /Birds of Prey/, is a very central character, in combination with the central connection to /Arbys/ this is indicative of the interests and lifestyle of the typical demographic of friends of the /Ubisoft/ account.
+  Surprisingly however, Gail Simone, a comic book author involved in works such as /Batgirl/ and /Birds of Prey/, is a very central character, in combination with the central connection to /Arbys/ this is indicative of the interests and lifestyle of the typical demographic of friends of the /Ubisoft/ account.
 * Appendix
 ** Users with High Friend Count
 
