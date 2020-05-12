@@ -346,7 +346,7 @@ boot.ci(xbar_boot, conf = 0.97, type = "bca", index = 1)
 ## Some BCa intervals may be unstable
 #+end_src
 
-** FIXME 8.1.6 Estimate a 97% Confidence Interval for the High Friend Count Proportion
+** 8.1.6 Estimate a 97% Confidence Interval for the High Friend Count Proportion
 :PROPERTIES:
 :DIR:      /home/ryan/Dropbox/Notes/DataSci/Social_Web_Analytics/SWA-Project/docs/
 :END:
@@ -1356,7 +1356,7 @@ topFriends$screen_name
 ## [6] "PeterHollens" "HarleyPlays"  "G4C"          "Xbox"         "GailSimone"
 #+end_src
 
-** TODO 8.3.25 Obtain a *2-degree* egocentric graph centred at /Ubisoft/
+** 8.3.25 Obtain a *2-degree* egocentric graph centred at /Ubisoft/
 *** Download Friends of Friends
 
 The information of friends of friends can be downloaded by using the =get_friends= and =lookup_users=
