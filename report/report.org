@@ -60,9 +60,9 @@ By including this statement, we the authors of this work, verify that:
 
 * 8.1 Analysing the Relationship Between Friends and Followers for Twitter Users
 ** 8.1.1 Retrieve the posts from Twitter
-In order to analyse tweets pertaining to /Ubisoft/ it will be necessary to
+To analyze tweets on/Ubisoft/ it will be necessary to
 download them in a structure that may be interpreted by a given programming
-language, this analysis will be done using */R/* and the by utilising the =rtweet= package will be used to interface with the /Twitter/ API. The =rtweet= package can be automaticall installed and loaded in */R/* using the =pacman= package, this is demonstrated in listing [[lpac]].
+language, this analysis will be done using */R/*, and the by utilizing the =rtweet= package will be used to interface with the /Twitter/ API. The =rtweet= package can be automatically installed and loaded in */R/* using the =pacman= package, this is demonstrated in listing [[lpac]].
 
 #+NAME: lpac
 #+CAPTION: Load the Packages for **/R/**
@@ -132,16 +132,16 @@ reverse-chronological order, can be returned and then saved to disk using the
 #+end_src
 
 ** 8.2.2 Count of Followers and Friends
-In order to identify the number of users that are contained in the /tweets/ it
+To identify the number of users that are contained in the /tweets/ it
 is necessary to distinguish which of the usernames are unique, this can be
-acheived by using either the =unique()= or =duplicated()= functions. The
+achieved by using either the =unique()= or =duplicated()= functions. The
 =unique= function can be used to return a vector of unique elements which can be
 passed to the =length()= function in order to return the number of unique users,
-this is demonstrated in listing [[count]] and provides that 81.7% of the tweets were
+this is demonstrated in the listing [[count]] and provides that 81.7% of the tweets were
 made by unique users.
 
 
-The =duplicated= function can be used to identify and omit duplicated observations, this is also shown in listing [[count]].
+The =duplicated= function can be used to identify and omit duplicated observations, this is also shown in the listing [[count]].
 
 #+NAME: count
 #+CAPTION: Return follower count of twitter posts
@@ -173,12 +173,12 @@ y<- rnorm(090)
 ** 8.1.4 Above Average Followers
 Each user can be compared to the average number of followers, by using a logical
 operator on the vector (e.g. ~y > ybar~), this will return an output of logical
-values. */R/* will coerce logicals into 1/0 values meaning that the mean value
+values. */R/* will coerce logical into 1/0 values meaning that the mean value
 will return the proportion of =TRUE= responses as shown in listing [[pyhat]]. This
 provides that:
 
-+ 2.4%  of the have identified have an above average *number of followers*.
-+ 20.6% of the users identified have an above average *number of friends*.
++ 2.4%  of the have identified have an above-average *number of followers*.
++ 20.6% of the users identified have an above-average *number of friends*.
 
 #+NAME: pyhat
 #+CAPTION: Calculate the proportion of users with above average follower counts
@@ -195,8 +195,8 @@ provides that:
 *** a/b.) Generate a bootstrap distribution
 
 A bootstrap assumes that the population is an infinitely large repetition of the
-sample and may be produced with respect to follower counts by resampling with
-replacement/repetition, this can then be plotted using the =ggplot2= library as deomonstrated
+sample and maybe produced concerning follower counts by resampling with
+replacement/repetition, this can then be plotted using the =ggplot2= library as demonstrated
 in listings [[btpop]] and [[btgg]] and shown in figure [[btpopfg]].
 
 This shows that the population follower counts is a non-normal skew-right
@@ -233,7 +233,7 @@ ggplot(data = bt_pop_data, aes(x = Followers)) +
 [[./Figures/BootStrap_Pop.png]]
 
 *** c.) Estimate a Confidence Interval for the population mean Follower Counts
-In order to perform a bootrap for the population mean value of follower counts it is necessary to:
+To perform a bootstrap for the population mean value of follower counts it is necessary to:
 
 1. Resample the data with replacement
    + i.e. randomly select values from the sample allowing for repetition
@@ -304,7 +304,7 @@ boot.ci(xbar_boot, conf = 0.97, type = "bca", index = 1)
 
 *** d.) Estimate a Confidence Interval for the population mean Friend Counts
 A Confidence interval for the population mean friend counts may be constructed
-in a like wise fashion as shown in listings [[booty]]. This provides that the 97%
+in a likewise fashion as shown in listings [[booty]]. This provides that the 97%
 confidence interval for the /population mean friend count/ is between 384 and 502
 (or 387 and 496 if the $BC_{a}$ method used, they're quite close and so the more
 conservative percentile method will be accepted).
@@ -354,11 +354,11 @@ In order to bootstrap a confidence interval for the proportion of users with
 above average follower counts, repeatedly draw random samples from an infinitely
 large population composed entirely of the sample, and record the sampled
 proportion. This can be achieved by resampling the observations of above and
-below as shown in listing [[phat]].
+below as shown in the listing [[phat]].
 
 This provides that:
  + The 97% confidence interval for the population proportion of users that have
-   an above average number of friends is between 0.24 and 0.31.
+   an above-average number of friends is between 0.24 and 0.31.
   + i.e. The probability, of any given sample taken from the population,
     containing the population mean within this interval, would be 97%; that does
     not, however, imply that there is a 97% probability that this interval
@@ -370,14 +370,14 @@ This provides that:
    population and draw a confidence interval, that confidence interval would be
    the probability of any given sample containing the population mean.
 
-   Given a sample however it is not correct to then conclude that the confidence
+   Given a sample however, it is not correct to then conclude that the confidence
    interval is the probability of that sample containing the value because we
    simply have no information on how good the sample is at predicting the
-   population, it could be a really biased sample and we can't really know what
+   population, it could be a biased sample and we can not know what
    \mu is anyway.
 
    All we know is that if many samples were drawn and one randomly selected, the
-   probability of that sample containing the poulation in the interval would be
+   probability of that sample containing the population in the interval would be
    97%
 
    See [[../docs/ConfIntNotes.pdf][This Attachment]]
@@ -458,7 +458,7 @@ y_df$cat <- factor(y_df$cat, levels = var_levels, ordered = TRUE)
 #+end_src
 
 *** Find the Group frequency
-These values may be tabluated in order to count the occurence of users among these categories as shown in listing [[7fr]] and table [[7frt]].
+These values may be tabulated to count the occurrence of users among these categories as shown in listing [[7fr]] and table [[7frt]].
 
 #+NAME: 7fr
 #+CAPTION: Tabulate the binned counts for the distribution of users among amount and status.
@@ -488,7 +488,7 @@ vals
 
 *** Find the Expected Counts under each group and test for independence
 The expected count of each cell, under the assumption that the two metrics are
-independent, will be the proportion of users per bracket multiplied by the number
+independent will be the proportion of users per bracket multiplied by the number
 of users in that status group. This implies that any cell will be:
 
 + the product of the row sum, multiplied by the column sum divided by the number of counts.
@@ -496,7 +496,7 @@ of users in that status group. This implies that any cell will be:
 This can be equivalently expressed as an outer product as shown in equation
 [[eqref:eq:1]], in */R/* this operation is denoted by the =%o%= operator, which is
 shorthand for the =outer()= function, this and other summary statistics may be
-evaluated as shown in listing [[smst]].
+evaluated as shown in the listing [[smst]].
 
 The outer product is such that:
 
@@ -531,10 +531,10 @@ chi_obs <- sum((e-o)^2/e)
 
 **** *Testing Independence*
 \newline
-In order to test whether or not the distribution of users among brackets is
+To test whether or not the distribution of users among brackets is
 independent of being a follower or friend a $\chi^{2}$ test may be used, this
 can be evaluated from a model or simulated, in */R/*, the simulated test is
-shown in listing [[chib]], this provides a $p$ -value < 0.0005, which means that the hypothesis of independence may be rejected with a high degree of certainty.
+shown in the listing [[chib]], this provides a $p$ -value < 0.0005, which means that the hypothesis of independence may be rejected with a high degree of certainty.
 
 #+NAME: chib
 #+CAPTION: Chi-Square testing for independence between friend and follower bin categories.
@@ -552,13 +552,13 @@ chisq.test(vals, simulate.p.value = TRUE)
 ***** *From First Principles*
 \newline
 The $\chi^{2}$ statistic may be performed from first principles by randomly
-sampling the values at the rate at which they occurred, tabulating those counts, measuring the $\chi^{2}$ -value and then repeating this many times.
+sampling the values at the rate at which they occurred, tabulating those counts, measuring the $\chi^{2}$ -value, and then repeating this many times.
 
 Because the samples are random they must be independent and average number of
-positives is hence an estimate for the /FPR/, which is in turn an estimate for
-the $p$ -value. This technique is demonstrated in listing [[chif]], the p-value
+positives is hence an estimate for the /FPR/, which is, in turn, an estimate for
+the $p$ -value. This technique is demonstrated in the listing [[chif]], the p-value
 being returned as 0.0004, this value is consistent with the value produced by
-*/R/*'s built in =chisq.test= function and so is accepted.
+*/R/*'s built-in =chisq.test= function and so is accepted.
 
 #+NAME: chif
 #+CAPTION: Performing a $\chi^{2}$ statistic from first principles
@@ -590,7 +590,7 @@ s <- replicate(10^4,{
   chi_sim <- sum((e_sim-o)^2/e_sim)
   chi_sim
 
-  ## Is this more extreme, i.e. would we reject null hypothesis?
+  ## Is this more extreme, i.e. would we reject the null hypothesis?
   chi_sim > chi_obs
 
 })
@@ -619,7 +619,7 @@ data frame for two conditions:
 1. non-duplicated =user-id=
 2. =friend_count= greater than average
 
-This can be achieved easily using the =dplyr= package as shown in listing [[hfdp]], the top 20 of these users are shown in table [[hfls]] of the appendix
+This can be achieved easily using the =dplyr= package as shown in the listing [[hfdp]], the top 20 of these users are shown in table [[hfls]] of the appendix
 
 #+NAME: hfdp
 #+CAPTION: Use =dplyr= to Filter for Users with a high Friend Count
@@ -641,7 +641,7 @@ write.csv(high_friends[order(
 #+end_src
 
 ** 8.2.9 Find Users with Below Average Friend Counts
-Users with high friends may be determined by a similar method (or by taking the complement of the high friends) as shown in listing [[lfcd]], the lowest 20 of these users are shown in table [[lftb]] of the appendix.
+Users with high friends may be determined by a similar method (or by taking the complement of the high friends) as shown in the listing [[lfcd]], the lowest 20 of these users are shown in table [[lftb]] of the appendix.
 
 #+NAME: lfcd
 #+CAPTION: Use =dplyr= to Filter for Users with a low Friend Count
@@ -661,10 +661,10 @@ write.csv(low_friends[order(
 
 ** 8.2.10 Find the /Tweets/ corresponding to users with high or low friend counts
 The tweets corresponding to users with high and low friend counts can be
-identified by filtering the dataframe based on the friend count and using that
-to index the tweets from the data frame [fn:1], alternatively it is possible
+identified by filtering the data frame based on the friend count and using that
+to index the tweets from the data frame [fn:1], alternatively, it is possible
 to test whether or not the ID of a user appears in the high or low vector
-set using the =%in%= operator as shown in listing [[8210]].
+set using the =%in%= operator as shown in the listing [[8210]].
 
 #+NAME: 8210
 #+CAPTION: Identify tweets corresponding to users with high and low friend counts
@@ -688,7 +688,7 @@ tweets$Friend_Status  <- factor(tweets$Friend_Status)
 
 ** 8.2.11 Clean the tweets
 *** Create a Corpus Object
-In order to clean the tweets it is necessary to create a corpus object as shown in listing [[cpmk]], it is possible to pass a dataframe source in order to include the user ID, this isn't strictly necessary however because the =tm= package preserves order when performing transformations.
+To clean the tweets it is necessary to create a corpus object as shown in the listing [[cpmk]], it is possible to pass a dataframe source to include the user ID, this isn't strictly necessary however because the =tm= package preserves order when performing transformations.
 
 #+NAME: cpmk
 #+CAPTION: Create a Corpus from the tweets
@@ -697,7 +697,7 @@ tweet_source <- tm::VectorSource(tweets$text)
 tweet_corpus <- tm::Corpus(x = tweet_source)
 #+end_src
 
-Next it is necessary to choose an encoding, a primary consideration of this is whether or not the use of /emoji/ characters will influence the model performance. There is research to suggest that Emoji's can be used as predictive features cite:lecompte2017 and that they can improve /sentiment analysis/ models cite:shiha2017 that implement a /bag of words/ approach. For these reasons /emoji/ characters will be preserved and [[http://www.utf-8.com/][UTF-8]] implemented.
+Next, it is necessary to choose an encoding, a primary consideration of this is whether or not the use of /emoji/ characters will influence the model performance. There is research to suggest that emoji can be used as predictive features cite:lecompte2017 and that they can improve /sentiment analysis/ models cite:shiha2017 that implement a /bag of words/ approach. For these reasons /emoji/ characters will be preserved and [[http://www.utf-8.com/][UTF-8]] implemented.
 
 In order to encode the data as /UTF-8/, the =iconv= function can be used as shown in listing [[icv]].
 
@@ -715,7 +715,7 @@ tweet_corpus_raw <- tweet_corpus
 #+end_src
 
 *** Process the tweets
-Before analysis the tweets should be modified to remove characters that may interfere with categorising words, this is referred to as cleaning, in particular the following should be implemented:
+Before analysis the tweets should be modified to remove characters that may interfere with categorizing words, this is referred to as cleaning, in particular, the following should be implemented:
 
 1. Remove URL's
 2. Remove Usernames
@@ -726,11 +726,11 @@ Before analysis the tweets should be modified to remove characters that may inte
 7. Remove a set of stop words
 8. Reduce each word to its stem
 
-In particular it is important to reduce words to lower case before removing stop words otherwise an unorthodox use of capitalisation may prevent the word from being removed throughout.
+In particular, it is important to reduce words to lower case before removing stop words otherwise an unorthodox use of capitalization may prevent the word from being removed throughout.
 
 The stop word =ubisoft= will also be used, this was the query term so it's expected to turn up at a very high frequency, the words =can= and ='s= also occurred quite frequently and so were removed.
 
-The cleaning can be implemented by mapping functions over the corpus, which is fundamentally a list, this can be performed via the =tm_map= function as shown in listing [[cltw]].
+The cleaning can be implemented by mapping functions over the corpus, which is fundamentally a list, this can be performed via the =tm_map= function as shown in the listing [[cltw]].
 
 
 
@@ -824,7 +824,7 @@ w_{d, t} &=\mathrm{TF}_{t} \times \mathrm{IDF}_{d, t} \\
 &=\log _{e}\left(f_{d, t}+1\right) \log _{e}\left(\frac{N}{f_{t}}\right) \label{tfidf}
 \end{aligned}\end{equation}
 
-This would requre multiplying each term of each row of the $\mathrm{TF}_{t}$ matrix by the corresponding vector element of $\mathrm{IDF}_{d,t}$, this can be implemented by taking the matrix product of a diagonalised matrix, this is shown in listing [[mytfidf]].
+This would require multiplying each term of each row of the $\mathrm{TF}_{t}$ matrix by the corresponding vector element of $\mathrm{IDF}_{d,t}$, this can be implemented by taking the matrix product of a diagonalized matrix, this is shown in listing [[mytfidf]].
 
 #+NAME: mytfidf
 #+CAPTION: Apply TF-IDF Weigting
@@ -839,9 +839,9 @@ tweet_weighted           <- TF %*% diag(IDF)
 colnames(tweet_weighted) <- colnames(tweet_matrix_dtm)
 #+end_src
 
-There is however a function built in to the =tm= package that will weight term document matrices and this will instead be implemented to analyse the data because it will produce more maintainable code.
+There is however a function built into the =tm= package that will weight term-document matrices and this will instead be implemented to analyze the data because it will produce more maintainable code.
 
-*** Apply Weighting with Built in Function
+*** Apply Weighting with Built-in Function
 In order to create a term document matrix (and its transpose) with TF-IDF weighted values, the =weighting= argument may be specified as =weightTfIdf= by passing an appropriate list to the =control= argument of the =TermDocumentMatrix= function, as shown in listing [[btdm]]
 
 #+NAME:btdm
@@ -853,7 +853,7 @@ tweet_weighted_dtm <- as.DocumentTermMatrix()  %>%
 #+end_src
 
 *** Remove Empty Documents
-Empty Documents may be removed from the matrix by a logical test as shown in listing  [[emp]] [fn:3] this provides that 328 documents were empty following the processing. A summary of the first rows and columns of this matrix, following the removal of empty documents, is provided in table [[tfidf]] of the appendix.
+Empty Documents may be removed from the matrix by a logical test as shown in the listing  [[emp]] [fn:3] this provides that 328 documents were empty following the processing. A summary of the first rows and columns of this matrix, following the removal of empty documents, is provided in table [[tfidf]] of the appendix.
 
 #+NAME:emp
 #+CAPTION: Remove empty documents from the Matrix, observe that the =[-null]= filter is wrapped in an =if= statement to prevent an empty vector bug.
@@ -871,7 +871,7 @@ length(null)
 #+end_src
 ** 8.2.14 How many Clusters are there
 *** Use Cosine Distance
-In order to consider clustering, it can be more effective to consider the distance between the weighted documents in terms of cosine distance, the cosine distance can be calculated from the euclidean distance using the identity shown in eqref:cos, and this can be implemented in */R/* by taking the matrix product of a diagonalised matrix as shown in listing [[dist]].
+To consider clustering, it can be more effective to consider the distance between the weighted documents in terms of cosine distance, the cosine distance can be calculated from the euclidean distance using the identity shown in eqref:cos, and this can be implemented in */R/* by taking the matrix product of a diagonalized matrix as shown in listing [[dist]].
 
 \begin{align}
 \mathrm{dist}\left( \mathbf{X}, \mathbf{Y} \right)&= \left| \left| \mathbf{X}-\mathbf{Y} \right| \right| \\
@@ -895,7 +895,7 @@ D =dist(norm.tweet_weighted_dtm, method = "euclidean")^2/2
 #+end_src
 
 *** Project into Euclidean Space
-The cosine distance however is not an appropriate distance measurement with
+The cosine distance, however, is not an appropriate distance measurement with
 which to perform $k$ means clustering and so the data instead should be
 projected back into euclidean space, this can be achieved using
 /Multi-Dimensional Scaling/ via the =cmdscale= function as shown in listing [[mds]].
@@ -903,7 +903,7 @@ projected back into euclidean space, this can be achieved using
 The distance is a measure of between document distance so the number of
 dimensions should correspond to the number of documents, however, if there are
 zero-value eigenvalues, these dimensions won't help explain the data in the
-projection, hence the number of eigenvalues has been used as the dimension of
+projection, hence the number of eigenvalues have been used as the dimension of
 projection in this case.
 
 #+NAME: mds
@@ -918,7 +918,7 @@ mds.tweet_weighted_dtm <- cmdscale(D, k=k) #TODO What should K be? see issue #10
 #+end_src
 
 *** Measure Within Cluster Variance
-In order to determine the appropriate number of clusters, the within cluster
+To determine the appropriate number of clusters, the within cluster
 variance can be measured, the number of clusters at which this value ceases to
 decrease is indicative of a potentially appropriate number of clusters. This is
 implemented in listing [[ssw]] and shown in figure [[sswp]].
@@ -948,7 +948,7 @@ ggplot(SSW_tb, aes(x = name, y = value)) +
        title = "Within Cluster Variance across Clusters")
 #+end_src
 
-Figure [[sswp]] Indicates a sudden stop of decrease in variance at 7 clusters and following that the within cluster variance begins to decrease at a slightly slower rate. For this reason 7 could be an appropriate candidate for the number of clusters, however the minimal amount of change in the within-cluster variance indicates that the data is most likely not clustered at all.
+Figure [[sswp]] Indicates a sudden stop of decrease in variance at 7 clusters and following that the within cluster variance begins to decrease at a slightly slower rate. For this reason, 7 could be an appropriate candidate for the number of clusters, however, the minimal amount of change in the within-cluster variance indicates that the data is most likely not clustered at all.
 
 
 #+NAME: sswp
@@ -958,9 +958,9 @@ Figure [[sswp]] Indicates a sudden stop of decrease in variance at 7 clusters an
 [[./Figures/Q14WithinClusterVariance.png]]
 
 ** 8.2.15 Find the Number of tweets in each cluster
-Moving forward 3 clusters will be used for the purpose of categorising the
+Moving forward 3 clusters will be used to categorize the
 tweets, 7 is too large and a smaller number will likely be more effective at
-categorising the data (particularly given that the stratification of the data
+categorizing the data (particularly given that the stratification of the data
 appears to be quite limited as shown by figure [[sswp]]).
 
 The number of tweets in a cluster may be measured by using the =table= function
@@ -981,7 +981,7 @@ table(K$cluster)
 
 ** 8.2.16 Visualise the Clusters
 The clusters can be projected into 2D /Euclidean/-Space using /Multi-Dimensional
-Scaling/, these dimensions would represent the first two principle components of
+Scaling/, these dimensions would represent the first two principal components of
 the cosine distance of the weighted tweets. This is demonstrated in listings
 [[cmds]]. A plot of the friend count-status mapped to shape and clusters mapped to
 colour is demonstrated in listing [[pt1c]] shown in [[pt1]].
@@ -1022,12 +1022,12 @@ ggplot(pca_data, aes(x = MDS1, y = MDS2, col = Cluster)) +
 
 ** 8.2.17 Comment on the Visualisation
 Figure [[pt1]] indicates that although there isn't a clear distinction between
-clusters there is separation of the tweets in such a way that does allow some
+clusters there is a separation of the tweets in such a way that does allow some
 degree of classification to occur. Figure [[pt1]]  also indicates that having
-many or few friends is reasonably iependent of the cluster that the tweet
+many or few friends is reasonably independent of the cluster that the tweet
 belongs to but that there is possibly also other factors.
 ** 8.2.18 Cluster with Highest Number Friends
-The Number of above or below friends corresponding to a given cluster can be tabulated by using the =table= function as shown in listing [[tfc]] and table [[tfct]], this indicates that there is a difference in the proportion of users with above average friend counts between clusters with cluster =#1= having the highest proportion of users with above average friend counts.
+The Number of above or below friends corresponding to a given cluster can be tabulated by using the =table= function as shown in listing [[tfc]] and table [[tfct]], this indicates that there is a difference in the proportion of users with above-average friend counts between clusters with cluster =#1= having the highest proportion of users with above-average friend counts.
 
 #+NAME: tfc
 #+CAPTION: Tabulate the distribution of friends in
@@ -1050,8 +1050,8 @@ cbind(clust_friend,
 | =2=         |               141 |               407 |           0.26 |
 | =3=         |                16 |                64 |           0.20 |
 
-** 8.2.18 Sample Tweets from cluster
-Tweets can be sampled from the clusters by using the =sample= function with a logical test, this can be combined with a =for= loop as shown in listing [[8218]], this provides the following output.
+** 8.2.18 Sample Tweets from the cluster
+Tweets can be sampled from the clusters by using the =sample= function with a logical test, this can be combined with a =for= loop as shown in the listing [[8218]], this provides the following output.
 
 
 #+begin_quote
@@ -1128,14 +1128,14 @@ The themes in the cluster with the lowest friends count are:
 + Feature Requests
 
 ** 8.2.20 Create WordClouds
-Creating a wordcloud from the stemmed words will make for a poor visualisation
-while creating a wordcloud based merely on the frequency of words will poorly
+Creating a word cloud from the stemmed words will make for a poor visualization
+while creating a word cloud based merely on the frequency of words will poorly
 identify words central to the theme of the cluster.
 
-In light of this, the most appropriate method to generate wordclouds for the
-purpose of visualising the themes of the clusters is to create a document term
-matrix based on a corpus cleaned without word stemming as shown in listing [[wcm0]].
-Following that wordclouds can then be generated by indexing for the cluster,
+In light of this, the most appropriate method to generate word clouds for the
+purpose of visualizing the themes of the clusters is to create a document term
+matrix based on a corpus cleaned without word stemming as shown in the listing [[wcm0]].
+Following that word clouds can then be generated by indexing for the cluster,
 this is demonstrated in listing [[wcm]] and shown in figures [[wc1]] and [[wc3]].
 
 
@@ -1217,18 +1217,18 @@ for (i in c(1,3)) {
 
 ** 8.2.21 Use a Dendrogram to Display the Themes
 A Dendrogram can be used to display the themes of the highest and lowest
-clusters. In order to do this the most frequent words of a cluster need to be
-filtered out in order to reduce the dimensions of the dendrogram, following that
+clusters. To do this the most frequent words of a cluster need to be
+filtered out to reduce the dimensions of the dendrogram, following that
 a dendrogram may be made to model the cosine distance between the terms. To
-acheive this in */R/* the identity from equation eqref:cos can be used and
-then a dendrogram modelled over the term document matrix.
+achieve this in */R/* the identity from equation eqref:cos can be used and
+then a dendrogram modeled over the term document matrix.
 
 
 *** Highest Friend Count
-Any word that occurs more than once was a candidate for the dendrogram visualising the themes of the cluster with the highest number of friends. This dendrogram is shown in figure [[dn1]] and the corresponding code to produce it is provided in listing [[dn1c]].
+Any word that occurs more than once was a candidate for the dendrogram visualizing the themes of the cluster with the highest number of friends. This dendrogram is shown in figure [[dn1]] and the corresponding code to produce it is provided in the listing [[dn1c]].
 
 *** Lowest Friend Count
-Any word that occurs more than once was a candidate for the dendrogram visualising the themes of the cluster with the lowest number of friends. This dendrogram is shown in figure [[dn3]] and the corresponding code to produce it is provided in listing [[dn3c]].
+Any word that occurs more than once was a candidate for the dendrogram visualizing the themes of the cluster with the lowest number of friends. This dendrogram is shown in figure [[dn3]] and the corresponding code to produce it is provided in the listing [[dn3c]].
 
 #+NAME: dn1c
 #+CAPTION: Create a dendrogram of the terms in the cluster with the highest friends count, average linkage was used.
@@ -1313,17 +1313,17 @@ plot(h, main = "Themes of Cluster with Lowest Friend Count")
 [[./Figures/LowDend.png]]
 
 ** 8.2.23 Conclusion
-It appears that users who discuss newer titles and upcoming collaborations belong to a cluster with a higher proportion of users with an above average friend count, whereas users that discuss older titles (such as /Assasins Creed/ as demonstrated in figure [[dn3]]) tend to belong to a cluster with a lower proportion of users with high friend counts.
+It appears that users who discuss newer titles and upcoming collaborations belong to a cluster with a higher proportion of users with an above average friend count, whereas users that discuss older titles (such as /Assasins Creed/ as demonstrated in figure [[dn3]]) tend to belong to a cluster with a lower proportion of users with high friends count.
 
-This could imply that users discussing new titles are more likely to have more friends or it could imply that twitter users with a high friend count are more likely to show interest in newer titles and material.
+This could imply that users discussing new titles are more likely to have more friends or it could imply that Twitter users with a high friend count are more likely to show interest in newer titles and material.
 \newpage
 * 8.3 Building Networks
 ** 8.3.24 Find the 10 Most Popular Friends of the Twitter Handle
 The =get_friends= function can be used to discover the friends of the [[https://twitter.com/Ubisoft][@ubisoft]]
 account, these user /ID/ values can then be passed as an argument to the
 =lookup_users= function, this will return the features of those given users and
-these results can be sorted by friend count in order to show the most popular
-friends, as shown in listing [[fdg]], this provides the following list of friends in
+these results can be sorted by friend count to show the most popular
+friends, as shown in the listing [[fdg]], this provides the following list of friends in
 order of the number of there popularity:
 
 | 1. =BarackObama=   | 2.  =XboxSupport= | 3. =DEADLINE= | 4.  =gameinformer= | 5.  =Arbys=      |
@@ -1383,7 +1383,7 @@ if (!file.exists("./AllGraphData.RData")) {
 #+end_src
 
 *** Limit the number of Nodes for Want of Visualisation
-In order to effectively visualise this graph, the number of nodes will be limited to 13, this can be achieved by filtering the list for more than 13 observations as shown in listing [[shm]], without performing this the visualisation will be dominated by edges and difficult to interpret.
+ To effectively visualize this graph, the number of nodes will be limited to 13, this can be achieved by filtering the list for more than 13 observations as shown in the listing [[shm]], without performing this the visualization will be dominated by edges and difficult to interpret.
 
 #+NAME: shm
 #+CAPTION: Limit the number of nodes in order to aid in visualisation of the graph.
@@ -1398,7 +1398,7 @@ for (a in 1:10) {
 
 *** Build the Edge List
 
-By building a matrix of screen names a description of the edges of the graph can be built, this is shown in listing [[bded]].
+By building a matrix of screen names a description of the edges of the graph can be built, this is shown in the listing [[bded]].
 
 #+NAME: bded
 #+CAPTION: Combine the friends into an Edge matrix.
@@ -1409,7 +1409,7 @@ Edges <- cbind(rep(user$screen_name, 10),
 #+end_src
 
 *** Build the Graph
-the =igraph= package can then be used to construct a graph object using the =graph.edgelist= function, this can then be passed to the plot function to produce a plot of the graph as demonstrated in listing [[mkg]] and shown in figure [[gp1]].
+the =igraph= package can then be used to construct a graph object using the =graph.edgelist= function, this can then be passed to the plot function to produce a plot of the graph as demonstrated in the listing [[mkg]] and shown in figure [[gp1]].
 
 #+NAME: mkg
 #+CAPTION: Create a graph from the edges and plot it.
@@ -1427,7 +1427,7 @@ plot(g, layout = layout.fruchterman.reingold,
 [[./Figures/Graph_Base_1.png]]
 
 *** Use GGPlot2
-This Graph could also be produced using =ggplot2= and with an alternate algorithm for arranging the nodes, in order to do this a /tidy/ data frame needs to be produces as demonstrated in listing [[tdy]] and then the ggplot function can be used to build a plot as demonstrated in listing [[ggp]], this produces an alternative visualsation of the graph as shownin figure [[ggpt]].
+This Graph could also be produced using =ggplot2= and with an alternate algorithm for arranging the nodes,  to do this a /tidy/ data frame needs to be produced as demonstrated in the listing [[tdy]] and then the ggplot function can be used to build a plot as demonstrated in listing [[ggp]], this produces an alternative visualization of the graph as shown in figure [[ggpt]].
 
 #+NAME: tdy
 #+CAPTION: Create a tidy data frame describing the graph in order to use =ggplot2=.
@@ -1483,12 +1483,12 @@ geom_label_repel(data = laytg,
 #+attr_latex: :width 12cm
 [[./Figures/ggGraph.png]]
 ** 8.3.26 Compute the *closeness* centrality score for each user
-In order to compute a closeness centrality score it is necessary to rebuild the
-graph as shown in /Question 8.3.25/, it is crucial however, that the data
-not be reduced in order for meaningful values to be provided, i.e. listing
-[[shm]] should be omitted when re-producing the graph object for the purposes of measuring centrality.
+To compute a closeness centrality score it is necessary to rebuild the
+graph as shown in /Question 8.3.25/, it is crucial, however, that the data
+not be reduced for meaningful values to be provided, i.e. listing
+[[shm]] should be omitted when re-producing the graph object to measure centrality.
 
-The closeness centrality score can be determined by using the =closeness= function, the names of the nodes can be taken from the graph and then this can be sorted as shown in listing [[gst]].
+The closeness centrality score can be determined by using the =closeness= function, the names of the nodes can be taken from the graph and then this can be sorted as shown in the listing [[gst]].
 
 #+NAME: gst
 #+CAPTION: Calculating the /Closeness Centrality Score/
@@ -1506,8 +1506,8 @@ centrality_vector[1:4]
 ## "Ubisoft" "BarackObama" "XboxSupport"    "DEADLINE"
 #+end_src
 
-** 8.3.27 List the Most Central People in the graph according to closeness centrality
-The most central people in order of clossess centrality are:
+** 8.3.27 List the Most Central People in the graph according to the closeness centrality
+The most central people in order of closeness centrality are:
 
 1. Ubisoft
 2. Arbys
@@ -1518,9 +1518,9 @@ The most central people in order of clossess centrality are:
 
 
 ** 8.3.28 Comment on the Results
-/Ubisoft/ has many connections as shown in figures [[gp1]] and [[ggpt]], these connections however have a limited amount of interconnectivity.
+/Ubisoft/ has many connections as shown in figures [[gp1]] and [[ggpt]], these connections, however, have a limited amount of interconnectivity.
 
-  Surprisingly however, Gail Simone, a comic book author involved in works such as /Batgirl/ and /Birds of Prey/, is a very central character, in combination with the central connection to /Arbys/ this is indicative of the interests and lifestyle of the typical demographic of friends of the /Ubisoft/ account.
+  Surprisingly, however, Gail Simone, a comic book author involved in works such as /Batgirl/ and /Birds of Prey/, is a very central character, in combination with the central connection to /Arbys/ this is indicative of the interests and lifestyle of the typical demographic of friends of the /Ubisoft/ account.
 * Appendix
 
 #+NAME: hfls
@@ -1609,7 +1609,7 @@ xkcd in figure [[xkcd]].
 
 
 
-[fn:1] This works because the =tm= package preserves the order of the data, this can be confirmed by using a dataframe source as opposed to a vector source (e.g. in listing [[cpmk]]) and comparing the ID's before/after transformation.
+[fn:1] This works because the =tm= package preserves the order of the data, this can be confirmed by using a data frame source as opposed to a vector source (e.g. in listing [[cpmk]]) and comparing the ID's before/after transformation.
 # see ./scripts/q2.R
 
 
